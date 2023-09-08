@@ -1,10 +1,8 @@
----
-description: >-
-  docker history --format {{.CreatedBy}} --no-trunc=true <镜像id> | sed
-  '1!G;h;$!d'
----
-
 # 查看image对应的dockerfile
+
+```bash
+docker history --format {{.CreatedBy}} --no-trunc=true <镜像id> | sed '1!G;h;$!d'
+```
 
 也可以写个shell脚本
 
