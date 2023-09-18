@@ -8,3 +8,5 @@
   * [JNR调用本地动态链接库](java-study/jnr-tiao-yong-ben-di-dong-tai-lian-jie-ku.md)
 * [docker](docker/README.md)
   * [查看image对应的dockerfile](docker/cha-kan-image-dui-ying-de-dockerfile.md)
+* [nginx](nginx/README.md)
+  * [nginx代理mysql](nginx/nginx-dai-li-mysql.md)
