@@ -50,4 +50,4 @@ public class JNRTest {
 
 运行结果如下
 
-![](../.gitbook/assets/image.png)
+![](<../.gitbook/assets/image (1).png>)

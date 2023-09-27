@@ -17,3 +17,5 @@
   * [git拉取指定tag/分支的代码](git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.md)
 * [shell](shell/README.md)
   * [shell根据环境变量替换文本](shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.md)
+* [redis](redis/README.md)
+  * [redis动态添加从库](redis/redis-dong-tai-tian-jia-cong-ku.md)
