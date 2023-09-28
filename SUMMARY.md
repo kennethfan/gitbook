@@ -6,6 +6,7 @@
   * [JDK动态代理](java-study/jdk-dong-tai-dai-li.md)
   * [类隔离](java-study/lei-ge-li.md)
   * [JNR调用本地动态链接库](java-study/jnr-tiao-yong-ben-di-dong-tai-lian-jie-ku.md)
+  * [javac命令编译\&java命令运行代码](java-study/javac-ming-ling-bian-yi-java-ming-ling-yun-hang-dai-ma.md)
 * [python](python/README.md)
   * [pip安装走socks代理](python/pip-an-zhuang-zou-socks-dai-li.md)
 * [docker](docker/README.md)
