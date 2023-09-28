@@ -21,5 +21,5 @@ javac -cp <依赖jar路径1>:<依赖jar路径2> XxxxTest.java
 运行代码
 
 ```bash
-javac -cp <依赖jar路径1>:<依赖jar路径2> XxxxTest
+java -cp <依赖jar路径1>:<依赖jar路径2> XxxxTest
 ```
