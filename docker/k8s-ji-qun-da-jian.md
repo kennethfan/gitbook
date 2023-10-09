@@ -169,9 +169,9 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 #### 网络配置
 
-```bash
-kubectl apply -f https://docs.projectcalico.org/v3.9/manifests/calico.yaml
-```
+<pre class="language-bash"><code class="lang-bash">wget https://docs.projectcalico.org/manifests/calico.yaml
+<strong>kubectl apply -f calico.yaml
+</strong></code></pre>
 
 ### 从节点
 
