@@ -150,7 +150,7 @@ sudo systemctl start kubelet && sudo systemctl enable kubelet
 ip请自行替换
 
 ```bash
-sudo kubeadm init --kubernetes-version=1.23.5 --apiserver-advertise-address=192.168.0.57 --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers
+kubeadm init --kubernetes-version=1.23.5 --apiserver-advertise-address=192.168.0.57 --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers --pod-network-cidr=10.244.0.0/16
 ```
 
 执行完之后，会有一个文字，显示加入的命令
