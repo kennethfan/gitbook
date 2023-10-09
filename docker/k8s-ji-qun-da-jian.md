@@ -1,5 +1,7 @@
 # k8s集群搭建
 
+
+
 ## 软件安装
 
 ### docker
@@ -75,3 +77,7 @@ sudo chmod a+r /etc/bash_completion.d/kubectl
 ```bash
 sudo systemctl start kubelet && sudo systemctl enable kubelet
 ```
+
+## 参考
+
+[https://baijiahao.baidu.com/s?id=1749026775713590928\&wfr=spider\&for=pc](https://baijiahao.baidu.com/s?id=1749026775713590928\&wfr=spider\&for=pc)
