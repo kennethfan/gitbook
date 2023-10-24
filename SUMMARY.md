@@ -16,6 +16,7 @@
   * [k8s集群搭建](docker/k8s-ji-qun-da-jian.md)
 * [nginx](nginx/README.md)
   * [nginx代理mysql](nginx/nginx-dai-li-mysql.md)
+  * [nginx+imgproxy实现图片自动缩放裁剪](nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.md)
 * [git](git/README.md)
   * [git拉取指定tag/分支的代码](git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.md)
 * [shell](shell/README.md)
