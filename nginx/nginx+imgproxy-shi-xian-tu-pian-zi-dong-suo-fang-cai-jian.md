@@ -140,8 +140,8 @@ server {
             set_unescape_uri $decoded_filename $1;
             # 替换filename中的@为%40,否则imgproxy会认为@是分隔符
             set_by_lua_block $encoded_filename {
-            local filename = ngx.var.decoded_filename
-            local encoded = string.gsub(filename, "@", "%%40")
+                local filename = ngx.var.decoded_filename
+                local encoded = string.gsub(filename, "@", "%%40")
                 return encoded
             }
         }        
@@ -173,3 +173,25 @@ nginx重启
 sudo /path/to/nginx -t # 校验配置文件
 sudo /path/to/nginx -s reload # 重启nginx
 ```
+
+参数说明
+
+```
+p：true则代理图片
+
+w：图片宽度
+
+h：图片高度
+
+f：缩放选项 fit保持宽高比 fill不保持宽高比直接裁剪
+
+t：图片类型 建议jpg 有特殊要求的可使用png
+```
+
+比如原图
+
+http://www.domain.com/api/static/file/xxxxxx.png
+
+缩略图
+
+http://www.domain.com/api/static/file/xxxxxx.png?p=true\&w=300\&t=jpg\&f=fit\
