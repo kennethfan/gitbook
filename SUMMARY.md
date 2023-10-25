@@ -24,3 +24,5 @@
   * [shell命令自动补全](shell/shell-ming-ling-zi-dong-bu-quan.md)
 * [redis](redis/README.md)
   * [redis动态添加从库](redis/redis-dong-tai-tian-jia-cong-ku.md)
+* [mysql](mysql/README.md)
+  * [mysql创建用户并授权](mysql/mysql-chuang-jian-yong-hu-bing-shou-quan.md)
