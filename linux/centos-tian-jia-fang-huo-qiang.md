@@ -18,6 +18,12 @@
 firewall-cmd --permanent --add-rich-rule="rule family="ipv4" port protocol="tcp" port="$port" accept"
 ```
 
+如下方式亦可
+
+```bash
+firewall-cmd --zone=public --add-port=8080/tcp --permanent
+```
+
 ### 限制ip
 
 ```bash
