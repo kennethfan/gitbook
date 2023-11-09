@@ -36,123 +36,285 @@
 
 综上评估，最终决定选用方案3，即ngx\_http\_dyups\_module方案
 
-\
-
-
 ## 实施过程 <a href="#ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-shi-shi-guo-cheng" id="ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-shi-shi-guo-cheng"></a>
-
-\
-
 
 ### 安装过程 <a href="#ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-an-zhuang-guo-cheng" id="ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-an-zhuang-guo-cheng"></a>
 
 下载ngx\_http\_dyups\_module
 
-| `cd` `/opt/data/soft/git clone https://github.com/yzprofile/ngx_http_dyups_module.gitgit pull --taggit checkout v0.2.9` |
-| ----------------------------------------------------------------------------------------------------------------------- |
-
-\
-
+```bash
+cd /opt/data/soft/
+git clone https://github.com/yzprofile/ngx_http_dyups_module.git
+git pull --tag
+git checkout v0.2.9
+```
 
 修改nginx源码
 
-| `cd` `nginx-1.21.4vim src/http/ngx_http_upstream.h` |
-| --------------------------------------------------- |
+```bash
+cd nginx-1.21.4 vim src/http/ngx_http_upstream.h
+```
 
 增加内容见下图
 
-![](https://confluence.dreamkey.cn/download/attachments/32315429/image2023-11-8\_17-30-20.png?version=1\&modificationDate=1699435820587\&api=v2)
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 重新编译nginx
 
-| `./configure` `--prefix=/opt/data/nginx` `--with-compat --with-file-aio --with-threads --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with-ld-opt=-Wl,-rpath,/usr/local/lib` `--with-stream_ssl_module --with-stream_ssl_preread_module --add-module=/opt/data/soft/ngx_devel_kit` `--add-module=/opt/data/soft/set-misc-nginx-module` `--add-module=/opt/data/soft/lua-nginx-module` `--add-module=/opt/data/soft/ngx_http_dyups_module` `makecp` `/opt/data/nginx/sbin/nginx` `/opt/data/nginx/sbin/nginx.bakmake` `install` |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+```bash
+./configure --prefix=/opt/data/nginx --with-compat --with-file-aio --with-threads --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with-ld-opt=-Wl,-rpath,/usr/local/lib --with-stream_ssl_module --with-stream_ssl_preread_module --add-module=/opt/data/soft/ngx_devel_kit --add-module=/opt/data/soft/set-misc-nginx-module --add-module=/opt/data/soft/lua-nginx-module --add-module=/opt/data/soft/ngx_http_dyups_module 
+make
+cp /opt/data/nginx/sbin/nginx /opt/data/nginx/sbin/nginx.bak
+make install
+```
 
 ## 验证 <a href="#ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-yan-zheng" id="ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-yan-zheng"></a>
 
 新增配置文件  /opt/data/nginx/conf/vhost-server/upstream.conf，内容如下
 
-| `upstream t-plan-dev-gateway {        server  192.168.2.89:8080;        server  192.168.2.89:8082;}` |
-| ---------------------------------------------------------------------------------------------------- |
+```bash
+upstream t-plan-dev-gateway {
+      server  192.168.2.89:8080;       
+      server  192.168.2.89:8082;
+}
+```
 
 新增配置文件 /opt/data/nginx/conf/vhost-server/ngx\_http\_dyups\_module.conf
 
-| `server {        listen 10080; # 这个端口就是ngx_http_dyups_module作用端口，通过该端口做upstream更新；增加的端口需要添加防火墙配置，这里不做介绍        location / {                dyups_interface;        }}` `# 测试upstream是否动态生效，生产环境可以删除server {        server_name dev.dyups.com;        listen 80;` `location / {                set $ups t-plan-dev-gateway; # 生产环境需要按照这种方式改造，upstream从写死变成nginx变量方式                proxy_pass http://$ups;        }}` |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+```
+server {        
+    listen 10080; # 这个端口就是ngx_http_dyups_module作用端口，通过该端口做upstream更新；增加的端口需要添加防火墙配置，这里不做介绍        
+    location / {                
+        dyups_interface;        
+    }
+} 
+# 测试upstream是否动态生效，生产环境可以删除
+server {        
+    server_name dev.dyups.com;        
+    listen 80;         
+    location / {                
+        set $ups t-plan-dev-gateway; # 生产环境需要按照这种方式改造，upstream从写死变成nginx变量方式                
+        proxy_pass http://$ups;        
+    }
+}
+```
 
 初始测试
 
-| `curl -v` `http://127.0.0.1:10080/upstream/t-plan-dev-gateway` |
-| -------------------------------------------------------------- |
+```bash
+curl -v http://127.0.0.1:10080/upstream/t-plan-dev-gateway
+```
 
 返回内容如下
 
-| `* About to connect() to 127.0.0.1` `port 10080` `(#0)*   Trying 127.0.0.1...* Connected to 127.0.0.1` `(127.0.0.1) port 10080` `(#0)> GET /upstream/t-plan-dev-gateway HTTP/1.1> User-Agent: curl/7.29.0> Host: 127.0.0.1:10080> Accept: */*>< HTTP/1.1` `200` `OK< Server: nginx< Date: Wed, 08` `Nov 2023` `06:31:33` `GMT< Content-Length: 50< Connection: keep-alive<server 192.168.2.89:8080server 192.168.2.89:8082* Connection #0` `to host 127.0.0.1` `left intact` |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+```
+* About to connect() to 127.0.0.1 port 10080 (#0)
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 10080 (#0)
+> GET /upstream/t-plan-dev-gateway HTTP/1.1
+> User-Agent: curl/7.29.0> Host: 127.0.0.1:10080
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Server: nginx
+< Date: Wed, 08 Nov 2023 06:31:33 GMT
+< Content-Length: 50
+< Connection: keep-alive
+<
+server 192.168.2.89:8080
+server 192.168.2.89:8082
+* Connection #0 to host 127.0.0.1 left intact
+```
 
 可以看到返回了2个节点
 
 接下来测试服务可用性
 
-| `curl -v` `-H 'host: dev.dyups.com'` `'`[`http://127.0.0.1`](http://127.0.0.1/)`'` |
-| ---------------------------------------------------------------------------------- |
+```bash
+curl -v -H 'host: dev.dyups.com' 'http://127.0.0.1'
+```
 
-| `* About to connect() to 127.0.0.1` `port 80` `(#0)*   Trying 127.0.0.1...* Connected to 127.0.0.1` `(127.0.0.1) port 80` `(#0)> GET / HTTP/1.1> User-Agent: curl/7.29.0> Accept: */*> host: dev.dyups.com>< HTTP/1.1` `404` `Not Found< Server: nginx< Date: Wed, 08` `Nov 2023` `06:40:39` `GMT< Content-Type: application/json< Content-Length: 130< Connection: keep-alive<* Connection #0` `to host 127.0.0.1` `left intact{"timestamp":"2023-11-08T06:40:39.920+00:00","path":"/","status":404,"error":"Not Found","message":null,"requestId":"52a1d925-12"}` |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+```
+* About to connect() to 127.0.0.1 port 80 (#0)
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 80 (#0)
+> GET / HTTP/1.1
+> User-Agent: curl/7.29.0
+> Accept: */*
+> host: dev.dyups.com
+>
+< HTTP/1.1 404 Not Found
+< Server: nginx
+< Date: Wed, 08 Nov 2023 06:40:39 GMT
+< Content-Type: application/json
+< Content-Length: 130
+< Connection: keep-alive
+<
+* Connection #0 to host 127.0.0.1 left intact
+{"timestamp":"2023-11-08T06:40:39.920+00:00","path":"/","status":404,"error":"Not Found","message":null,"requestId":"52a1d925-12"}
+```
 
 可以看到服务正常
 
 接下来验证删除upstream
 
-| `curl -v` `-i -X DELETE http://127.0.0.1:10080/upstream/t-plan-dev-gateway` |
-| --------------------------------------------------------------------------- |
+```bash
+curl -v -i -X DELETE http://127.0.0.1:10080/upstream/t-plan-dev-gateway
+```
 
-| `* About to connect() to 127.0.0.1` `port 10080` `(#0)*   Trying 127.0.0.1...* Connected to 127.0.0.1` `(127.0.0.1) port 10080` `(#0)> DELETE /upstream/t-plan-dev-gateway HTTP/1.1> User-Agent: curl/7.29.0> Host: 127.0.0.1:10080> Accept: */*>< HTTP/1.1` `200` `OKHTTP/1.1` `200` `OK< Server: nginxServer: nginx< Date: Wed, 08` `Nov 2023` `07:03:53` `GMTDate: Wed, 08` `Nov 2023` `07:03:53` `GMT< Content-Length: 7Content-Length: 7< Connection: keep-aliveConnection: keep-alive` `<* Connection #0` `to host 127.0.0.1` `left intactsuccess` |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+```
+* About to connect() to 127.0.0.1 port 10080 (#0)
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 10080 (#0)
+> DELETE /upstream/t-plan-dev-gateway HTTP/1.1
+> User-Agent: curl/7.29.0
+> Host: 127.0.0.1:10080
+> Accept: */*
+>
+< HTTP/1.1 200 OKHTTP/1.1 200 OK
+< Server: nginxServer: nginx
+< Date: Wed, 08 Nov 2023 07:03:53 GMTDate: Wed, 08 Nov 2023 07:03:53 GMT
+< Content-Length: 7Content-Length: 7
+< Connection: keep-aliveConnection: keep-alive 
+<
+* Connection #0 to host 127.0.0.1 left intact
+success
+```
 
 看下upstream是否被删除
 
-| `curl -v`  `http://127.0.0.1:10080/upstream/t-plan-dev-gateway*` |
-| ---------------------------------------------------------------- |
+```bash
+curl -v  http://127.0.0.1:10080/upstream/t-plan-dev-gateway
+```
 
-| `About to connect() to 127.0.0.1` `port 10080` `(#0)*   Trying 127.0.0.1...* Connected to 127.0.0.1` `(127.0.0.1) port 10080` `(#0)> GET /upstream/t-plan-dev-gateway HTTP/1.1> User-Agent: curl/7.29.0> Host: 127.0.0.1:10080> Accept: */*>< HTTP/1.1` `404` `Not Found< Server: nginx< Date: Wed, 08` `Nov 2023` `06:44:50` `GMT< Content-Length: 0< Connection: keep-alive<* Connection #0` `to host 127.0.0.1` `left intact` |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+```
+* About to connect() to 127.0.0.1 port 10080 (#0)
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 10080 (#0)
+> GET /upstream/t-plan-dev-gateway HTTP/1.1
+> User-Agent: curl/7.29.0
+> Host: 127.0.0.1:10080
+> Accept: */*
+>
+< HTTP/1.1 404 Not Found
+< Server: nginx
+< Date: Wed, 08 Nov 2023 06:44:50 GMT
+< Content-Length: 0
+< Connection: keep-alive
+<
+* Connection #0 to host 127.0.0.1 left intact
+```
 
 404，表示upstream不存在
 
 再看下服务可用
 
-| `curl -v` `-H 'host: dev.dyups.com'` `'`[`http://127.0.0.1`](http://127.0.0.1/)`'` |
-| ---------------------------------------------------------------------------------- |
+```bash
+curl -v -H 'host: dev.dyups.com' 'http://127.0.0.1'
+```
 
-| `* About to connect() to 127.0.0.1` `port 80` `(#0)*   Trying 127.0.0.1...* Connected to 127.0.0.1` `(127.0.0.1) port 80` `(#0)> GET / HTTP/1.1> User-Agent: curl/7.29.0> Accept: */*> host: dev.dyups.com>< HTTP/1.1` `502` `Bad Gateway< Server: nginx< Date: Wed, 08` `Nov 2023` `07:04:34` `GMT< Content-Type: text/html; charset=utf-8< Content-Length: 150< Connection: keep-alive<<html><head><title>502` `Bad Gateway</title></head><body><center><h1>502` `Bad Gateway</h1></center><hr><center>nginx</center></body></html>* Connection #0` `to host 127.0.0.1` `left intact` |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+```
+* About to connect() to 127.0.0.1 port 80 (#0)
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 80 (#0)
+> GET / HTTP/1.1
+> User-Agent: curl/7.29.0
+> Accept: */*
+> host: dev.dyups.com
+>
+< HTTP/1.1 502 Bad Gateway
+< Server: nginx
+< Date: Wed, 08 Nov 2023 07:04:34 GMT
+< Content-Type: text/html; charset=utf-8< Content-Length: 150
+< Connection: keep-alive
+<
+<html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>* Connection #0 to host 127.0.0.1 left intact
+```
 
 返回502，所有没有可用的upstream
 
 接下来，尝试更新upstream
 
-| `curl -v`  `-d 'server 192.168.2.89:8082;'`  `http://127.0.0.1:10080/upstream/t-plan-dev-gateway` |
-| ------------------------------------------------------------------------------------------------- |
+```bash
+curl -v  -d 'server 192.168.2.89:8082;'  http://127.0.0.1:10080/upstream/t-plan-dev-gateway
+```
 
-| `* About to connect() to 127.0.0.1` `port 10080` `(#0)*   Trying 127.0.0.1...* Connected to 127.0.0.1` `(127.0.0.1) port 10080` `(#0)> POST /upstream/t-plan-dev-gateway HTTP/1.1> User-Agent: curl/7.29.0> Host: 127.0.0.1:10080> Accept: */*> Content-Length: 25> Content-Type: application/x-www-form-urlencoded>* upload completely sent off: 25` `out of 25` `bytes< HTTP/1.1` `200` `OK< Server: nginx< Date: Wed, 08` `Nov 2023` `07:04:58` `GMT< Content-Length: 7< Connection: keep-alive<* Connection #0` `to host 127.0.0.1` `left intactsuccess` |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+```
+* About to connect() to 127.0.0.1 port 10080 (#0)
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 10080 (#0)
+> POST /upstream/t-plan-dev-gateway HTTP/1.1
+> User-Agent: curl/7.29.0
+> Host: 127.0.0.1:10080> Accept: */*
+> Content-Length: 25
+> Content-Type: application/x-www-form-urlencoded>
+* upload completely sent off: 25 out of 25 bytes
+< HTTP/1.1 200 OK
+< Server: nginx
+< Date: Wed, 08 Nov 2023 07:04:58 GMT
+< Content-Length: 7
+< Connection: keep-alive
+<
+* Connection #0 to host 127.0.0.1 left intact
+success
+```
 
 再次查看upstream
 
-| `curl -v` `http://127.0.0.1:10080/upstream/t-plan-dev-gateway` |
-| -------------------------------------------------------------- |
+```bash
+curl -v http://127.0.0.1:10080/upstream/t-plan-dev-gateway
+```
 
-| `* About to connect() to 127.0.0.1` `port 10080` `(#0)*   Trying 127.0.0.1...* Connected to 127.0.0.1` `(127.0.0.1) port 10080` `(#0)> GET /upstream/t-plan-dev-gateway HTTP/1.1> User-Agent: curl/7.29.0> Host: 127.0.0.1:10080> Accept: */*>< HTTP/1.1` `200` `OK< Server: nginx< Date: Wed, 08` `Nov 2023` `07:05:21` `GMT< Content-Length: 25< Connection: keep-alive<server 192.168.2.89:8082* Connection #0` `to host 127.0.0.1` `left intact` |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+```
+* About to connect() to 127.0.0.1 port 10080 (#0)
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 10080 (#0)
+> GET /upstream/t-plan-dev-gateway HTTP/1.1
+> User-Agent: curl/7.29.0
+> Host: 127.0.0.1:10080
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Server: nginx
+< Date: Wed, 08 Nov 2023 07:05:21 GMT
+< Content-Length: 25
+< Connection: keep-alive
+<
+server 192.168.2.89:8082
+* Connection #0 to host 127.0.0.1 left intact
+```
 
 已经有可用upstream，再次查看服务可用
 
-| `curl -v` `-H 'host: dev.dyups.com'` `'`[`http://127.0.0.1`](http://127.0.0.1/)`'` |
-| ---------------------------------------------------------------------------------- |
+```bash
+curl -v -H 'host: dev.dyups.com' 'http://127.0.0.1'
+```
 
-| `* About to connect() to 127.0.0.1` `port 80` `(#0)*   Trying 127.0.0.1...* Connected to 127.0.0.1` `(127.0.0.1) port 80` `(#0)> GET / HTTP/1.1> User-Agent: curl/7.29.0> Accept: */*> host: dev.dyups.com>< HTTP/1.1` `404` `Not Found< Server: nginx< Date: Wed, 08` `Nov 2023` `07:05:40` `GMT< Content-Type: application/json< Content-Length: 130< Connection: keep-alive<* Connection #0` `to host 127.0.0.1` `left intact{"timestamp":"2023-11-08T07:05:40.192+00:00","path":"/","status":404,"error":"Not Found","message":null,"requestId":"79d33a64-16"}` |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+```
+* About to connect() to 127.0.0.1 port 80 (#0)
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 80 (#0)
+> GET / HTTP/1.1
+> User-Agent: curl/7.29.0
+> Accept: */*
+> host: dev.dyups.com
+>
+< HTTP/1.1 404 Not Found
+< Server: nginx
+< Date: Wed, 08 Nov 2023 07:05:40 GMT
+< Content-Type: application/json
+< Content-Length: 130
+< Connection: keep-alive
+<
+* Connection #0 to host 127.0.0.1 left intact
+{"timestamp":"2023-11-08T07:05:40.192+00:00","path":"/","status":404,"error":"Not Found","message":null,"requestId":"79d33a64-16"}
+```
 
 服务恢复
 
@@ -167,64 +329,290 @@
 
 因为线上正常流程是不允许kill -9的，出于解耦的目的，此处选择方案二
 
-此处已经提供了通用的解决方案，参考：[https://gitlab.dreamkey.cn/jcnl/pangu-components/-/tree/master/frame-upstream](https://gitlab.dreamkey.cn/jcnl/pangu-components/-/tree/master/frame-upstream)
-
 #### 应用改造 <a href="#ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-ying-yong-gai-zao" id="ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-ying-yong-gai-zao"></a>
 
-maven坐标
+新增listener，监听应用启动和销毁事件
 
-| `<dependency>    <groupId>io.dreamkey</groupId>    <artifactId>frame-upstream</artifactId>    <version>1.0.0-202311081646</version> <!-- 版本用最新版本 --></dependency>` |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+```java
+@Slf4j
+public class NginxRegistryListener implements ApplicationListener<ApplicationStartedEvent> {
 
-需要的服务，在application上加上注解@EnableNginxRegistry
+    private NginxRegistryProp nginxRegistryProp;
 
-![](https://confluence.dreamkey.cn/download/attachments/32315429/image2023-11-8\_17-58-42.png?version=1\&modificationDate=1699437522945\&api=v2)
+    private int serverPort;
+
+    public NginxRegistryListener(NginxRegistryProp nginxRegistryProp, int serverPort) {
+        this.nginxRegistryProp = nginxRegistryProp;
+        this.serverPort = serverPort;
+    }
+
+    @Override
+    public void onApplicationEvent(ApplicationStartedEvent event) {
+        log.info("NginxRegistryListener run");
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                log.info("NginxRegistryListener.doUnregistry started");
+                doUnregistry();
+            } catch (Exception e) {
+                log.error("NginxRegistryListener.doUnregistry error. ", e);
+            }
+        }));
+
+        try {
+            log.info("NginxRegistryListener.doRegistry started");
+            doRegistry();
+        } catch (Exception e) {
+            log.error("NginxRegistryListener.doRegistry error. ", e);
+        }
+    }
+
+    private List<String> getUpstreamList() throws IOException, URISyntaxException {
+        // 创建Httpclient对象
+        try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+            // 创建uri
+            URIBuilder builder = new URIBuilder(this.nginxRegistryProp.getRegistryUrl());
+            URI uri = builder.build();
+
+            // 创建http GET请求
+            HttpGet httpGet = new HttpGet(uri);
+            // 执行请求
+            try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+                // 判断返回状态是否为200
+                if (response.getStatusLine().getStatusCode() == HttpStatus.SC_NOT_FOUND) {
+                    return new ArrayList<>();
+                }
+
+                if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+                    throw new IOException("http request error, url= " + this.nginxRegistryProp.getRegistryUrl());
+                }
+
+                return IOUtils.readLines(response.getEntity().getContent(), StandardCharsets.UTF_8);
+            }
+        }
+    }
+
+    private void doRegistry() throws IOException, URISyntaxException {
+        if (nginxRegistryProp == null
+                || StringUtils.isBlank(nginxRegistryProp.getRegistryUrl())
+                || StringUtils.isBlank(nginxRegistryProp.getServiceIp())) {
+            log.info("doRegistry, nothing todo, nginxRegistryProp={}", nginxRegistryProp);
+            return;
+        }
+        List<String> upstreamList = getUpstreamList();
+        String destUpstream = this.buildUpstream();
+
+        if (upstreamList.contains(destUpstream)) {
+            log.info("doRegistry, upstream registered already, nginxRegistryProp={}", nginxRegistryProp);
+            return;
+        }
+
+        upstreamList.add(destUpstream);
+        updateUpstream(upstreamList);
+    }
+
+    private void doUnregistry() throws IOException, URISyntaxException {
+        if (nginxRegistryProp == null
+                || StringUtils.isBlank(nginxRegistryProp.getRegistryUrl())
+                || StringUtils.isBlank(nginxRegistryProp.getServiceIp())) {
+            log.info("doUnregistry, nothing todo, nginxRegistryProp={}", nginxRegistryProp);
+            return;
+        }
+        List<String> upstreamList = getUpstreamList();
+        String destUpstream = this.buildUpstream();
+
+        if (!upstreamList.remove(destUpstream)) {
+            log.info("doUnregistry, upstream unregistered already, nginxRegistryProp={}", nginxRegistryProp);
+            return;
+        }
+
+        if (CollectionUtils.isEmpty(upstreamList)) {
+            deleteUpstream();
+            return;
+        }
+
+        updateUpstream(upstreamList);
+    }
+
+    private String buildUpstream() {
+        return String.format("server %s:%d", nginxRegistryProp.getServiceIp(), serverPort);
+    }
+
+    private void updateUpstream(List<String> upstreamList) throws IOException, URISyntaxException {
+        StringBuilder sb = new StringBuilder();
+        for (String upstream : upstreamList) {
+            sb.append(upstream)
+                    .append(";");
+        }
+
+        String postStr = sb.toString();
+
+        try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+            // 创建uri
+            URIBuilder builder = new URIBuilder(this.nginxRegistryProp.getRegistryUrl());
+            URI uri = builder.build();
+
+            // 创建http POST请求
+            HttpPost httpPost = new HttpPost(uri);
+            httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded");
+            httpPost.setEntity(new StringEntity(postStr, StandardCharsets.UTF_8));
+            // 执行请求
+            try (CloseableHttpResponse response = httpclient.execute(httpPost)) {
+                // 判断返回状态是否为200
+
+                if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+                    throw new IOException("http request error, url= " + this.nginxRegistryProp.getRegistryUrl());
+                }
+
+                String content = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8);
+                if (!StringUtils.equalsIgnoreCase("success", content)) {
+                    throw new IOException("http request error, url= " + this.nginxRegistryProp.getRegistryUrl());
+                }
+            }
+        }
+    }
+
+    private void deleteUpstream() throws IOException, URISyntaxException {
+        try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+            // 创建uri
+            URIBuilder builder = new URIBuilder(this.nginxRegistryProp.getRegistryUrl());
+            URI uri = builder.build();
+
+            // 创建http DELETE请求
+            HttpDelete httpDelete = new HttpDelete(uri);
+            // 执行请求
+            try (CloseableHttpResponse response = httpclient.execute(httpDelete)) {
+                // 判断返回状态是否为200
+
+                if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+                    throw new IOException("http request error, url= " + this.nginxRegistryProp.getRegistryUrl());
+                }
+
+                String content = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8);
+                if (!StringUtils.equalsIgnoreCase("success", content)) {
+                    throw new IOException("http request error, url= " + this.nginxRegistryProp.getRegistryUrl());
+                }
+            }
+        }
+    }
+
+}
+
+```
+
+新增配置类
+
+```java
+@Setter
+@Getter
+@RefreshScope
+@ConfigurationProperties(prefix = "nginx.registry")
+public class NginxRegistryProp {
+    /**
+     * nginx 注册地址
+     */
+    private String registryUrl;
+
+    /**
+     * 服务ip
+     */
+    private String serviceIp;
+
+    @Override
+    public String toString() {
+        return "NginxRegistryProp{" +
+                "registryUrl='" + registryUrl + '\'' +
+                ", serviceIp='" + serviceIp + '\'' +
+                '}';
+    }
+}
+```
 
 配置新增如下
 
-| `nginx:  registry:    registry-url:` `http://192.168.2.77:10080/upstream/t-plan-dev-gateway  # nginx upstream 变更地址    service-ip:` `192.168.25.86 # 服务节点ip` |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+```yaml
+nginx:  
+  registry:    
+    registry-url: http://192.168.2.77:10080/upstream/t-plan-dev-gateway  # nginx upstream 变更地址    
+    service-ip: 192.168.25.86 # 服务节点ip
+```
 
 服务启动过程日志如下
 
-| `2023-11-08` `17:07:03.149`  `INFO 31717` `--- [           main] o.a.coyote.http11.Http11NioProtocol      : Starting ProtocolHandler ["http-nio-8421"]2023-11-08` `17:07:03.182`  `INFO 31717` `--- [           main] c.dreamkey.chain.brain.BrainApplication  : Started BrainApplication in 3.901` `seconds (JVM running for` `9.654)2023-11-08` `17:07:03.183`  `INFO 31717` `--- [           main] d.f.u.lister.NginxRegistryListener       : NginxRegistryListener run2023-11-08` `17:07:03.184`  `INFO 31717` `--- [           main] d.f.u.lister.NginxRegistryListener       : NginxRegistryListener.doRegistry started2023-11-08` `17:07:03.421`  `INFO 31717` `--- [           main] c.a.c.n.refresh.NacosContextRefresher    : listening config: dataId=coupon-chain-brain.yml, group=LQT2023-11-08` `17:07:03.421`  `INFO 31717` `--- [           main] c.dreamkey.chain.brain.BrainApplication  : ......链券通服务启动成功!` |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+```
+2023-11-08 17:07:03.149  INFO 31717 --- [           main] o.a.coyote.http11.Http11NioProtocol      : Starting ProtocolHandler ["http-nio-8421"]
+2023-11-08 17:07:03.182  INFO 31717 --- [           main] c.dreamkey.chain.brain.BrainApplication  : Started BrainApplication in 3.901 seconds (JVM running for 9.654)
+2023-11-08 17:07:03.183  INFO 31717 --- [           main] d.f.u.lister.NginxRegistryListener       : NginxRegistryListener run
+2023-11-08 17:07:03.184  INFO 31717 --- [           main] d.f.u.lister.NginxRegistryListener       : NginxRegistryListener.doRegistry started
+2023-11-08 17:07:03.421  INFO 31717 --- [           main] c.a.c.n.refresh.NacosContextRefresher    : listening config: dataId=coupon-chain-brain.yml, group=LQT
+2023-11-08 17:07:03.421  INFO 31717 --- [           main] c.dreamkey.chain.brain.BrainApplication  : ......链券通服务启动成功!
+```
 
 可以看到启动后有调用NginxRegistryListener.doRegistry注册服务
 
 看下upstream情况
 
-| `curl -v` `'`[`http://192.168.2.77:10080/upstream/t-plan-dev-gateway'`](http://192.168.2.77:10080/upstream/t-plan-dev-gateway') |
-| ------------------------------------------------------------------------------------------------------------------------------- |
+```bash
+curl -v 'http://192.168.2.77:10080/upstream/t-plan-dev-gateway'
+```
 
-| `*   Trying 192.168.2.77:10080...* Connected to 192.168.2.77` `(192.168.2.77) port 10080` `(#0)> GET /upstream/t-plan-dev-gateway HTTP/1.1> Host: 192.168.2.77:10080> User-Agent: curl/8.1.2> Accept: */*>< HTTP/1.1` `200` `OK< Server: nginx< Date: Wed, 08` `Nov 2023` `09:07:27` `GMT< Content-Length: 51< Connection: keep-alive<server 192.168.2.89:8080server 192.168.25.86:8421* Connection #0` `to host 192.168.2.77` `left intact` |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+```
+*   Trying 192.168.2.77:10080...
+* Connected to 192.168.2.77 (192.168.2.77) port 10080 (#0)
+> GET /upstream/t-plan-dev-gateway HTTP/1.1
+> Host: 192.168.2.77:10080
+> User-Agent: curl/8.1.2
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Server: nginx
+< Date: Wed, 08 Nov 2023 09:07:27 GMT
+< Content-Length: 51
+< Connection: keep-alive
+<
+server 192.168.2.89:8080
+server 192.168.25.86:8421
+* Connection #0 to host 192.168.2.77 left intact
+```
 
 可以看到有一个端口8421的节点，表示服务启动后注册成功
 
 接下来看销毁，日志如下
 
-| `2023-11-08` `17:07:42.110`  `WARN 31717` `--- [       Thread-1] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient2023-11-08` `17:07:42.111`  `INFO 31717` `--- [       Thread-7] d.f.u.lister.NginxRegistryListener       : NginxRegistryListener.doUnregistry started2023-11-08` `17:07:42.113`  `WARN 31717` `--- [       Thread-1] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end2023-11-08` `17:07:42.137`  `INFO 31717` `--- [ionShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...2023-11-08` `17:07:42.145`  `INFO 31717` `--- [ionShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed` |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+```
+2023-11-08 17:07:42.110  WARN 31717 --- [       Thread-1] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+2023-11-08 17:07:42.111  INFO 31717 --- [       Thread-7] d.f.u.lister.NginxRegistryListener       : NginxRegistryListener.doUnregistry started
+2023-11-08 17:07:42.113  WARN 31717 --- [       Thread-1] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+2023-11-08 17:07:42.137  INFO 31717 --- [ionShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2023-11-08 17:07:42.145  INFO 31717 --- [ionShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+```
 
 可以看到服务销毁前有调用NginxRegistryListener.doUnregistry下掉节点
 
 再看下upstream节点情况
 
-| `curl -v '`[`http://192.168.2.77:10080/upstream/t-plan-dev-gateway'`](http://192.168.2.77:10080/upstream/t-plan-dev-gateway') |
-| ----------------------------------------------------------------------------------------------------------------------------- |
+```bash
+curl -v 'http://192.168.2.77:10080/upstream/t-plan-dev-gateway'
+```
 
-| `*   Trying 192.168.2.77:10080...* Connected to 192.168.2.77` `(192.168.2.77) port 10080` `(#0)> GET /upstream/t-plan-dev-gateway HTTP/1.1> Host: 192.168.2.77:10080> User-Agent: curl/8.1.2> Accept: */*>< HTTP/1.1` `200` `OK< Server: nginx< Date: Wed, 08` `Nov 2023` `09:07:57` `GMT< Content-Length: 25< Connection: keep-alive<server 192.168.2.89:8080* Connection #0` `to host 192.168.2.77` `left intact` |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+```
+*   Trying 192.168.2.77:10080...
+* Connected to 192.168.2.77 (192.168.2.77) port 10080 (#0)
+> GET /upstream/t-plan-dev-gateway HTTP/1.1
+> Host: 192.168.2.77:10080
+> User-Agent: curl/8.1.2
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Server: nginx
+< Date: Wed, 08 Nov 2023 09:07:57 GMT
+< Content-Length: 25
+< Connection: keep-alive
+<server 192.168.2.89:8080
+* Connection #0 to host 192.168.2.77 left intact
+```
 
 可以看到8421节点已经被摘除，证明方案可行
 
-\
-
-
-\
-
-
-## 参考 <a href="#ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-can-kao" id="ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-can-kao"></a>
+## 参考
 
 [https://github.com/yzprofile/ngx\_http\_dyups\_module](https://github.com/yzprofile/ngx\_http\_dyups\_module)
