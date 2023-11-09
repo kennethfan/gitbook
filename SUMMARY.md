@@ -15,6 +15,7 @@
   * [查看image对应的dockerfile](docker/cha-kan-image-dui-ying-de-dockerfile.md)
   * [k8s集群搭建](docker/k8s-ji-qun-da-jian.md)
 * [nginx](nginx/README.md)
+  * [ngx\_http\_dyups\_module实现web服务的平滑发布](nginx/ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.md)
   * [nginx代理mysql](nginx/nginx-dai-li-mysql.md)
   * [nginx+imgproxy实现图片自动缩放裁剪](nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.md)
 * [git](git/README.md)
