@@ -56,7 +56,7 @@ public interface Filter {
 
 通常我们实现一个filter是流程如下
 
-```
+```java
 public class XxxFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
