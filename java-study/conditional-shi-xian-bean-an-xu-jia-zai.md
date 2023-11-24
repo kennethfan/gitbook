@@ -111,3 +111,5 @@ public class WxPayBeanCondition implements Condition {
 2、clazz.getAnnotation(EnableWxPay.class) != null
 
 这是因为spring扫描的时候会优先扫描@Component(@Service,@Controller等)注解的class，如果是Configuration中定义的bean，在@Component注解表示的类被加载的时候，Configuration中定义的bean还没加载，此时走方式1判断会返回false，所以需要增加方式2
+
+对于Conditional方式，spring boot也有一些内置的注解可以使用，比如@ConditionalOnBean、@ConditionalOnClass、@ConditionalOnProperty等等，此处不做介绍
