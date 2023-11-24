@@ -11,6 +11,7 @@
   * [JNR调用本地动态链接库](java-study/jnr-tiao-yong-ben-di-dong-tai-lian-jie-ku.md)
   * [javac命令编译\&java命令运行代码](java-study/javac-ming-ling-bian-yi-java-ming-ling-yun-hang-dai-ma.md)
   * [java获取硬件信息](java-study/java-huo-qu-ying-jian-xin-xi.md)
+  * [Conditional实现bean按需加载](java-study/conditional-shi-xian-bean-an-xu-jia-zai.md)
 * [python](python/README.md)
   * [pip安装走socks代理](python/pip-an-zhuang-zou-socks-dai-li.md)
 * [docker](docker/README.md)
