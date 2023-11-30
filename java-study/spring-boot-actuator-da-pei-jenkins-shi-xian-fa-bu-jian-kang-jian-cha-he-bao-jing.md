@@ -94,7 +94,7 @@ while (i < 60) { // 服务启动需要一定时间，因此需要重试等待
         break
     }
  
-    if (status_code != "200") {
+    if (status_code != "200" && status_code != "503") {
         print("${server_name} heatlh-check错误")
         break
     }
