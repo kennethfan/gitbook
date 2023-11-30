@@ -108,9 +108,10 @@ while (i < 60) { // 服务启动需要一定时间，因此需要重试等待
     }
  
     // 启动失败
-    def message = "[监控报警]\n服务部署失败\njob=${JOB_NAME}\nserver_name=${server_name}\nip=${__Deploy_IP}\ndetail=${url}"
+    def message = "[监控报警]\n服务部署失败\njob=${JOB_NAME}\nserver_name=${server_name}\nip=${__Deploy_IP}\ndetail=${body}"
     def param = ["msgtype": "text", "text": ["content": message]]
     def data = writeJSON returnText: true, json: param // object转json
+    data = data.replaceAll(/'/, """'"'"'""") // 单引号转义成'"'"'，方便shell拼接
     sh """curl -H 'Content-Type: application/json; charset=utf-8' -d '${data}' ${ding_url} """  // 通过钉钉webhook发送报警
     break
 }
