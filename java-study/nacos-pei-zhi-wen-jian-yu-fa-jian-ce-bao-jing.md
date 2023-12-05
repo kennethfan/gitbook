@@ -203,7 +203,9 @@ public class YamlConfigSyntaxChecker implements ConfigSyntaxChecker {
  
     @Override
     public void check(String content) {
-        Yaml yaml = new Yaml();
+        LoaderOptions loaderOptions = new LoaderOptions();
+        loaderOptions.setAllowDuplicateKeys(false);
+        Yaml yaml = new Yaml(loaderOptions);
         yaml.load(content);
     }
 }
