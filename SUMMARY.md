@@ -13,6 +13,7 @@
   * [java获取硬件信息](java-study/java-huo-qu-ying-jian-xin-xi.md)
   * [Conditional实现bean按需加载](java-study/conditional-shi-xian-bean-an-xu-jia-zai.md)
   * [spring boot actuator搭配jenkins实现发布健康检查和报警](java-study/spring-boot-actuator-da-pei-jenkins-shi-xian-fa-bu-jian-kang-jian-cha-he-bao-jing.md)
+  * [nacos配置文件语法检测&报警](java-study/nacos-pei-zhi-wen-jian-yu-fa-jian-ce-bao-jing.md)
 * [python](python/README.md)
   * [pip安装走socks代理](python/pip-an-zhuang-zou-socks-dai-li.md)
 * [docker](docker/README.md)
