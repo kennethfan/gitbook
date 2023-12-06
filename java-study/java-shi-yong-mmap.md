@@ -62,8 +62,9 @@ public class MmapMain {
 执行日志如下
 
 ```
-normal cost=15097
-mmap cost=19
+random cost=16955
+stream cost=16085
+mmap cost=18
 ```
 
-可以看出，在64M文件顺序写入的情况下，mmap性能比random模式搞出好几个数量级
+可以看出，在4M文件顺序写入的情况下，mmap性能比random模式搞出好几个数量级
