@@ -13,9 +13,14 @@ public class MmapMain {
 
     public static void main(String[] args) throws IOException {
         long begin = System.currentTimeMillis();
-        normal();
+        random();
         long end = System.currentTimeMillis();
-        System.out.println("normal cost=" + (end - begin));
+        System.out.println("random cost=" + (end - begin));
+
+        begin = System.currentTimeMillis();
+        stream();
+        end = System.currentTimeMillis();
+        System.out.println("stream cost=" + (end - begin));
 
         begin = System.currentTimeMillis();
         mmap();
@@ -23,12 +28,23 @@ public class MmapMain {
         System.out.println("mmap cost=" + (end - begin));
     }
 
-    private static void normal() throws IOException {
+
+    private static void random() throws IOException {
         RandomAccessFile raf = new RandomAccessFile("random.txt", "rw");
         byte[] bytes = new byte[1];
         bytes[0] = (byte) 'a';
         for (int i = 0; i < FILE_SIZE; i++) {
             raf.write(bytes);
+        }
+    }
+
+    private static void stream() throws IOException {
+        byte[] bytes = new byte[1];
+        try (FileOutputStream outputStream = new FileOutputStream("stream.txt")) {
+            bytes[0] = (byte) 'a';
+            for (int i = 0; i < FILE_SIZE; i++) {
+                outputStream.write(bytes);
+            }
         }
     }
 
