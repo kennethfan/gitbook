@@ -25,6 +25,7 @@
   * [ngx\_http\_dyups\_module实现web服务的平滑发布](nginx/ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.md)
   * [nginx代理mysql](nginx/nginx-dai-li-mysql.md)
   * [nginx+imgproxy实现图片自动缩放裁剪](nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.md)
+  * [minio实现文件存储](nginx/minio-shi-xian-wen-jian-cun-chu.md)
 * [git](git/README.md)
   * [git拉取指定tag/分支的代码](git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.md)
 * [shell](shell/README.md)
