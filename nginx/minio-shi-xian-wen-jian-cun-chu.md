@@ -95,3 +95,15 @@ export PATH=$PATH:$HOME/minio-binaries/
 
 mc --help
 ```
+
+* 添加别名
+
+```bash
+mc alias set <别名>  http://<ip>:9000 <access_key> <secret_key>
+```
+
+* 历史数据导入
+
+```
+mc cp -r <本地文件存储根目录>  <别名>/<bucket>
+```
