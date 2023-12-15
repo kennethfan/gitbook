@@ -107,3 +107,30 @@ mc alias set <别名>  http://<ip>:9000 <access_key> <secret_key>
 ```
 mc cp -r <本地文件存储根目录>  <别名>/<bucket>
 ```
+
+## imgproxy兼容
+
+上文提到，使用imgproxy做缩略图片的处理，imgproxy在做缩略图时会从本地获取图片，现在改成minio之后原有的方式也需要做调整
+
+幸运的是，imgproxy支持s3协议，其中minio也支持s3协议，所以问题不大
+
+imgproxy启动方式需要增加s3相关配置
+
+```bash
+docker run -d --name imgproxy --restart always -p 9999:8080 -v /opt/data/backend/file:/app/images --env="IMGPROXY_LOCAL_FILESYSTEM_ROOT=/app/images" --env="IMGPROXY_S3_ENDPOINT=http://<ip>:9000" --env="IMGPROXY_USE_S3=true" --env="AWS_ACCESS_KEY_ID=<access_key>" --env="AWS_SECRET_ACCESS_KEY=<secret_key>" --user root --privileged darthsim/imgproxy 
+```
+
+说明
+
+| 变量                       | 说明                              |
+| ------------------------ | ------------------------------- |
+| IMGPROXY\_USE\_S3        | true，支持s3                       |
+| IMGPROXY\_S3\_ENDPOINT   | s3 代理链接，此处为http://ip:9000       |
+| AWS\_ACCESS\_KEY\_ID     | s3 access\_key，上文创建的access\_key |
+| AWS\_SECRET\_ACCESS\_KEY | s3 secret\_key，上文创建的secret\_key |
+
+对应nginx中，转发到imgproxy的地方修改成
+
+```
+rewrite ^(.*)$ /signature/resize:$arg_f:$arg_w:$arg_h:0/plain/s3://<bucket>/$encoded_filename@$arg_t break;
+```
