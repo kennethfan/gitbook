@@ -63,7 +63,7 @@ firewall-cmd --list-all
 
 * 初始化
 
-浏览器窗口打开，地址http://ip:9000，登录使用刚才启动时设置的密码
+浏览器窗口打开，地址http://\<ip>:9000，登录使用刚才启动时设置的密码
 
 <figure><img src="../.gitbook/assets/minio-login.png" alt=""><figcaption></figcaption></figure>
 
@@ -125,7 +125,7 @@ docker run -d --name imgproxy --restart always -p 9999:8080 -v /opt/data/backend
 | 变量                       | 说明                              |
 | ------------------------ | ------------------------------- |
 | IMGPROXY\_USE\_S3        | true，支持s3                       |
-| IMGPROXY\_S3\_ENDPOINT   | s3 代理链接，此处为http://ip:9000       |
+| IMGPROXY\_S3\_ENDPOINT   | s3 代理链接，此处为http://\<ip>:9000    |
 | AWS\_ACCESS\_KEY\_ID     | s3 access\_key，上文创建的access\_key |
 | AWS\_SECRET\_ACCESS\_KEY | s3 secret\_key，上文创建的secret\_key |
 
@@ -134,3 +134,7 @@ docker run -d --name imgproxy --restart always -p 9999:8080 -v /opt/data/backend
 ```
 rewrite ^(.*)$ /signature/resize:$arg_f:$arg_w:$arg_h:0/plain/s3://<bucket>/$encoded_filename@$arg_t break;
 ```
+
+## 程序修改
+
+需要将静态文件目录映射修改成http://\<ip>:9000/\<bucket>
