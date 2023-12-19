@@ -58,8 +58,8 @@ spring:
           response-body: '{"code":429, "msg": "系统繁忙，请稍后重试"}'
           response-status: 200
       datasource:
-        gw-flow: # 此处使用nacos作为数据源
-          nacos: # 详情见com.alibaba.cloud.sentinel.datasource.config
+        gw-flow: # 此处使用nacos作为数据源，参考com.alibaba.cloud.sentinel.datasource.config.DataSourcePropertiesConfiguration
+          nacos: # 参考com.alibaba.cloud.sentinel.datasource.config.NacosDataSourceProperties
             server-addr: ${spring.cloud.nacos.discovery.server-addr}
             username: ${spring.cloud.nacos.discovery.username}
             password: ${spring.cloud.nacos.discovery.password}
