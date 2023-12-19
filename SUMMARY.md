@@ -16,6 +16,7 @@
   * [nacos配置文件语法检测&报警](java-study/nacos-pei-zhi-wen-jian-yu-fa-jian-ce-bao-jing.md)
   * [java使用mmap](java-study/java-shi-yong-mmap.md)
   * [java使用page cache](java-study/java-shi-yong-page-cache.md)
+  * [spring cloud gateway + nacos + sentinel实现网关限流](java-study/spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.md)
 * [python](python/README.md)
   * [pip安装走socks代理](python/pip-an-zhuang-zou-socks-dai-li.md)
 * [docker](docker/README.md)
