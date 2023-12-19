@@ -58,8 +58,8 @@ spring:
           response-body: '{"code":429, "msg": "系统繁忙，请稍后重试"}'
           response-status: 200
       datasource:
-        gw-flow:
-          nacos:
+        gw-flow: # 此处使用nacos作为数据源
+          nacos: # 详情见com.alibaba.cloud.sentinel.datasource.config
             server-addr: ${spring.cloud.nacos.discovery.server-addr}
             username: ${spring.cloud.nacos.discovery.username}
             password: ${spring.cloud.nacos.discovery.password}
@@ -82,7 +82,9 @@ spring:
 
 ### 限流配置
 
-sentinel-gw-flow.json
+配置参考com.alibaba.cloud.sentinel.datasource.RuleType
+
+sentinel-gw-flow.json，参考com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayFlowRule
 
 ```json
 [
@@ -96,7 +98,7 @@ sentinel-gw-flow.json
 ]
 ```
 
-sentinel-api-group.json
+sentinel-api-group.json，参考com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiDefinition
 
 ```json
 [
