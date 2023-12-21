@@ -17,6 +17,7 @@
   * [java使用mmap](java-study/java-shi-yong-mmap.md)
   * [java使用page cache](java-study/java-shi-yong-page-cache.md)
   * [spring cloud gateway + nacos + sentinel实现网关限流](java-study/spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.md)
+  * [spring cloud自定义loaderbalancer实现流量就近访问](java-study/spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.md)
 * [python](python/README.md)
   * [pip安装走socks代理](python/pip-an-zhuang-zou-socks-dai-li.md)
 * [docker](docker/README.md)
