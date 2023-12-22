@@ -20,6 +20,7 @@
   * [pip安装走socks代理](python/pip-an-zhuang-zou-socks-dai-li.md)
 * [Linux](linux/README.md)
   * [centos添加防火墙](linux/centos-tian-jia-fang-huo-qiang.md)
+  * [centos修改hostname](linux/centos-xiu-gai-hostname.md)
 * [nexus](nexus/README.md)
   * [nexus手动上传文件](nexus/nexus-shou-dong-shang-chuan-wen-jian.md)
 * [docker](docker/README.md)
