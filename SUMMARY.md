@@ -1,8 +1,6 @@
 # Table of contents
 
 * [Introduction](README.md)
-* [Linux](linux/README.md)
-  * [centos添加防火墙](linux/centos-tian-jia-fang-huo-qiang.md)
 * [Java学习](java-study/README.MD)
   * [java filter修改request内容和response内容](java-study/java-filter-xiu-gai-request-nei-rong-he-response-nei-rong.md)
   * [JavaCompiler动态编译java代码](java-study/javacompiler-dong-tai-bian-yi-java-dai-ma.md)
@@ -20,6 +18,10 @@
   * [spring cloud自定义loaderbalancer实现流量就近访问](java-study/spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.md)
 * [python](python/README.md)
   * [pip安装走socks代理](python/pip-an-zhuang-zou-socks-dai-li.md)
+* [Linux](linux/README.md)
+  * [centos添加防火墙](linux/centos-tian-jia-fang-huo-qiang.md)
+* [nexus](nexus/README.md)
+  * [nexus手动上传文件](nexus/nexus-shou-dong-shang-chuan-wen-jian.md)
 * [docker](docker/README.md)
   * [查看image对应的dockerfile](docker/cha-kan-image-dui-ying-de-dockerfile.md)
   * [k8s集群搭建](docker/k8s-ji-qun-da-jian.md)
