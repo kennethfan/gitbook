@@ -2,7 +2,7 @@
 
 ## 主库
 
-```
+```sql
 CREATE USER 'slave' @'%' IDENTIFIED BY '<密码>';
 GRANT SELECT, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'slave' @'%';
 
@@ -13,7 +13,7 @@ SHOW MASTER STATUS;
 
 ## 从库
 
-```
+```sql
 CHANGE MASTER TO
 MASTER_HOST='<主库host>',
 MASTER_HOST=<主库端口>,
