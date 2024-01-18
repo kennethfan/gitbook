@@ -16,7 +16,7 @@
   * [java使用page cache](java-study/java-shi-yong-page-cache.md)
   * [spring cloud gateway + nacos + sentinel实现网关限流](java-study/spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.md)
   * [spring cloud自定义loaderbalancer实现流量就近访问](java-study/spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.md)
-  * [Page 1](java-study/page-1.md)
+  * [spring cloud手动下掉节点](java-study/spring-cloud-shou-dong-xia-diao-jie-dian.md)
 * [python](python/README.md)
   * [pip安装走socks代理](python/pip-an-zhuang-zou-socks-dai-li.md)
 * [Linux](linux/README.md)
