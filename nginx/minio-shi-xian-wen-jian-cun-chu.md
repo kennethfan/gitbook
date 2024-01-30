@@ -160,8 +160,8 @@ server {
 
 server {
         server_name <servername>;
-        access_log /opt/data/nginx/logs/s.zccoupon.com_access.log json;
-        error_log /opt/data/nginx/logs/s.zccoupon.com_error.log;
+        access_log /opt/data/nginx/logs/<servername>_access.log json;
+        error_log /opt/data/nginx/logs/<servername>_error.log;
 
         listen 443 ssl; # managed by Certbot
         ssl_certificate /etc/letsencrypt/live/zccoupon.com/fullchain.pem; # managed by Certbot
