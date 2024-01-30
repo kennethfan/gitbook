@@ -135,6 +135,14 @@ docker run -d --name imgproxy --restart always -p 9999:8080 -v /opt/data/backend
 rewrite ^(.*)$ /signature/resize:$arg_f:$arg_w:$arg_h:0/plain/s3://<bucket>/$encoded_filename@$arg_t break;
 ```
 
+对应nginx中，直接通过http请求的地方可以改成直连minio
+
+```
+rewrite ^/api/infrastructure/static/file/(.*)$ /<bucket>/$1 break;
+# 没有携带参数p则直接请求原图 10001为后端服务的路径
+proxy_pass http://<ip>:9000;
+```
+
 ## 程序修改
 
 需要将静态文件目录映射修改成http://\<ip>:9000/\<bucket>
