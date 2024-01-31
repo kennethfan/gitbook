@@ -76,9 +76,9 @@ curl -v 'https://www.baidu.com' -x 127.0.0.1:8765
 curl -v 'http://www.baidu.com' -x 127.0.0.1:8765
 ```
 
-#### chrome浏览器代理配置
+### chrome浏览器代理配置
 
-chrome浏览器可以使用扩展来做域名的代理配置，此处推荐SwitchyOmega，可以到chrome应用商店下载安装次扩展
+chrome浏览器可以使用扩展来做域名的代理配置，此处推荐SwitchyOmega，可以到chrome应用商店下载安装该扩展
 
 ## 参考
 
