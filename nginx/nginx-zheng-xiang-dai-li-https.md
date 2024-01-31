@@ -34,7 +34,7 @@ yum -y install git patch gcc gcc-c++ pcre pcre-devel zlib zlib-devel openssl ope
 git clone https://github.com/chobits/ngx_http_proxy_connect_module.git
 ```
 
-#### 代码patch
+#### nginx(重)编译安装
 
 ```bash
 cd /path/to/nginx-source # nginx源码目录
