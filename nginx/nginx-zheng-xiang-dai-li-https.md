@@ -18,7 +18,7 @@ description: nginx正向代理https
 
 经过调研，通过nginx做正向代理是非常容易的
 
-现在https已经是基础要求了，所有nginx需要能够正向代理https；实际上nginx代理https也是可以，不过需要安装特定模块，此处记录下步骤，基于centos 7.x
+现在https已经是基础要求了，所以nginx需要能够正向代理https；实际上nginx代理https也是可以得，不过需要安装特定模块，此处记录下步骤，基于centos 7.x
 
 ### 基础软件准备
 
