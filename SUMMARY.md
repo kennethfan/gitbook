@@ -17,6 +17,7 @@
   * [spring cloud gateway + nacos + sentinel实现网关限流](java-study/spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.md)
   * [spring cloud自定义loaderbalancer实现流量就近访问](java-study/spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.md)
   * [spring cloud手动下掉节点](java-study/spring-cloud-shou-dong-xia-diao-jie-dian.md)
+  * [jar包解压和打包](java-study/jar-bao-jie-ya-he-da-bao.md)
 * [python](python/README.md)
   * [pip安装走socks代理](python/pip-an-zhuang-zou-socks-dai-li.md)
 * [Linux](linux/README.md)
