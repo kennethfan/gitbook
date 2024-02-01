@@ -24,6 +24,7 @@
   * [centos添加防火墙](linux/centos-tian-jia-fang-huo-qiang.md)
   * [centos修改hostname](linux/centos-xiu-gai-hostname.md)
   * [rsync文件增量同步](linux/rsync-wen-jian-zeng-liang-tong-bu.md)
+  * [阿里云部署-文件传输优化](linux/a-li-yun-bu-shu-wen-jian-chuan-shu-you-hua.md)
 * [nexus](nexus/README.md)
   * [nexus手动上传文件](nexus/nexus-shou-dong-shang-chuan-wen-jian.md)
 * [docker](docker/README.md)
