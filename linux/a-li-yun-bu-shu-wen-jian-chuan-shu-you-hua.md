@@ -63,7 +63,7 @@ else if (__Deploy_IP == __Deploy_SWITCH_IP) {
 	// 阿里云中继节点，rsync增量同步
 	
 	// 目标机器同步线上版本到目标目录
-	sh """ssh -p ${__Deploy_SSH_Port} ${__Deploy_Account}@${__Deploy_IP} "[ -d ${__Deploy_Dir} ] && cp -r ${__Deploy_Dir}/* ${__Deploy_Version}" """
+	sh """ssh -p ${__Deploy_SSH_Port} ${__Deploy_Account}@${__Deploy_IP} "[ ! -d ${__Deploy_Dir} ] || cp -r ${__Deploy_Dir}/* ${__Deploy_Version}" """
 	// ssh通道rsync增量传输文件
 	sh """rsync -e "ssh -p ${__Deploy_SSH_Port}" -avl --delete dist/ ${__Deploy_Account}@${__Deploy_IP}:${__Deploy_Version}"""
 }
