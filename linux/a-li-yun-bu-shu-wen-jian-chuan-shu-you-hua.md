@@ -29,6 +29,24 @@ description: 阿里云部署-文件传输优化
 对应修改如下
 
 ```groovy
+// 前端
+__Deploy_SWITCH_IP = "<目标机器1外网ip>"
+__Deploy_SWITCH_INNER_IP = "<目标机器1局域网ip>"
+
+if (__Deploy_IP.contains("192.168")) {
+	// 公司内网直接scp
+	sh "scp -P ${__Deploy_SSH_Port} -r dist/* ${__Deploy_Account}@${__Deploy_IP}:${__Deploy_Version}"
+} else if (__Deploy_IP == __Deploy_SWITCH_IP) {
+	// 阿里云中继节点rsync增量同步
+	// todo
+} else {
+	// 阿里云其他节点，从中继节点同步
+	sh """ssh -p ${__Deploy_SSH_Port} ${__Deploy_Account}@${__Deploy_IP} "scp -r -P ${__Deploy_SSH_Port} root@${__Deploy_SWITCH_INNER_IP}:${__Deploy_Version}/* ${__Deploy_Version}" """
+}
+```
+
+```groovy
+// 后端
 __Deploy_SWITCH_IP = "<目标机器1外网ip>"
 __Deploy_SWITCH_INNER_IP = "<目标机器1局域网ip>"
 
