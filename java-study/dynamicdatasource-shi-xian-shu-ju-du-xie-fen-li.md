@@ -480,9 +480,8 @@ public class ForceMasterPlugin implements Interceptor {
 接下来自定义强制走主库注解
 
 ```java
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@Inherited
 @Documented
 public @interface ForceMaster {
 }
