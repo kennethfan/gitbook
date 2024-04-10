@@ -495,7 +495,7 @@ public @interface ForceMaster {
 @Slf4j
 public class ForceMasterAspect {
 
-    @Pointcut("@annotation(ForceMaster)")
+    @Pointcut("@annotation(ForceMaster) || @within(ForceMaster)")
     public void pointcut() {
     }
 
