@@ -490,28 +490,27 @@ public @interface ForceMaster {
 定义Aop
 
 ```java
-@Component
+@Configuration
 @Aspect
 @Slf4j
-public class ForceMasterAspect {
+public class ForceMasterAspectConfiguration {
 
-    @Pointcut("@annotation(ForceMaster) || @within(ForceMaster)")
-    public void pointcut() {
-    }
+    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+    @Bean
+    public Advisor forceMasterAdvisor() {
+        MethodInterceptor interceptor = invocation -> {
+            if (ForceMasterContext.isForceMaster()) {
+                return invocation.proceed();
+            }
 
-    @Around("pointcut()")
-    public Object forceMasterRun(ProceedingJoinPoint joinPoint) throws Throwable {
-        log.info("forceMasterRun");
-        if (ForceMasterContext.isForceMaster()) {
-            return joinPoint.proceed();
-        }
-
-        try {
-            ForceMasterContext.setForceMaster(true);
-            return joinPoint.proceed();
-        } finally {
-            ForceMasterContext.clearForceMaster();
-        }
+            try {
+                ForceMasterContext.setForceMaster(true);
+                return invocation.proceed();
+            } finally {
+                ForceMasterContext.clearForceMaster();
+            }
+        };
+        return new DynamicDataSourceAnnotationAdvisor(interceptor, ForceMaster.class);
     }
 }
 ```
