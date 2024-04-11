@@ -642,7 +642,7 @@ protected void doBegin(Object transaction, TransactionDefinition definition) {
 
 2、方法要么是protected，要么是final修饰，也就是说不能通过AOP来扩展
 
-因此只剩下一种方法，通过集成去扩展，且需要修改默认的PlatformTransactionManager实现类
+因此只剩下一种方法，通过继承去扩展，且需要修改默认的PlatformTransactionManager实现类
 
 代码如下
 
