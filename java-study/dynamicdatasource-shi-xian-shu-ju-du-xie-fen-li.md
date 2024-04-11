@@ -321,31 +321,25 @@ public DataSource determineDataSource() {
 
 策略基本如下：
 
-1、事务执行，强制走主库
+1、普通读请求，走从库或者主库都可以
 
-2、普通读请求，走从库或者主库都可以
+2、普通写请求，走主库
 
-3、普通写请求，走主库
+3、强制指定了走主库的请求，走主库
 
-4、强制指定了走主库的请求，走主库
+4、事务执行，强制走主库
 
 接下来难点在于
 
-1、如何判断是否事务执行？
+1、如何判断是读请求还是写请求
 
-2、如何判断是读请求还是写请求？
+2、如何判断强制走主库
 
-3、如何判断强制走主库
+3、对于事物，比较特殊，在事务开启之前就需要切到主库然后获取数据库连接
 
 一个一个解决
 
-首先，判断是否事务，spring-tx已经提供了方案
-
-```
-TransactionSynchronizationManager.isSynchronizationActive()
-```
-
-判断是否读请求还是写请求，这个需要使用mybatis拦截器，拦截Executor方法
+首先判断是否读请求还是写请求，这个需要使用mybatis拦截器，拦截Executor方法
 
 ```java
 public interface Executor {
@@ -366,7 +360,7 @@ public interface Executor {
 SqlCommandType.SELECT == MappedStatement.getSqlCommandType()
 ```
 
-最后就是如何判断强制走主库了，这个需要自定义实现，通常是使用注解+AOP方式
+接下来就是如何判断强制走主库了，这个需要自定义实现，通常是使用注解+AOP方式
 
 所以整体实现比较简单
 
@@ -446,6 +440,11 @@ public class ForceMasterPlugin implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
+        // 事务操作，正常不应该走到这里
+        if (TransactionSynchronizationManager.isSynchronizationActive()) {
+            return invocation.proceed();
+        }
+        
         // 已经强制走到主库了
         if (ForceMasterContext.isForceMaster()) {
             return invocation.proceed();
@@ -454,7 +453,7 @@ public class ForceMasterPlugin implements Interceptor {
         Object[] args = invocation.getArgs();
         MappedStatement ms = (MappedStatement) args[0];
         // 非事务中的查询操作直接返回
-        if (SqlCommandType.SELECT == ms.getSqlCommandType() && !TransactionSynchronizationManager.isSynchronizationActive()) {
+        if (SqlCommandType.SELECT == ms.getSqlCommandType()) {
             return invocation.proceed();
         }
 
@@ -511,6 +510,172 @@ public class ForceMasterAspectConfiguration {
             }
         };
         return new DynamicDataSourceAnnotationAdvisor(interceptor, ForceMaster.class);
+    }
+}
+```
+
+最后如何判断事务即将开启，spring-tx开启事务在AbstractPlatformTransactionManager.getTransaction方法，代码如下
+
+```java
+@Override
+public final TransactionStatus getTransaction(@Nullable TransactionDefinition definition)
+        throws TransactionException {
+
+    // Use defaults if no transaction definition given.
+    TransactionDefinition def = (definition != null ? definition : TransactionDefinition.withDefaults());
+
+    Object transaction = doGetTransaction();
+    boolean debugEnabled = logger.isDebugEnabled();
+
+    if (isExistingTransaction(transaction)) {
+        // Existing transaction found -> check propagation behavior to find out how to behave.
+        return handleExistingTransaction(def, transaction, debugEnabled);
+    }
+
+    // Check definition settings for new transaction.
+    if (def.getTimeout() < TransactionDefinition.TIMEOUT_DEFAULT) {
+        throw new InvalidTimeoutException("Invalid transaction timeout", def.getTimeout());
+    }
+
+    // No existing transaction found -> check propagation behavior to find out how to proceed.
+    if (def.getPropagationBehavior() == TransactionDefinition.PROPAGATION_MANDATORY) {
+        throw new IllegalTransactionStateException(
+                "No existing transaction found for transaction marked with propagation 'mandatory'");
+    }
+    else if (def.getPropagationBehavior() == TransactionDefinition.PROPAGATION_REQUIRED ||
+            def.getPropagationBehavior() == TransactionDefinition.PROPAGATION_REQUIRES_NEW ||
+            def.getPropagationBehavior() == TransactionDefinition.PROPAGATION_NESTED) {
+        SuspendedResourcesHolder suspendedResources = suspend(null);
+        if (debugEnabled) {
+            logger.debug("Creating new transaction with name [" + def.getName() + "]: " + def);
+        }
+        try {
+            return startTransaction(def, transaction, debugEnabled, suspendedResources);
+        }
+        catch (RuntimeException | Error ex) {
+            resume(null, suspendedResources);
+            throw ex;
+        }
+    }
+    else {
+        // Create "empty" transaction: no actual transaction, but potentially synchronization.
+        if (def.getIsolationLevel() != TransactionDefinition.ISOLATION_DEFAULT && logger.isWarnEnabled()) {
+            logger.warn("Custom isolation level specified but no actual transaction initiated; " +
+                    "isolation level will effectively be ignored: " + def);
+        }
+        boolean newSynchronization = (getTransactionSynchronization() == SYNCHRONIZATION_ALWAYS);
+        return prepareTransactionStatus(def, null, true, newSynchronization, debugEnabled, null);
+    }
+}
+
+/**
+ * Start a new transaction.
+ */
+private TransactionStatus startTransaction(TransactionDefinition definition, Object transaction,
+        boolean debugEnabled, @Nullable SuspendedResourcesHolder suspendedResources) {
+
+    boolean newSynchronization = (getTransactionSynchronization() != SYNCHRONIZATION_NEVER);
+    DefaultTransactionStatus status = newTransactionStatus(
+            definition, transaction, true, newSynchronization, debugEnabled, suspendedResources);
+    doBegin(transaction, definition);
+    prepareSynchronization(status, definition);
+    return status;
+}
+```
+
+最终会走到doBegin方法，具体实现类在DataSourceTransactionManager中
+
+```java
+protected void doBegin(Object transaction, TransactionDefinition definition) {
+    DataSourceTransactionManager.DataSourceTransactionObject txObject = (DataSourceTransactionManager.DataSourceTransactionObject)transaction;
+    Connection con = null;
+
+    try {
+        if (!txObject.hasConnectionHolder() || txObject.getConnectionHolder().isSynchronizedWithTransaction()) {
+            Connection newCon = this.obtainDataSource().getConnection();
+            if (this.logger.isDebugEnabled()) {
+                this.logger.debug("Acquired Connection [" + newCon + "] for JDBC transaction");
+            }
+
+            txObject.setConnectionHolder(new ConnectionHolder(newCon), true);
+        }
+
+        txObject.getConnectionHolder().setSynchronizedWithTransaction(true);
+        con = txObject.getConnectionHolder().getConnection();
+        Integer previousIsolationLevel = DataSourceUtils.prepareConnectionForTransaction(con, definition);
+        txObject.setPreviousIsolationLevel(previousIsolationLevel);
+        txObject.setReadOnly(definition.isReadOnly());
+        if (con.getAutoCommit()) {
+            txObject.setMustRestoreAutoCommit(true);
+            if (this.logger.isDebugEnabled()) {
+                this.logger.debug("Switching JDBC Connection [" + con + "] to manual commit");
+            }
+
+            con.setAutoCommit(false);
+        }
+
+        this.prepareTransactionalConnection(con, definition);
+        txObject.getConnectionHolder().setTransactionActive(true);
+        int timeout = this.determineTimeout(definition);
+        if (timeout != -1) {
+            txObject.getConnectionHolder().setTimeoutInSeconds(timeout);
+        }
+
+        if (txObject.isNewConnectionHolder()) {
+            TransactionSynchronizationManager.bindResource(this.obtainDataSource(), txObject.getConnectionHolder());
+        }
+
+    } catch (Throwable var7) {
+        if (txObject.isNewConnectionHolder()) {
+            DataSourceUtils.releaseConnection(con, this.obtainDataSource());
+            txObject.setConnectionHolder((ConnectionHolder)null, false);
+        }
+
+        throw new CannotCreateTransactionException("Could not open JDBC Connection for transaction", var7);
+    }
+}
+```
+
+可以看到doBegin方法中获取了数据连接(Connection对象），结合上面的两个方法，可以发现两点
+
+1、在获取数据库连接之前没有任何的回调和埋点，也就是说无法通过添加钩子在做额外逻辑，也不能通过上下文去判断
+
+2、方法要么是protected，要么是final修饰，也就是说不能通过AOP来扩展
+
+因此只剩下一种方法，通过集成去扩展，且需要修改默认的PlatformTransactionManager实现类
+
+代码如下
+
+```java
+@Component
+public class ForceMasterDataSourceTransactionManager extends DataSourceTransactionManager {
+
+    public ForceMasterDataSourceTransactionManager(DataSource dataSource, ObjectProvider<TransactionManagerCustomizers> transactionManagerCustomizers) {
+        super(dataSource);
+
+        TransactionManagerCustomizers customizers = transactionManagerCustomizers.getIfAvailable();
+        if (customizers != null) {
+            customizers.customize(this);
+        }
+    }
+
+    @Override
+    protected void doBegin(Object transaction, TransactionDefinition definition) {
+        if (!ForceMasterContext.isForceMaster()) {
+            ForceMasterContext.setForceMaster(true);
+        }
+
+        super.doBegin(transaction, definition);
+    }
+
+
+    @Override
+    protected void doCleanupAfterCompletion(Object transaction) {
+        try {
+            super.doCleanupAfterCompletion(transaction);
+        } finally {
+            ForceMasterContext.clearForceMaster();
+        }
     }
 }
 ```
