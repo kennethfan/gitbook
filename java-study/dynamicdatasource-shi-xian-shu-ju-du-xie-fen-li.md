@@ -342,7 +342,7 @@ public DataSource determineDataSource() {
 首先，判断是否事务，spring-tx已经提供了方案
 
 ```
-TransactionSynchronizationManager.isActualTransactionActive()
+TransactionSynchronizationManager.isSynchronizationActive()
 ```
 
 判断是否读请求还是写请求，这个需要使用mybatis拦截器，拦截Executor方法
@@ -454,7 +454,7 @@ public class ForceMasterPlugin implements Interceptor {
         Object[] args = invocation.getArgs();
         MappedStatement ms = (MappedStatement) args[0];
         // 非事务中的查询操作直接返回
-        if (SqlCommandType.SELECT == ms.getSqlCommandType() && !TransactionSynchronizationManager.isActualTransactionActive()) {
+        if (SqlCommandType.SELECT == ms.getSqlCommandType() && !TransactionSynchronizationManager.isSynchronizationActive()) {
             return invocation.proceed();
         }
 
