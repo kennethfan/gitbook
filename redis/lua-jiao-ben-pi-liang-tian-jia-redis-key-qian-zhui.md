@@ -9,7 +9,7 @@ description: lua脚本批量添加redis key前缀
 ```lua
 local prefix = ARGV[1]
 
-redis.call('SELECT', '6')
+redis.call('SELECT', ARGV[2])
 local keys = redis.call('KEYS', '*')
 
 local lastKey = ''
@@ -31,5 +31,5 @@ return lastKey
 redis-cli命令
 
 ```bash
-redis-cli -h <host> -p <port> -a <password> eval "$(cat rename.lua)" 0 <prefix>
+redis-cli -h <host> -p <port> -a <password> eval "$(cat rename.lua)" 0 <prefix> <database>
 ```
