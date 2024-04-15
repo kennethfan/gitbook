@@ -45,6 +45,7 @@
   * [shell命令自动补全](shell/shell-ming-ling-zi-dong-bu-quan.md)
 * [redis](redis/README.md)
   * [redis动态添加从库](redis/redis-dong-tai-tian-jia-cong-ku.md)
+  * [lua脚本批量添加redis key前缀](redis/lua-jiao-ben-pi-liang-tian-jia-redis-key-qian-zhui.md)
 * [mysql](mysql/README.md)
   * [mysql创建用户并授权](mysql/mysql-chuang-jian-yong-hu-bing-shou-quan.md)
   * [mysql主从同步配置](mysql/mysql-zhu-cong-tong-bu-pei-zhi.md)
