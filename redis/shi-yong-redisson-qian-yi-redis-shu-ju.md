@@ -20,8 +20,6 @@ import java.util.concurrent.TimeUnit;
 public class RedisMigrate {
 
     public static void main(String[] args) {
-    
-
         RedissonClient sourceRedis = createRedisClient(
                 getProperty("redis.source.host"),
                 getPropertyInteger("redis.source.port"),
