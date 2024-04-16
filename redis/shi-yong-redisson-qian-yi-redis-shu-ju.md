@@ -19,21 +19,8 @@ import java.util.concurrent.TimeUnit;
 
 public class RedisMigrate {
 
-    private static void init() {
-
-        System.setProperty("redis.source.host", "192.168.3.171");
-        System.setProperty("redis.source.port", "6389");
-        System.setProperty("redis.source.password", "ipdI6AVM+kBt4w==");
-        System.setProperty("redis.source.database", "6");
-
-        System.setProperty("redis.dest.host", "127.0.0.1");
-        System.setProperty("redis.dest.port", "6379");
-        System.setProperty("redis.dest.password", "");
-        System.setProperty("redis.dest.database", "6");
-    }
-
     public static void main(String[] args) {
-        init();
+    
 
         RedissonClient sourceRedis = createRedisClient(
                 getProperty("redis.source.host"),
