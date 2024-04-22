@@ -38,6 +38,7 @@
   * [nginx+imgproxy实现图片自动缩放裁剪](nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.md)
   * [minio实现文件存储](nginx/minio-shi-xian-wen-jian-cun-chu.md)
   * [nginx正向代理https](nginx/nginx-zheng-xiang-dai-li-https.md)
+  * [nginx动态转发到upstream](nginx/nginx-dong-tai-zhuan-fa-dao-upstream.md)
 * [git](git/README.md)
   * [git拉取指定tag/分支的代码](git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.md)
 * [shell](shell/README.md)
