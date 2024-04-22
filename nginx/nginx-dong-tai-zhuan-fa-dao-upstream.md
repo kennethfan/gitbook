@@ -26,6 +26,9 @@ path表示具体的请求path
 
 ```
 location /dispatch {
+        allow 192.168.0.0/16; # 只允许内网访问
+        deny all;
+        
         set $metrics_up $arg_up;
         rewrite (.*)$ $arg_path break;
 
