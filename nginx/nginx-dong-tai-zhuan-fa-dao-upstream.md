@@ -29,12 +29,12 @@ location /dispatch {
         allow 192.168.0.0/16; # 只允许内网访问
         deny all;
         
-        set $metrics_up $arg_up;
-        rewrite (.*)$ $arg_path break;
-
-        proxy_set_header path $arg_up;
-        proxy_set_header upstream $arg_up;
-        proxy_pass http://$metrics_up;
+        set_unescape_uri $dispatch_up $arg_up;
+        set_unescape_uri $dispatch_path $arg_path;
+        rewrite (.*)$ $dispatch_path break;
+        proxy_set_header path $dispatch_path;
+        proxy_set_header upstream $dispatch_up;
+        proxy_pass http://$dispatch_up;
 }
 ```
 
