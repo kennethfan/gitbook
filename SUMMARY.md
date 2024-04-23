@@ -21,6 +21,7 @@
   * [spring cloud手动下掉节点](java-study/spring-cloud-shou-dong-xia-diao-jie-dian.md)
   * [jar包解压和打包](java-study/jar-bao-jie-ya-he-da-bao.md)
   * [java集成prometheus上报数据](java-study/java-ji-cheng-prometheus-shang-bao-shu-ju.md)
+  * [spring actuator上报指标uri=known修复](java-study/spring-actuator-shang-bao-zhi-biao-uriknown-xiu-fu.md)
 * [python](python/README.md)
   * [pip安装走socks代理](python/pip-an-zhuang-zou-socks-dai-li.md)
 * [Linux](linux/README.md)
