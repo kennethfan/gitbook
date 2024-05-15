@@ -153,7 +153,7 @@ server {
            proxy_pass http://127.0.0.1:8081;
            expires max;
            # 基于浏览器的缓存 携带此请求头浏览器会缓存图片
-           add_header Cache-Control "public, max-age=31536000";
+           add_header Cache-Control "public, no-transform";
         }
         # 没有携带参数p则直接请求原图 10001为后端服务的路径
         proxy_pass http://127.0.0.1:10001;
@@ -163,7 +163,8 @@ server {
         proxy_cache_key $scheme$proxy_host$uri$is_args$args;
         # 基于http状态码来配置缓存的过期时间 这里设置为30天
         proxy_cache_valid  200 304 302 30d;
-        add_header Cache-Control "public, max-age=31536000";
+        expires max;
+        add_header Cache-Control "public, no-transform";
     }
 }
 ```
