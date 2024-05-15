@@ -163,6 +163,7 @@ server {
         proxy_cache_key $scheme$proxy_host$uri$is_args$args;
         # 基于http状态码来配置缓存的过期时间 这里设置为30天
         proxy_cache_valid  200 304 302 30d;
+        add_header Cache-Control "public, max-age=31536000";
     }
 }
 ```
