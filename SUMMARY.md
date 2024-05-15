@@ -24,6 +24,7 @@
   * [spring actuator上报指标uri=known修复](java-study/spring-actuator-shang-bao-zhi-biao-uriknown-xiu-fu.md)
   * [maven手动上传三方jar到仓库](java-study/maven-shou-dong-shang-chuan-san-fang-jar-dao-cang-ku.md)
 * [python](python/README.md)
+  * [centos 安装miniconda](python/centos-an-zhuang-miniconda.md)
   * [pip安装走socks代理](python/pip-an-zhuang-zou-socks-dai-li.md)
 * [Linux](linux/README.md)
   * [centos添加防火墙](linux/centos-tian-jia-fang-huo-qiang.md)
