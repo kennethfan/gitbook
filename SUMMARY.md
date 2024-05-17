@@ -46,6 +46,7 @@
   * [nginx动态转发到upstream](nginx/nginx-dong-tai-zhuan-fa-dao-upstream.md)
 * [git](git/README.md)
   * [git拉取指定tag/分支的代码](git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.md)
+  * [git设置用户信息缓存](git/git-she-zhi-yong-hu-xin-xi-huan-cun.md)
 * [shell](shell/README.md)
   * [shell根据环境变量替换文本](shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.md)
   * [shell命令自动补全](shell/shell-ming-ling-zi-dong-bu-quan.md)
