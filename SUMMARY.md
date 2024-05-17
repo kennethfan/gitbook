@@ -32,6 +32,7 @@
   * [rsync文件增量同步](linux/rsync-wen-jian-zeng-liang-tong-bu.md)
   * [阿里云部署-文件传输优化](linux/a-li-yun-bu-shu-wen-jian-chuan-shu-you-hua.md)
   * [prometheus抓取数据配置](linux/prometheus-zhua-qu-shu-ju-pei-zhi.md)
+  * [centos安装chrome和chromedriver](linux/centos-an-zhuang-chrome-he-chromedriver.md)
 * [nexus](nexus/README.md)
   * [nexus手动上传文件](nexus/nexus-shou-dong-shang-chuan-wen-jian.md)
 * [docker](docker/README.md)
