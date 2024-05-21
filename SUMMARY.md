@@ -48,6 +48,7 @@
 * [git](git/README.md)
   * [git拉取指定tag/分支的代码](git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.md)
   * [git设置用户信息缓存](git/git-she-zhi-yong-hu-xin-xi-huan-cun.md)
+  * [git修改已提交记录提交者信息](git/git-xiu-gai-yi-ti-jiao-ji-lu-ti-jiao-zhe-xin-xi.md)
 * [shell](shell/README.md)
   * [shell根据环境变量替换文本](shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.md)
   * [shell命令自动补全](shell/shell-ming-ling-zi-dong-bu-quan.md)
