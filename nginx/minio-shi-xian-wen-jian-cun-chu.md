@@ -164,8 +164,8 @@ server {
         error_log /opt/data/nginx/logs/<servername>_error.log;
 
         listen 443 ssl; # managed by Certbot
-        ssl_certificate /etc/letsencrypt/live/zccoupon.com/fullchain.pem; # managed by Certbot
-        ssl_certificate_key /etc/letsencrypt/live/zccoupon.com/privkey.pem; # managed by Certbot
+        ssl_certificate /etc/letsencrypt/live/<domain>/fullchain.pem; # managed by Certbot
+        ssl_certificate_key /etc/letsencrypt/live/<domain>/privkey.pem; # managed by Certbot
         include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
         ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
