@@ -86,7 +86,7 @@ description: 基于Spring Cloud gateway & Springmvc服务合并
 
 ### serviceA引入serviceB
 
-1. 添加jar依赖
+1. 添加serviceB jar依赖
 2. componentScan添加serviceB 根路径 (@ComponentScan)
 3. mapper添加serviceB mapper根路径 (@MapperScan)
 4. application.yml 引入 serviceB的nacos配置
