@@ -115,19 +115,19 @@ public class ForwardInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // 在请求之前添加统一的前缀
         String requestURI = request.getRequestURI();
+        // path修正为去掉context-path之后的真实uri
         String newURI = requestURI.replaceFirst(prefix + "/serviceB", ""); 
         log.debug("ForwardInterceptor.preHandle, prefix={}, requestURI: {}, newURI={}", prefix, request.getRequestURI(), newURI);
+        // 转发
         request.getRequestDispatcher(newURI).forward(request, response);
-        return false;
+        return false; // 转发完请求就结束了，这里一定要返回false
     }
 }
 
 @Slf4j
 @Configuration
 public class InfInterceptorConfig implements WebMvcConfigurer {
-
     @Value("${spring.application.name}")
     private String application;
 
@@ -184,16 +184,16 @@ public interface ServiceBFeignClient {
 }
 ```
 
-* name：服务提供方id
-* contextId：beanId
+* name：服务提供方id，这里需要改成serviceA
+* contextId：beanId，防止冲突，还是配置下比较保险
 * path：因为url都变成为/serviceA/serviceB/\*\*了，所以这里需要加上/serviceA统一前缀
 
 ## 部署升级
 
 1、升级serviceA
 
-2、serviceB调用方一次升级
+2、serviceB调用方依次升级，观察
 
-3、gateway转发规则更新，重启
+3、gateway转发规则更新，重启，观察
 
-4、下掉serviceB
+4、无流量后下掉serviceB
