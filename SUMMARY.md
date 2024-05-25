@@ -24,6 +24,7 @@
   * [spring actuator上报指标uri=known修复](java-study/spring-actuator-shang-bao-zhi-biao-uriknown-xiu-fu.md)
   * [maven手动上传三方jar到仓库](java-study/maven-shou-dong-shang-chuan-san-fang-jar-dao-cang-ku.md)
   * [基于Spring Cloud gateway & Springmvc服务合并](java-study/ji-yu-spring-cloud-gateway-springmvc-fu-wu-he-bing.md)
+  * [Feign调用转成本地方法调用](java-study/feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.md)
 * [python](python/README.md)
   * [centos 安装miniconda](python/centos-an-zhuang-miniconda.md)
   * [pip安装走socks代理](python/pip-an-zhuang-zou-socks-dai-li.md)
