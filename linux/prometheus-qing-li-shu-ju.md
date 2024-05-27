@@ -13,7 +13,7 @@ description: prometheus清理数据
 2、清理指标
 
 ```bash
- curl -v -X POST -g 'http://localhost:9090/api/v1/admin/tsdb/delete_series?match[]=<metrics>{<condition>}&end=1716791083&start=1716787483'
+curl -v -X POST -g 'http://localhost:9090/api/v1/admin/tsdb/delete_series?match[]=<metrics>{<condition>}&end=1716791083&start=1716787483'
 ```
 
 3、清理
