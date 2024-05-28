@@ -29,6 +29,7 @@
   * [centos 安装miniconda](python/centos-an-zhuang-miniconda.md)
   * [pip安装走socks代理](python/pip-an-zhuang-zou-socks-dai-li.md)
 * [Linux](linux/README.md)
+  * [过期jar删除](linux/guo-qi-jar-shan-chu.md)
   * [centos添加防火墙](linux/centos-tian-jia-fang-huo-qiang.md)
   * [centos修改hostname](linux/centos-xiu-gai-hostname.md)
   * [rsync文件增量同步](linux/rsync-wen-jian-zeng-liang-tong-bu.md)
