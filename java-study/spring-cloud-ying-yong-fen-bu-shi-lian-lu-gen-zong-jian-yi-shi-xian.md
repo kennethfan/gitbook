@@ -161,7 +161,7 @@ public class TraceContext {
 
 #### 入口传递
 
-网关
+**网关**
 
 ```java
 public class GatewayTraceFilter implements GlobalFilter, Ordered {
@@ -189,7 +189,7 @@ public class GatewayTraceFilter implements GlobalFilter, Ordered {
 }
 ```
 
-定时任务
+**定时任务**
 
 定时任务主要使用spring task通过@Scheduled定义任务
 
