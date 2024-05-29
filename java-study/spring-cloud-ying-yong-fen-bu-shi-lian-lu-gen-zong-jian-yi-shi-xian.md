@@ -404,4 +404,6 @@ public class TraceTaskDecorate implements TaskDecorator, InitializingBean {
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [TraceId:%X{traceId}] [SpanId:%X{spanId}] [%thread] %-5level %logger{50} - %msg%n</pattern>
             <charset>UTF-8</charset> <!-- 此处设置字符集 -->
         </encoder>
+        ...
+</appender>
 ```
