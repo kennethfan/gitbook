@@ -356,7 +356,9 @@ public class TraceAsyncConfigurer extends AsyncConfigurerSupport {
     @Override
     public Executor getAsyncExecutor() {
         log.info("TraceAsyncConfigurer.getAsyncExecutor call");
-        return taskExecutorBuilder.build();
+        ThreadPoolTaskExecutor executor = taskExecutorBuilder.build();
+        executor.initialize();
+        return executor;
     }
 }
 ```
