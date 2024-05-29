@@ -346,7 +346,6 @@ public class TraceExecutorService implements ExecutorService {
 
 ```java
 @Slf4j
-@ConditionalOnBean(Executor.class)
 @Component
 public class TraceAsyncConfigurer extends AsyncConfigurerSupport {
 
