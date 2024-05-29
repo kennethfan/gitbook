@@ -346,6 +346,7 @@ public class TraceExecutorService implements ExecutorService {
 
 ```java
 @Slf4j
+@ConditionalOnBean(Executor.class)
 @Component
 public class TraceAsyncConfigurer extends AsyncConfigurerSupport {
 
@@ -360,7 +361,7 @@ public class TraceAsyncConfigurer extends AsyncConfigurerSupport {
 }
 ```
 
-TaskExecutorBuilder是spring系统内部实现，可以自动感知到对人物的增强
+TaskExecutorBuilder是spring系统内部实现，可以自动感知到对任务的增强，参考：org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration
 
 <figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
 
