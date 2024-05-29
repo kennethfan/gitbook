@@ -171,7 +171,7 @@ public class GatewayTraceFilter implements GlobalFilter, Ordered {
         final String traceId = TraceContext.traceId();
         exchange.getRequest().mutate().headers(httpHeaders -> {
             httpHeaders.add(TraceStateEnum.TraceIdName.getValue(), traceId);
-            httpHeaders.add(TraceStateEnum.SpenIdName.getValue(), TraceContext.ROOT_SPAN_ID);
+            httpHeaders.add(TraceStateEnum.SpanIdName.getValue(), TraceContext.ROOT_SPAN_ID);
         });
 
         return chain.filter(exchange).then(Mono.fromRunnable(() -> {
@@ -209,7 +209,7 @@ public class ScheduleAspect {
         log.debug("ScheduleAspect.doAround call");
         try {
             MDC.put(TraceStateEnum.TraceIdName.getValue(), TraceContext.traceId());
-            MDC.put(TraceStateEnum.SpenIdName.getValue(), TraceContext.ROOT_SPAN_ID);
+            MDC.put(TraceStateEnum.SpanIdName.getValue(), TraceContext.ROOT_SPAN_ID);
             return pjp.proceed();
         } finally {
             MDC.clear();
@@ -233,7 +233,7 @@ public class TraceIdFeignInterceptor implements RequestInterceptor {
         // 设置请求头
         template.header(TraceStateEnum.TraceIdName.getValue(), traceId);
         // 这里放的是新生成的子链路spanId
-        template.header(TraceStateEnum.SpenIdName.getValue(), TraceContext.nextSpanId());
+        template.header(TraceStateEnum.SpanIdName.getValue(), TraceContext.nextSpanId());
     }
 }
 
@@ -264,12 +264,12 @@ public class TraceIdInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 从请求头中获取 Trace ID
         String traceId = request.getHeader(TraceStateEnum.TraceIdName.getValue());
-        String spenId = request.getHeader(TraceStateEnum.SpenIdName.getValue());
+        String spanId = request.getHeader(TraceStateEnum.SpanIdName.getValue());
 
         // 将 Trace ID 添加到 MDC
         MDC.put(TraceStateEnum.TraceIdName.getValue(), traceId);
-        MDC.put(TraceStateEnum.SpenIdName.getValue(), spenId);
-        TraceContext.setParentId(spenId);
+        MDC.put(TraceStateEnum.SpanIdName.getValue(), spanId);
+        TraceContext.setParentId(spanId);
         return true;
     }
 
@@ -391,4 +391,17 @@ public class TraceTaskDecorate implements TaskDecorator, InitializingBean {
         };
     }
 }
+```
+
+#### 日志配置
+
+```markup
+<appender name="WARN_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${log.path}/log_warn.log</file>
+        <!--日志文件输出格式-->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [TraceId:%X{traceId}] [SpanId:%X{spanId}] [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <charset>UTF-8</charset> <!-- 此处设置字符集 -->
+        </encoder>
 ```
