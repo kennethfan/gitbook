@@ -167,17 +167,22 @@ public class TraceContext {
 public class GatewayTraceFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        // 网关作为流量入口，因此traceId需要重新生成，spanId使用根spanId即可
-        final String traceId = TraceContext.traceId();
-        exchange.getRequest().mutate().headers(httpHeaders -> {
-            httpHeaders.add(TraceStateEnum.TraceIdName.getValue(), traceId);
-            httpHeaders.add(TraceStateEnum.SpanIdName.getValue(), TraceContext.ROOT_SPAN_ID);
-        });
+        HttpHeaders requestHeaders = exchange.getRequest().getHeaders();
+        String traceId = requestHeaders.getFirst(TraceStateEnum.TraceIdName.getValue());
+
+        final String finalTraceId = StringUtils.isBlank(traceId) ? TraceContext.traceId() : traceId;
+        if (StringUtils.isBlank(traceId)) {
+            // 网关作为流量入口，因此traceId需要重新生成，spanId使用根spanId即可
+            exchange.getRequest().mutate().headers(httpHeaders -> {
+                httpHeaders.add(TraceStateEnum.TraceIdName.getValue(), finalTraceId);
+                httpHeaders.add(TraceStateEnum.SpenIdName.getValue(), TraceContext.ROOT_SPAN_ID);
+            });
+        }
 
         return chain.filter(exchange).then(Mono.fromRunnable(() -> {
             // 将traceId放入response header，方便定位问题
             HttpHeaders headers = exchange.getResponse().getHeaders();
-            headers.add("X-API-Trace", traceId);
+            headers.add("X-API-Trace", finalTraceId);
         }));
     }
 
