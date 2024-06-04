@@ -175,7 +175,7 @@ public class GatewayTraceFilter implements GlobalFilter, Ordered {
             // 网关作为流量入口，因此traceId需要重新生成，spanId使用根spanId即可
             exchange.getRequest().mutate().headers(httpHeaders -> {
                 httpHeaders.add(TraceStateEnum.TraceIdName.getValue(), finalTraceId);
-                httpHeaders.add(TraceStateEnum.SpenIdName.getValue(), TraceContext.ROOT_SPAN_ID);
+                httpHeaders.add(TraceStateEnum.SpanIdName.getValue(), TraceContext.ROOT_SPAN_ID);
             });
         }
 
