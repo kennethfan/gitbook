@@ -210,7 +210,7 @@ public class ScheduleAspect {
         try {
             MDC.put(TraceStateEnum.TraceIdName.getValue(), TraceContext.traceId());
             MDC.put(TraceStateEnum.SpanIdName.getValue(), TraceContext.ROOT_SPAN_ID);
-            TraceContext.setParentId(spanId);
+            TraceContext.setParentId(TraceContext.ROOT_SPAN_ID);
             return pjp.proceed();
         } finally {
             MDC.clear();
