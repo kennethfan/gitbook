@@ -2,6 +2,7 @@
 
 * [Introduction](README.md)
 * [Java学习](java-study/README.MD)
+  * [maven指定需要的模块打包](java-study/maven-zhi-ding-xu-yao-de-mo-kuai-da-bao.md)
   * [dynamic-datasource实现数据读写分离](java-study/dynamicdatasource-shi-xian-shu-ju-du-xie-fen-li.md)
   * [redis主从架构利用lettuce实现读写分离](java-study/redis-zhu-cong-jia-gou-li-yong-lettuce-shi-xian-du-xie-fen-li.md)
   * [java filter修改request内容和response内容](java-study/java-filter-xiu-gai-request-nei-rong-he-response-nei-rong.md)
