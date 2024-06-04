@@ -156,6 +156,10 @@ public class TraceContext {
 
         return spanGenerator.nextSpanId();
     }
+    
+    public static void clear() {
+        SPAN_GENERATOR.remove();
+    }
 }
 ```
 
@@ -218,6 +222,7 @@ public class ScheduleAspect {
             TraceContext.setParentId(TraceContext.ROOT_SPAN_ID);
             return pjp.proceed();
         } finally {
+            TraceContext.clear();
             MDC.clear();
         }
     }
@@ -283,6 +288,7 @@ public class TraceIdInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         // 在请求处理完成后，清理 MDC 值
         try {
+            TraceContext.clear();
             MDC.clear();
         } catch (IllegalArgumentException e) {
             log.error("MDC.remove error", e.getMessage());
@@ -316,8 +322,12 @@ public class TraceRunnable implements Runnable {
             if (contextMap != null) {
                 MDC.setContextMap(contextMap);
             }
+            if (StringUtils.isNotBlank(MDC.get(TraceStateEnum.TraceIdName.getValue()))) {
+                TraceContext.setParentId(MDC.get(TraceStateEnum.SpanIdName.getValue()));
+            }
             runnable.run();
         } finally {
+            TraceContext.clear();
             MDC.clear();
         }
     }
@@ -392,8 +402,12 @@ public class TraceTaskDecorate implements TaskDecorator, InitializingBean {
         return () -> {
             try {
                 MDC.setContextMap(contextMap);
+                if (StringUtils.isNotBlank(MDC.get(TraceStateEnum.TraceIdName.getValue()))) {
+                    TraceContext.setParentId(MDC.get(TraceStateEnum.SpenIdName.getValue()));
+                }
                 runnable.run();
             } finally {
+                TraceContext.clear();
                 MDC.clear();
             }
         };
