@@ -51,7 +51,7 @@ make && make install # 编译安装
 ```bash
 server {
      listen                         8765;                #对外服务端口
-     resolver                       114.114.114.114;     #域名解析服务器
+     resolver                       223.6.6.6 ipv6=off;     #域名解析服务器
      proxy_connect;
      proxy_connect_allow            all;
      proxy_connect_connect_timeout  10s;
@@ -63,6 +63,8 @@ server {
          proxy_pass http://$host;
 
          proxy_set_header Host $host;
+         
+         proxy_set_header X-Forwarded-Proto $scheme;
      }
 }
 ```
