@@ -299,6 +299,43 @@ public class TraceIdInterceptor implements HandlerInterceptor {
 
 消息队列同理，在Message扩展字段中去取即可
 
+发送（生产者）
+
+```java
+private void addTraceInfo(Message message) {
+    String traceId = MDC.get(TraceStateEnum.TraceIdName.getValue());
+    if (StringUtils.hasText(traceId)) {
+        message.putUserProperty(TraceStateEnum.TraceIdName.getValue(), traceId);
+        message.putUserProperty(TraceStateEnum.SpenIdName.getValue(), TraceContext.nextSpanId());
+    }
+}
+```
+
+消费（消费者）
+
+```java
+  @Override
+    public void onMessage(MessageExt message) {
+        String traceId = message.getUserProperty(TraceStateEnum.TraceIdName.getValue());
+        String spenId = message.getUserProperty(TraceStateEnum.SpenIdName.getValue());
+        if (StringUtils.isBlank(traceId)) {
+            traceId = TraceContext.traceId();
+            spenId = TraceContext.ROOT_SPAN_ID;
+        }
+        MDC.put(TraceStateEnum.TraceIdName.getValue(), traceId);
+        MDC.put(TraceStateEnum.SpenIdName.getValue(), spenId);
+        TraceContext.setParentId(spenId);
+
+        try {
+            // 这里需要抽象，rocketmq原生实现没有提供扩展，OnMessage参数类型只能是MessageExt
+            doOnMessage(convert(message.getBody()));
+        } finally {
+            MDC.clear();
+            TraceContext.clear();
+        }
+    }
+```
+
 #### 异步执行处理
 
 **使用自定义线程池**
