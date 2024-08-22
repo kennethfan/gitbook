@@ -10,12 +10,12 @@ description: 爬虫相关
 
 ## 框架
 
-scrapy、scrapy\_redis
+scrapy、scrapyr-edis
 
 ```bash
 pip install scrapy
 
-pip install scrapy_redis
+pip install scrapy-redis
 
 pip install selenium
 ```
@@ -33,6 +33,15 @@ splash
 ```
 docker pull splash
 pip install scrapy-splash
+```
+
+## 手机操作
+
+appnium
+
+```bash
+npm i -g appium
+pip install Appium-Python-Client
 ```
 
 ## 部署
