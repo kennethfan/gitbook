@@ -2,7 +2,7 @@
 description: 爬虫相关
 ---
 
-# Page 1
+# 爬虫相关
 
 爬虫常用框架和工具总结
 
@@ -28,10 +28,11 @@ pip install selenium
 pip install selenium
 ```
 
-polash
+splash
 
 ```
 docker pull splash
+pip install scrapy-splash
 ```
 
 ## 部署
