@@ -60,6 +60,7 @@
 * [shell](shell/README.md)
   * [shell根据环境变量替换文本](shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.md)
   * [shell命令自动补全](shell/shell-ming-ling-zi-dong-bu-quan.md)
+  * [ssh自动输入密码登录](shell/ssh-zi-dong-shu-ru-mi-ma-deng-lu.md)
 * [redis](redis/README.md)
   * [redis动态添加从库](redis/redis-dong-tai-tian-jia-cong-ku.md)
   * [lua脚本批量添加redis key前缀](redis/lua-jiao-ben-pi-liang-tian-jia-redis-key-qian-zhui.md)
