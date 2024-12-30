@@ -34,7 +34,7 @@ jobs:
         TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         REF: github.com/${{ github.repository }}.git
         MYEMAIL: kennethfan137@gmail.com                  # ！！记得修改为自己github设置的邮箱
-        MYNAME: ${{ kennethfan }}          
+        MYNAME: ${{ github.repository_owner }}          
       run: |
         cd _book
         git config --global user.email "${MYEMAIL}"
