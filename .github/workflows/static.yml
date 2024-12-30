@@ -1,43 +1,47 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
-
-on:
-  # Runs on pushes targeting the default branch
+name: auto-generate-gitbook
+on:                                 #在master分支上进行push时触发  
   push:
-    branches: ["master"]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    branches:
+    - master
 
 jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  main-to-gh-pages:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: '.'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        
+    steps:                          
+    - name: checkout master
+      uses: actions/checkout@v2
+      with:
+        ref: master
+            
+    - name: install nodejs
+      uses: actions/setup-node@v1
+      
+    - name: configue gitbook
+      run: |
+        npm install -g gitbook-cli          
+        gitbook install
+        npm install -g gitbook-summary
+                
+    - name: generate _book folder
+      run: |
+        book sm
+        gitbook build
+        cp SUMMARY.md _book
+                
+    - name: push _book to branch gh-pages 
+      env:
+        TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        REF: github.com/${{ github.repository }}.git
+        MYEMAIL: kennethfan137@gmail.com                  # ！！记得修改为自己github设置的邮箱
+        MYNAME: ${{ kennethfan }}          
+      run: |
+        cd _book
+        git config --global user.email "${MYEMAIL}"
+        git config --global user.name "${MYNAME}"
+        git init
+        git remote add origin https://${REF}
+        git add . 
+        git commit -m "Updated By Github Actions With Build ${{github.run_number}} of ${{github.workflow}} For Github Pages"
+        git branch -M master
+        git push --force --quiet "https://${TOKEN}@${REF}" master:gh-pages
