@@ -32,16 +32,16 @@ jobs:
     - name: push _book to branch gh-pages 
       env:
         TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        REF: ${{ github.repository }}.git
+        REF: github.com/${{ github.repository }}.git
         MYEMAIL: kennethfan137@gmail.com                  # ！！记得修改为自己github设置的邮箱
         MYNAME: ${{ github.repository_owner }}          
       run: |
         cd _book
-        git config --global user.email "${MYEMAIL}"
-        git config --global user.name "${MYNAME}"
+        git config --global user.email "${{ env.MYEMAIL }}"
+        git config --global user.name "${{ env.MYNAME }}"
         git init
-        git remote add origin https://github.com/${REF}
+        git remote add origin https://github.com/${{ env.REF }}
         git add . 
         git commit -m "Updated By Github Actions With Build ${{github.run_number}} of ${{github.workflow}} For Github Pages"
         git branch -M master
-        git push --force --quiet "https://${TOKEN}@github.com/${REF}" master:gh-pages
+        git push --force --quiet "https://${{ env.TOKEN }}@github.com/${{ env.REF }}" master:gh-pages
