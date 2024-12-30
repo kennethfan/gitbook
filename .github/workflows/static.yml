@@ -44,4 +44,4 @@ jobs:
         git add . 
         git commit -m "Updated By Github Actions With Build ${{github.run_number}} of ${{github.workflow}} For Github Pages"
         git branch -M master
-        git push --force --quiet "https://${{ env.TOKEN }}@github.com/${{ env.REF }}" master:gh-pages
+        git push --force --quiet "https://${{ env.TOKEN }}@${{ env.REF }}" master:gh-pages
