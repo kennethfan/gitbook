@@ -32,7 +32,11 @@ jobs:
     - name: push _book to branch gh-pages 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        MYEMAIL: kennethfan137@gmail.com                  
+        MYNAME: ${{ github.repository_owner }}          
       run: |
+        git config --global user.email "${{ env.MYEMAIL }}"
+        git config --global user.name "${{ env.MYNAME }}"
         git checkout -b gh-pages 
         git add docs
         git commit -m "Updated By Github Actions With Build ${{github.run_number}} of ${{github.workflow}} For Github Pages"
