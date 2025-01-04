@@ -42,7 +42,7 @@ envsubst < a.tmpl
 
 效果如下
 
-![](<../.gitbook/assets/image (2).png>)
+![](<../.gitbook/assets/image (2) (1).png>)
 
 ### 进阶
 
