@@ -28,7 +28,7 @@ jobs:
         # book sm
         gitbook build . docs
         # cp SUMMARY.md docs
-        mkdir -p docs/.nojekyll
+        touch docs/.nojekyll
                 
     - name: push _book to branch gh-pages 
       env:
