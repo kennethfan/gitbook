@@ -40,5 +40,5 @@ jobs:
         git checkout -b gh-pages 
         git add docs
         git commit -m "Updated By Github Actions With Build ${{github.run_number}} of ${{github.workflow}} For Github Pages"
-        git push --set-upstream origin gh-pages 
+        git push -f --set-upstream origin gh-pages 
  
