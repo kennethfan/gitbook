@@ -94,6 +94,5 @@
   * [zsh-字符串常用操作](zsh/zsh-zi-fu-chuan-chang-yong-cao-zuo.md)
   * [zsh-字符串转义和格式化](zsh/zsh-zi-fu-chuan-zhuan-yi-he-ge-shi-hua.md)
   * [zsh-字符串通配符](zsh/zsh-zi-fu-chuan-tong-pei-fu.md)
-* [Page](page/README.md)
-  * [架构师图谱](page/jia-gou-shi-tu-pu.md)
+* [架构师图谱](jia-gou-shi-tu-pu.md)
 * [溯源系统](su-yuan-xi-tong.md)
