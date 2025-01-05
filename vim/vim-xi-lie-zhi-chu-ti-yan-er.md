@@ -43,9 +43,13 @@ _**此时，vim处于普通模式。**_
 3. 向上移动：字母k
 4. 向右移动：字母l
 
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
 插入文本
 
 插入文本需要切换到**插入模式**，按hjkl将光标移动到需要插入文本处按字母i即可切换到插入模式，此时我们就可以输入我们需要插入的文本了。
+
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
 输入完毕，按Esc键可以重新切换回到普通模式。
 
