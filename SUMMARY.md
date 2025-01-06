@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Introduction](README.md)
+* [个人简介](README.md)
 * [Java学习](java-study/README.MD)
   * [maven指定需要的模块打包](java-study/maven-zhi-ding-xu-yao-de-mo-kuai-da-bao.md)
   * [dynamic-datasource实现数据读写分离](java-study/dynamicdatasource-shi-xian-shu-ju-du-xie-fen-li.md)
