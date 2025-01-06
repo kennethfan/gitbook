@@ -28,8 +28,7 @@
 ## 博客
 
 1. [blog](https://kennethfan.github.io/)
-2. [gitbook](https://kennethfan.github.io/gitbook/)
-3. 微信公众号
+2. 微信公众号
 
 
 
