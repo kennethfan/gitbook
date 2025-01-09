@@ -23,7 +23,6 @@
 		"favicon",
 		"expandable-chapters-small",
 		"copy-code-button",
-		"mathjax",
 		"anchor-navigation-ex-toc"
 	],
 	"pluginsConfig": {
