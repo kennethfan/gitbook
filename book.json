@@ -20,7 +20,8 @@
 		"expandable-chapters-small",
 		"github",
 		"github-buttons",
-		"favicon"
+		"favicon",
+		"expandable-chapters-small"
 	],
 	"pluginsConfig": {
 		"github": {
