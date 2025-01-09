@@ -21,7 +21,8 @@
 		"github",
 		"github-buttons",
 		"favicon",
-		"expandable-chapters-small"
+		"expandable-chapters-small",
+		"copy-code-button"
 	],
 	"pluginsConfig": {
 		"github": {
