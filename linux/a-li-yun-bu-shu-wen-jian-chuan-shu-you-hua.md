@@ -18,7 +18,7 @@ description: 阿里云部署-文件传输优化
 
 当前发布系统部署在公司专有网络，发布系统传输文件到目标机器（阿里云）需要走公网传输，大致效果如下
 
-<figure><img src="../.gitbook/assets/deploy1.drawio (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/deploy1.drawio_1.png" alt=""><figcaption></figcaption></figure>
 
 所有机器都需要发布系统走公网传输文件，这里是非常浪费的，因此很容易想到的方案是
 
