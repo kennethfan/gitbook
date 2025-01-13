@@ -239,4 +239,4 @@ public class RuntimeCompilerTest {
 
 ```
 
-![](<../.gitbook/assets/image (1) (1) (1) (1) (1).png>)
+![](<../.gitbook/assets/java_compile.png>)

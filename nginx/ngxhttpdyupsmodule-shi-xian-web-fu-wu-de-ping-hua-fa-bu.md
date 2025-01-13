@@ -22,7 +22,7 @@
 
 2类服务其部署架构如下
 
-<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/nginx_deploy_arch.png" alt=""><figcaption></figcaption></figure>
 
 为了高可用，通常有多个节点，每个节点的功能相同，在发布过程中，其中某个节点会不可用。
 
@@ -57,7 +57,7 @@ cd nginx-1.21.4 vim src/http/ngx_http_upstream.h
 
 增加内容见下图
 
-<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/nginx_3.png" alt=""><figcaption></figcaption></figure>
 
 重新编译nginx
 

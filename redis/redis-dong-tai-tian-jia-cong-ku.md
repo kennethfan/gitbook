@@ -20,7 +20,7 @@ info replication
 
 结果如下
 
-![](<../.gitbook/assets/image (1) (1) (1).png>)
+![](<../.gitbook/assets/redis_slave.png>)
 
 此时发现，数据并没有同步到从库；master\_link\_status:down
 

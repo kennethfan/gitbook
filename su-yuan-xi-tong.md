@@ -98,7 +98,7 @@ PREV：记录的是上一个节点的信息
 
 ### 图数据库
 
-<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/graph.png" alt=""><figcaption></figcaption></figure>
 
 图数据库是实现高效查询实体关系的基础
 
@@ -108,7 +108,7 @@ PREV：记录的是上一个节点的信息
 
 #### 全文检索
 
-<figure><img src=".gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/fulltext.png" alt=""><figcaption></figcaption></figure>
 
 全文检索是实现高效搜索和模糊搜索的关键技术
 
