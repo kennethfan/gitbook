@@ -63,6 +63,7 @@
   * [shell根据环境变量替换文本](shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.md)
   * [shell命令自动补全](shell/shell-ming-ling-zi-dong-bu-quan.md)
   * [ssh自动输入密码登录](shell/ssh-zi-dong-shu-ru-mi-ma-deng-lu.md)
+  * [mac显示隐藏文件夹](shell/mac-xian-shi-yin-cang-wen-jian-jia.md)
 * [vim](vim/README.md)
   * [Vim简介](vim/vim-jian-jie.md)
   * [Vim系列之初体验(二)](vim/vim-xi-lie-zhi-chu-ti-yan-er.md)
