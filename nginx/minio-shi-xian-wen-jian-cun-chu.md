@@ -71,7 +71,7 @@ firewall-cmd --list-all
 
 <figure><img src="../.gitbook/assets/create-bucket-1.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/create-bucket-2.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/create-bucket-2 (1).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../.gitbook/assets/create-bucket-3.png" alt=""><figcaption></figcaption></figure>
 

@@ -29,6 +29,7 @@
   * [spring cloud应用分布式链路跟踪简易实现](java-study/spring-cloud-ying-yong-fen-bu-shi-lian-lu-gen-zong-jian-yi-shi-xian.md)
   * [对于所有对象都通用的方法](java-study/dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.md)
   * [创建和销毁对象](java-study/chuang-jian-he-xiao-hui-dui-xiang.md)
+  * [Jackson反序列化多态类型绑定](java-study/jackson-fan-xu-lie-hua-duo-tai-lei-xing-bang-ding.md)
 * [python](python/README.md)
   * [centos 安装miniconda](python/centos-an-zhuang-miniconda.md)
   * [pip安装走socks代理](python/pip-an-zhuang-zou-socks-dai-li.md)
