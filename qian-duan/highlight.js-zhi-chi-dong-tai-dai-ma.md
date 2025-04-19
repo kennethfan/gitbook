@@ -115,7 +115,7 @@ const convertJson = () => {
 
 ### 工具地址
 
-{% embed url="https://kennethfan.github.io/web-tools/json-to-class" %}
+[https://kennethfan.github.io/web-tools/json-to-class](https://kennethfan.github.io/web-tools/json-to-class)
 
 这是一个个人开发的工具集，代码已经分享到github，欢迎各位共建
 
@@ -123,6 +123,5 @@ const convertJson = () => {
 
 ## 参考
 
-{% embed url="https://highlightjs.org/" %}
-
-{% embed url="https://github.com/highlightjs/highlight.js" %}
+[https://highlightjs.org/](https://highlightjs.org/) \
+[https://github.com/highlightjs/highlight.js](https://github.com/highlightjs/highlight.js)
