@@ -97,5 +97,7 @@
   * [zsh-字符串常用操作](zsh/zsh-zi-fu-chuan-chang-yong-cao-zuo.md)
   * [zsh-字符串转义和格式化](zsh/zsh-zi-fu-chuan-zhuan-yi-he-ge-shi-hua.md)
   * [zsh-字符串通配符](zsh/zsh-zi-fu-chuan-tong-pei-fu.md)
+* [前端](qian-duan/README.md)
+  * [highlight.js支持动态代码](qian-duan/highlight.js-zhi-chi-dong-tai-dai-ma.md)
 * [架构师图谱](jia-gou-shi-tu-pu.md)
 * [溯源系统](su-yuan-xi-tong.md)
