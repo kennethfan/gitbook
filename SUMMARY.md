@@ -32,6 +32,7 @@
   * [Jackson反序列化多态类型绑定](java-study/jackson-fan-xu-lie-hua-duo-tai-lei-xing-bang-ding.md)
   * [spring cloud手动创建feign client](java-study/spring-cloud-shou-dong-chuang-jian-feign-client.md)
   * [springmvc 动态注册路由](java-study/springmvc-dong-tai-zhu-ce-lu-you.md)
+  * [Open feign源码分析](java-study/open-feign-yuan-ma-fen-xi.md)
 * [python](python/README.md)
   * [centos 安装miniconda](python/centos-an-zhuang-miniconda.md)
   * [pip安装走socks代理](python/pip-an-zhuang-zou-socks-dai-li.md)
