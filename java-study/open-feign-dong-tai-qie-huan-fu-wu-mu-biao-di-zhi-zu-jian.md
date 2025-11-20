@@ -8,7 +8,7 @@
 
 ## 核心设计思路（步骤化概览）
 
-### 路由键注解 - @RoutingKey
+#### 路由键注解 - @RoutingKey
 
 用于标记需要动态路由的方法或类。
 
@@ -219,9 +219,7 @@ public class DynamicClusterConfiguration {
 
 DynamicClusterConfiguration 创建了一个 AOP 顾问，用于拦截被 @RoutingKey 注解标记的方法。
 
-
 ## 核心代码解析（按模块复列）
-
 
 * @RoutingKey 注解：标记方法或类，支持 SpEL 表达式。
 * RoutingKeyInterceptor：解析注解表达式，计算路由键，从 Environment 获取 URL，放入 RequestUrlContext。
@@ -230,7 +228,6 @@ DynamicClusterConfiguration 创建了一个 AOP 顾问，用于拦截被 @Routin
 * ContextRequestRouter：从 RequestUrlContext 获取 URL。
 
 ## 使用示例（步骤化）
-
 
 ### 启用功能（在 Spring Boot 主类上添加注解）
 
@@ -279,7 +276,6 @@ vip:
 ```
 
 通过修改这些配置（例如由灰度服务的 URL 切换到生产服务的 URL），配合运行时更改 Environment 或其它配置源的话，可以在不重启的情况下改变路由目标。
-
 
 ## 总结
 

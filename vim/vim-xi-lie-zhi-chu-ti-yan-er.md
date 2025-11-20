@@ -43,7 +43,7 @@ _**此时，vim处于普通模式。**_
 3. 向上移动：字母k
 4. 向右移动：字母l
 
-<figure><img src="../.gitbook/assets/vim (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/vim (1).png" alt=""><figcaption></figcaption></figure>
 
 插入文本
 
