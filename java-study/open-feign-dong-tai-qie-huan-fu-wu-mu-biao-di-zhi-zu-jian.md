@@ -8,8 +8,6 @@
 
 ## 核心设计思路（步骤化概览）
 
-{% stepper %}
-{% step %}
 ### 路由键注解 - @RoutingKey
 
 用于标记需要动态路由的方法或类。
@@ -23,9 +21,7 @@ public @interface RoutingKey {
 ```
 
 @RoutingKey 注解可以标记在方法或类上，用于指定路由规则。支持 SpEL 表达式，可以根据方法参数动态确定路由键。
-{% endstep %}
 
-{% step %}
 ### RoutingKeyInterceptor
 
 拦截被 @RoutingKey 注解标记的方法，根据注解值和配置确定目标 URL 并放入上下文。
@@ -103,9 +99,7 @@ public class RoutingKeyInterceptor implements MethodInterceptor {
 ```
 
 RoutingKeyInterceptor 负责解析 @RoutingKey 注解中的表达式，根据方法参数计算出路由键，从环境中取出对应的 URL，并将其存入 RequestUrlContext。
-{% endstep %}
 
-{% step %}
 ### DynamicClusterRequestInterceptor（Feign 请求拦截器）
 
 在 Feign 请求发送前修改目标 URL。
@@ -156,9 +150,7 @@ public class DynamicClusterRequestInterceptor implements RequestInterceptor {
 ```
 
 该拦截器通过 RequestRouter 获取目标 URL，并调用 template.target(url) 修改请求目标。
-{% endstep %}
 
-{% step %}
 ### RequestUrlContext（请求上下文）
 
 用于在线程/调用链间传递目标 URL（示例中使用 SkyWalking 的 TraceContext）。
@@ -181,9 +173,7 @@ public class RequestUrlContext {
   }
 }
 ```
-{% endstep %}
 
-{% step %}
 ### ContextRequestRouter（上下文路由器）
 
 从 RequestUrlContext 中获取目标 URL，作为 RequestRouter 的实现之一。
@@ -197,9 +187,7 @@ public class ContextRequestRouter implements RequestRouter {
   }
 }
 ```
-{% endstep %}
 
-{% step %}
 ### 启用配置 - @EnabledRoutingKeyAdvisor / DynamicClusterConfiguration
 
 启用路由键顾问功能并注册 AOP advisor：
@@ -230,12 +218,10 @@ public class DynamicClusterConfiguration {
 ```
 
 DynamicClusterConfiguration 创建了一个 AOP 顾问，用于拦截被 @RoutingKey 注解标记的方法。
-{% endstep %}
-{% endstepper %}
+
 
 ## 核心代码解析（按模块复列）
 
-（上方 stepper 中已包含主要模块代码与说明。以下保留作为参考/复述。）
 
 * @RoutingKey 注解：标记方法或类，支持 SpEL 表达式。
 * RoutingKeyInterceptor：解析注解表达式，计算路由键，从 Environment 获取 URL，放入 RequestUrlContext。
@@ -245,8 +231,7 @@ DynamicClusterConfiguration 创建了一个 AOP 顾问，用于拦截被 @Routin
 
 ## 使用示例（步骤化）
 
-{% stepper %}
-{% step %}
+
 ### 启用功能（在 Spring Boot 主类上添加注解）
 
 ```java
@@ -260,9 +245,7 @@ public class Application {
 ```
 
 （注：本文前面定义的注解为 @EnabledRoutingKeyAdvisor，示例中使用了 @EnableRoutingKeyAdvisor，请根据实际使用的注解名保持一致。）
-{% endstep %}
 
-{% step %}
 ### 在 Feign 客户端方法上使用 @RoutingKey
 
 ```java
@@ -280,9 +263,7 @@ public interface UserServiceClient {
 ```
 
 示例展示了静态路由键（"user.service.url"）和基于方法参数的 SpEL 表达式路由键（"#user.type + '.user.service.url'"）。
-{% endstep %}
 
-{% step %}
 ### 在配置文件中定义路由键对应的 URL
 
 示例（application.yml）：
@@ -298,8 +279,7 @@ vip:
 ```
 
 通过修改这些配置（例如由灰度服务的 URL 切换到生产服务的 URL），配合运行时更改 Environment 或其它配置源的话，可以在不重启的情况下改变路由目标。
-{% endstep %}
-{% endstepper %}
+
 
 ## 总结
 
