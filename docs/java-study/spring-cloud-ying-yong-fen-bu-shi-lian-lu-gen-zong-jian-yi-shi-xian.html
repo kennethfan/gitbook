@@ -1,0 +1,2121 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>spring cloud应用分布式链路跟踪简易实现 · 椒哥碎碎念</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="spring cloud应用分布式链路跟踪简易实现">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="椒哥">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+
+        
+    
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.html" />
+    
+    
+    <link rel="prev" href="feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.html" />
+    
+
+    
+        <link rel="shortcut icon" href='../source/images/favicon.jpg' type="image/x-icon">
+    
+    
+        <link rel="bookmark" href='../source/images/favicon.jpg' type="image/x-icon">
+    
+    
+        <link rel="apple-touch-icon" href='../source/images/apple-touch-icon.jpg'>
+    
+    
+        
+        <link rel="apple-touch-icon" sizes="120x120" href="../source/images/apple-touch-icon.jpg">
+        
+        <link rel="apple-touch-icon" sizes="180x180" href="../source/images/apple-touch-icon.jpg">
+        
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"buttons":[{"user":"kennethfan","repo":"gitbook","type":"star","size":"small","count":true}]};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    个人简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Java学习
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="maven-zhi-ding-xu-yao-de-mo-kuai-da-bao.html">
+            
+                <a href="maven-zhi-ding-xu-yao-de-mo-kuai-da-bao.html">
+            
+                    
+                    maven指定需要的模块打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="dynamicdatasource-shi-xian-shu-ju-du-xie-fen-li.html">
+            
+                <a href="dynamicdatasource-shi-xian-shu-ju-du-xie-fen-li.html">
+            
+                    
+                    dynamic-datasource实现数据读写分离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="redis-zhu-cong-jia-gou-li-yong-lettuce-shi-xian-du-xie-fen-li.html">
+            
+                <a href="redis-zhu-cong-jia-gou-li-yong-lettuce-shi-xian-du-xie-fen-li.html">
+            
+                    
+                    redis主从架构利用lettuce实现读写分离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="java-filter-xiu-gai-request-nei-rong-he-response-nei-rong.html">
+            
+                <a href="java-filter-xiu-gai-request-nei-rong-he-response-nei-rong.html">
+            
+                    
+                    java filter修改request内容和response内容
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="javacompiler-dong-tai-bian-yi-java-dai-ma.html">
+            
+                <a href="javacompiler-dong-tai-bian-yi-java-dai-ma.html">
+            
+                    
+                    JavaCompiler动态编译java代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="jdk-dong-tai-dai-li.html">
+            
+                <a href="jdk-dong-tai-dai-li.html">
+            
+                    
+                    JDK动态代理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="lei-ge-li.html">
+            
+                <a href="lei-ge-li.html">
+            
+                    
+                    类隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="jnr-tiao-yong-ben-di-dong-tai-lian-jie-ku.html">
+            
+                <a href="jnr-tiao-yong-ben-di-dong-tai-lian-jie-ku.html">
+            
+                    
+                    JNR调用本地动态链接库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="javac-ming-ling-bian-yi-java-ming-ling-yun-hang-dai-ma.html">
+            
+                <a href="javac-ming-ling-bian-yi-java-ming-ling-yun-hang-dai-ma.html">
+            
+                    
+                    javac命令编译\&java命令运行代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="java-huo-qu-ying-jian-xin-xi.html">
+            
+                <a href="java-huo-qu-ying-jian-xin-xi.html">
+            
+                    
+                    java获取硬件信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="conditional-shi-xian-bean-an-xu-jia-zai.html">
+            
+                <a href="conditional-shi-xian-bean-an-xu-jia-zai.html">
+            
+                    
+                    Conditional实现bean按需加载
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="spring-boot-actuator-da-pei-jenkins-shi-xian-fa-bu-jian-kang-jian-cha-he-bao-jing.html">
+            
+                <a href="spring-boot-actuator-da-pei-jenkins-shi-xian-fa-bu-jian-kang-jian-cha-he-bao-jing.html">
+            
+                    
+                    spring boot actuator搭配jenkins实现发布健康检查和报警
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.13" data-path="nacos-pei-zhi-wen-jian-yu-fa-jian-ce-bao-jing.html">
+            
+                <a href="nacos-pei-zhi-wen-jian-yu-fa-jian-ce-bao-jing.html">
+            
+                    
+                    nacos配置文件语法检测&报警
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14" data-path="java-shi-yong-mmap.html">
+            
+                <a href="java-shi-yong-mmap.html">
+            
+                    
+                    java使用mmap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.15" data-path="java-shi-yong-page-cache.html">
+            
+                <a href="java-shi-yong-page-cache.html">
+            
+                    
+                    java使用page cache
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.16" data-path="spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.html">
+            
+                <a href="spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.html">
+            
+                    
+                    spring cloud gateway + nacos + sentinel实现网关限流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.17" data-path="spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.html">
+            
+                <a href="spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.html">
+            
+                    
+                    spring cloud自定义loaderbalancer实现流量就近访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.18" data-path="spring-cloud-shou-dong-xia-diao-jie-dian.html">
+            
+                <a href="spring-cloud-shou-dong-xia-diao-jie-dian.html">
+            
+                    
+                    spring cloud手动下掉节点
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.19" data-path="jar-bao-jie-ya-he-da-bao.html">
+            
+                <a href="jar-bao-jie-ya-he-da-bao.html">
+            
+                    
+                    jar包解压和打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.20" data-path="java-ji-cheng-prometheus-shang-bao-shu-ju.html">
+            
+                <a href="java-ji-cheng-prometheus-shang-bao-shu-ju.html">
+            
+                    
+                    java集成prometheus上报数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.21" data-path="spring-actuator-shang-bao-zhi-biao-uriknown-xiu-fu.html">
+            
+                <a href="spring-actuator-shang-bao-zhi-biao-uriknown-xiu-fu.html">
+            
+                    
+                    spring actuator上报指标uri=known修复
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.22" data-path="maven-shou-dong-shang-chuan-san-fang-jar-dao-cang-ku.html">
+            
+                <a href="maven-shou-dong-shang-chuan-san-fang-jar-dao-cang-ku.html">
+            
+                    
+                    maven手动上传三方jar到仓库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.23" data-path="ji-yu-spring-cloud-gateway-springmvc-fu-wu-he-bing.html">
+            
+                <a href="ji-yu-spring-cloud-gateway-springmvc-fu-wu-he-bing.html">
+            
+                    
+                    基于Spring Cloud gateway & Springmvc服务合并
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.24" data-path="feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.html">
+            
+                <a href="feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.html">
+            
+                    
+                    Feign调用转成本地方法调用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.25" data-path="spring-cloud-ying-yong-fen-bu-shi-lian-lu-gen-zong-jian-yi-shi-xian.html">
+            
+                <a href="spring-cloud-ying-yong-fen-bu-shi-lian-lu-gen-zong-jian-yi-shi-xian.html">
+            
+                    
+                    spring cloud应用分布式链路跟踪简易实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.26" data-path="dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.html">
+            
+                <a href="dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.html">
+            
+                    
+                    对于所有对象都通用的方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.27" data-path="chuang-jian-he-xiao-hui-dui-xiang.html">
+            
+                <a href="chuang-jian-he-xiao-hui-dui-xiang.html">
+            
+                    
+                    创建和销毁对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.28" data-path="jackson-fan-xu-lie-hua-duo-tai-lei-xing-bang-ding.html">
+            
+                <a href="jackson-fan-xu-lie-hua-duo-tai-lei-xing-bang-ding.html">
+            
+                    
+                    Jackson反序列化多态类型绑定
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.29" data-path="spring-cloud-shou-dong-chuang-jian-feign-client.html">
+            
+                <a href="spring-cloud-shou-dong-chuang-jian-feign-client.html">
+            
+                    
+                    spring cloud手动创建feign client
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.30" data-path="springmvc-dong-tai-zhu-ce-lu-you.html">
+            
+                <a href="springmvc-dong-tai-zhu-ce-lu-you.html">
+            
+                    
+                    springmvc 动态注册路由
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.31" data-path="open-feign-yuan-ma-fen-xi.html">
+            
+                <a href="open-feign-yuan-ma-fen-xi.html">
+            
+                    
+                    Open feign源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.32" data-path="open-feign-dong-tai-qie-liu-shi-xian.html">
+            
+                <a href="open-feign-dong-tai-qie-liu-shi-xian.html">
+            
+                    
+                    Open feign动态切流实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.33" data-path="open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html">
+            
+                <a href="open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html">
+            
+                    
+                    Open feign动态切换服务目标地址组件
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../python/">
+            
+                <a href="../python/">
+            
+                    
+                    python
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../python/centos-an-zhuang-miniconda.html">
+            
+                <a href="../python/centos-an-zhuang-miniconda.html">
+            
+                    
+                    centos 安装miniconda
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../python/pip-an-zhuang-zou-socks-dai-li.html">
+            
+                <a href="../python/pip-an-zhuang-zou-socks-dai-li.html">
+            
+                    
+                    pip安装走socks代理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../python/pa-chong-xiang-guan.html">
+            
+                <a href="../python/pa-chong-xiang-guan.html">
+            
+                    
+                    爬虫相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../python/playwright-shi-yong-xiao-ji-qiao.html">
+            
+                <a href="../python/playwright-shi-yong-xiao-ji-qiao.html">
+            
+                    
+                    playwright使用小技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../linux/">
+            
+                <a href="../linux/">
+            
+                    
+                    Linux
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../linux/guo-qi-jar-shan-chu.html">
+            
+                <a href="../linux/guo-qi-jar-shan-chu.html">
+            
+                    
+                    过期jar删除
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../linux/centos-tian-jia-fang-huo-qiang.html">
+            
+                <a href="../linux/centos-tian-jia-fang-huo-qiang.html">
+            
+                    
+                    centos添加防火墙
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../linux/centos-xiu-gai-hostname.html">
+            
+                <a href="../linux/centos-xiu-gai-hostname.html">
+            
+                    
+                    centos修改hostname
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../linux/rsync-wen-jian-zeng-liang-tong-bu.html">
+            
+                <a href="../linux/rsync-wen-jian-zeng-liang-tong-bu.html">
+            
+                    
+                    rsync文件增量同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../linux/a-li-yun-bu-shu-wen-jian-chuan-shu-you-hua.html">
+            
+                <a href="../linux/a-li-yun-bu-shu-wen-jian-chuan-shu-you-hua.html">
+            
+                    
+                    阿里云部署-文件传输优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../linux/prometheus-qing-li-shu-ju.html">
+            
+                <a href="../linux/prometheus-qing-li-shu-ju.html">
+            
+                    
+                    prometheus清理数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../linux/prometheus-zhua-qu-shu-ju-pei-zhi.html">
+            
+                <a href="../linux/prometheus-zhua-qu-shu-ju-pei-zhi.html">
+            
+                    
+                    prometheus抓取数据配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../linux/centos-an-zhuang-chrome-he-chromedriver.html">
+            
+                <a href="../linux/centos-an-zhuang-chrome-he-chromedriver.html">
+            
+                    
+                    centos安装chrome和chromedriver
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../nexus/">
+            
+                <a href="../nexus/">
+            
+                    
+                    nexus
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../nexus/nexus-shou-dong-shang-chuan-wen-jian.html">
+            
+                <a href="../nexus/nexus-shou-dong-shang-chuan-wen-jian.html">
+            
+                    
+                    nexus手动上传文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../docker/">
+            
+                <a href="../docker/">
+            
+                    
+                    docker & k8s
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../docker/cha-kan-image-dui-ying-de-dockerfile.html">
+            
+                <a href="../docker/cha-kan-image-dui-ying-de-dockerfile.html">
+            
+                    
+                    查看image对应的dockerfile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../docker/k8s-ji-qun-da-jian.html">
+            
+                <a href="../docker/k8s-ji-qun-da-jian.html">
+            
+                    
+                    k8s集群搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../docker/docker-jing-xiang-dao-ru-dao-chu.html">
+            
+                <a href="../docker/docker-jing-xiang-dao-ru-dao-chu.html">
+            
+                    
+                    docker镜像导入导出
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../docker/kubectl-chang-yong-ming-ling.html">
+            
+                <a href="../docker/kubectl-chang-yong-ming-ling.html">
+            
+                    
+                    kubectl 常用命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../nginx/">
+            
+                <a href="../nginx/">
+            
+                    
+                    nginx
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../nginx/ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.html">
+            
+                <a href="../nginx/ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.html">
+            
+                    
+                    ngx_http_dyups_module实现web服务的平滑发布
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../nginx/nginx-dai-li-mysql.html">
+            
+                <a href="../nginx/nginx-dai-li-mysql.html">
+            
+                    
+                    nginx代理mysql
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.html">
+            
+                <a href="../nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.html">
+            
+                    
+                    nginx+imgproxy实现图片自动缩放裁剪
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../nginx/minio-shi-xian-wen-jian-cun-chu.html">
+            
+                <a href="../nginx/minio-shi-xian-wen-jian-cun-chu.html">
+            
+                    
+                    minio实现文件存储
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="../nginx/nginx-zheng-xiang-dai-li-https.html">
+            
+                <a href="../nginx/nginx-zheng-xiang-dai-li-https.html">
+            
+                    
+                    nginx正向代理https
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.6" data-path="../nginx/nginx-dong-tai-zhuan-fa-dao-upstream.html">
+            
+                <a href="../nginx/nginx-dong-tai-zhuan-fa-dao-upstream.html">
+            
+                    
+                    nginx动态转发到upstream
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../git/">
+            
+                <a href="../git/">
+            
+                    
+                    git
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.html">
+            
+                <a href="../git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.html">
+            
+                    
+                    git拉取指定tag/分支的代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../git/git-she-zhi-yong-hu-xin-xi-huan-cun.html">
+            
+                <a href="../git/git-she-zhi-yong-hu-xin-xi-huan-cun.html">
+            
+                    
+                    git设置用户信息缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../git/git-xiu-gai-yi-ti-jiao-ji-lu-ti-jiao-zhe-xin-xi.html">
+            
+                <a href="../git/git-xiu-gai-yi-ti-jiao-ji-lu-ti-jiao-zhe-xin-xi.html">
+            
+                    
+                    git修改已提交记录提交者信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../shell/">
+            
+                <a href="../shell/">
+            
+                    
+                    shell
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.html">
+            
+                <a href="../shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.html">
+            
+                    
+                    shell根据环境变量替换文本
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../shell/shell-ming-ling-zi-dong-bu-quan.html">
+            
+                <a href="../shell/shell-ming-ling-zi-dong-bu-quan.html">
+            
+                    
+                    shell命令自动补全
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../shell/ssh-zi-dong-shu-ru-mi-ma-deng-lu.html">
+            
+                <a href="../shell/ssh-zi-dong-shu-ru-mi-ma-deng-lu.html">
+            
+                    
+                    ssh自动输入密码登录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../shell/mac-xian-shi-yin-cang-wen-jian-jia.html">
+            
+                <a href="../shell/mac-xian-shi-yin-cang-wen-jian-jia.html">
+            
+                    
+                    mac显示隐藏文件夹
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../vim/">
+            
+                <a href="../vim/">
+            
+                    
+                    vim
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../vim/vim-jian-jie.html">
+            
+                <a href="../vim/vim-jian-jie.html">
+            
+                    
+                    Vim简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../vim/vim-xi-lie-zhi-chu-ti-yan-er.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-chu-ti-yan-er.html">
+            
+                    
+                    Vim系列之初体验(二)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../vim/vim-xi-lie-zhi-yi-dong-san.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-yi-dong-san.html">
+            
+                    
+                    Vim系列之移动(三)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="../vim/vim-xi-lie-zhi-cha-ru-si.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-cha-ru-si.html">
+            
+                    
+                    Vim系列之插入(四)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../redis/">
+            
+                <a href="../redis/">
+            
+                    
+                    redis
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../redis/redis-dong-tai-tian-jia-cong-ku.html">
+            
+                <a href="../redis/redis-dong-tai-tian-jia-cong-ku.html">
+            
+                    
+                    redis动态添加从库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../redis/lua-jiao-ben-pi-liang-tian-jia-redis-key-qian-zhui.html">
+            
+                <a href="../redis/lua-jiao-ben-pi-liang-tian-jia-redis-key-qian-zhui.html">
+            
+                    
+                    lua脚本批量添加redis key前缀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../redis/shi-yong-redisson-qian-yi-redis-shu-ju.html">
+            
+                <a href="../redis/shi-yong-redisson-qian-yi-redis-shu-ju.html">
+            
+                    
+                    使用redisson迁移redis数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../redis/redis-qing-kong-mou-ge-ku.html">
+            
+                <a href="../redis/redis-qing-kong-mou-ge-ku.html">
+            
+                    
+                    redis清空某个库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.5" data-path="../redis/redis-dui-xiang.html">
+            
+                <a href="../redis/redis-dui-xiang.html">
+            
+                    
+                    redis对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.6" data-path="../redis/redis-zi-fu-chuan.html">
+            
+                <a href="../redis/redis-zi-fu-chuan.html">
+            
+                    
+                    redis字符串
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.7" data-path="../redis/redis-lian-biao.html">
+            
+                <a href="../redis/redis-lian-biao.html">
+            
+                    
+                    redis链表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.8" data-path="../redis/redis-zi-dian.html">
+            
+                <a href="../redis/redis-zi-dian.html">
+            
+                    
+                    redis字典
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.9" data-path="../redis/redis-ya-suo-lie-biao.html">
+            
+                <a href="../redis/redis-ya-suo-lie-biao.html">
+            
+                    
+                    redis压缩列表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.10" data-path="../redis/redis-zheng-shu-ji-he.html">
+            
+                <a href="../redis/redis-zheng-shu-ji-he.html">
+            
+                    
+                    redis整数集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.11" data-path="../redis/redis-tiao-yue-biao.html">
+            
+                <a href="../redis/redis-tiao-yue-biao.html">
+            
+                    
+                    redis跳跃表
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../mysql/">
+            
+                <a href="../mysql/">
+            
+                    
+                    mysql
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../mysql/mysql-chuang-jian-yong-hu-bing-shou-quan.html">
+            
+                <a href="../mysql/mysql-chuang-jian-yong-hu-bing-shou-quan.html">
+            
+                    
+                    mysql创建用户并授权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="../mysql/mysql-zhu-cong-tong-bu-pei-zhi.html">
+            
+                <a href="../mysql/mysql-zhu-cong-tong-bu-pei-zhi.html">
+            
+                    
+                    mysql主从同步配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../c-and-cpp/">
+            
+                <a href="../c-and-cpp/">
+            
+                    
+                    c & cpp
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../c-and-cpp/zhi-zhen-han-shu-han-shu-zhi-zhen.html">
+            
+                <a href="../c-and-cpp/zhi-zhen-han-shu-han-shu-zhi-zhen.html">
+            
+                    
+                    指针函数&函数指针
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../php/">
+            
+                <a href="../php/">
+            
+                    
+                    php
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../php/php-zong-jie.html">
+            
+                <a href="../php/php-zong-jie.html">
+            
+                    
+                    PHP总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="../php/php-dan-yuan-ce-shi-phpunit.html">
+            
+                <a href="../php/php-dan-yuan-ce-shi-phpunit.html">
+            
+                    
+                    PHP单元测试PHPUnit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="../php/php-an-zhuang-memcached-kuo-zhan.html">
+            
+                <a href="../php/php-an-zhuang-memcached-kuo-zhan.html">
+            
+                    
+                    PHP安装memcached扩展
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../zsh/">
+            
+                <a href="../zsh/">
+            
+                    
+                    zsh
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="../zsh/zsh-bian-liang-he-yu-ju.html">
+            
+                <a href="../zsh/zsh-bian-liang-he-yu-ju.html">
+            
+                    
+                    zsh-变量和语句
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="../zsh/zsh-zi-fu-chuan-chang-yong-cao-zuo.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-chang-yong-cao-zuo.html">
+            
+                    
+                    zsh-字符串常用操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="../zsh/zsh-zi-fu-chuan-zhuan-yi-he-ge-shi-hua.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-zhuan-yi-he-ge-shi-hua.html">
+            
+                    
+                    zsh-字符串转义和格式化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4" data-path="../zsh/zsh-zi-fu-chuan-tong-pei-fu.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-tong-pei-fu.html">
+            
+                    
+                    zsh-字符串通配符
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="../qian-duan/">
+            
+                <a href="../qian-duan/">
+            
+                    
+                    前端
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="../qian-duan/highlight.js-zhi-chi-dong-tai-dai-ma.html">
+            
+                <a href="../qian-duan/highlight.js-zhi-chi-dong-tai-dai-ma.html">
+            
+                    
+                    highlight.js支持动态代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="../jia-gou-shi-tu-pu.html">
+            
+                <a href="../jia-gou-shi-tu-pu.html">
+            
+                    
+                    架构师图谱
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="../su-yuan-xi-tong.html">
+            
+                <a href="../su-yuan-xi-tong.html">
+            
+                    
+                    溯源系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >spring cloud应用分布式链路跟踪简易实现</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="spring-cloud&#x5E94;&#x7528;&#x5206;&#x5E03;&#x5F0F;&#x94FE;&#x8DEF;&#x8DDF;&#x8E2A;&#x7B80;&#x6613;&#x5B9E;&#x73B0;">spring cloud&#x5E94;&#x7528;&#x5206;&#x5E03;&#x5F0F;&#x94FE;&#x8DEF;&#x8DDF;&#x8E2A;&#x7B80;&#x6613;&#x5B9E;&#x73B0;</h1>
+<h2 id="&#x80CC;&#x666F;">&#x80CC;&#x666F;</h2>
+<p>&#x5728;&#x4E00;&#x4E2A;&#x9879;&#x76EE;&#x4E2D;&#xFF0C;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x901A;&#x5E38;&#x4F1A;&#x6709;&#x8C03;&#x7528;&#x5404;&#x79CD;&#x4E0A;&#x4E0B;&#x6E38;&#xFF0C;&#x6700;&#x5E38;&#x89C1;&#x7684;&#x6709;&#x6570;&#x636E;&#x5E93;&#x3001;&#x7F13;&#x5B58;&#x3001;&#x6D88;&#x606F;&#x961F;&#x5217;&#x4EE5;&#x53CA;&#x4E0B;&#x6E38;&#x670D;&#x52A1;&#xFF1B;&#x5728;&#x94FE;&#x8DEF;&#x6BD4;&#x8F83;&#x590D;&#x6742;&#x7684;&#x65F6;&#xFF0C;&#x5B9A;&#x4F4D;&#x95EE;&#x9898;&#x4EE5;&#x53CA;&#x5206;&#x6790;&#x95EE;&#x9898;&#x4F1A;&#x975E;&#x5E38;&#x9EBB;&#x70E6;&#xFF0C;&#x56E0;&#x6B64;&#x9700;&#x8981;&#x901A;&#x8FC7;&#x67D0;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;&#x5B9A;&#x4F4D;&#x4E00;&#x6B21;&#x8BF7;&#x6C42;&#x7684;&#x6240;&#x6709;&#x4E0A;&#x4E0B;&#x6E38;&#x94FE;&#x8DEF;</p>
+<h2 id="&#x76EE;&#x6807;">&#x76EE;&#x6807;</h2>
+<p>&#x5B9E;&#x73B0;&#x5355;&#x6B21;&#x8BF7;&#x6C42;&#x7684;&#x4E0A;&#x4E0B;&#x6E38;&#x94FE;&#x8DEF;&#x8DDF;&#x8E2A;</p>
+<h2 id="&#x73B0;&#x72B6;">&#x73B0;&#x72B6;</h2>
+<p>1&#x3001;&#x670D;&#x52A1;&#x57FA;&#x4E8E;spring cloud&#xFF0C;&#x7F51;&#x5173;&#x4F7F;&#x7528;spring cloud gateway</p>
+<p>2&#x3001;&#x670D;&#x52A1;&#x95F4;&#x8C03;&#x7528;&#x4F7F;&#x7528;open feign&#x8C03;&#x7528;&#xFF0C;&#x6CA1;&#x6709;rpc</p>
+<p>3&#x3001;&#x4F7F;&#x7528;mybatis-plus&#x64CD;&#x4F5C;&#x6570;&#x636E;&#x5E93;</p>
+<p>4&#x3001;&#x4F7F;&#x7528;redis&#x7F13;&#x5B58;</p>
+<p>5&#x3001;&#x6682;&#x65F6;&#x6CA1;&#x6709;&#x4F7F;&#x7528;&#x6D88;&#x606F;&#x961F;&#x5217;</p>
+<h2 id="&#x4E1A;&#x754C;&#x65B9;&#x6848;">&#x4E1A;&#x754C;&#x65B9;&#x6848;</h2>
+<p>spring cloud &#x901A;&#x5E38;spring slueth + zipkin/skywalking&#x5B9E;&#x73B0;</p>
+<p>1&#x3001;slueth&#x5B9E;&#x73B0;&#x94FE;&#x8DEF;traceId + spanId&#x751F;&#x6210;</p>
+<p>2&#x3001;&#x6570;&#x636E;&#x4E0A;&#x62A5;zipkin/skywalking&#x5B9E;&#x73B0;&#x6570;&#x636E;&#x5C55;&#x793A;</p>
+<p>&#x6211;&#x4EEC;&#x5F53;&#x524D;&#x7684;&#x4E3B;&#x8981;&#x95EE;&#x9898;&#x5728;&#x4E8E;&#xFF0C;&#x9884;&#x7B97;&#x4E0D;&#x591F;&#xFF0C;&#x6682;&#x65F6;&#x65E0;&#x6CD5;&#x7533;&#x8BF7;&#x8D44;&#x6E90;&#x90E8;&#x7F72;zipkin/skywalking&#xFF1B;&#x56E0;&#x6B64;&#x53EF;&#x4EE5;&#x8003;&#x8651;&#x53EA;&#x4F7F;&#x7528;slueth&#x5B9E;&#x73B0;traceId + spanId&#x751F;&#x6210;&#xFF0C;&#x5F85;&#x9700;&#x8981;&#x65F6;&#x518D;&#x63A5;&#x5165;zipkin/skywalking&#x6216;&#x8005;&#x5176;&#x4ED6;&#x65E5;&#x5FD7;&#x6536;&#x96C6;&#x7CFB;&#x7EDF;&#xFF08;&#x6BD4;&#x5982;ELK&#xFF0C;SLS&#x7B49;&#xFF09;</p>
+<p>&#x8FD9;&#x91CC;&#x66F4;&#x591A;&#x7684;&#x662F;&#x63A2;&#x8BA8;&#x4E00;&#x79CD;&#x7B80;&#x6613;&#x5B9E;&#x73B0;&#xFF0C;&#x53EA;&#x751F;&#x6210;traceId + spanId&#xFF0C;&#x7ED3;&#x5408;&#x672C;&#x5730;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;&#xFF0C;&#x5B9E;&#x73B0;&#x65B9;&#x6848;&#x5B9A;&#x4F4D;&#x95EE;&#x9898;&#x5373;&#x53EF;</p>
+<h2 id="&#x7B80;&#x6613;&#x65B9;&#x6848;">&#x7B80;&#x6613;&#x65B9;&#x6848;</h2>
+<p>&#x5B9E;&#x73B0;&#x7684;&#x91CD;&#x70B9;&#x5728;&#x4E8E;&#x5982;&#x4F55;&#x751F;&#x6210;traceId&#x548C;spanId&#xFF0C;&#x5E76;&#x6253;&#x5370;&#x5230;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;</p>
+<p>traceId&#xFF1A;&#x6807;&#x8BC6;&#x4E00;&#x6B21;&#x8BF7;&#x6C42;&#xFF1B;&#x56E0;&#x6B64;&#x540C;&#x4E00;&#x8BF7;&#x6C42;&#x7684;&#x4E0A;&#x4E0B;&#x6E38;&#x94FE;&#x8DEF;&#xFF0C;traceId&#x5FC5;&#x987B;&#x76F8;&#x540C;&#xFF0C;&#x4E0D;&#x540C;&#x8BF7;&#x6C42;traceId&#x5FC5;&#x987B;&#x4E0D;&#x76F8;&#x540C;</p>
+<p>spanId&#xFF1A;&#x6807;&#x8BC6;&#x4E00;&#x6B21;&#x8BF7;&#x6C42;&#x4E2D;&#x7684;&#x4E0D;&#x540C;&#x8C03;&#x7528;&#x94FE;&#x8DEF;&#xFF0C;&#x9700;&#x8981;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;spanId&#x8FD8;&#x539F;&#x51FA;&#x94FE;&#x8DEF;&#x8C03;&#x7528;&#x65F6;&#x5E8F;</p>
+<h3 id="traceid&#x751F;&#x6210;">traceId&#x751F;&#x6210;</h3>
+<p>&#x8FD9;&#x91CC;&#x76F4;&#x63A5;&#x4F7F;&#x7528;uuid</p>
+<h3 id="spanid">spanId</h3>
+<p>&#x6211;&#x4EEC;&#x901A;&#x8FC7;x.y.z&#x683C;&#x5F0F;&#x8868;&#x793A;</p>
+<p>&#x76F8;&#x540C;&#x957F;&#x5EA6;&#x7684;spanId&#x6807;&#x8BC6;&#x53CC;&#x65B9;&#x5904;&#x4E8E;&#x540C;&#x4E00;&#x5C42;&#x6B21;&#xFF1B;&#x6BD4;&#x5982;0.1&#x548C;0.2&#x8868;&#x793A;&#x4E00;&#x6B21;&#x8BF7;&#x6C42;&#x7684;&#x7B2C;1&#x6B21;&#x548C;&#x7B2C;2&#x6B21;&#x5B50;&#x94FE;&#x8DEF;</p>
+<p>&#x76F8;&#x540C;&#x524D;&#x7F00;&#xFF0C;&#x957F;&#x5EA6;&#x8F83;&#x957F;&#x8005;&#x4E3A;&#x5B50;&#x8C03;&#x7528;&#xFF1B;&#x6BD4;&#x5982;0.1.1&#x8868;&#x793A;0.1&#x94FE;&#x8DEF;&#x7684;&#x5B50;&#x94FE;&#x8DEF;</p>
+<p>&#x6574;&#x4F53;&#x683C;&#x5F0F;&#x5982;&#x4E0B;</p>
+<pre><code>0.1 start 
+   ...
+   0.1.1 start
+   ...
+   0.1.1 end
+   ...
+   0.1.2 start
+     0.1.2.1 start
+     0.1.2.1 end
+     ...
+   0.1.2 end
+0.1 end
+
+0.2 start
+  ...
+0.2 end
+
+...
+</code></pre><p>spanId&#x5982;&#x4F55;&#x751F;&#x6210;&#x63A5;&#x4E0B;&#x6765;&#x4F1A;&#x7EC6;&#x8BF4;</p>
+<h3 id="&#x5165;&#x53E3;">&#x5165;&#x53E3;</h3>
+<p>&#x5165;&#x53E3;&#x4E3B;&#x8981;3&#x4E2A;</p>
+<ol>
+<li>&#x7F51;&#x5173;(http&#x6216;&#x8005;rpc)</li>
+<li>&#x5404;&#x7C7B;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;</li>
+<li>&#x6D88;&#x606F;&#x961F;&#x5217;&#x6D88;&#x8D39;&#x8005;&#xFF08;&#x672C;&#x9879;&#x76EE;&#x6682;&#x65F6;&#x4E0D;&#x6D89;&#x53CA;&#xFF09;</li>
+</ol>
+<h3 id="&#x4F20;&#x9012;">&#x4F20;&#x9012;</h3>
+<p>&#x4E3B;&#x8981;&#x51E0;&#x79CD;</p>
+<ol>
+<li>http header&#x5934;</li>
+<li>rpc header&#x6216;&#x8005;&#x6269;&#x5C55;&#x5B57;&#x6BB5;&#xFF08;&#x672C;&#x9879;&#x76EE;&#x4E0D;&#x6D89;&#x53CA;&#xFF09;</li>
+<li>&#x6D88;&#x606F;&#x961F;&#x5217;&#x4F20;&#x9012;</li>
+</ol>
+<h3 id="&#x5B9E;&#x73B0;">&#x5B9E;&#x73B0;</h3>
+<h4 id="traceid&#x3001;spanid&#x751F;&#x6210;">traceId&#x3001;spanId&#x751F;&#x6210;</h4>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TraceContext</span> </span>{
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String ROOT_SPAN_ID = <span class="hljs-string">&quot;0&quot;</span>;
+
+    <span class="hljs-comment">/**
+     * &#x4E0A;&#x4E0B;&#x6587;&#xFF0C;&#x4E3B;&#x8981;&#x8BB0;&#x5F55;&#x5F53;&#x524D;&#x5C42;&#x7EA7;&#x7684;spanId
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> ThreadLocal&lt;SpanGenerator&gt; SPAN_GENERATOR = <span class="hljs-keyword">new</span> ThreadLocal&lt;&gt;();
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SpanGenerator</span> </span>{
+        <span class="hljs-comment">/**
+         * &#x5F53;&#x524D;&#x5C42;&#x7EA7;spanId
+         */</span>
+        <span class="hljs-keyword">private</span> String parentId;
+
+        <span class="hljs-keyword">private</span> AtomicInteger counter = <span class="hljs-keyword">new</span> AtomicInteger();
+
+        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">SpanGenerator</span><span class="hljs-params">(String parentId)</span> </span>{
+            <span class="hljs-keyword">this</span>.parentId = parentId;
+        }
+
+        <span class="hljs-comment">/**
+         * &#x5B50;&#x94FE;&#x8DEF;spanId&#xFF0C;&#x5F53;&#x524D;&#x5C42;&#x7EA7;spanId+&#x8BA1;&#x6570;&#x5668;
+         * <span class="hljs-doctag">@return</span>
+         */</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">nextSpanId</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">return</span> parentId + counter.incrementAndGet();
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setParentId</span><span class="hljs-params">(String parentId)</span> </span>{
+        SPAN_GENERATOR.set(<span class="hljs-keyword">new</span> SpanGenerator(StringUtils.defaultIfEmpty(parentId, ROOT_SPAN_ID) + <span class="hljs-string">&quot;.&quot;</span>));
+    }
+
+    <span class="hljs-comment">/**
+     * traceId&#x751F;&#x6210;
+     * <span class="hljs-doctag">@return</span>
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">traceId</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> UUID.randomUUID().toString().replaceAll(<span class="hljs-string">&quot;-&quot;</span>, <span class="hljs-string">&quot;&quot;</span>);
+    }
+
+    <span class="hljs-comment">/**
+     * spanId&#x751F;&#x6210;
+     * <span class="hljs-doctag">@return</span>
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">nextSpanId</span><span class="hljs-params">()</span> </span>{
+        SpanGenerator spanGenerator = SPAN_GENERATOR.get();
+        <span class="hljs-keyword">if</span> (spanGenerator == <span class="hljs-keyword">null</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+        }
+
+        <span class="hljs-keyword">return</span> spanGenerator.nextSpanId();
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">clear</span><span class="hljs-params">()</span> </span>{
+        SPAN_GENERATOR.remove();
+    }
+}
+</code></pre>
+<h4 id="&#x5165;&#x53E3;&#x4F20;&#x9012;">&#x5165;&#x53E3;&#x4F20;&#x9012;</h4>
+<p><strong>&#x7F51;&#x5173;</strong></p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GatewayTraceFilter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">GlobalFilter</span>, <span class="hljs-title">Ordered</span> </span>{
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Mono&lt;Void&gt; <span class="hljs-title">filter</span><span class="hljs-params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> </span>{
+        HttpHeaders requestHeaders = exchange.getRequest().getHeaders();
+        String traceId = requestHeaders.getFirst(TraceStateEnum.TraceIdName.getValue());
+
+        <span class="hljs-keyword">final</span> String finalTraceId = StringUtils.isBlank(traceId) ? TraceContext.traceId() : traceId;
+        <span class="hljs-keyword">if</span> (StringUtils.isBlank(traceId)) {
+            <span class="hljs-comment">// &#x7F51;&#x5173;&#x4F5C;&#x4E3A;&#x6D41;&#x91CF;&#x5165;&#x53E3;&#xFF0C;&#x56E0;&#x6B64;traceId&#x9700;&#x8981;&#x91CD;&#x65B0;&#x751F;&#x6210;&#xFF0C;spanId&#x4F7F;&#x7528;&#x6839;spanId&#x5373;&#x53EF;</span>
+            exchange.getRequest().mutate().headers(httpHeaders -&gt; {
+                httpHeaders.add(TraceStateEnum.TraceIdName.getValue(), finalTraceId);
+                httpHeaders.add(TraceStateEnum.SpanIdName.getValue(), TraceContext.ROOT_SPAN_ID);
+            });
+        }
+
+        <span class="hljs-keyword">return</span> chain.filter(exchange).then(Mono.fromRunnable(() -&gt; {
+            <span class="hljs-comment">// &#x5C06;traceId&#x653E;&#x5165;response header&#xFF0C;&#x65B9;&#x4FBF;&#x5B9A;&#x4F4D;&#x95EE;&#x9898;</span>
+            HttpHeaders headers = exchange.getResponse().getHeaders();
+            headers.add(<span class="hljs-string">&quot;X-API-Trace&quot;</span>, finalTraceId);
+        }));
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getOrder</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-comment">// &#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x6267;&#x884C;&#x987A;&#x5E8F;&#xFF0C;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x9700;&#x8981;&#x8BBE;&#x7F6E;</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;
+    }
+}
+</code></pre>
+<p><strong>&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;</strong></p>
+<p>&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x4E3B;&#x8981;&#x4F7F;&#x7528;spring task&#x901A;&#x8FC7;@Scheduled&#x5B9A;&#x4E49;&#x4EFB;&#x52A1;</p>
+<p>&#x901A;&#x8FC7;@EnableScheduling&#x6CE8;&#x89E3;&#x5F00;&#x59CB;&#x4EE3;&#x7801;&#x8DDF;&#x8E2A;&#xFF0C;&#x53D1;&#x73B0;&#x5E76;&#x6CA1;&#x6709;&#x63D0;&#x4F9B;&#x53EF;&#x4EE5;&#x9488;&#x5BF9;task&#x6269;&#x5C55;&#x7684;&#x90E8;&#x5206;&#xFF1B;&#x56E0;&#x6B64;&#x6B64;&#x5904;&#x4F7F;&#x7528;AOP&#x5B9E;&#x73B0;</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Slf</span>4j
+<span class="hljs-meta">@Aspect</span>
+<span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ScheduleAspect</span> </span>{
+    <span class="hljs-meta">@Pointcut</span>(<span class="hljs-string">&quot;@annotation(org.springframework.scheduling.annotation.Scheduled)&quot;</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">pointcut</span><span class="hljs-params">()</span> </span>{
+    }
+
+    <span class="hljs-meta">@Around</span>(value = <span class="hljs-string">&quot;pointcut()&quot;</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">doAround</span><span class="hljs-params">(ProceedingJoinPoint pjp)</span> <span class="hljs-keyword">throws</span> Throwable </span>{
+        log.debug(<span class="hljs-string">&quot;ScheduleAspect.doAround call&quot;</span>);
+        <span class="hljs-keyword">try</span> {
+            MDC.put(TraceStateEnum.TraceIdName.getValue(), TraceContext.traceId());
+            MDC.put(TraceStateEnum.SpanIdName.getValue(), TraceContext.ROOT_SPAN_ID);
+            TraceContext.setParentId(TraceContext.ROOT_SPAN_ID);
+            <span class="hljs-keyword">return</span> pjp.proceed();
+        } <span class="hljs-keyword">finally</span> {
+            TraceContext.clear();
+            MDC.clear();
+        }
+    }
+}
+</code></pre>
+<h4 id="&#x4F20;&#x9012;">&#x4F20;&#x9012;</h4>
+<p>http&#x8C03;&#x7528;&#x901A;&#x8FC7;open feign&#xFF0C;&#x56E0;&#x6B64;&#x9488;&#x5BF9;feign&#x505A;&#x62E6;&#x622A;&#xFF0C;&#x5728;&#x8C03;&#x7528;&#x65F6;&#x5C06;traceId&#x548C;spanId&#x653E;&#x5165;header&#x5373;&#x53EF;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TraceIdFeignInterceptor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">RequestInterceptor</span> </span>{
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">apply</span><span class="hljs-params">(RequestTemplate template)</span> </span>{
+        <span class="hljs-comment">// &#x83B7;&#x53D6;MDC&#x4E2D;&#x7684;tid</span>
+        String traceId = MDC.get(TraceStateEnum.TraceIdName.getValue());
+
+        <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x8BF7;&#x6C42;&#x5934;</span>
+        template.header(TraceStateEnum.TraceIdName.getValue(), traceId);
+        <span class="hljs-comment">// &#x8FD9;&#x91CC;&#x653E;&#x7684;&#x662F;&#x65B0;&#x751F;&#x6210;&#x7684;&#x5B50;&#x94FE;&#x8DEF;spanId</span>
+        template.header(TraceStateEnum.SpanIdName.getValue(), TraceContext.nextSpanId());
+    }
+}
+
+<span class="hljs-meta">@Configuration</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FeignConfiguration</span> </span>{
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> RequestInterceptor <span class="hljs-title">traceIdFeignInterceptor</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TraceIdFeignInterceptor();
+    }
+}
+</code></pre>
+<p>&#x9488;&#x5BF9;&#x6570;&#x636E;&#x5E93;&#x3001;&#x7F13;&#x5B58;&#x7684;&#x4F20;&#x9012;&#xFF0C;&#x81EA;&#x5B9A;&#x4E49;&#x5B9E;&#x73B0;&#x6682;&#x65F6;&#x4E5F;&#x6CA1;&#x6709;&#x4EC0;&#x4E48;&#x597D;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x8981;&#x4E48;&#x901A;&#x8FC7;AOP&#xFF0C;&#x8981;&#x4E48;&#x901A;&#x8FC7;Java agent&#x505A;&#x589E;&#x5F3A;&#xFF0C;&#x6216;&#x8005;&#x624B;&#x52A8;&#x57CB;&#x70B9;&#xFF08;&#x4EE3;&#x7801;&#x4FB5;&#x5165;&#x6027;&#x8F83;&#x5F3A;&#xFF0C;&#x4E00;&#x822C;&#x4E0D;&#x8FD9;&#x4E48;&#x505A;&#xFF09;&#xFF1B;&#x8FD9;&#x91CC;&#x6682;&#x65F6;&#x5148;&#x5FFD;&#x7565;&#x4E0D;&#x505A;</p>
+<p>&#x9488;&#x5BF9;&#x6D88;&#x606F;&#x961F;&#x5217;&#xFF0C;&#x901A;&#x5E38;&#x53EF;&#x4EE5;&#x653E;&#x5728;Message&#x6269;&#x5C55;&#x5B57;&#x6BB5;&#x91CC;&#x9762;&#x4F20;&#x9012;&#xFF0C;&#x8FD9;&#x91CC;&#x4E0D;&#x505A;&#x63A2;&#x8BA8;</p>
+<h4 id="&#x63A5;&#x6536;">&#x63A5;&#x6536;</h4>
+<p>http&#x63A5;&#x6536;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#xFF0C;&#x901A;&#x8FC7;springmvc interceptor&#x5373;&#x53EF;</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Component</span>
+<span class="hljs-meta">@Slf</span>4j
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TraceIdInterceptor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">HandlerInterceptor</span> </span>{
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">preHandle</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="hljs-keyword">throws</span> Exception </span>{
+        <span class="hljs-comment">// &#x4ECE;&#x8BF7;&#x6C42;&#x5934;&#x4E2D;&#x83B7;&#x53D6; Trace ID</span>
+        String traceId = request.getHeader(TraceStateEnum.TraceIdName.getValue());
+        String spanId = request.getHeader(TraceStateEnum.SpanIdName.getValue());
+
+        <span class="hljs-comment">// &#x5C06; Trace ID &#x6DFB;&#x52A0;&#x5230; MDC</span>
+        MDC.put(TraceStateEnum.TraceIdName.getValue(), traceId);
+        MDC.put(TraceStateEnum.SpanIdName.getValue(), spanId);
+        TraceContext.setParentId(spanId);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">afterCompletion</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span> <span class="hljs-keyword">throws</span> Exception </span>{
+        <span class="hljs-comment">// &#x5728;&#x8BF7;&#x6C42;&#x5904;&#x7406;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x6E05;&#x7406; MDC &#x503C;</span>
+        <span class="hljs-keyword">try</span> {
+            TraceContext.clear();
+            MDC.clear();
+        } <span class="hljs-keyword">catch</span> (IllegalArgumentException e) {
+            log.error(<span class="hljs-string">&quot;MDC.remove error&quot;</span>, e.getMessage());
+        }
+    }
+}
+</code></pre>
+<p>&#x6D88;&#x606F;&#x961F;&#x5217;&#x540C;&#x7406;&#xFF0C;&#x5728;Message&#x6269;&#x5C55;&#x5B57;&#x6BB5;&#x4E2D;&#x53BB;&#x53D6;&#x5373;&#x53EF;</p>
+<p>&#x53D1;&#x9001;&#xFF08;&#x751F;&#x4EA7;&#x8005;&#xFF09;</p>
+<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addTraceInfo</span><span class="hljs-params">(Message message)</span> </span>{
+    String traceId = MDC.get(TraceStateEnum.TraceIdName.getValue());
+    <span class="hljs-keyword">if</span> (StringUtils.hasText(traceId)) {
+        message.putUserProperty(TraceStateEnum.TraceIdName.getValue(), traceId);
+        message.putUserProperty(TraceStateEnum.SpenIdName.getValue(), TraceContext.nextSpanId());
+    }
+}
+</code></pre>
+<p>&#x6D88;&#x8D39;&#xFF08;&#x6D88;&#x8D39;&#x8005;&#xFF09;</p>
+<pre><code class="lang-java">  <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onMessage</span><span class="hljs-params">(MessageExt message)</span> </span>{
+        String traceId = message.getUserProperty(TraceStateEnum.TraceIdName.getValue());
+        String spenId = message.getUserProperty(TraceStateEnum.SpenIdName.getValue());
+        <span class="hljs-keyword">if</span> (StringUtils.isBlank(traceId)) {
+            traceId = TraceContext.traceId();
+            spenId = TraceContext.ROOT_SPAN_ID;
+        }
+        MDC.put(TraceStateEnum.TraceIdName.getValue(), traceId);
+        MDC.put(TraceStateEnum.SpenIdName.getValue(), spenId);
+        TraceContext.setParentId(spenId);
+
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-comment">// &#x8FD9;&#x91CC;&#x9700;&#x8981;&#x62BD;&#x8C61;&#xFF0C;rocketmq&#x539F;&#x751F;&#x5B9E;&#x73B0;&#x6CA1;&#x6709;&#x63D0;&#x4F9B;&#x6269;&#x5C55;&#xFF0C;OnMessage&#x53C2;&#x6570;&#x7C7B;&#x578B;&#x53EA;&#x80FD;&#x662F;MessageExt</span>
+            doOnMessage(convert(message.getBody()));
+        } <span class="hljs-keyword">finally</span> {
+            MDC.clear();
+            TraceContext.clear();
+        }
+    }
+</code></pre>
+<h4 id="&#x5F02;&#x6B65;&#x6267;&#x884C;&#x5904;&#x7406;">&#x5F02;&#x6B65;&#x6267;&#x884C;&#x5904;&#x7406;</h4>
+<p><strong>&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x7EBF;&#x7A0B;&#x6C60;</strong></p>
+<p>&#x901A;&#x5E38;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;&#x4E00;&#x79CD;&#x662F;&#x63D0;&#x4EA4;&#x4EFB;&#x52A1;&#x65F6;&#xFF0C;&#x4F7F;&#x7528;&#x5C01;&#x88C5;&#x8FC7;&#x7684;callable&#x6216;&#x8005;runnable</p>
+<p>&#x4EE3;&#x7801;&#x5982;&#x4E0B;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TraceRunnable</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Runnable</span> </span>{
+    <span class="hljs-keyword">private</span> Runnable runnable;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">TraceRunnable</span><span class="hljs-params">(Runnable runnable)</span> </span>{
+        <span class="hljs-keyword">this</span>.runnable = runnable;
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">final</span> Map&lt;String, String&gt; contextMap = MDC.getCopyOfContextMap();
+            <span class="hljs-keyword">if</span> (contextMap != <span class="hljs-keyword">null</span>) {
+                MDC.setContextMap(contextMap);
+            }
+            <span class="hljs-keyword">if</span> (StringUtils.isNotBlank(MDC.get(TraceStateEnum.TraceIdName.getValue()))) {
+                TraceContext.setParentId(MDC.get(TraceStateEnum.SpanIdName.getValue()));
+            }
+            runnable.run();
+        } <span class="hljs-keyword">finally</span> {
+            TraceContext.clear();
+            MDC.clear();
+        }
+    }
+}
+</code></pre>
+<p>callable&#x540C;&#x7406;</p>
+<p>&#x8FD8;&#x6709;&#x4E00;&#x79CD;&#x662F;&#x9488;&#x5BF9;&#x7EBF;&#x7A0B;&#x6C60;&#x505A;&#x5C01;&#x88C5;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TraceExecutorService</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ExecutorService</span> </span>{
+    <span class="hljs-keyword">private</span> ExecutorService delegate;
+
+    <span class="hljs-meta">@NotNull</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-function">Future&lt;T&gt; <span class="hljs-title">submit</span><span class="hljs-params">(@NotNull Callable&lt;T&gt; task)</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.delegate.submit(<span class="hljs-keyword">new</span> TraceCallable&lt;&gt;(task));
+    }
+
+    <span class="hljs-comment">// ... &#x5176;&#x4ED6;&#x65B9;&#x6CD5;&#x7C7B;&#x4F3C;</span>
+}
+</code></pre>
+<p><strong>@Async&#x6CE8;&#x89E3;</strong></p>
+<p>&#x4E00;&#x79CD;&#x662F;&#x4F7F;&#x7528;&#x4E86;&#x81EA;&#x5B9A;&#x4E49;&#x7EBF;&#x7A0B;&#x6C60;&#xFF0C;&#x53C2;&#x8003;&#x4E0A;&#x9762;</p>
+<p>&#x8FD8;&#x6709;&#x4E00;&#x79CD;&#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x7EBF;&#x7A0B;&#x6C60;&#xFF0C;&#x901A;&#x8FC7;@EnableAsync&#x6CE8;&#x89E3;&#x4E2A;&#x8DDF;&#x8E2A;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5B9E;&#x73B0;&#x81EA;&#x5B9A;&#x4E49;&#x7684;AsyncConfigurer&#x5B9E;&#x73B0;</p>
+<p>&#x9ED8;&#x8BA4;&#x662F;AsyncConfigurerSupport</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Slf</span>4j
+<span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TraceAsyncConfigurer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AsyncConfigurerSupport</span> </span>{
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> TaskExecutorBuilder taskExecutorBuilder;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Executor <span class="hljs-title">getAsyncExecutor</span><span class="hljs-params">()</span> </span>{
+        log.info(<span class="hljs-string">&quot;TraceAsyncConfigurer.getAsyncExecutor call&quot;</span>);
+        ThreadPoolTaskExecutor executor = taskExecutorBuilder.build();
+        executor.initialize();
+        <span class="hljs-keyword">return</span> executor;
+    }
+}
+</code></pre>
+<p>TaskExecutorBuilder&#x662F;spring&#x7CFB;&#x7EDF;&#x5185;&#x90E8;&#x5B9E;&#x73B0;&#xFF0C;&#x53EF;&#x4EE5;&#x81EA;&#x52A8;&#x611F;&#x77E5;&#x5230;&#x5BF9;&#x4EFB;&#x52A1;&#x7684;&#x589E;&#x5F3A;&#xFF0C;&#x53C2;&#x8003;&#xFF1A;org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration</p>
+<figure><img src="../.gitbook/assets/spring_trace.png" alt=""><figcaption></figcaption></figure>
+
+<p>&#x6240;&#x4EE5;&#x53EA;&#x9700;&#x8981;&#x81EA;&#x5B9A;&#x4E00;&#x4E2A;TaskDecorator&#x5373;&#x53EF;</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Slf</span>4j
+<span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TraceTaskDecorate</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">TaskDecorator</span>, <span class="hljs-title">InitializingBean</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">afterPropertiesSet</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>{
+        log.info(<span class="hljs-string">&quot;TraceTaskDecorate init&quot;</span>);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Runnable <span class="hljs-title">decorate</span><span class="hljs-params">(Runnable runnable)</span> </span>{
+        <span class="hljs-keyword">final</span> Map&lt;String, String&gt; contextMap = MDC.getCopyOfContextMap();
+        <span class="hljs-keyword">if</span> (contextMap == <span class="hljs-keyword">null</span>) {
+            <span class="hljs-keyword">return</span> runnable;
+        }
+
+        <span class="hljs-keyword">return</span> () -&gt; {
+            <span class="hljs-keyword">try</span> {
+                MDC.setContextMap(contextMap);
+                <span class="hljs-keyword">if</span> (StringUtils.isNotBlank(MDC.get(TraceStateEnum.TraceIdName.getValue()))) {
+                    TraceContext.setParentId(MDC.get(TraceStateEnum.SpenIdName.getValue()));
+                }
+                runnable.run();
+            } <span class="hljs-keyword">finally</span> {
+                TraceContext.clear();
+                MDC.clear();
+            }
+        };
+    }
+}
+</code></pre>
+<h4 id="&#x65E5;&#x5FD7;&#x914D;&#x7F6E;">&#x65E5;&#x5FD7;&#x914D;&#x7F6E;</h4>
+<pre><code class="lang-markup">&lt;appender name=&quot;WARN_FILE&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;!-- &#x6B63;&#x5728;&#x8BB0;&#x5F55;&#x7684;&#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x7684;&#x8DEF;&#x5F84;&#x53CA;&#x6587;&#x4EF6;&#x540D; --&gt;
+        &lt;file&gt;${log.path}/log_warn.log&lt;/file&gt;
+        &lt;!--&#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x8F93;&#x51FA;&#x683C;&#x5F0F;--&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%d{yyyy-MM-dd HH:mm:ss.SSS} [TraceId:%X{traceId}] [SpanId:%X{spanId}] [%thread] %-5level %logger{50} - %msg%n&lt;/pattern&gt;
+            &lt;charset&gt;UTF-8&lt;/charset&gt; &lt;!-- &#x6B64;&#x5904;&#x8BBE;&#x7F6E;&#x5B57;&#x7B26;&#x96C6; --&gt;
+        &lt;/encoder&gt;
+        ...
+&lt;/appender&gt;
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.html" class="navigation navigation-prev " aria-label="Previous page: Feign调用转成本地方法调用">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.html" class="navigation navigation-next " aria-label="Next page: 对于所有对象都通用的方法">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"description":"spring cloud应用分布式链路跟踪简易实现","title":"spring cloud应用分布式链路跟踪简易实现","level":"1.2.25","depth":2,"next":{"title":"对于所有对象都通用的方法","level":"1.2.26","depth":2,"path":"java-study/dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.md","ref":"java-study/dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.md","articles":[]},"previous":{"title":"Feign调用转成本地方法调用","level":"1.2.24","depth":2,"path":"java-study/feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.md","ref":"java-study/feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","splitter","expandable-chapters-small","github","github-buttons","favicon","expandable-chapters-small","copy-code-button"],"styles":{"website":"./styles/website.css"},"pluginsConfig":{"github":{"url":"https://github.com/kennethfan"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":{"shortcut":"./source/images/favicon.jpg","bookmark":"./source/images/favicon.jpg","appleTouch":"./source/images/apple-touch-icon.jpg","appleTouchMore":{"120x120":"./source/images/apple-touch-icon.jpg","180x180":"./source/images/apple-touch-icon.jpg"}},"github-buttons":{"buttons":[{"user":"kennethfan","repo":"gitbook","type":"star","size":"small","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"theme":"default","author":"椒哥","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"椒哥碎碎念","language":"zh-hans","links":{"sidebar":{}},"gitbook":"3.2.3","description":"select * from learn"},"file":{"path":"java-study/spring-cloud-ying-yong-fen-bu-shi-lian-lu-gen-zong-jian-yi-shi-xian.md","mtime":"2025-11-20T14:23:49.135Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-11-20T14:24:24.727Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

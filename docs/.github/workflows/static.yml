@@ -1,0 +1,45 @@
+name: auto-generate-gitbook
+on:                                 #在master分支上进行push时触发  
+  push:
+    branches:
+    - master
+
+jobs:
+  main-to-gh-pages:
+    runs-on: ubuntu-latest
+        
+    steps:                          
+    - name: checkout master
+      uses: actions/checkout@v2
+      with:
+        ref: master
+            
+    - name: install nodejs
+      uses: actions/setup-node@v1
+      
+    - name: configue gitbook
+      run: |
+        npm install -g gitbook-cli          
+        gitbook install
+        # npm install -g gitbook-summary
+                
+    - name: generate _book folder
+      run: |
+        # book sm
+        gitbook build . docs
+        # cp SUMMARY.md docs
+        touch docs/.nojekyll
+                
+    - name: push _book to branch gh-pages 
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        MYEMAIL: kennethfan137@gmail.com                  
+        MYNAME: ${{ github.repository_owner }}          
+      run: |
+        git config --global user.email "${{ env.MYEMAIL }}"
+        git config --global user.name "${{ env.MYNAME }}"
+        git checkout -b gh-pages 
+        git add docs
+        git commit -m "Updated By Github Actions With Build ${{github.run_number}} of ${{github.workflow}} For Github Pages"
+        git push -f --set-upstream origin gh-pages 
+ 

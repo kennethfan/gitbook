@@ -1,0 +1,2271 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Open feign源码分析 · 椒哥碎碎念</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="椒哥">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+
+        
+    
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="open-feign-dong-tai-qie-liu-shi-xian.html" />
+    
+    
+    <link rel="prev" href="springmvc-dong-tai-zhu-ce-lu-you.html" />
+    
+
+    
+        <link rel="shortcut icon" href='../source/images/favicon.jpg' type="image/x-icon">
+    
+    
+        <link rel="bookmark" href='../source/images/favicon.jpg' type="image/x-icon">
+    
+    
+        <link rel="apple-touch-icon" href='../source/images/apple-touch-icon.jpg'>
+    
+    
+        
+        <link rel="apple-touch-icon" sizes="120x120" href="../source/images/apple-touch-icon.jpg">
+        
+        <link rel="apple-touch-icon" sizes="180x180" href="../source/images/apple-touch-icon.jpg">
+        
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"buttons":[{"user":"kennethfan","repo":"gitbook","type":"star","size":"small","count":true}]};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    个人简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Java学习
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="maven-zhi-ding-xu-yao-de-mo-kuai-da-bao.html">
+            
+                <a href="maven-zhi-ding-xu-yao-de-mo-kuai-da-bao.html">
+            
+                    
+                    maven指定需要的模块打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="dynamicdatasource-shi-xian-shu-ju-du-xie-fen-li.html">
+            
+                <a href="dynamicdatasource-shi-xian-shu-ju-du-xie-fen-li.html">
+            
+                    
+                    dynamic-datasource实现数据读写分离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="redis-zhu-cong-jia-gou-li-yong-lettuce-shi-xian-du-xie-fen-li.html">
+            
+                <a href="redis-zhu-cong-jia-gou-li-yong-lettuce-shi-xian-du-xie-fen-li.html">
+            
+                    
+                    redis主从架构利用lettuce实现读写分离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="java-filter-xiu-gai-request-nei-rong-he-response-nei-rong.html">
+            
+                <a href="java-filter-xiu-gai-request-nei-rong-he-response-nei-rong.html">
+            
+                    
+                    java filter修改request内容和response内容
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="javacompiler-dong-tai-bian-yi-java-dai-ma.html">
+            
+                <a href="javacompiler-dong-tai-bian-yi-java-dai-ma.html">
+            
+                    
+                    JavaCompiler动态编译java代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="jdk-dong-tai-dai-li.html">
+            
+                <a href="jdk-dong-tai-dai-li.html">
+            
+                    
+                    JDK动态代理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="lei-ge-li.html">
+            
+                <a href="lei-ge-li.html">
+            
+                    
+                    类隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="jnr-tiao-yong-ben-di-dong-tai-lian-jie-ku.html">
+            
+                <a href="jnr-tiao-yong-ben-di-dong-tai-lian-jie-ku.html">
+            
+                    
+                    JNR调用本地动态链接库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="javac-ming-ling-bian-yi-java-ming-ling-yun-hang-dai-ma.html">
+            
+                <a href="javac-ming-ling-bian-yi-java-ming-ling-yun-hang-dai-ma.html">
+            
+                    
+                    javac命令编译\&java命令运行代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="java-huo-qu-ying-jian-xin-xi.html">
+            
+                <a href="java-huo-qu-ying-jian-xin-xi.html">
+            
+                    
+                    java获取硬件信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="conditional-shi-xian-bean-an-xu-jia-zai.html">
+            
+                <a href="conditional-shi-xian-bean-an-xu-jia-zai.html">
+            
+                    
+                    Conditional实现bean按需加载
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="spring-boot-actuator-da-pei-jenkins-shi-xian-fa-bu-jian-kang-jian-cha-he-bao-jing.html">
+            
+                <a href="spring-boot-actuator-da-pei-jenkins-shi-xian-fa-bu-jian-kang-jian-cha-he-bao-jing.html">
+            
+                    
+                    spring boot actuator搭配jenkins实现发布健康检查和报警
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.13" data-path="nacos-pei-zhi-wen-jian-yu-fa-jian-ce-bao-jing.html">
+            
+                <a href="nacos-pei-zhi-wen-jian-yu-fa-jian-ce-bao-jing.html">
+            
+                    
+                    nacos配置文件语法检测&报警
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14" data-path="java-shi-yong-mmap.html">
+            
+                <a href="java-shi-yong-mmap.html">
+            
+                    
+                    java使用mmap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.15" data-path="java-shi-yong-page-cache.html">
+            
+                <a href="java-shi-yong-page-cache.html">
+            
+                    
+                    java使用page cache
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.16" data-path="spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.html">
+            
+                <a href="spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.html">
+            
+                    
+                    spring cloud gateway + nacos + sentinel实现网关限流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.17" data-path="spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.html">
+            
+                <a href="spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.html">
+            
+                    
+                    spring cloud自定义loaderbalancer实现流量就近访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.18" data-path="spring-cloud-shou-dong-xia-diao-jie-dian.html">
+            
+                <a href="spring-cloud-shou-dong-xia-diao-jie-dian.html">
+            
+                    
+                    spring cloud手动下掉节点
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.19" data-path="jar-bao-jie-ya-he-da-bao.html">
+            
+                <a href="jar-bao-jie-ya-he-da-bao.html">
+            
+                    
+                    jar包解压和打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.20" data-path="java-ji-cheng-prometheus-shang-bao-shu-ju.html">
+            
+                <a href="java-ji-cheng-prometheus-shang-bao-shu-ju.html">
+            
+                    
+                    java集成prometheus上报数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.21" data-path="spring-actuator-shang-bao-zhi-biao-uriknown-xiu-fu.html">
+            
+                <a href="spring-actuator-shang-bao-zhi-biao-uriknown-xiu-fu.html">
+            
+                    
+                    spring actuator上报指标uri=known修复
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.22" data-path="maven-shou-dong-shang-chuan-san-fang-jar-dao-cang-ku.html">
+            
+                <a href="maven-shou-dong-shang-chuan-san-fang-jar-dao-cang-ku.html">
+            
+                    
+                    maven手动上传三方jar到仓库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.23" data-path="ji-yu-spring-cloud-gateway-springmvc-fu-wu-he-bing.html">
+            
+                <a href="ji-yu-spring-cloud-gateway-springmvc-fu-wu-he-bing.html">
+            
+                    
+                    基于Spring Cloud gateway & Springmvc服务合并
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.24" data-path="feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.html">
+            
+                <a href="feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.html">
+            
+                    
+                    Feign调用转成本地方法调用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.25" data-path="spring-cloud-ying-yong-fen-bu-shi-lian-lu-gen-zong-jian-yi-shi-xian.html">
+            
+                <a href="spring-cloud-ying-yong-fen-bu-shi-lian-lu-gen-zong-jian-yi-shi-xian.html">
+            
+                    
+                    spring cloud应用分布式链路跟踪简易实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.26" data-path="dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.html">
+            
+                <a href="dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.html">
+            
+                    
+                    对于所有对象都通用的方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.27" data-path="chuang-jian-he-xiao-hui-dui-xiang.html">
+            
+                <a href="chuang-jian-he-xiao-hui-dui-xiang.html">
+            
+                    
+                    创建和销毁对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.28" data-path="jackson-fan-xu-lie-hua-duo-tai-lei-xing-bang-ding.html">
+            
+                <a href="jackson-fan-xu-lie-hua-duo-tai-lei-xing-bang-ding.html">
+            
+                    
+                    Jackson反序列化多态类型绑定
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.29" data-path="spring-cloud-shou-dong-chuang-jian-feign-client.html">
+            
+                <a href="spring-cloud-shou-dong-chuang-jian-feign-client.html">
+            
+                    
+                    spring cloud手动创建feign client
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.30" data-path="springmvc-dong-tai-zhu-ce-lu-you.html">
+            
+                <a href="springmvc-dong-tai-zhu-ce-lu-you.html">
+            
+                    
+                    springmvc 动态注册路由
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.31" data-path="open-feign-yuan-ma-fen-xi.html">
+            
+                <a href="open-feign-yuan-ma-fen-xi.html">
+            
+                    
+                    Open feign源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.32" data-path="open-feign-dong-tai-qie-liu-shi-xian.html">
+            
+                <a href="open-feign-dong-tai-qie-liu-shi-xian.html">
+            
+                    
+                    Open feign动态切流实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.33" data-path="open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html">
+            
+                <a href="open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html">
+            
+                    
+                    Open feign动态切换服务目标地址组件
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../python/">
+            
+                <a href="../python/">
+            
+                    
+                    python
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../python/centos-an-zhuang-miniconda.html">
+            
+                <a href="../python/centos-an-zhuang-miniconda.html">
+            
+                    
+                    centos 安装miniconda
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../python/pip-an-zhuang-zou-socks-dai-li.html">
+            
+                <a href="../python/pip-an-zhuang-zou-socks-dai-li.html">
+            
+                    
+                    pip安装走socks代理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../python/pa-chong-xiang-guan.html">
+            
+                <a href="../python/pa-chong-xiang-guan.html">
+            
+                    
+                    爬虫相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../python/playwright-shi-yong-xiao-ji-qiao.html">
+            
+                <a href="../python/playwright-shi-yong-xiao-ji-qiao.html">
+            
+                    
+                    playwright使用小技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../linux/">
+            
+                <a href="../linux/">
+            
+                    
+                    Linux
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../linux/guo-qi-jar-shan-chu.html">
+            
+                <a href="../linux/guo-qi-jar-shan-chu.html">
+            
+                    
+                    过期jar删除
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../linux/centos-tian-jia-fang-huo-qiang.html">
+            
+                <a href="../linux/centos-tian-jia-fang-huo-qiang.html">
+            
+                    
+                    centos添加防火墙
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../linux/centos-xiu-gai-hostname.html">
+            
+                <a href="../linux/centos-xiu-gai-hostname.html">
+            
+                    
+                    centos修改hostname
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../linux/rsync-wen-jian-zeng-liang-tong-bu.html">
+            
+                <a href="../linux/rsync-wen-jian-zeng-liang-tong-bu.html">
+            
+                    
+                    rsync文件增量同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../linux/a-li-yun-bu-shu-wen-jian-chuan-shu-you-hua.html">
+            
+                <a href="../linux/a-li-yun-bu-shu-wen-jian-chuan-shu-you-hua.html">
+            
+                    
+                    阿里云部署-文件传输优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../linux/prometheus-qing-li-shu-ju.html">
+            
+                <a href="../linux/prometheus-qing-li-shu-ju.html">
+            
+                    
+                    prometheus清理数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../linux/prometheus-zhua-qu-shu-ju-pei-zhi.html">
+            
+                <a href="../linux/prometheus-zhua-qu-shu-ju-pei-zhi.html">
+            
+                    
+                    prometheus抓取数据配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../linux/centos-an-zhuang-chrome-he-chromedriver.html">
+            
+                <a href="../linux/centos-an-zhuang-chrome-he-chromedriver.html">
+            
+                    
+                    centos安装chrome和chromedriver
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../nexus/">
+            
+                <a href="../nexus/">
+            
+                    
+                    nexus
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../nexus/nexus-shou-dong-shang-chuan-wen-jian.html">
+            
+                <a href="../nexus/nexus-shou-dong-shang-chuan-wen-jian.html">
+            
+                    
+                    nexus手动上传文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../docker/">
+            
+                <a href="../docker/">
+            
+                    
+                    docker & k8s
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../docker/cha-kan-image-dui-ying-de-dockerfile.html">
+            
+                <a href="../docker/cha-kan-image-dui-ying-de-dockerfile.html">
+            
+                    
+                    查看image对应的dockerfile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../docker/k8s-ji-qun-da-jian.html">
+            
+                <a href="../docker/k8s-ji-qun-da-jian.html">
+            
+                    
+                    k8s集群搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../docker/docker-jing-xiang-dao-ru-dao-chu.html">
+            
+                <a href="../docker/docker-jing-xiang-dao-ru-dao-chu.html">
+            
+                    
+                    docker镜像导入导出
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../docker/kubectl-chang-yong-ming-ling.html">
+            
+                <a href="../docker/kubectl-chang-yong-ming-ling.html">
+            
+                    
+                    kubectl 常用命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../nginx/">
+            
+                <a href="../nginx/">
+            
+                    
+                    nginx
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../nginx/ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.html">
+            
+                <a href="../nginx/ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.html">
+            
+                    
+                    ngx_http_dyups_module实现web服务的平滑发布
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../nginx/nginx-dai-li-mysql.html">
+            
+                <a href="../nginx/nginx-dai-li-mysql.html">
+            
+                    
+                    nginx代理mysql
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.html">
+            
+                <a href="../nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.html">
+            
+                    
+                    nginx+imgproxy实现图片自动缩放裁剪
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../nginx/minio-shi-xian-wen-jian-cun-chu.html">
+            
+                <a href="../nginx/minio-shi-xian-wen-jian-cun-chu.html">
+            
+                    
+                    minio实现文件存储
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="../nginx/nginx-zheng-xiang-dai-li-https.html">
+            
+                <a href="../nginx/nginx-zheng-xiang-dai-li-https.html">
+            
+                    
+                    nginx正向代理https
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.6" data-path="../nginx/nginx-dong-tai-zhuan-fa-dao-upstream.html">
+            
+                <a href="../nginx/nginx-dong-tai-zhuan-fa-dao-upstream.html">
+            
+                    
+                    nginx动态转发到upstream
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../git/">
+            
+                <a href="../git/">
+            
+                    
+                    git
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.html">
+            
+                <a href="../git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.html">
+            
+                    
+                    git拉取指定tag/分支的代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../git/git-she-zhi-yong-hu-xin-xi-huan-cun.html">
+            
+                <a href="../git/git-she-zhi-yong-hu-xin-xi-huan-cun.html">
+            
+                    
+                    git设置用户信息缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../git/git-xiu-gai-yi-ti-jiao-ji-lu-ti-jiao-zhe-xin-xi.html">
+            
+                <a href="../git/git-xiu-gai-yi-ti-jiao-ji-lu-ti-jiao-zhe-xin-xi.html">
+            
+                    
+                    git修改已提交记录提交者信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../shell/">
+            
+                <a href="../shell/">
+            
+                    
+                    shell
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.html">
+            
+                <a href="../shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.html">
+            
+                    
+                    shell根据环境变量替换文本
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../shell/shell-ming-ling-zi-dong-bu-quan.html">
+            
+                <a href="../shell/shell-ming-ling-zi-dong-bu-quan.html">
+            
+                    
+                    shell命令自动补全
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../shell/ssh-zi-dong-shu-ru-mi-ma-deng-lu.html">
+            
+                <a href="../shell/ssh-zi-dong-shu-ru-mi-ma-deng-lu.html">
+            
+                    
+                    ssh自动输入密码登录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../shell/mac-xian-shi-yin-cang-wen-jian-jia.html">
+            
+                <a href="../shell/mac-xian-shi-yin-cang-wen-jian-jia.html">
+            
+                    
+                    mac显示隐藏文件夹
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../vim/">
+            
+                <a href="../vim/">
+            
+                    
+                    vim
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../vim/vim-jian-jie.html">
+            
+                <a href="../vim/vim-jian-jie.html">
+            
+                    
+                    Vim简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../vim/vim-xi-lie-zhi-chu-ti-yan-er.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-chu-ti-yan-er.html">
+            
+                    
+                    Vim系列之初体验(二)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../vim/vim-xi-lie-zhi-yi-dong-san.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-yi-dong-san.html">
+            
+                    
+                    Vim系列之移动(三)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="../vim/vim-xi-lie-zhi-cha-ru-si.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-cha-ru-si.html">
+            
+                    
+                    Vim系列之插入(四)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../redis/">
+            
+                <a href="../redis/">
+            
+                    
+                    redis
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../redis/redis-dong-tai-tian-jia-cong-ku.html">
+            
+                <a href="../redis/redis-dong-tai-tian-jia-cong-ku.html">
+            
+                    
+                    redis动态添加从库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../redis/lua-jiao-ben-pi-liang-tian-jia-redis-key-qian-zhui.html">
+            
+                <a href="../redis/lua-jiao-ben-pi-liang-tian-jia-redis-key-qian-zhui.html">
+            
+                    
+                    lua脚本批量添加redis key前缀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../redis/shi-yong-redisson-qian-yi-redis-shu-ju.html">
+            
+                <a href="../redis/shi-yong-redisson-qian-yi-redis-shu-ju.html">
+            
+                    
+                    使用redisson迁移redis数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../redis/redis-qing-kong-mou-ge-ku.html">
+            
+                <a href="../redis/redis-qing-kong-mou-ge-ku.html">
+            
+                    
+                    redis清空某个库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.5" data-path="../redis/redis-dui-xiang.html">
+            
+                <a href="../redis/redis-dui-xiang.html">
+            
+                    
+                    redis对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.6" data-path="../redis/redis-zi-fu-chuan.html">
+            
+                <a href="../redis/redis-zi-fu-chuan.html">
+            
+                    
+                    redis字符串
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.7" data-path="../redis/redis-lian-biao.html">
+            
+                <a href="../redis/redis-lian-biao.html">
+            
+                    
+                    redis链表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.8" data-path="../redis/redis-zi-dian.html">
+            
+                <a href="../redis/redis-zi-dian.html">
+            
+                    
+                    redis字典
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.9" data-path="../redis/redis-ya-suo-lie-biao.html">
+            
+                <a href="../redis/redis-ya-suo-lie-biao.html">
+            
+                    
+                    redis压缩列表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.10" data-path="../redis/redis-zheng-shu-ji-he.html">
+            
+                <a href="../redis/redis-zheng-shu-ji-he.html">
+            
+                    
+                    redis整数集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.11" data-path="../redis/redis-tiao-yue-biao.html">
+            
+                <a href="../redis/redis-tiao-yue-biao.html">
+            
+                    
+                    redis跳跃表
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../mysql/">
+            
+                <a href="../mysql/">
+            
+                    
+                    mysql
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../mysql/mysql-chuang-jian-yong-hu-bing-shou-quan.html">
+            
+                <a href="../mysql/mysql-chuang-jian-yong-hu-bing-shou-quan.html">
+            
+                    
+                    mysql创建用户并授权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="../mysql/mysql-zhu-cong-tong-bu-pei-zhi.html">
+            
+                <a href="../mysql/mysql-zhu-cong-tong-bu-pei-zhi.html">
+            
+                    
+                    mysql主从同步配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../c-and-cpp/">
+            
+                <a href="../c-and-cpp/">
+            
+                    
+                    c & cpp
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../c-and-cpp/zhi-zhen-han-shu-han-shu-zhi-zhen.html">
+            
+                <a href="../c-and-cpp/zhi-zhen-han-shu-han-shu-zhi-zhen.html">
+            
+                    
+                    指针函数&函数指针
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../php/">
+            
+                <a href="../php/">
+            
+                    
+                    php
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../php/php-zong-jie.html">
+            
+                <a href="../php/php-zong-jie.html">
+            
+                    
+                    PHP总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="../php/php-dan-yuan-ce-shi-phpunit.html">
+            
+                <a href="../php/php-dan-yuan-ce-shi-phpunit.html">
+            
+                    
+                    PHP单元测试PHPUnit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="../php/php-an-zhuang-memcached-kuo-zhan.html">
+            
+                <a href="../php/php-an-zhuang-memcached-kuo-zhan.html">
+            
+                    
+                    PHP安装memcached扩展
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../zsh/">
+            
+                <a href="../zsh/">
+            
+                    
+                    zsh
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="../zsh/zsh-bian-liang-he-yu-ju.html">
+            
+                <a href="../zsh/zsh-bian-liang-he-yu-ju.html">
+            
+                    
+                    zsh-变量和语句
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="../zsh/zsh-zi-fu-chuan-chang-yong-cao-zuo.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-chang-yong-cao-zuo.html">
+            
+                    
+                    zsh-字符串常用操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="../zsh/zsh-zi-fu-chuan-zhuan-yi-he-ge-shi-hua.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-zhuan-yi-he-ge-shi-hua.html">
+            
+                    
+                    zsh-字符串转义和格式化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4" data-path="../zsh/zsh-zi-fu-chuan-tong-pei-fu.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-tong-pei-fu.html">
+            
+                    
+                    zsh-字符串通配符
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="../qian-duan/">
+            
+                <a href="../qian-duan/">
+            
+                    
+                    前端
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="../qian-duan/highlight.js-zhi-chi-dong-tai-dai-ma.html">
+            
+                <a href="../qian-duan/highlight.js-zhi-chi-dong-tai-dai-ma.html">
+            
+                    
+                    highlight.js支持动态代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="../jia-gou-shi-tu-pu.html">
+            
+                <a href="../jia-gou-shi-tu-pu.html">
+            
+                    
+                    架构师图谱
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="../su-yuan-xi-tong.html">
+            
+                <a href="../su-yuan-xi-tong.html">
+            
+                    
+                    溯源系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Open feign源码分析</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="open-feign&#x6E90;&#x7801;&#x5206;&#x6790;">Open feign&#x6E90;&#x7801;&#x5206;&#x6790;</h1>
+<h2 id="&#x524D;&#x6CBF;">&#x524D;&#x6CBF;</h2>
+<p>&#x6700;&#x8FD1;&#x5728;&#x505A;&#x670D;&#x52A1;&#x62C6;&#x5206;&#x548C;&#x8FC1;&#x79FB;&#xFF0C;&#x5176;&#x4E2D;&#x6D89;&#x53CA;&#x5230;&#x4E00;&#x4E9B;feign&#x63A5;&#x53E3;&#x7684;&#x8FC1;&#x79FB;&#xFF0C;&#x56E0;&#x4E3A;&#x6D89;&#x53CA;&#x5230;&#x4E0A;&#x6E38;&#x6BD4;&#x8F83;&#x591A;&#xFF0C;&#x5E0C;&#x671B;&#x53EF;&#x4EE5;&#x5C3D;&#x91CF;&#x51CF;&#x5C11;&#x4E0A;&#x6E38;&#x7684;&#x6539;&#x52A8;&#x91CF;&#xFF0C;&#x56E0;&#x6B64;&#x51B3;&#x5B9A;&#x8C03;&#x7814;&#x4E0B;open feign</p>
+<h2 id="&#x6B63;&#x6587;">&#x6B63;&#x6587;</h2>
+<h3 id="&#x5165;&#x53E3;enablefeignclients">&#x5165;&#x53E3;EnableFeignClients</h3>
+<pre><code class="lang-java"><span class="hljs-meta">@Retention</span>(RetentionPolicy.RUNTIME)
+<span class="hljs-meta">@Target</span>(ElementType.TYPE)
+<span class="hljs-meta">@Documented</span>
+<span class="hljs-meta">@Import</span>(FeignClientsRegistrar.class)
+<span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> EnableFeignClients {
+
+    <span class="hljs-comment">/**
+     * Alias for the {<span class="hljs-doctag">@link</span> #basePackages()} attribute. Allows for more concise annotation
+     * declarations e.g.: {<span class="hljs-doctag">@code</span> <span class="hljs-doctag">@ComponentScan</span>(&quot;org.my.pkg&quot;)} instead of
+     * {<span class="hljs-doctag">@code</span> <span class="hljs-doctag">@ComponentScan</span>(basePackages=&quot;org.my.pkg&quot;)}.
+     * <span class="hljs-doctag">@return</span> the array of &apos;basePackages&apos;.
+     */</span>
+    String[] value() <span class="hljs-keyword">default</span> {};
+
+    <span class="hljs-comment">/**
+     * Base packages to scan for annotated components.
+     * &lt;p&gt;
+     * {<span class="hljs-doctag">@link</span> #value()} is an alias for (and mutually exclusive with) this attribute.
+     * &lt;p&gt;
+     * Use {<span class="hljs-doctag">@link</span> #basePackageClasses()} for a type-safe alternative to String-based
+     * package names.
+     * <span class="hljs-doctag">@return</span> the array of &apos;basePackages&apos;.
+     */</span>
+    String[] basePackages() <span class="hljs-keyword">default</span> {};
+
+    <span class="hljs-comment">/**
+     * Type-safe alternative to {<span class="hljs-doctag">@link</span> #basePackages()} for specifying the packages to
+     * scan for annotated components. The package of each class specified will be scanned.
+     * &lt;p&gt;
+     * Consider creating a special no-op marker class or interface in each package that
+     * serves no purpose other than being referenced by this attribute.
+     * <span class="hljs-doctag">@return</span> the array of &apos;basePackageClasses&apos;.
+     */</span>
+    Class&lt;?&gt;[] basePackageClasses() <span class="hljs-keyword">default</span> {};
+
+    <span class="hljs-comment">/**
+     * A custom &lt;code&gt;<span class="hljs-doctag">@Configuration</span>&lt;/code&gt; for all feign clients. Can contain override
+     * &lt;code&gt;<span class="hljs-doctag">@Bean</span>&lt;/code&gt; definition for the pieces that make up the client, for instance
+     * {<span class="hljs-doctag">@link</span> feign.codec.Decoder}, {<span class="hljs-doctag">@link</span> feign.codec.Encoder}, {<span class="hljs-doctag">@link</span> feign.Contract}.
+     *
+     * <span class="hljs-doctag">@see</span> FeignClientsConfiguration for the defaults
+     * <span class="hljs-doctag">@return</span> list of default configurations
+     */</span>
+    Class&lt;?&gt;[] defaultConfiguration() <span class="hljs-keyword">default</span> {};
+
+    <span class="hljs-comment">/**
+     * List of classes annotated with <span class="hljs-doctag">@FeignClient</span>. If not empty, disables classpath
+     * scanning.
+     * <span class="hljs-doctag">@return</span> list of FeignClient classes
+     */</span>
+    Class&lt;?&gt;[] clients() <span class="hljs-keyword">default</span> {};
+
+}
+</code></pre>
+<p>&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;&#x5165;&#x53E3;&#x53CA;&#x65F6;&#x8FD9;&#x4E2A;&#x6CE8;&#x89E3;&#xFF0C;&#x6CE8;&#x89E3;&#x672C;&#x8EAB;&#x53EA;&#x662F;&#x4E00;&#x4E9B;&#x914D;&#x7F6E;&#xFF0C;&#x6BD4;&#x5982;&#x5305;&#x8DEF;&#x5F84;&#x6216;&#x8005;&#x6307;&#x5B9A;&#x5177;&#x4F53;&#x7684;class&#x7B49;&#x7B49;</p>
+<p><strong>&#x9700;&#x8981;&#x5173;&#x6CE8;&#x7684;&#x662F;@Import(FeignClientsRegistrar.class)&#x8FD9;&#x4E00;&#x884C;&#xFF0C;@Import&#x6CE8;&#x89E3;&#x7528;&#x4E8E;&#x624B;&#x52A8;&#x5BFC;&#x5165;&#x4E00;&#x4E9B;&#x914D;&#x7F6E;&#x6216;&#x8005;&#x4E3B;&#x952E;&#xFF0C;&#x662F;spring boot&#x63D0;&#x4F9B;&#x7684;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;&#x901A;&#x8FC7;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x53EF;&#x4EE5;&#x5C06;&#x4E3B;&#x5BFC;&#x6743;&#x4EA4;&#x7ED9;&#x5F00;&#x53D1;&#x8005;</strong></p>
+<h3 id="feignclientsregistrar">FeignClientsRegistrar</h3>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FeignClientsRegistrar</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ImportBeanDefinitionRegistrar</span>, <span class="hljs-title">ResourceLoaderAware</span>, <span class="hljs-title">EnvironmentAware</span> </span>{
+
+    <span class="hljs-keyword">private</span> ResourceLoader resourceLoader;
+
+    <span class="hljs-keyword">private</span> Environment environment;
+
+    FeignClientsRegistrar() {
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">registerBeanDefinitions</span><span class="hljs-params">(AnnotationMetadata metadata, BeanDefinitionRegistry registry)</span> </span>{
+        registerDefaultConfiguration(metadata, registry);
+        registerFeignClients(metadata, registry);
+    }
+
+
+}
+</code></pre>
+<p>&#x8BE5;&#x7C7B;&#x5B9E;&#x73B0;&#x4E86;ImportBeanDefinitionRegistrar&#x63A5;&#x53E3;&#xFF0C;&#x8FD9;&#x91CC;&#x770B;&#x4E0B;registerBeanDefinitions&#x65B9;&#x6CD5;&#xFF0C;&#x505A;&#x4E24;&#x4E24;&#x4EF6;&#x4E8B;registerDefaultConfiguration&#x548C;registerFeignClients</p>
+<p>&#x5148;&#x770B;registerDefaultConfiguration&#x65B9;&#x6CD5;</p>
+<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">registerDefaultConfiguration</span><span class="hljs-params">(AnnotationMetadata metadata, BeanDefinitionRegistry registry)</span> </span>{
+    Map&lt;String, Object&gt; defaultAttrs = metadata.getAnnotationAttributes(EnableFeignClients.class.getName(), <span class="hljs-keyword">true</span>);
+
+    <span class="hljs-keyword">if</span> (defaultAttrs != <span class="hljs-keyword">null</span> &amp;&amp; defaultAttrs.containsKey(<span class="hljs-string">&quot;defaultConfiguration&quot;</span>)) {
+        String name;
+        <span class="hljs-keyword">if</span> (metadata.hasEnclosingClass()) {
+            name = <span class="hljs-string">&quot;default.&quot;</span> + metadata.getEnclosingClassName();
+        }
+        <span class="hljs-keyword">else</span> {
+            name = <span class="hljs-string">&quot;default.&quot;</span> + metadata.getClassName();
+        }
+        registerClientConfiguration(registry, name, defaultAttrs.get(<span class="hljs-string">&quot;defaultConfiguration&quot;</span>));
+    }
+}
+</code></pre>
+<p>&#x8FD9;&#x91CC;&#x4E3B;&#x8981;&#x662F;&#x626B;&#x63CF;EnableFeignClients&#x7684;defaultConfiguration&#x5C5E;&#x6027;&#xFF0C;&#x5E76;&#x5C06;&#x5176;&#x6CE8;&#x518C;&#x4E3A;bean</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x770B;registerFeignClients&#x65B9;&#x6CD5;</p>
+<pre><code class="lang-java">
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">registerFeignClients</span><span class="hljs-params">(AnnotationMetadata metadata, BeanDefinitionRegistry registry)</span> </span>{
+    LinkedHashSet&lt;BeanDefinition&gt; candidateComponents = <span class="hljs-keyword">new</span> LinkedHashSet&lt;&gt;();
+    Map&lt;String, Object&gt; attrs = metadata.getAnnotationAttributes(EnableFeignClients.class.getName());
+    <span class="hljs-keyword">final</span> Class&lt;?&gt;[] clients = attrs == <span class="hljs-keyword">null</span> ? <span class="hljs-keyword">null</span> : (Class&lt;?&gt;[]) attrs.get(<span class="hljs-string">&quot;clients&quot;</span>);
+    <span class="hljs-keyword">if</span> (clients == <span class="hljs-keyword">null</span> || clients.length == <span class="hljs-number">0</span>) {
+        ClassPathScanningCandidateComponentProvider scanner = getScanner();
+        scanner.setResourceLoader(<span class="hljs-keyword">this</span>.resourceLoader);
+        scanner.addIncludeFilter(<span class="hljs-keyword">new</span> AnnotationTypeFilter(FeignClient.class));
+        Set&lt;String&gt; basePackages = getBasePackages(metadata);
+        <span class="hljs-keyword">for</span> (String basePackage : basePackages) {
+            candidateComponents.addAll(scanner.findCandidateComponents(basePackage));
+        }
+    }
+    <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">for</span> (Class&lt;?&gt; clazz : clients) {
+            candidateComponents.add(<span class="hljs-keyword">new</span> AnnotatedGenericBeanDefinition(clazz));
+        }
+    }
+
+    <span class="hljs-keyword">for</span> (BeanDefinition candidateComponent : candidateComponents) {
+        <span class="hljs-keyword">if</span> (candidateComponent <span class="hljs-keyword">instanceof</span> AnnotatedBeanDefinition) {
+            <span class="hljs-comment">// verify annotated class is an interface</span>
+            AnnotatedBeanDefinition beanDefinition = (AnnotatedBeanDefinition) candidateComponent;
+            AnnotationMetadata annotationMetadata = beanDefinition.getMetadata();
+            Assert.isTrue(annotationMetadata.isInterface(), <span class="hljs-string">&quot;@FeignClient can only be specified on an interface&quot;</span>);
+
+            Map&lt;String, Object&gt; attributes = annotationMetadata
+                    .getAnnotationAttributes(FeignClient.class.getCanonicalName());
+
+            String name = getClientName(attributes);
+            registerClientConfiguration(registry, name, attributes.get(<span class="hljs-string">&quot;configuration&quot;</span>));
+
+            registerFeignClient(registry, annotationMetadata, attributes);
+        }
+    }
+}
+</code></pre>
+<p>&#x65B9;&#x6CD5;&#x4E2D;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;if-else&#x5757;&#x662F;&#x5728;&#x627E;&#x9700;&#x8981;&#x6CE8;&#x518C;&#x6210;bean&#x7684;feign client class&#xFF0C;&#x5E76;&#x5C06;&#x5176;&#x6DFB;&#x52A0;&#x5230;&#x5F85;&#x6CE8;&#x518C;&#x5217;&#x8868;&#x4E2D;&#xFF1B;&#x4F18;&#x5148;&#x901A;&#x8FC7;@EnableFeignClients&#x6CE8;&#x89E3;&#x7684;clients&#x5C5E;&#x6027;&#xFF0C;&#x5982;&#x679C;&#x5C5E;&#x6027;&#x4E3A;&#x7A7A;&#xFF0C;&#x5219;&#x901A;&#x8FC7;value&#x3001;basePackages&#x4E2D;&#x6307;&#x5B9A;&#x7684;&#x6839;&#x8DEF;&#x5F84;&#x4EE5;&#x53CA;basePackageClasses&#x4E2D;&#x6307;&#x5B9A;&#x7684;&#x7C7B;&#x6240;&#x5728;&#x7684;&#x8DEF;&#x5F84;&#x4F5C;&#x4E3A;&#x6839;&#x8DEF;&#x5F84;&#x53BB;&#x626B;&#x63CF;&#x6839;&#x8DEF;&#x5F84;&#x4E0B;&#x6807;&#x8BB0;&#x4E86;@FeignClient&#x6CE8;&#x89E3;&#x7684;&#x7C7B;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x5C31;&#x662F;&#x6839;&#x636E;FeignClient&#x5C5E;&#x6027;&#x6CE8;&#x518C;bean&#xFF0C;&#x91CD;&#x70B9;&#x770B;registerFeignClient&#x65B9;&#x6CD5;</p>
+<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">registerFeignClient</span><span class="hljs-params">(BeanDefinitionRegistry registry, AnnotationMetadata annotationMetadata,
+        Map&lt;String, Object&gt; attributes)</span> </span>{
+    String className = annotationMetadata.getClassName();
+    Class clazz = ClassUtils.resolveClassName(className, <span class="hljs-keyword">null</span>);
+    ConfigurableBeanFactory beanFactory = registry <span class="hljs-keyword">instanceof</span> ConfigurableBeanFactory
+            ? (ConfigurableBeanFactory) registry : <span class="hljs-keyword">null</span>;
+    String contextId = getContextId(beanFactory, attributes);
+    String name = getName(attributes);
+    FeignClientFactoryBean factoryBean = <span class="hljs-keyword">new</span> FeignClientFactoryBean();
+    factoryBean.setBeanFactory(beanFactory);
+    factoryBean.setName(name);
+    factoryBean.setContextId(contextId);
+    factoryBean.setType(clazz);
+    factoryBean.setRefreshableClient(isClientRefreshEnabled());
+    BeanDefinitionBuilder definition = BeanDefinitionBuilder.genericBeanDefinition(clazz, () -&gt; {
+        factoryBean.setUrl(getUrl(beanFactory, attributes));
+        factoryBean.setPath(getPath(beanFactory, attributes));
+        factoryBean.setDecode404(Boolean.parseBoolean(String.valueOf(attributes.get(<span class="hljs-string">&quot;decode404&quot;</span>))));
+        Object fallback = attributes.get(<span class="hljs-string">&quot;fallback&quot;</span>);
+        <span class="hljs-keyword">if</span> (fallback != <span class="hljs-keyword">null</span>) {
+            factoryBean.setFallback(fallback <span class="hljs-keyword">instanceof</span> Class ? (Class&lt;?&gt;) fallback
+                    : ClassUtils.resolveClassName(fallback.toString(), <span class="hljs-keyword">null</span>));
+        }
+        Object fallbackFactory = attributes.get(<span class="hljs-string">&quot;fallbackFactory&quot;</span>);
+        <span class="hljs-keyword">if</span> (fallbackFactory != <span class="hljs-keyword">null</span>) {
+            factoryBean.setFallbackFactory(fallbackFactory <span class="hljs-keyword">instanceof</span> Class ? (Class&lt;?&gt;) fallbackFactory
+                    : ClassUtils.resolveClassName(fallbackFactory.toString(), <span class="hljs-keyword">null</span>));
+        }
+        <span class="hljs-keyword">return</span> factoryBean.getObject();
+    });
+    definition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
+    definition.setLazyInit(<span class="hljs-keyword">true</span>);
+    validate(attributes);
+
+    AbstractBeanDefinition beanDefinition = definition.getBeanDefinition();
+    beanDefinition.setAttribute(FactoryBean.OBJECT_TYPE_ATTRIBUTE, className);
+    beanDefinition.setAttribute(<span class="hljs-string">&quot;feignClientsRegistrarFactoryBean&quot;</span>, factoryBean);
+
+    <span class="hljs-comment">// has a default, won&apos;t be null</span>
+    <span class="hljs-keyword">boolean</span> primary = (Boolean) attributes.get(<span class="hljs-string">&quot;primary&quot;</span>);
+
+    beanDefinition.setPrimary(primary);
+
+    String[] qualifiers = getQualifiers(attributes);
+    <span class="hljs-keyword">if</span> (ObjectUtils.isEmpty(qualifiers)) {
+        qualifiers = <span class="hljs-keyword">new</span> String[] { contextId + <span class="hljs-string">&quot;FeignClient&quot;</span> };
+    }
+
+    BeanDefinitionHolder holder = <span class="hljs-keyword">new</span> BeanDefinitionHolder(beanDefinition, className, qualifiers);
+    BeanDefinitionReaderUtils.registerBeanDefinition(holder, registry);
+
+    registerOptionsBeanDefinition(registry, contextId);
+}
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x65B9;&#x6CD5;&#x5C31;&#x662F;&#x6784;&#x9020;&#x4E86;&#x4E00;&#x4E2A;BeanDefinition&#x5E76;&#x6CE8;&#x518C;&#xFF0C;BeanDefinition&#x662F;bean&#x7684;&#x5143;&#x6570;&#x636E;&#x63CF;&#x8FF0;&#xFF0C;&#x6839;&#x636E;&#x4EE3;&#x7801;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F97;&#x77E5;beanFactory&#x662F;FeignClientFactoryBean&#xFF0C;&#x540C;&#x65F6;&#x5728;&#x6784;&#x5EFA;BeanDefinition&#x8FD8;&#x505A;&#x4E86;&#x4E00;&#x4E9B;&#x51C6;&#x5907;&#x5DE5;&#x4F5C;&#xFF0C;&#x4F8B;&#x5982;&#x5BF9;url&#x548C;path&#x7684;&#x5904;&#x7406;&#xFF0C;&#x8FD9;&#x91CC;&#x4E0D;&#x5177;&#x4F53;&#x5206;&#x6790;&#x3002;&#x751F;&#x6210;bean&#x5F0F;&#x901A;&#x8FC7;BeanFactor&#x4E5F;&#x5C31;&#x662F;FeignClientFactoryBean&#x6765;&#x5B9E;&#x73B0;&#x7684;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x6211;&#x4EEC;&#x770B;FeignClientFactoryBean</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FeignClientFactoryBean</span>
+        <span class="hljs-keyword">implements</span> <span class="hljs-title">FactoryBean</span>&lt;<span class="hljs-title">Object</span>&gt;, <span class="hljs-title">InitializingBean</span>, <span class="hljs-title">ApplicationContextAware</span>, <span class="hljs-title">BeanFactoryAware</span> </span>{
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">getObject</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> getTarget();
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> Class&lt;?&gt; getObjectType() {
+        <span class="hljs-keyword">return</span> type;
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isSingleton</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    }
+
+    <span class="hljs-keyword">public</span> Class&lt;?&gt; getType() {
+        <span class="hljs-keyword">return</span> type;
+    }
+
+}
+</code></pre>
+<p>&#x8FD9;&#x91CC;getObjectType&#x8FD4;&#x56DE;&#x7684;&#x662F;bean&#x7684;&#x7C7B;&#x578B;&#xFF0C;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x6807;&#x8BB0;&#x4E86;@FeignClient&#x7684;&#x63A5;&#x53E3;&#x7C7B;&#x578B;&#xFF0C;isSingleton&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x5F97;&#x77E5;bean&#x90FD;&#x662F;&#x5355;&#x4F8B;&#x7684;&#xFF0C;getObject&#x8FD4;&#x56DE;&#x7684;&#x5C31;&#x662F;&#x5177;&#x4F53;&#x7684;bean&#xFF0C;&#x8FD9;&#x91CC;&#x662F;&#x8C03;&#x7528;&#x4E86;getTarget&#x65B9;&#x6CD5;&#x6765;&#x8FD4;&#x56DE;&#x7684;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;&#x770B;getTarget&#x65B9;&#x6CD5;</p>
+<pre><code class="lang-java"><span class="hljs-comment">/**
+ * <span class="hljs-doctag">@param</span> &lt;T&gt; the target type of the Feign client
+ * <span class="hljs-doctag">@return</span> a {<span class="hljs-doctag">@link</span> Feign} client created with the specified data and the context
+ * information
+ */</span>
+&lt;T&gt; <span class="hljs-function">T <span class="hljs-title">getTarget</span><span class="hljs-params">()</span> </span>{
+    FeignContext context = beanFactory != <span class="hljs-keyword">null</span> ? beanFactory.getBean(FeignContext.class)
+            : applicationContext.getBean(FeignContext.class);
+    Feign.Builder builder = feign(context);
+
+    <span class="hljs-keyword">if</span> (!StringUtils.hasText(url)) {
+
+        <span class="hljs-keyword">if</span> (LOG.isInfoEnabled()) {
+            LOG.info(<span class="hljs-string">&quot;For &apos;&quot;</span> + name + <span class="hljs-string">&quot;&apos; URL not provided. Will try picking an instance via load-balancing.&quot;</span>);
+        }
+        <span class="hljs-keyword">if</span> (!name.startsWith(<span class="hljs-string">&quot;http&quot;</span>)) {
+            url = <span class="hljs-string">&quot;http://&quot;</span> + name;
+        }
+        <span class="hljs-keyword">else</span> {
+            url = name;
+        }
+        url += cleanPath();
+        <span class="hljs-keyword">return</span> (T) loadBalance(builder, context, <span class="hljs-keyword">new</span> HardCodedTarget&lt;&gt;(type, name, url));
+    }
+    <span class="hljs-keyword">if</span> (StringUtils.hasText(url) &amp;&amp; !url.startsWith(<span class="hljs-string">&quot;http&quot;</span>)) {
+        url = <span class="hljs-string">&quot;http://&quot;</span> + url;
+    }
+    String url = <span class="hljs-keyword">this</span>.url + cleanPath();
+    Client client = getOptional(context, Client.class);
+    <span class="hljs-keyword">if</span> (client != <span class="hljs-keyword">null</span>) {
+        <span class="hljs-keyword">if</span> (client <span class="hljs-keyword">instanceof</span> FeignBlockingLoadBalancerClient) {
+            <span class="hljs-comment">// not load balancing because we have a url,</span>
+            <span class="hljs-comment">// but Spring Cloud LoadBalancer is on the classpath, so unwrap</span>
+            client = ((FeignBlockingLoadBalancerClient) client).getDelegate();
+        }
+        <span class="hljs-keyword">if</span> (client <span class="hljs-keyword">instanceof</span> RetryableFeignBlockingLoadBalancerClient) {
+            <span class="hljs-comment">// not load balancing because we have a url,</span>
+            <span class="hljs-comment">// but Spring Cloud LoadBalancer is on the classpath, so unwrap</span>
+            client = ((RetryableFeignBlockingLoadBalancerClient) client).getDelegate();
+        }
+        builder.client(client);
+    }
+    Targeter targeter = get(context, Targeter.class);
+    <span class="hljs-keyword">return</span> (T) targeter.target(<span class="hljs-keyword">this</span>, builder, context, <span class="hljs-keyword">new</span> HardCodedTarget&lt;&gt;(type, name, url));
+}
+</code></pre>
+<p>&#x8FD9;&#x91CC;&#x6700;&#x8981;&#x770B;&#x6700;&#x540E;&#x4E24;&#x884C;&#xFF0C;&#x901A;&#x5E38;targeter&#x8FD4;&#x56DE;&#x7684;&#x662F;DefaultTargeter&#xFF0C;&#x5177;&#x4F53;&#x53EF;&#x4EE5;&#x67E5;&#x770B;FeignAutoConfiguration</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x67E5;&#x770B;DefaultTargeter.target&#x65B9;&#x6CD5;</p>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DefaultTargeter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Targeter</span> </span>{
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-function">T <span class="hljs-title">target</span><span class="hljs-params">(FeignClientFactoryBean factory, Feign.Builder feign, FeignContext context,
+            Target.HardCodedTarget&lt;T&gt; target)</span> </span>{
+        <span class="hljs-keyword">return</span> feign.target(target);
+    }
+
+}
+</code></pre>
+<p>&#x5B9E;&#x9645;&#x4E0A;&#x662F;Feign.Builder.target&#x65B9;&#x6CD5;</p>
+<pre><code class="lang-javascript">public &lt;T&gt; T target(Target&lt;T&gt; target) {
+  <span class="hljs-keyword">return</span> build().newInstance(target);
+}
+</code></pre>
+<p>&#x518D;&#x770B;build&#x65B9;&#x6CD5;</p>
+<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> Feign <span class="hljs-title">build</span><span class="hljs-params">()</span> </span>{
+      Client client = Capability.enrich(<span class="hljs-keyword">this</span>.client, capabilities);
+      Retryer retryer = Capability.enrich(<span class="hljs-keyword">this</span>.retryer, capabilities);
+      List&lt;RequestInterceptor&gt; requestInterceptors = <span class="hljs-keyword">this</span>.requestInterceptors.stream()
+          .map(ri -&gt; Capability.enrich(ri, capabilities))
+          .collect(Collectors.toList());
+      Logger logger = Capability.enrich(<span class="hljs-keyword">this</span>.logger, capabilities);
+      Contract contract = Capability.enrich(<span class="hljs-keyword">this</span>.contract, capabilities);
+      Options options = Capability.enrich(<span class="hljs-keyword">this</span>.options, capabilities);
+      Encoder encoder = Capability.enrich(<span class="hljs-keyword">this</span>.encoder, capabilities);
+      Decoder decoder = Capability.enrich(<span class="hljs-keyword">this</span>.decoder, capabilities);
+      InvocationHandlerFactory invocationHandlerFactory =
+          Capability.enrich(<span class="hljs-keyword">this</span>.invocationHandlerFactory, capabilities);
+      QueryMapEncoder queryMapEncoder = Capability.enrich(<span class="hljs-keyword">this</span>.queryMapEncoder, capabilities);
+
+      SynchronousMethodHandler.Factory synchronousMethodHandlerFactory =
+          <span class="hljs-keyword">new</span> SynchronousMethodHandler.Factory(client, retryer, requestInterceptors, logger,
+              logLevel, decode404, closeAfterDecode, propagationPolicy, forceDecoding);
+      ParseHandlersByName handlersByName =
+          <span class="hljs-keyword">new</span> ParseHandlersByName(contract, options, encoder, decoder, queryMapEncoder,
+              errorDecoder, synchronousMethodHandlerFactory);
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ReflectiveFeign(handlersByName, invocationHandlerFactory, queryMapEncoder);
+}
+</code></pre>
+<p>&#x5B9E;&#x9645;&#x4E0A;&#x8FD4;&#x56DE;&#x4E86;ReflectiveFeign</p>
+<p>&#x518D;&#x770B;ReflectiveFeign.netInstance&#x65B9;&#x6CD5;</p>
+<pre><code class="lang-java"> <span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-function">T <span class="hljs-title">newInstance</span><span class="hljs-params">(Target&lt;T&gt; target)</span> </span>{
+    <span class="hljs-comment">// ...</span>
+    InvocationHandler handler = factory.create(target, methodToHandler);
+    T proxy = (T) Proxy.newProxyInstance(target.type().getClassLoader(),
+        <span class="hljs-keyword">new</span> Class&lt;?&gt;[] {target.type()}, handler);
+
+    <span class="hljs-keyword">for</span> (DefaultMethodHandler defaultMethodHandler : defaultMethodHandlers) {
+      defaultMethodHandler.bindTo(proxy);
+    }
+    <span class="hljs-keyword">return</span> proxy;
+  }
+</code></pre>
+<p>T proxy = (T) Proxy.newProxyInstance(target.type().getClassLoader(), new Class\&lt;?&gt;[] {target.type()}, handler)&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x8FD9;&#x91CC;&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;jdk&#x52A8;&#x6001;&#x4EE3;&#x7406;&#x5BF9;&#x8C61;&#xFF0C;&#x9700;&#x8981;&#x91CD;&#x70B9;&#x5173;&#x6CE8;&#x7684;&#x662F;handler&#xFF0C;&#x5F80;&#x4E0A;&#x56DE;&#x6EAF;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;handler&#xFF0C;&#x662F;&#x901A;&#x8FC7;factory.create(target, methodToHandler)&#x521B;&#x5EFA;&#xFF0C;&#x5177;&#x4F53;&#x65B9;&#x5F0F;&#x662F;InvocationHandlerFactory.create</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">InvocationHandlerFactory</span> </span>{
+
+  <span class="hljs-function">InvocationHandler <span class="hljs-title">create</span><span class="hljs-params">(Target target, Map&lt;Method, MethodHandler&gt; dispatch)</span></span>;
+
+  <span class="hljs-comment">/**
+   * Like {<span class="hljs-doctag">@link</span> InvocationHandler#invoke(Object, java.lang.reflect.Method, Object[])}, except for a
+   * single method.
+   */</span>
+  <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">MethodHandler</span> </span>{
+    <span class="hljs-function">Object <span class="hljs-title">invoke</span><span class="hljs-params">(Object[] argv)</span> <span class="hljs-keyword">throws</span> Throwable</span>;
+  }
+
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Default</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">InvocationHandlerFactory</span> </span>{
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> InvocationHandler <span class="hljs-title">create</span><span class="hljs-params">(Target target, Map&lt;Method, MethodHandler&gt; dispatch)</span> </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ReflectiveFeign.FeignInvocationHandler(target, dispatch);
+    }
+  }
+}
+</code></pre>
+<p>&#x5B9E;&#x9645;&#x4E0A;&#x8FD4;&#x56DE;&#x7684;&#x662F;FeignInvocationHandler&#xFF0C;&#x5B9E;&#x73B0;&#x4E86;InvocationHandler</p>
+<pre><code class="lang-java"><span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FeignInvocationHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">InvocationHandler</span> </span>{
+
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Target target;
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map&lt;Method, MethodHandler&gt; dispatch;
+
+FeignInvocationHandler(Target target, Map&lt;Method, MethodHandler&gt; dispatch) {
+  <span class="hljs-keyword">this</span>.target = checkNotNull(target, <span class="hljs-string">&quot;target&quot;</span>);
+  <span class="hljs-keyword">this</span>.dispatch = checkNotNull(dispatch, <span class="hljs-string">&quot;dispatch for %s&quot;</span>, target);
+}
+
+<span class="hljs-meta">@Override</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">invoke</span><span class="hljs-params">(Object proxy, Method method, Object[] args)</span> <span class="hljs-keyword">throws</span> Throwable </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;equals&quot;</span>.equals(method.getName())) {
+    <span class="hljs-keyword">try</span> {
+      Object otherHandler =
+          args.length &gt; <span class="hljs-number">0</span> &amp;&amp; args[<span class="hljs-number">0</span>] != <span class="hljs-keyword">null</span> ? Proxy.getInvocationHandler(args[<span class="hljs-number">0</span>]) : <span class="hljs-keyword">null</span>;
+      <span class="hljs-keyword">return</span> equals(otherHandler);
+    } <span class="hljs-keyword">catch</span> (IllegalArgumentException e) {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    }
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;hashCode&quot;</span>.equals(method.getName())) {
+    <span class="hljs-keyword">return</span> hashCode();
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;toString&quot;</span>.equals(method.getName())) {
+    <span class="hljs-keyword">return</span> toString();
+  }
+
+  <span class="hljs-keyword">return</span> dispatch.get(method).invoke(args);
+}
+}
+</code></pre>
+<p>&#x770B;&#x4E0B;invoke&#x65B9;&#x6CD5;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x8DDF;&#x4ECE;dispatch&#x4E2D;&#x627E;&#x5230;&#x5177;&#x4F53;method&#x5BF9;&#x5E94;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#xFF0C;dispatch&#x9700;&#x8981;&#x56DE;&#x6EAF;&#x5230;ReflectiveFeign.netInstance&#x65B9;&#x6CD5;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-function">T <span class="hljs-title">newInstance</span><span class="hljs-params">(Target&lt;T&gt; target)</span> </span>{
+    Map&lt;String, MethodHandler&gt; nameToHandler = targetToHandlersByName.apply(target);
+    Map&lt;Method, MethodHandler&gt; methodToHandler = <span class="hljs-keyword">new</span> LinkedHashMap&lt;Method, MethodHandler&gt;();
+    List&lt;DefaultMethodHandler&gt; defaultMethodHandlers = <span class="hljs-keyword">new</span> LinkedList&lt;DefaultMethodHandler&gt;();
+
+    <span class="hljs-keyword">for</span> (Method method : target.type().getMethods()) {
+      <span class="hljs-keyword">if</span> (method.getDeclaringClass() == Object.class) {
+        <span class="hljs-keyword">continue</span>;
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (Util.isDefault(method)) {
+        DefaultMethodHandler handler = <span class="hljs-keyword">new</span> DefaultMethodHandler(method);
+        defaultMethodHandlers.add(handler);
+        methodToHandler.put(method, handler);
+      } <span class="hljs-keyword">else</span> {
+        methodToHandler.put(method, nameToHandler.get(Feign.configKey(target.type(), method)));
+      }
+    }
+    InvocationHandler handler = factory.create(target, methodToHandler);
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>&#x8FD9;&#x91CC;&#x5B9E;&#x9645;&#x662F;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#xFF0C;&#x7136;&#x540E;&#x4E3A;&#x6BCF;&#x4E2A;&#x65B9;&#x6CD5;&#x7684;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;MethodHandler&#x3002;&#x6700;&#x7EC8;&#x8D77;&#x4F5C;&#x7528;&#x7684;&#x662F;methodToHandler.put(method, nameToHandler.get(Feign.configKey(target.type(), method)));</p>
+<p>nameToHandler = targetToHandlersByName.apply(target);</p>
+<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> Map&lt;String, MethodHandler&gt; <span class="hljs-title">apply</span><span class="hljs-params">(Target target)</span> </span>{
+  List&lt;MethodMetadata&gt; metadata = contract.parseAndValidateMetadata(target.type());
+  Map&lt;String, MethodHandler&gt; result = <span class="hljs-keyword">new</span> LinkedHashMap&lt;String, MethodHandler&gt;();
+  <span class="hljs-keyword">for</span> (MethodMetadata md : metadata) {
+    BuildTemplateByResolvingArgs buildTemplate;
+    <span class="hljs-keyword">if</span> (!md.formParams().isEmpty() &amp;&amp; md.template().bodyTemplate() == <span class="hljs-keyword">null</span>) {
+      buildTemplate =
+          <span class="hljs-keyword">new</span> BuildFormEncodedTemplateFromArgs(md, encoder, queryMapEncoder, target);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (md.bodyIndex() != <span class="hljs-keyword">null</span>) {
+      buildTemplate = <span class="hljs-keyword">new</span> BuildEncodedTemplateFromArgs(md, encoder, queryMapEncoder, target);
+    } <span class="hljs-keyword">else</span> {
+      buildTemplate = <span class="hljs-keyword">new</span> BuildTemplateByResolvingArgs(md, queryMapEncoder, target);
+    }
+    <span class="hljs-keyword">if</span> (md.isIgnored()) {
+      result.put(md.configKey(), args -&gt; {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(md.configKey() + <span class="hljs-string">&quot; is not a method handled by feign&quot;</span>);
+      });
+    } <span class="hljs-keyword">else</span> {
+      result.put(md.configKey(),
+          factory.create(target, md, buildTemplate, options, decoder, errorDecoder));
+    }
+  }
+  <span class="hljs-keyword">return</span> result;
+}
+</code></pre>
+<p>for&#x5FAA;&#x73AF;&#x4E2D;&#xFF0C;&#x4E0A;&#x9762;&#x7684;if-else&#x5757;&#x5B9E;&#x9645;&#x4E0A;&#x5728;&#x89E3;&#x6790;&#x65B9;&#x6CD5;&#x4E0A;&#x7684;&#x4E00;&#x4E9B;&#x53C2;&#x6570;&#xFF0C;&#x6BD4;&#x5982;@RequestParam,@RequestBody&#x7B49;&#x7136;&#x540E;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x53C2;&#x6570;&#x6784;&#x9020;&#x4E0D;&#x540C;&#x7684;BuildTemplateByResolvingArgs&#xFF0C;&#x6700;&#x7EC8;&#x901A;&#x8FC7;factory.create&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;MethodHandler</p>
+<p>&#x5177;&#x4F53;SynchronousMethodHandler.Factory.create&#x65B9;&#x6CD5;</p>
+<pre><code class="lang-java"> <span class="hljs-function"><span class="hljs-keyword">public</span> MethodHandler <span class="hljs-title">create</span><span class="hljs-params">(Target&lt;?&gt; target,
+                                MethodMetadata md,
+                                RequestTemplate.Factory buildTemplateFromArgs,
+                                Options options,
+                                Decoder decoder,
+                                ErrorDecoder errorDecoder)</span> </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SynchronousMethodHandler(target, client, retryer, requestInterceptors, logger,
+          logLevel, md, buildTemplateFromArgs, options, decoder,
+          errorDecoder, decode404, closeAfterDecode, propagationPolicy, forceDecoding);
+}
+</code></pre>
+<p>&#x5B9E;&#x9645;&#x8FD4;&#x56DE;&#x4E86;&#x4E00;&#x4E2A;SynchronousMethodHandler</p>
+<pre><code class="lang-java"><span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SynchronousMethodHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">MethodHandler</span> </span>{
+
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">invoke</span><span class="hljs-params">(Object[] argv)</span> <span class="hljs-keyword">throws</span> Throwable </span>{
+    RequestTemplate template = buildTemplateFromArgs.create(argv);
+    Options options = findOptions(argv);
+    Retryer retryer = <span class="hljs-keyword">this</span>.retryer.clone();
+    <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) {
+      <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">return</span> executeAndDecode(template, options);
+      } <span class="hljs-keyword">catch</span> (RetryableException e) {
+        <span class="hljs-keyword">try</span> {
+          retryer.continueOrPropagate(e);
+        } <span class="hljs-keyword">catch</span> (RetryableException th) {
+          Throwable cause = th.getCause();
+          <span class="hljs-keyword">if</span> (propagationPolicy == UNWRAP &amp;&amp; cause != <span class="hljs-keyword">null</span>) {
+            <span class="hljs-keyword">throw</span> cause;
+          } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">throw</span> th;
+          }
+        }
+        <span class="hljs-keyword">if</span> (logLevel != Logger.Level.NONE) {
+          logger.logRetry(metadata.configKey(), logLevel);
+        }
+        <span class="hljs-keyword">continue</span>;
+      }
+    }
+  }
+
+}
+</code></pre>
+<p>&#x5B9E;&#x9645;&#x4E0A;&#x5C31;&#x662F;&#x6784;&#x9020;&#x4E00;&#x4E2A;RequestTemplate&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7;excuteAndDecode&#x53D1;&#x9001;&#x8BF7;&#x6C42;&#x5E76;&#x89E3;&#x6790;&#x6210;&#x5177;&#x4F53;&#x7684;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;RequestTemplate template = buildTemplateFromArgs.create(argv);&#x5C31;&#x4E0D;&#x5728;&#x8BE6;&#x7EC6;&#x8DDF;</p>
+<p>&#x4E3B;&#x8981;&#x770B;SynchronousMethodHandler.executeAndDecode&#x65B9;&#x6CD5;</p>
+<pre><code class="lang-java">  <span class="hljs-function">Object <span class="hljs-title">executeAndDecode</span><span class="hljs-params">(RequestTemplate template, Options options)</span> <span class="hljs-keyword">throws</span> Throwable </span>{
+    Request request = targetRequest(template);
+
+    <span class="hljs-keyword">if</span> (logLevel != Logger.Level.NONE) {
+      logger.logRequest(metadata.configKey(), logLevel, request);
+    }
+
+    Response response;
+    <span class="hljs-keyword">long</span> start = System.nanoTime();
+    <span class="hljs-keyword">try</span> {
+      response = client.execute(request, options);
+      <span class="hljs-comment">// ensure the request is set. <span class="hljs-doctag">TODO:</span> remove in Feign 12</span>
+      response = response.toBuilder()
+          .request(request)
+          .requestTemplate(template)
+          .build();
+    } <span class="hljs-keyword">catch</span> (IOException e) {
+      <span class="hljs-keyword">if</span> (logLevel != Logger.Level.NONE) {
+        logger.logIOException(metadata.configKey(), logLevel, e, elapsedTime(start));
+      }
+      <span class="hljs-keyword">throw</span> errorExecuting(request, e);
+    }
+    <span class="hljs-keyword">long</span> elapsedTime = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - start);
+
+
+    <span class="hljs-keyword">if</span> (decoder != <span class="hljs-keyword">null</span>)
+      <span class="hljs-keyword">return</span> decoder.decode(response, metadata.returnType());
+
+    CompletableFuture&lt;Object&gt; resultFuture = <span class="hljs-keyword">new</span> CompletableFuture&lt;&gt;();
+    asyncResponseHandler.handleResponse(resultFuture, metadata.configKey(), response,
+        metadata.returnType(),
+        elapsedTime);
+
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">if</span> (!resultFuture.isDone())
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">&quot;Response handling not done&quot;</span>);
+
+      <span class="hljs-keyword">return</span> resultFuture.join();
+    } <span class="hljs-keyword">catch</span> (CompletionException e) {
+      Throwable cause = e.getCause();
+      <span class="hljs-keyword">if</span> (cause != <span class="hljs-keyword">null</span>)
+        <span class="hljs-keyword">throw</span> cause;
+      <span class="hljs-keyword">throw</span> e;
+    }
+  }
+</code></pre>
+<p>Request request = targetRequest(template); &#x9700;&#x8981;&#x5173;&#x6CE8;&#x4E0B;&#xFF0C;&#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x5BF9;RequestTemplate&#x505A;&#x589E;&#x5F3A;</p>
+<pre><code class="lang-java"> <span class="hljs-function">Request <span class="hljs-title">targetRequest</span><span class="hljs-params">(RequestTemplate template)</span> </span>{
+    <span class="hljs-keyword">for</span> (RequestInterceptor interceptor : requestInterceptors) {
+      interceptor.apply(template);
+    }
+    <span class="hljs-keyword">return</span> target.apply(template);
+  }
+</code></pre>
+<p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x81EA;&#x5B9A;&#x4E49;RequestInterceptor&#x6765;&#x505A;&#x4E00;&#x4E9B;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x589E;&#x5F3A;</p>
+<p>response = client.execute(request, options);&#x53D1;&#x9001;http&#x8BF7;&#x6C42;</p>
+<p>&#x7136;&#x540E;&#x5269;&#x4E0B;&#x7684;&#x90E8;&#x5206;&#x5C31;&#x662F;&#x91CD;&#x8BD5;&#x548C;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x89E3;&#x6790;</p>
+<p>&#x81F3;&#x6B64;&#xFF0C;&#x6E90;&#x7801;&#x5206;&#x6790;&#x7ED3;&#x675F;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="springmvc-dong-tai-zhu-ce-lu-you.html" class="navigation navigation-prev " aria-label="Previous page: springmvc 动态注册路由">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="open-feign-dong-tai-qie-liu-shi-xian.html" class="navigation navigation-next " aria-label="Next page: Open feign动态切流实现">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Open feign源码分析","level":"1.2.31","depth":2,"next":{"title":"Open feign动态切流实现","level":"1.2.32","depth":2,"path":"java-study/open-feign-dong-tai-qie-liu-shi-xian.md","ref":"java-study/open-feign-dong-tai-qie-liu-shi-xian.md","articles":[]},"previous":{"title":"springmvc 动态注册路由","level":"1.2.30","depth":2,"path":"java-study/springmvc-dong-tai-zhu-ce-lu-you.md","ref":"java-study/springmvc-dong-tai-zhu-ce-lu-you.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","splitter","expandable-chapters-small","github","github-buttons","favicon","expandable-chapters-small","copy-code-button"],"styles":{"website":"./styles/website.css"},"pluginsConfig":{"github":{"url":"https://github.com/kennethfan"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":{"shortcut":"./source/images/favicon.jpg","bookmark":"./source/images/favicon.jpg","appleTouch":"./source/images/apple-touch-icon.jpg","appleTouchMore":{"120x120":"./source/images/apple-touch-icon.jpg","180x180":"./source/images/apple-touch-icon.jpg"}},"github-buttons":{"buttons":[{"user":"kennethfan","repo":"gitbook","type":"star","size":"small","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"theme":"default","author":"椒哥","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"椒哥碎碎念","language":"zh-hans","links":{"sidebar":{}},"gitbook":"3.2.3","description":"select * from learn"},"file":{"path":"java-study/open-feign-yuan-ma-fen-xi.md","mtime":"2025-11-20T14:23:49.135Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-11-20T14:24:24.727Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

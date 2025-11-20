@@ -1,0 +1,2276 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>ngx_http_dyups_module实现web服务的平滑发布 · 椒哥碎碎念</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="椒哥">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+
+        
+    
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="nginx-dai-li-mysql.html" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    
+        <link rel="shortcut icon" href='../source/images/favicon.jpg' type="image/x-icon">
+    
+    
+        <link rel="bookmark" href='../source/images/favicon.jpg' type="image/x-icon">
+    
+    
+        <link rel="apple-touch-icon" href='../source/images/apple-touch-icon.jpg'>
+    
+    
+        
+        <link rel="apple-touch-icon" sizes="120x120" href="../source/images/apple-touch-icon.jpg">
+        
+        <link rel="apple-touch-icon" sizes="180x180" href="../source/images/apple-touch-icon.jpg">
+        
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"buttons":[{"user":"kennethfan","repo":"gitbook","type":"star","size":"small","count":true}]};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    个人简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../java-study/">
+            
+                <a href="../java-study/">
+            
+                    
+                    Java学习
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../java-study/maven-zhi-ding-xu-yao-de-mo-kuai-da-bao.html">
+            
+                <a href="../java-study/maven-zhi-ding-xu-yao-de-mo-kuai-da-bao.html">
+            
+                    
+                    maven指定需要的模块打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../java-study/dynamicdatasource-shi-xian-shu-ju-du-xie-fen-li.html">
+            
+                <a href="../java-study/dynamicdatasource-shi-xian-shu-ju-du-xie-fen-li.html">
+            
+                    
+                    dynamic-datasource实现数据读写分离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../java-study/redis-zhu-cong-jia-gou-li-yong-lettuce-shi-xian-du-xie-fen-li.html">
+            
+                <a href="../java-study/redis-zhu-cong-jia-gou-li-yong-lettuce-shi-xian-du-xie-fen-li.html">
+            
+                    
+                    redis主从架构利用lettuce实现读写分离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../java-study/java-filter-xiu-gai-request-nei-rong-he-response-nei-rong.html">
+            
+                <a href="../java-study/java-filter-xiu-gai-request-nei-rong-he-response-nei-rong.html">
+            
+                    
+                    java filter修改request内容和response内容
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../java-study/javacompiler-dong-tai-bian-yi-java-dai-ma.html">
+            
+                <a href="../java-study/javacompiler-dong-tai-bian-yi-java-dai-ma.html">
+            
+                    
+                    JavaCompiler动态编译java代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="../java-study/jdk-dong-tai-dai-li.html">
+            
+                <a href="../java-study/jdk-dong-tai-dai-li.html">
+            
+                    
+                    JDK动态代理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="../java-study/lei-ge-li.html">
+            
+                <a href="../java-study/lei-ge-li.html">
+            
+                    
+                    类隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="../java-study/jnr-tiao-yong-ben-di-dong-tai-lian-jie-ku.html">
+            
+                <a href="../java-study/jnr-tiao-yong-ben-di-dong-tai-lian-jie-ku.html">
+            
+                    
+                    JNR调用本地动态链接库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="../java-study/javac-ming-ling-bian-yi-java-ming-ling-yun-hang-dai-ma.html">
+            
+                <a href="../java-study/javac-ming-ling-bian-yi-java-ming-ling-yun-hang-dai-ma.html">
+            
+                    
+                    javac命令编译\&java命令运行代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="../java-study/java-huo-qu-ying-jian-xin-xi.html">
+            
+                <a href="../java-study/java-huo-qu-ying-jian-xin-xi.html">
+            
+                    
+                    java获取硬件信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="../java-study/conditional-shi-xian-bean-an-xu-jia-zai.html">
+            
+                <a href="../java-study/conditional-shi-xian-bean-an-xu-jia-zai.html">
+            
+                    
+                    Conditional实现bean按需加载
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="../java-study/spring-boot-actuator-da-pei-jenkins-shi-xian-fa-bu-jian-kang-jian-cha-he-bao-jing.html">
+            
+                <a href="../java-study/spring-boot-actuator-da-pei-jenkins-shi-xian-fa-bu-jian-kang-jian-cha-he-bao-jing.html">
+            
+                    
+                    spring boot actuator搭配jenkins实现发布健康检查和报警
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.13" data-path="../java-study/nacos-pei-zhi-wen-jian-yu-fa-jian-ce-bao-jing.html">
+            
+                <a href="../java-study/nacos-pei-zhi-wen-jian-yu-fa-jian-ce-bao-jing.html">
+            
+                    
+                    nacos配置文件语法检测&报警
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14" data-path="../java-study/java-shi-yong-mmap.html">
+            
+                <a href="../java-study/java-shi-yong-mmap.html">
+            
+                    
+                    java使用mmap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.15" data-path="../java-study/java-shi-yong-page-cache.html">
+            
+                <a href="../java-study/java-shi-yong-page-cache.html">
+            
+                    
+                    java使用page cache
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.16" data-path="../java-study/spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.html">
+            
+                <a href="../java-study/spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.html">
+            
+                    
+                    spring cloud gateway + nacos + sentinel实现网关限流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.17" data-path="../java-study/spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.html">
+            
+                <a href="../java-study/spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.html">
+            
+                    
+                    spring cloud自定义loaderbalancer实现流量就近访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.18" data-path="../java-study/spring-cloud-shou-dong-xia-diao-jie-dian.html">
+            
+                <a href="../java-study/spring-cloud-shou-dong-xia-diao-jie-dian.html">
+            
+                    
+                    spring cloud手动下掉节点
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.19" data-path="../java-study/jar-bao-jie-ya-he-da-bao.html">
+            
+                <a href="../java-study/jar-bao-jie-ya-he-da-bao.html">
+            
+                    
+                    jar包解压和打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.20" data-path="../java-study/java-ji-cheng-prometheus-shang-bao-shu-ju.html">
+            
+                <a href="../java-study/java-ji-cheng-prometheus-shang-bao-shu-ju.html">
+            
+                    
+                    java集成prometheus上报数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.21" data-path="../java-study/spring-actuator-shang-bao-zhi-biao-uriknown-xiu-fu.html">
+            
+                <a href="../java-study/spring-actuator-shang-bao-zhi-biao-uriknown-xiu-fu.html">
+            
+                    
+                    spring actuator上报指标uri=known修复
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.22" data-path="../java-study/maven-shou-dong-shang-chuan-san-fang-jar-dao-cang-ku.html">
+            
+                <a href="../java-study/maven-shou-dong-shang-chuan-san-fang-jar-dao-cang-ku.html">
+            
+                    
+                    maven手动上传三方jar到仓库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.23" data-path="../java-study/ji-yu-spring-cloud-gateway-springmvc-fu-wu-he-bing.html">
+            
+                <a href="../java-study/ji-yu-spring-cloud-gateway-springmvc-fu-wu-he-bing.html">
+            
+                    
+                    基于Spring Cloud gateway & Springmvc服务合并
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.24" data-path="../java-study/feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.html">
+            
+                <a href="../java-study/feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.html">
+            
+                    
+                    Feign调用转成本地方法调用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.25" data-path="../java-study/spring-cloud-ying-yong-fen-bu-shi-lian-lu-gen-zong-jian-yi-shi-xian.html">
+            
+                <a href="../java-study/spring-cloud-ying-yong-fen-bu-shi-lian-lu-gen-zong-jian-yi-shi-xian.html">
+            
+                    
+                    spring cloud应用分布式链路跟踪简易实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.26" data-path="../java-study/dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.html">
+            
+                <a href="../java-study/dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.html">
+            
+                    
+                    对于所有对象都通用的方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.27" data-path="../java-study/chuang-jian-he-xiao-hui-dui-xiang.html">
+            
+                <a href="../java-study/chuang-jian-he-xiao-hui-dui-xiang.html">
+            
+                    
+                    创建和销毁对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.28" data-path="../java-study/jackson-fan-xu-lie-hua-duo-tai-lei-xing-bang-ding.html">
+            
+                <a href="../java-study/jackson-fan-xu-lie-hua-duo-tai-lei-xing-bang-ding.html">
+            
+                    
+                    Jackson反序列化多态类型绑定
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.29" data-path="../java-study/spring-cloud-shou-dong-chuang-jian-feign-client.html">
+            
+                <a href="../java-study/spring-cloud-shou-dong-chuang-jian-feign-client.html">
+            
+                    
+                    spring cloud手动创建feign client
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.30" data-path="../java-study/springmvc-dong-tai-zhu-ce-lu-you.html">
+            
+                <a href="../java-study/springmvc-dong-tai-zhu-ce-lu-you.html">
+            
+                    
+                    springmvc 动态注册路由
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.31" data-path="../java-study/open-feign-yuan-ma-fen-xi.html">
+            
+                <a href="../java-study/open-feign-yuan-ma-fen-xi.html">
+            
+                    
+                    Open feign源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.32" data-path="../java-study/open-feign-dong-tai-qie-liu-shi-xian.html">
+            
+                <a href="../java-study/open-feign-dong-tai-qie-liu-shi-xian.html">
+            
+                    
+                    Open feign动态切流实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.33" data-path="../java-study/open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html">
+            
+                <a href="../java-study/open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html">
+            
+                    
+                    Open feign动态切换服务目标地址组件
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../python/">
+            
+                <a href="../python/">
+            
+                    
+                    python
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../python/centos-an-zhuang-miniconda.html">
+            
+                <a href="../python/centos-an-zhuang-miniconda.html">
+            
+                    
+                    centos 安装miniconda
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../python/pip-an-zhuang-zou-socks-dai-li.html">
+            
+                <a href="../python/pip-an-zhuang-zou-socks-dai-li.html">
+            
+                    
+                    pip安装走socks代理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../python/pa-chong-xiang-guan.html">
+            
+                <a href="../python/pa-chong-xiang-guan.html">
+            
+                    
+                    爬虫相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../python/playwright-shi-yong-xiao-ji-qiao.html">
+            
+                <a href="../python/playwright-shi-yong-xiao-ji-qiao.html">
+            
+                    
+                    playwright使用小技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../linux/">
+            
+                <a href="../linux/">
+            
+                    
+                    Linux
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../linux/guo-qi-jar-shan-chu.html">
+            
+                <a href="../linux/guo-qi-jar-shan-chu.html">
+            
+                    
+                    过期jar删除
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../linux/centos-tian-jia-fang-huo-qiang.html">
+            
+                <a href="../linux/centos-tian-jia-fang-huo-qiang.html">
+            
+                    
+                    centos添加防火墙
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../linux/centos-xiu-gai-hostname.html">
+            
+                <a href="../linux/centos-xiu-gai-hostname.html">
+            
+                    
+                    centos修改hostname
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../linux/rsync-wen-jian-zeng-liang-tong-bu.html">
+            
+                <a href="../linux/rsync-wen-jian-zeng-liang-tong-bu.html">
+            
+                    
+                    rsync文件增量同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../linux/a-li-yun-bu-shu-wen-jian-chuan-shu-you-hua.html">
+            
+                <a href="../linux/a-li-yun-bu-shu-wen-jian-chuan-shu-you-hua.html">
+            
+                    
+                    阿里云部署-文件传输优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../linux/prometheus-qing-li-shu-ju.html">
+            
+                <a href="../linux/prometheus-qing-li-shu-ju.html">
+            
+                    
+                    prometheus清理数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../linux/prometheus-zhua-qu-shu-ju-pei-zhi.html">
+            
+                <a href="../linux/prometheus-zhua-qu-shu-ju-pei-zhi.html">
+            
+                    
+                    prometheus抓取数据配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../linux/centos-an-zhuang-chrome-he-chromedriver.html">
+            
+                <a href="../linux/centos-an-zhuang-chrome-he-chromedriver.html">
+            
+                    
+                    centos安装chrome和chromedriver
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../nexus/">
+            
+                <a href="../nexus/">
+            
+                    
+                    nexus
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../nexus/nexus-shou-dong-shang-chuan-wen-jian.html">
+            
+                <a href="../nexus/nexus-shou-dong-shang-chuan-wen-jian.html">
+            
+                    
+                    nexus手动上传文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../docker/">
+            
+                <a href="../docker/">
+            
+                    
+                    docker & k8s
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../docker/cha-kan-image-dui-ying-de-dockerfile.html">
+            
+                <a href="../docker/cha-kan-image-dui-ying-de-dockerfile.html">
+            
+                    
+                    查看image对应的dockerfile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../docker/k8s-ji-qun-da-jian.html">
+            
+                <a href="../docker/k8s-ji-qun-da-jian.html">
+            
+                    
+                    k8s集群搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../docker/docker-jing-xiang-dao-ru-dao-chu.html">
+            
+                <a href="../docker/docker-jing-xiang-dao-ru-dao-chu.html">
+            
+                    
+                    docker镜像导入导出
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../docker/kubectl-chang-yong-ming-ling.html">
+            
+                <a href="../docker/kubectl-chang-yong-ming-ling.html">
+            
+                    
+                    kubectl 常用命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    nginx
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.7.1" data-path="ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.html">
+            
+                <a href="ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.html">
+            
+                    
+                    ngx_http_dyups_module实现web服务的平滑发布
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="nginx-dai-li-mysql.html">
+            
+                <a href="nginx-dai-li-mysql.html">
+            
+                    
+                    nginx代理mysql
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.html">
+            
+                <a href="nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.html">
+            
+                    
+                    nginx+imgproxy实现图片自动缩放裁剪
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="minio-shi-xian-wen-jian-cun-chu.html">
+            
+                <a href="minio-shi-xian-wen-jian-cun-chu.html">
+            
+                    
+                    minio实现文件存储
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="nginx-zheng-xiang-dai-li-https.html">
+            
+                <a href="nginx-zheng-xiang-dai-li-https.html">
+            
+                    
+                    nginx正向代理https
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.6" data-path="nginx-dong-tai-zhuan-fa-dao-upstream.html">
+            
+                <a href="nginx-dong-tai-zhuan-fa-dao-upstream.html">
+            
+                    
+                    nginx动态转发到upstream
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../git/">
+            
+                <a href="../git/">
+            
+                    
+                    git
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.html">
+            
+                <a href="../git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.html">
+            
+                    
+                    git拉取指定tag/分支的代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../git/git-she-zhi-yong-hu-xin-xi-huan-cun.html">
+            
+                <a href="../git/git-she-zhi-yong-hu-xin-xi-huan-cun.html">
+            
+                    
+                    git设置用户信息缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../git/git-xiu-gai-yi-ti-jiao-ji-lu-ti-jiao-zhe-xin-xi.html">
+            
+                <a href="../git/git-xiu-gai-yi-ti-jiao-ji-lu-ti-jiao-zhe-xin-xi.html">
+            
+                    
+                    git修改已提交记录提交者信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../shell/">
+            
+                <a href="../shell/">
+            
+                    
+                    shell
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.html">
+            
+                <a href="../shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.html">
+            
+                    
+                    shell根据环境变量替换文本
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../shell/shell-ming-ling-zi-dong-bu-quan.html">
+            
+                <a href="../shell/shell-ming-ling-zi-dong-bu-quan.html">
+            
+                    
+                    shell命令自动补全
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../shell/ssh-zi-dong-shu-ru-mi-ma-deng-lu.html">
+            
+                <a href="../shell/ssh-zi-dong-shu-ru-mi-ma-deng-lu.html">
+            
+                    
+                    ssh自动输入密码登录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../shell/mac-xian-shi-yin-cang-wen-jian-jia.html">
+            
+                <a href="../shell/mac-xian-shi-yin-cang-wen-jian-jia.html">
+            
+                    
+                    mac显示隐藏文件夹
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../vim/">
+            
+                <a href="../vim/">
+            
+                    
+                    vim
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../vim/vim-jian-jie.html">
+            
+                <a href="../vim/vim-jian-jie.html">
+            
+                    
+                    Vim简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../vim/vim-xi-lie-zhi-chu-ti-yan-er.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-chu-ti-yan-er.html">
+            
+                    
+                    Vim系列之初体验(二)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../vim/vim-xi-lie-zhi-yi-dong-san.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-yi-dong-san.html">
+            
+                    
+                    Vim系列之移动(三)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="../vim/vim-xi-lie-zhi-cha-ru-si.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-cha-ru-si.html">
+            
+                    
+                    Vim系列之插入(四)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../redis/">
+            
+                <a href="../redis/">
+            
+                    
+                    redis
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../redis/redis-dong-tai-tian-jia-cong-ku.html">
+            
+                <a href="../redis/redis-dong-tai-tian-jia-cong-ku.html">
+            
+                    
+                    redis动态添加从库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../redis/lua-jiao-ben-pi-liang-tian-jia-redis-key-qian-zhui.html">
+            
+                <a href="../redis/lua-jiao-ben-pi-liang-tian-jia-redis-key-qian-zhui.html">
+            
+                    
+                    lua脚本批量添加redis key前缀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../redis/shi-yong-redisson-qian-yi-redis-shu-ju.html">
+            
+                <a href="../redis/shi-yong-redisson-qian-yi-redis-shu-ju.html">
+            
+                    
+                    使用redisson迁移redis数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../redis/redis-qing-kong-mou-ge-ku.html">
+            
+                <a href="../redis/redis-qing-kong-mou-ge-ku.html">
+            
+                    
+                    redis清空某个库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.5" data-path="../redis/redis-dui-xiang.html">
+            
+                <a href="../redis/redis-dui-xiang.html">
+            
+                    
+                    redis对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.6" data-path="../redis/redis-zi-fu-chuan.html">
+            
+                <a href="../redis/redis-zi-fu-chuan.html">
+            
+                    
+                    redis字符串
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.7" data-path="../redis/redis-lian-biao.html">
+            
+                <a href="../redis/redis-lian-biao.html">
+            
+                    
+                    redis链表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.8" data-path="../redis/redis-zi-dian.html">
+            
+                <a href="../redis/redis-zi-dian.html">
+            
+                    
+                    redis字典
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.9" data-path="../redis/redis-ya-suo-lie-biao.html">
+            
+                <a href="../redis/redis-ya-suo-lie-biao.html">
+            
+                    
+                    redis压缩列表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.10" data-path="../redis/redis-zheng-shu-ji-he.html">
+            
+                <a href="../redis/redis-zheng-shu-ji-he.html">
+            
+                    
+                    redis整数集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.11" data-path="../redis/redis-tiao-yue-biao.html">
+            
+                <a href="../redis/redis-tiao-yue-biao.html">
+            
+                    
+                    redis跳跃表
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../mysql/">
+            
+                <a href="../mysql/">
+            
+                    
+                    mysql
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../mysql/mysql-chuang-jian-yong-hu-bing-shou-quan.html">
+            
+                <a href="../mysql/mysql-chuang-jian-yong-hu-bing-shou-quan.html">
+            
+                    
+                    mysql创建用户并授权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="../mysql/mysql-zhu-cong-tong-bu-pei-zhi.html">
+            
+                <a href="../mysql/mysql-zhu-cong-tong-bu-pei-zhi.html">
+            
+                    
+                    mysql主从同步配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../c-and-cpp/">
+            
+                <a href="../c-and-cpp/">
+            
+                    
+                    c & cpp
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../c-and-cpp/zhi-zhen-han-shu-han-shu-zhi-zhen.html">
+            
+                <a href="../c-and-cpp/zhi-zhen-han-shu-han-shu-zhi-zhen.html">
+            
+                    
+                    指针函数&函数指针
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../php/">
+            
+                <a href="../php/">
+            
+                    
+                    php
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../php/php-zong-jie.html">
+            
+                <a href="../php/php-zong-jie.html">
+            
+                    
+                    PHP总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="../php/php-dan-yuan-ce-shi-phpunit.html">
+            
+                <a href="../php/php-dan-yuan-ce-shi-phpunit.html">
+            
+                    
+                    PHP单元测试PHPUnit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="../php/php-an-zhuang-memcached-kuo-zhan.html">
+            
+                <a href="../php/php-an-zhuang-memcached-kuo-zhan.html">
+            
+                    
+                    PHP安装memcached扩展
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../zsh/">
+            
+                <a href="../zsh/">
+            
+                    
+                    zsh
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="../zsh/zsh-bian-liang-he-yu-ju.html">
+            
+                <a href="../zsh/zsh-bian-liang-he-yu-ju.html">
+            
+                    
+                    zsh-变量和语句
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="../zsh/zsh-zi-fu-chuan-chang-yong-cao-zuo.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-chang-yong-cao-zuo.html">
+            
+                    
+                    zsh-字符串常用操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="../zsh/zsh-zi-fu-chuan-zhuan-yi-he-ge-shi-hua.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-zhuan-yi-he-ge-shi-hua.html">
+            
+                    
+                    zsh-字符串转义和格式化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4" data-path="../zsh/zsh-zi-fu-chuan-tong-pei-fu.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-tong-pei-fu.html">
+            
+                    
+                    zsh-字符串通配符
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="../qian-duan/">
+            
+                <a href="../qian-duan/">
+            
+                    
+                    前端
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="../qian-duan/highlight.js-zhi-chi-dong-tai-dai-ma.html">
+            
+                <a href="../qian-duan/highlight.js-zhi-chi-dong-tai-dai-ma.html">
+            
+                    
+                    highlight.js支持动态代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="../jia-gou-shi-tu-pu.html">
+            
+                <a href="../jia-gou-shi-tu-pu.html">
+            
+                    
+                    架构师图谱
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="../su-yuan-xi-tong.html">
+            
+                <a href="../su-yuan-xi-tong.html">
+            
+                    
+                    溯源系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >ngx_http_dyups_module实现web服务的平滑发布</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="ngxhttpdyupsmodule&#x5B9E;&#x73B0;web&#x670D;&#x52A1;&#x7684;&#x5E73;&#x6ED1;&#x53D1;&#x5E03;">ngx_http_dyups_module&#x5B9E;&#x73B0;web&#x670D;&#x52A1;&#x7684;&#x5E73;&#x6ED1;&#x53D1;&#x5E03;</h1>
+<h2 id="&#x80CC;&#x666F;-">&#x80CC;&#x666F; <a href="#ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-bei-jing" id="ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-bei-jing"></a></h2>
+<p>&#x516C;&#x53F8;&#x6709;&#x5F88;&#x591A;&#x9879;&#x76EE;&#x662F;&#x5BF9;&#x5916;&#x7684;&#xFF0C;&#x5BF9;&#x4E8E;&#x670D;&#x52A1;&#x7684;&#x9AD8;&#x53EF;&#x7528;&#x6709;&#x4E00;&#x5B9A;&#x7684;&#x8981;&#x6C42;&#x3002;</p>
+<p>&#x56E0;&#x4E3A;&#x9879;&#x76EE;&#x4E00;&#x76F4;&#x5728;&#x6301;&#x7EED;&#x8FED;&#x4EE3;&#xFF0C;&#x4F1A;&#x7ECF;&#x5E38;&#x53D1;&#x5E03;&#x66F4;&#x65B0;&#xFF0C;&#x5728;&#x53D1;&#x5E03;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x9AD8;&#x53EF;&#x7528;&#x76EE;&#x524D;&#x8FD8;&#x662F;&#x7A7A;&#x767D;&#xFF0C;&#x9700;&#x8981;&#x89E3;&#x51B3;</p>
+<h2 id="&#x76EE;&#x6807;-">&#x76EE;&#x6807; <a href="#ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-mu-biao" id="ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-mu-biao"></a></h2>
+<p>&#x89E3;&#x51B3;&#x9879;&#x76EE;&#x53D1;&#x5E03;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x9AD8;&#x53EF;&#x7528;</p>
+<h2 id="&#x65B9;&#x6848;&#x5206;&#x6790;-">&#x65B9;&#x6848;&#x5206;&#x6790; <a href="#ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-fang-an-fen-xi" id="ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-fang-an-fen-xi"></a></h2>
+<p>&#x76EE;&#x524D;&#x9879;&#x76EE;&#x4E2D;&#x7684;&#x670D;&#x52A1;&#x4E3B;&#x8981;&#x6709;&#x4E24;&#x79CD;</p>
+<p>1.&#x5185;&#x90E8;&#x5FAE;&#x670D;&#x52A1;&#xFF0C;&#x8D70;nacos&#x505A;&#x670D;&#x52A1;&#x53D1;&#x73B0;&#x548C;&#x6CE8;&#x518C;</p>
+<p>2.&#x7C7B;&#x4F3C;&#x7F51;&#x5173;&#x670D;&#x52A1;&#xFF0C;&#x76F4;&#x63A5;&#x5BF9;&#x63A5;nginx</p>
+<p>&#x5176;&#x4E2D;1&#x7C7B;&#x670D;&#x52A1;&#xFF0C;&#x901A;&#x8FC7;nacos&#x670D;&#x52A1;&#x53D1;&#x73B0;&#x548C;&#x6CE8;&#x518C;&#x5DF2;&#x7ECF;&#x89E3;&#x51B3;&#x4E86;&#x53D1;&#x5E03;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x9AD8;&#x53EF;&#x7528;&#x95EE;&#x9898;&#xFF1B;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x89E3;&#x51B3;&#x7684;&#x662F;&#x76F4;&#x63A5;&#x5BF9;&#x63A5;nginx&#x7684;&#x8FD9;&#x4E00;&#x7C7B;&#x670D;&#x52A1;</p>
+<p>2&#x7C7B;&#x670D;&#x52A1;&#x5176;&#x90E8;&#x7F72;&#x67B6;&#x6784;&#x5982;&#x4E0B;</p>
+<figure><img src="../.gitbook/assets/nginx_deploy_arch.png" alt=""><figcaption></figcaption></figure>
+
+<p>&#x4E3A;&#x4E86;&#x9AD8;&#x53EF;&#x7528;&#xFF0C;&#x901A;&#x5E38;&#x6709;&#x591A;&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x7684;&#x529F;&#x80FD;&#x76F8;&#x540C;&#xFF0C;&#x5728;&#x53D1;&#x5E03;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x5176;&#x4E2D;&#x67D0;&#x4E2A;&#x8282;&#x70B9;&#x4F1A;&#x4E0D;&#x53EF;&#x7528;&#x3002;</p>
+<p>&#x56E0;&#x6B64;&#x53D1;&#x5E03;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x601D;&#x8DEF;&#x51E0;&#x4E4E;&#x5C31;&#x662F;&#x5728;&#x53D1;&#x5E03;&#x8FC7;&#x7A0B;&#x4E2D;&#x52A8;&#x6001;&#x66F4;&#x65B0;nginx upstream&#x8BBE;&#x7F6E;&#xFF0C;&#x5176;&#x53EF;&#x9009;&#x65B9;&#x6848;&#x5927;&#x81F4;&#x5982;&#x4E0B;</p>
+<table>
+<thead>
+<tr>
+<th>&#x65B9;&#x6848;&#x4E00;</th>
+<th>&#x601D;&#x8DEF;</th>
+<th>&#x4F18;&#x70B9;</th>
+<th>&#x7F3A;&#x70B9;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&#x624B;&#x52A8;&#x5904;&#x7406;</td>
+<td><p>&#x53D1;&#x5E03;&#x524D;&#x5148;&#x624B;&#x52A8;&#x4FEE;&#x6539;nginx upstream&#x5E76;reload</p><p>&#x53D1;&#x5E03;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#x518D;&#x4FEE;&#x6539;nginx upstream&#x5E76;reload</p></td>
+<td>&#x53EF;&#x9760;</td>
+<td>&#x9700;&#x8981;&#x4EBA;&#x5DE5;&#x4ECB;&#x5165;&#xFF0C;&#x6548;&#x7387;&#x4F4E;&#xFF0C;&#x4E14;&#x4EBA;&#x662F;&#x4E0D;&#x53EF;&#x9760;&#x7684;</td>
+</tr>
+<tr>
+<td>consul-template</td>
+<td>&#x901A;&#x8FC7;consule&#x81EA;&#x52A8;&#x76D1;&#x542C;&#x670D;&#x52A1;&#xFF0C;&#x5E76;&#x901A;&#x8FC7;consul-template&#x52A8;&#x6001;&#x4FEE;&#x6539;ningx conf&#x6587;&#x4EF6;&#xFF0C;reload</td>
+<td>upstream&#x53D8;&#x52A8;&#x81EA;&#x52A8;&#x5B8C;&#x6210;&#xFF0C;&#x65E0;&#x9700;&#x4EBA;&#x5DE5;&#x5B8C;&#x6210;</td>
+<td>nginx&#x9700;&#x8981;&#x9891;&#x7E41;reload&#xFF0C;&#x6709;&#x6027;&#x80FD;&#x98CE;&#x9669;</td>
+</tr>
+<tr>
+<td>ngx_http_dyups_module</td>
+<td>ngx_http_dyups_module &#x63D0;&#x4F9B;http&#x63A5;&#x53E3;&#xFF0C;&#x5728;&#x53D1;&#x5E03;&#x8FC7;&#x7A0B;&#x4E2D;&#x8C03;&#x7528;http&#x63A5;&#x53E3;&#x66F4;&#x65B0;upstream</td>
+<td><p>1&#x3001;upstream&#x53D8;&#x52A8;&#x81EA;&#x52A8;&#x5B8C;&#x6210;&#xFF0C;&#x65E0;&#x9700;&#x4EBA;&#x5DE5;&#x5B8C;&#x6210;</p><p>2&#x3001;nginx&#x65E0;&#x9700;reload</p><p><br></p></td>
+<td><p><br></p></td>
+</tr>
+</tbody>
+</table>
+<p>&#x7EFC;&#x4E0A;&#x8BC4;&#x4F30;&#xFF0C;&#x6700;&#x7EC8;&#x51B3;&#x5B9A;&#x9009;&#x7528;&#x65B9;&#x6848;3&#xFF0C;&#x5373;ngx_http_dyups_module&#x65B9;&#x6848;</p>
+<h2 id="&#x5B9E;&#x65BD;&#x8FC7;&#x7A0B;-">&#x5B9E;&#x65BD;&#x8FC7;&#x7A0B; <a href="#ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-shi-shi-guo-cheng" id="ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-shi-shi-guo-cheng"></a></h2>
+<h3 id="&#x5B89;&#x88C5;&#x8FC7;&#x7A0B;-">&#x5B89;&#x88C5;&#x8FC7;&#x7A0B; <a href="#ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-an-zhuang-guo-cheng" id="ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-an-zhuang-guo-cheng"></a></h3>
+<p>&#x4E0B;&#x8F7D;ngx_http_dyups_module</p>
+<pre><code class="lang-bash"><span class="hljs-built_in">cd</span> /opt/data/soft/
+git <span class="hljs-built_in">clone</span> https://github.com/yzprofile/ngx_http_dyups_module.git
+git pull --tag
+git checkout v0.2.9
+</code></pre>
+<p>&#x4FEE;&#x6539;nginx&#x6E90;&#x7801;</p>
+<pre><code class="lang-bash"><span class="hljs-built_in">cd</span> nginx-1.21.4 vim src/http/ngx_http_upstream.h
+</code></pre>
+<p>&#x589E;&#x52A0;&#x5185;&#x5BB9;&#x89C1;&#x4E0B;&#x56FE;</p>
+<figure><img src="../.gitbook/assets/nginx_3.png" alt=""><figcaption></figcaption></figure>
+
+<p>&#x91CD;&#x65B0;&#x7F16;&#x8BD1;nginx</p>
+<pre><code class="lang-bash">./configure --prefix=/opt/data/nginx --with-compat --with-file-aio --with-threads --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with-ld-opt=-Wl,-rpath,/usr/<span class="hljs-built_in">local</span>/lib --with-stream_ssl_module --with-stream_ssl_preread_module --add-module=/opt/data/soft/ngx_devel_kit --add-module=/opt/data/soft/<span class="hljs-built_in">set</span>-misc-nginx-module --add-module=/opt/data/soft/lua-nginx-module --add-module=/opt/data/soft/ngx_http_dyups_module 
+make
+cp /opt/data/nginx/sbin/nginx /opt/data/nginx/sbin/nginx.bak
+make install
+</code></pre>
+<h2 id="&#x9A8C;&#x8BC1;-">&#x9A8C;&#x8BC1; <a href="#ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-yan-zheng" id="ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-yan-zheng"></a></h2>
+<p>&#x65B0;&#x589E;&#x914D;&#x7F6E;&#x6587;&#x4EF6;  /opt/data/nginx/conf/vhost-server/upstream.conf&#xFF0C;&#x5185;&#x5BB9;&#x5982;&#x4E0B;</p>
+<pre><code class="lang-bash">upstream t-plan-dev-gateway {
+      server  192.168.2.89:8080;       
+      server  192.168.2.89:8082;
+}
+</code></pre>
+<p>&#x65B0;&#x589E;&#x914D;&#x7F6E;&#x6587;&#x4EF6; /opt/data/nginx/conf/vhost-server/ngx_http_dyups_module.conf</p>
+<pre><code>server {        
+    listen 10080; # &#x8FD9;&#x4E2A;&#x7AEF;&#x53E3;&#x5C31;&#x662F;ngx_http_dyups_module&#x4F5C;&#x7528;&#x7AEF;&#x53E3;&#xFF0C;&#x901A;&#x8FC7;&#x8BE5;&#x7AEF;&#x53E3;&#x505A;upstream&#x66F4;&#x65B0;&#xFF1B;&#x589E;&#x52A0;&#x7684;&#x7AEF;&#x53E3;&#x9700;&#x8981;&#x6DFB;&#x52A0;&#x9632;&#x706B;&#x5899;&#x914D;&#x7F6E;&#xFF0C;&#x8FD9;&#x91CC;&#x4E0D;&#x505A;&#x4ECB;&#x7ECD;        
+    location / {                
+        dyups_interface;        
+    }
+} 
+# &#x6D4B;&#x8BD5;upstream&#x662F;&#x5426;&#x52A8;&#x6001;&#x751F;&#x6548;&#xFF0C;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x53EF;&#x4EE5;&#x5220;&#x9664;
+server {        
+    server_name dev.dyups.com;        
+    listen 80;         
+    location / {                
+        set $ups t-plan-dev-gateway; # &#x751F;&#x4EA7;&#x73AF;&#x5883;&#x9700;&#x8981;&#x6309;&#x7167;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x6539;&#x9020;&#xFF0C;upstream&#x4ECE;&#x5199;&#x6B7B;&#x53D8;&#x6210;nginx&#x53D8;&#x91CF;&#x65B9;&#x5F0F;                
+        proxy_pass http://$ups;        
+    }
+}
+</code></pre><p>&#x521D;&#x59CB;&#x6D4B;&#x8BD5;</p>
+<pre><code class="lang-bash">curl -v http://127.0.0.1:10080/upstream/t-plan-dev-gateway
+</code></pre>
+<p>&#x8FD4;&#x56DE;&#x5185;&#x5BB9;&#x5982;&#x4E0B;</p>
+<pre><code>* About to connect() to 127.0.0.1 port 10080 (#0)
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 10080 (#0)
+&gt; GET /upstream/t-plan-dev-gateway HTTP/1.1
+&gt; User-Agent: curl/7.29.0&gt; Host: 127.0.0.1:10080
+&gt; Accept: */*
+&gt;
+&lt; HTTP/1.1 200 OK
+&lt; Server: nginx
+&lt; Date: Wed, 08 Nov 2023 06:31:33 GMT
+&lt; Content-Length: 50
+&lt; Connection: keep-alive
+&lt;
+server 192.168.2.89:8080
+server 192.168.2.89:8082
+* Connection #0 to host 127.0.0.1 left intact
+</code></pre><p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8FD4;&#x56DE;&#x4E86;2&#x4E2A;&#x8282;&#x70B9;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x6D4B;&#x8BD5;&#x670D;&#x52A1;&#x53EF;&#x7528;&#x6027;</p>
+<pre><code class="lang-bash">curl -v -H <span class="hljs-string">&apos;host: dev.dyups.com&apos;</span> <span class="hljs-string">&apos;http://127.0.0.1&apos;</span>
+</code></pre>
+<pre><code>* About to connect() to 127.0.0.1 port 80 (#0)
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 80 (#0)
+&gt; GET / HTTP/1.1
+&gt; User-Agent: curl/7.29.0
+&gt; Accept: */*
+&gt; host: dev.dyups.com
+&gt;
+&lt; HTTP/1.1 404 Not Found
+&lt; Server: nginx
+&lt; Date: Wed, 08 Nov 2023 06:40:39 GMT
+&lt; Content-Type: application/json
+&lt; Content-Length: 130
+&lt; Connection: keep-alive
+&lt;
+* Connection #0 to host 127.0.0.1 left intact
+{&quot;timestamp&quot;:&quot;2023-11-08T06:40:39.920+00:00&quot;,&quot;path&quot;:&quot;/&quot;,&quot;status&quot;:404,&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:null,&quot;requestId&quot;:&quot;52a1d925-12&quot;}
+</code></pre><p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x670D;&#x52A1;&#x6B63;&#x5E38;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x9A8C;&#x8BC1;&#x5220;&#x9664;upstream</p>
+<pre><code class="lang-bash">curl -v -i -X DELETE http://127.0.0.1:10080/upstream/t-plan-dev-gateway
+</code></pre>
+<pre><code>* About to connect() to 127.0.0.1 port 10080 (#0)
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 10080 (#0)
+&gt; DELETE /upstream/t-plan-dev-gateway HTTP/1.1
+&gt; User-Agent: curl/7.29.0
+&gt; Host: 127.0.0.1:10080
+&gt; Accept: */*
+&gt;
+&lt; HTTP/1.1 200 OKHTTP/1.1 200 OK
+&lt; Server: nginxServer: nginx
+&lt; Date: Wed, 08 Nov 2023 07:03:53 GMTDate: Wed, 08 Nov 2023 07:03:53 GMT
+&lt; Content-Length: 7Content-Length: 7
+&lt; Connection: keep-aliveConnection: keep-alive 
+&lt;
+* Connection #0 to host 127.0.0.1 left intact
+success
+</code></pre><p>&#x770B;&#x4E0B;upstream&#x662F;&#x5426;&#x88AB;&#x5220;&#x9664;</p>
+<pre><code class="lang-bash">curl -v  http://127.0.0.1:10080/upstream/t-plan-dev-gateway
+</code></pre>
+<pre><code>* About to connect() to 127.0.0.1 port 10080 (#0)
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 10080 (#0)
+&gt; GET /upstream/t-plan-dev-gateway HTTP/1.1
+&gt; User-Agent: curl/7.29.0
+&gt; Host: 127.0.0.1:10080
+&gt; Accept: */*
+&gt;
+&lt; HTTP/1.1 404 Not Found
+&lt; Server: nginx
+&lt; Date: Wed, 08 Nov 2023 06:44:50 GMT
+&lt; Content-Length: 0
+&lt; Connection: keep-alive
+&lt;
+* Connection #0 to host 127.0.0.1 left intact
+</code></pre><p>404&#xFF0C;&#x8868;&#x793A;upstream&#x4E0D;&#x5B58;&#x5728;</p>
+<p>&#x518D;&#x770B;&#x4E0B;&#x670D;&#x52A1;&#x53EF;&#x7528;</p>
+<pre><code class="lang-bash">curl -v -H <span class="hljs-string">&apos;host: dev.dyups.com&apos;</span> <span class="hljs-string">&apos;http://127.0.0.1&apos;</span>
+</code></pre>
+<pre><code>* About to connect() to 127.0.0.1 port 80 (#0)
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 80 (#0)
+&gt; GET / HTTP/1.1
+&gt; User-Agent: curl/7.29.0
+&gt; Accept: */*
+&gt; host: dev.dyups.com
+&gt;
+&lt; HTTP/1.1 502 Bad Gateway
+&lt; Server: nginx
+&lt; Date: Wed, 08 Nov 2023 07:04:34 GMT
+&lt; Content-Type: text/html; charset=utf-8&lt; Content-Length: 150
+&lt; Connection: keep-alive
+&lt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;502 Bad Gateway&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;center&gt;&lt;h1&gt;502 Bad Gateway&lt;/h1&gt;&lt;/center&gt;
+&lt;hr&gt;&lt;center&gt;nginx&lt;/center&gt;
+&lt;/body&gt;
+&lt;/html&gt;* Connection #0 to host 127.0.0.1 left intact
+</code></pre><p>&#x8FD4;&#x56DE;502&#xFF0C;&#x6240;&#x6709;&#x6CA1;&#x6709;&#x53EF;&#x7528;&#x7684;upstream</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#xFF0C;&#x5C1D;&#x8BD5;&#x66F4;&#x65B0;upstream</p>
+<pre><code class="lang-bash">curl -v  <span class="hljs-_">-d</span> <span class="hljs-string">&apos;server 192.168.2.89:8082;&apos;</span>  http://127.0.0.1:10080/upstream/t-plan-dev-gateway
+</code></pre>
+<pre><code>* About to connect() to 127.0.0.1 port 10080 (#0)
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 10080 (#0)
+&gt; POST /upstream/t-plan-dev-gateway HTTP/1.1
+&gt; User-Agent: curl/7.29.0
+&gt; Host: 127.0.0.1:10080&gt; Accept: */*
+&gt; Content-Length: 25
+&gt; Content-Type: application/x-www-form-urlencoded&gt;
+* upload completely sent off: 25 out of 25 bytes
+&lt; HTTP/1.1 200 OK
+&lt; Server: nginx
+&lt; Date: Wed, 08 Nov 2023 07:04:58 GMT
+&lt; Content-Length: 7
+&lt; Connection: keep-alive
+&lt;
+* Connection #0 to host 127.0.0.1 left intact
+success
+</code></pre><p>&#x518D;&#x6B21;&#x67E5;&#x770B;upstream</p>
+<pre><code class="lang-bash">curl -v http://127.0.0.1:10080/upstream/t-plan-dev-gateway
+</code></pre>
+<pre><code>* About to connect() to 127.0.0.1 port 10080 (#0)
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 10080 (#0)
+&gt; GET /upstream/t-plan-dev-gateway HTTP/1.1
+&gt; User-Agent: curl/7.29.0
+&gt; Host: 127.0.0.1:10080
+&gt; Accept: */*
+&gt;
+&lt; HTTP/1.1 200 OK
+&lt; Server: nginx
+&lt; Date: Wed, 08 Nov 2023 07:05:21 GMT
+&lt; Content-Length: 25
+&lt; Connection: keep-alive
+&lt;
+server 192.168.2.89:8082
+* Connection #0 to host 127.0.0.1 left intact
+</code></pre><p>&#x5DF2;&#x7ECF;&#x6709;&#x53EF;&#x7528;upstream&#xFF0C;&#x518D;&#x6B21;&#x67E5;&#x770B;&#x670D;&#x52A1;&#x53EF;&#x7528;</p>
+<pre><code class="lang-bash">curl -v -H <span class="hljs-string">&apos;host: dev.dyups.com&apos;</span> <span class="hljs-string">&apos;http://127.0.0.1&apos;</span>
+</code></pre>
+<pre><code>* About to connect() to 127.0.0.1 port 80 (#0)
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 80 (#0)
+&gt; GET / HTTP/1.1
+&gt; User-Agent: curl/7.29.0
+&gt; Accept: */*
+&gt; host: dev.dyups.com
+&gt;
+&lt; HTTP/1.1 404 Not Found
+&lt; Server: nginx
+&lt; Date: Wed, 08 Nov 2023 07:05:40 GMT
+&lt; Content-Type: application/json
+&lt; Content-Length: 130
+&lt; Connection: keep-alive
+&lt;
+* Connection #0 to host 127.0.0.1 left intact
+{&quot;timestamp&quot;:&quot;2023-11-08T07:05:40.192+00:00&quot;,&quot;path&quot;:&quot;/&quot;,&quot;status&quot;:404,&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:null,&quot;requestId&quot;:&quot;79d33a64-16&quot;}
+</code></pre><p>&#x670D;&#x52A1;&#x6062;&#x590D;</p>
+<p>&#x8BC1;&#x660E;&#x65B9;&#x6848;&#x53EF;&#x884C;</p>
+<h3 id="&#x5982;&#x4F55;&#x66F4;&#x65B0;upstream-">&#x5982;&#x4F55;&#x66F4;&#x65B0;upstream <a href="#ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-ru-he-geng-xin-upstream" id="ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-ru-he-geng-xin-upstream"></a></h3>
+<table>
+<thead>
+<tr>
+<th>&#x65B9;&#x6848;</th>
+<th>&#x601D;&#x8DEF;</th>
+<th>&#x4F18;&#x70B9;</th>
+<th>&#x7F3A;&#x70B9;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>jekins&#x53D1;&#x5E03;</td>
+<td>&#x66F4;&#x65B0;jekins&#x811A;&#x672C;&#xFF0C;&#x5728;&#x670D;&#x52A1;&#x91CD;&#x542F;&#x524D;&#x4E0B;&#x6389;&#x8282;&#x70B9;&#xFF0C;&#x670D;&#x52A1;&#x542F;&#x52A8;&#x540E;&#x52A0;&#x56DE;&#x8282;&#x70B9;</td>
+<td>1&#x3001;&#x51C6;&#x786E;</td>
+<td><p>1&#x3001;&#x53D1;&#x5E03;&#x548C;&#x90E8;&#x7F72;&#x67B6;&#x6784;&#x8026;&#x5408;&#xFF0C;&#x914D;&#x7F6E;&#x7E41;&#x7410;</p><p>2&#x3001;&#x5982;&#x4F55;&#x5224;&#x65AD;&#x670D;&#x52A1;&#x5DF2;&#x7ECF;&#x542F;&#x52A8;&#xFF0C;&#x9700;&#x8981;&#x670D;&#x52A1;&#x6539;&#x9020;&#xFF0C;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x68C0;&#x6D4B;&#x63A5;&#x53E3;</p></td>
+</tr>
+<tr>
+<td>&#x5E94;&#x7528;&#x81EA;&#x52A8;&#x5B8C;&#x6210;</td>
+<td><p>1&#x3001;&#x901A;&#x8FC7;&#x5E94;&#x7528;&#x4E2D;&#x6DFB;&#x52A0;listener&#xFF0C;&#x5728;&#x670D;&#x52A1;&#x542F;&#x52A8;&#x540E;&#x81EA;&#x52A8;&#x6CE8;&#x518C;</p><p>2&#x3001;&#x901A;&#x8FC7;&#x6DFB;&#x52A0;shutdownHooker&#xFF0C;&#x5728;&#x670D;&#x52A1;&#x9500;&#x6BC1;&#x65F6;&#x4E0B;&#x6389;&#x8282;&#x70B9;</p></td>
+<td><p>1&#x3001;&#x548C;&#x53D1;&#x5E03;&#x89E3;&#x8026;</p><p>2&#x3001;&#x81EA;&#x52A8;</p></td>
+<td>1&#x3001;&#x65E0;&#x6CD5;&#x89E3;&#x51B3;kill -9&#x65F6;&#xFF0C;&#x65E0;&#x6CD5;&#x4E0B;&#x6389;&#x8282;&#x70B9;&#x7684;&#x95EE;&#x9898;</td>
+</tr>
+</tbody>
+</table>
+<p>&#x56E0;&#x4E3A;&#x7EBF;&#x4E0A;&#x6B63;&#x5E38;&#x6D41;&#x7A0B;&#x662F;&#x4E0D;&#x5141;&#x8BB8;kill -9&#x7684;&#xFF0C;&#x51FA;&#x4E8E;&#x89E3;&#x8026;&#x7684;&#x76EE;&#x7684;&#xFF0C;&#x6B64;&#x5904;&#x9009;&#x62E9;&#x65B9;&#x6848;&#x4E8C;</p>
+<h4 id="&#x5E94;&#x7528;&#x6539;&#x9020;-">&#x5E94;&#x7528;&#x6539;&#x9020; <a href="#ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-ying-yong-gai-zao" id="ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu-ying-yong-gai-zao"></a></h4>
+<p>&#x65B0;&#x589E;listener&#xFF0C;&#x76D1;&#x542C;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x548C;&#x9500;&#x6BC1;&#x4E8B;&#x4EF6;</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Slf</span>4j
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NginxRegistryListener</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ApplicationListener</span>&lt;<span class="hljs-title">ApplicationStartedEvent</span>&gt; </span>{
+
+    <span class="hljs-keyword">private</span> NginxRegistryProp nginxRegistryProp;
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> serverPort;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">NginxRegistryListener</span><span class="hljs-params">(NginxRegistryProp nginxRegistryProp, <span class="hljs-keyword">int</span> serverPort)</span> </span>{
+        <span class="hljs-keyword">this</span>.nginxRegistryProp = nginxRegistryProp;
+        <span class="hljs-keyword">this</span>.serverPort = serverPort;
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onApplicationEvent</span><span class="hljs-params">(ApplicationStartedEvent event)</span> </span>{
+        log.info(<span class="hljs-string">&quot;NginxRegistryListener run&quot;</span>);
+        Runtime.getRuntime().addShutdownHook(<span class="hljs-keyword">new</span> Thread(() -&gt; {
+            <span class="hljs-keyword">try</span> {
+                log.info(<span class="hljs-string">&quot;NginxRegistryListener.doUnregistry started&quot;</span>);
+                doUnregistry();
+            } <span class="hljs-keyword">catch</span> (Exception e) {
+                log.error(<span class="hljs-string">&quot;NginxRegistryListener.doUnregistry error. &quot;</span>, e);
+            }
+        }));
+
+        <span class="hljs-keyword">try</span> {
+            log.info(<span class="hljs-string">&quot;NginxRegistryListener.doRegistry started&quot;</span>);
+            doRegistry();
+        } <span class="hljs-keyword">catch</span> (Exception e) {
+            log.error(<span class="hljs-string">&quot;NginxRegistryListener.doRegistry error. &quot;</span>, e);
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> List&lt;String&gt; <span class="hljs-title">getUpstreamList</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException, URISyntaxException </span>{
+        <span class="hljs-comment">// &#x521B;&#x5EFA;Httpclient&#x5BF9;&#x8C61;</span>
+        <span class="hljs-keyword">try</span> (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+            <span class="hljs-comment">// &#x521B;&#x5EFA;uri</span>
+            URIBuilder builder = <span class="hljs-keyword">new</span> URIBuilder(<span class="hljs-keyword">this</span>.nginxRegistryProp.getRegistryUrl());
+            URI uri = builder.build();
+
+            <span class="hljs-comment">// &#x521B;&#x5EFA;http GET&#x8BF7;&#x6C42;</span>
+            HttpGet httpGet = <span class="hljs-keyword">new</span> HttpGet(uri);
+            <span class="hljs-comment">// &#x6267;&#x884C;&#x8BF7;&#x6C42;</span>
+            <span class="hljs-keyword">try</span> (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+                <span class="hljs-comment">// &#x5224;&#x65AD;&#x8FD4;&#x56DE;&#x72B6;&#x6001;&#x662F;&#x5426;&#x4E3A;200</span>
+                <span class="hljs-keyword">if</span> (response.getStatusLine().getStatusCode() == HttpStatus.SC_NOT_FOUND) {
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+                }
+
+                <span class="hljs-keyword">if</span> (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IOException(<span class="hljs-string">&quot;http request error, url= &quot;</span> + <span class="hljs-keyword">this</span>.nginxRegistryProp.getRegistryUrl());
+                }
+
+                <span class="hljs-keyword">return</span> IOUtils.readLines(response.getEntity().getContent(), StandardCharsets.UTF_8);
+            }
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doRegistry</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException, URISyntaxException </span>{
+        <span class="hljs-keyword">if</span> (nginxRegistryProp == <span class="hljs-keyword">null</span>
+                || StringUtils.isBlank(nginxRegistryProp.getRegistryUrl())
+                || StringUtils.isBlank(nginxRegistryProp.getServiceIp())) {
+            log.info(<span class="hljs-string">&quot;doRegistry, nothing todo, nginxRegistryProp={}&quot;</span>, nginxRegistryProp);
+            <span class="hljs-keyword">return</span>;
+        }
+        List&lt;String&gt; upstreamList = getUpstreamList();
+        String destUpstream = <span class="hljs-keyword">this</span>.buildUpstream();
+
+        <span class="hljs-keyword">if</span> (upstreamList.contains(destUpstream)) {
+            log.info(<span class="hljs-string">&quot;doRegistry, upstream registered already, nginxRegistryProp={}&quot;</span>, nginxRegistryProp);
+            <span class="hljs-keyword">return</span>;
+        }
+
+        upstreamList.add(destUpstream);
+        updateUpstream(upstreamList);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doUnregistry</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException, URISyntaxException </span>{
+        <span class="hljs-keyword">if</span> (nginxRegistryProp == <span class="hljs-keyword">null</span>
+                || StringUtils.isBlank(nginxRegistryProp.getRegistryUrl())
+                || StringUtils.isBlank(nginxRegistryProp.getServiceIp())) {
+            log.info(<span class="hljs-string">&quot;doUnregistry, nothing todo, nginxRegistryProp={}&quot;</span>, nginxRegistryProp);
+            <span class="hljs-keyword">return</span>;
+        }
+        List&lt;String&gt; upstreamList = getUpstreamList();
+        String destUpstream = <span class="hljs-keyword">this</span>.buildUpstream();
+
+        <span class="hljs-keyword">if</span> (!upstreamList.remove(destUpstream)) {
+            log.info(<span class="hljs-string">&quot;doUnregistry, upstream unregistered already, nginxRegistryProp={}&quot;</span>, nginxRegistryProp);
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-keyword">if</span> (CollectionUtils.isEmpty(upstreamList)) {
+            deleteUpstream();
+            <span class="hljs-keyword">return</span>;
+        }
+
+        updateUpstream(upstreamList);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">buildUpstream</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> String.format(<span class="hljs-string">&quot;server %s:%d&quot;</span>, nginxRegistryProp.getServiceIp(), serverPort);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">updateUpstream</span><span class="hljs-params">(List&lt;String&gt; upstreamList)</span> <span class="hljs-keyword">throws</span> IOException, URISyntaxException </span>{
+        StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();
+        <span class="hljs-keyword">for</span> (String upstream : upstreamList) {
+            sb.append(upstream)
+                    .append(<span class="hljs-string">&quot;;&quot;</span>);
+        }
+
+        String postStr = sb.toString();
+
+        <span class="hljs-keyword">try</span> (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+            <span class="hljs-comment">// &#x521B;&#x5EFA;uri</span>
+            URIBuilder builder = <span class="hljs-keyword">new</span> URIBuilder(<span class="hljs-keyword">this</span>.nginxRegistryProp.getRegistryUrl());
+            URI uri = builder.build();
+
+            <span class="hljs-comment">// &#x521B;&#x5EFA;http POST&#x8BF7;&#x6C42;</span>
+            HttpPost httpPost = <span class="hljs-keyword">new</span> HttpPost(uri);
+            httpPost.addHeader(<span class="hljs-string">&quot;Content-Type&quot;</span>, <span class="hljs-string">&quot;application/x-www-form-urlencoded&quot;</span>);
+            httpPost.setEntity(<span class="hljs-keyword">new</span> StringEntity(postStr, StandardCharsets.UTF_8));
+            <span class="hljs-comment">// &#x6267;&#x884C;&#x8BF7;&#x6C42;</span>
+            <span class="hljs-keyword">try</span> (CloseableHttpResponse response = httpclient.execute(httpPost)) {
+                <span class="hljs-comment">// &#x5224;&#x65AD;&#x8FD4;&#x56DE;&#x72B6;&#x6001;&#x662F;&#x5426;&#x4E3A;200</span>
+
+                <span class="hljs-keyword">if</span> (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IOException(<span class="hljs-string">&quot;http request error, url= &quot;</span> + <span class="hljs-keyword">this</span>.nginxRegistryProp.getRegistryUrl());
+                }
+
+                String content = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8);
+                <span class="hljs-keyword">if</span> (!StringUtils.equalsIgnoreCase(<span class="hljs-string">&quot;success&quot;</span>, content)) {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IOException(<span class="hljs-string">&quot;http request error, url= &quot;</span> + <span class="hljs-keyword">this</span>.nginxRegistryProp.getRegistryUrl());
+                }
+            }
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">deleteUpstream</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException, URISyntaxException </span>{
+        <span class="hljs-keyword">try</span> (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+            <span class="hljs-comment">// &#x521B;&#x5EFA;uri</span>
+            URIBuilder builder = <span class="hljs-keyword">new</span> URIBuilder(<span class="hljs-keyword">this</span>.nginxRegistryProp.getRegistryUrl());
+            URI uri = builder.build();
+
+            <span class="hljs-comment">// &#x521B;&#x5EFA;http DELETE&#x8BF7;&#x6C42;</span>
+            HttpDelete httpDelete = <span class="hljs-keyword">new</span> HttpDelete(uri);
+            <span class="hljs-comment">// &#x6267;&#x884C;&#x8BF7;&#x6C42;</span>
+            <span class="hljs-keyword">try</span> (CloseableHttpResponse response = httpclient.execute(httpDelete)) {
+                <span class="hljs-comment">// &#x5224;&#x65AD;&#x8FD4;&#x56DE;&#x72B6;&#x6001;&#x662F;&#x5426;&#x4E3A;200</span>
+
+                <span class="hljs-keyword">if</span> (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IOException(<span class="hljs-string">&quot;http request error, url= &quot;</span> + <span class="hljs-keyword">this</span>.nginxRegistryProp.getRegistryUrl());
+                }
+
+                String content = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8);
+                <span class="hljs-keyword">if</span> (!StringUtils.equalsIgnoreCase(<span class="hljs-string">&quot;success&quot;</span>, content)) {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IOException(<span class="hljs-string">&quot;http request error, url= &quot;</span> + <span class="hljs-keyword">this</span>.nginxRegistryProp.getRegistryUrl());
+                }
+            }
+        }
+    }
+
+}
+</code></pre>
+<p>&#x65B0;&#x589E;&#x914D;&#x7F6E;&#x7C7B;</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Setter</span>
+<span class="hljs-meta">@Getter</span>
+<span class="hljs-meta">@RefreshScope</span>
+<span class="hljs-meta">@ConfigurationProperties</span>(prefix = <span class="hljs-string">&quot;nginx.registry&quot;</span>)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NginxRegistryProp</span> </span>{
+    <span class="hljs-comment">/**
+     * nginx &#x6CE8;&#x518C;&#x5730;&#x5740;
+     */</span>
+    <span class="hljs-keyword">private</span> String registryUrl;
+
+    <span class="hljs-comment">/**
+     * &#x670D;&#x52A1;ip
+     */</span>
+    <span class="hljs-keyword">private</span> String serviceIp;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;NginxRegistryProp{&quot;</span> +
+                <span class="hljs-string">&quot;registryUrl=&apos;&quot;</span> + registryUrl + <span class="hljs-string">&apos;\&apos;&apos;</span> +
+                <span class="hljs-string">&quot;, serviceIp=&apos;&quot;</span> + serviceIp + <span class="hljs-string">&apos;\&apos;&apos;</span> +
+                <span class="hljs-string">&apos;}&apos;</span>;
+    }
+}
+</code></pre>
+<p>&#x914D;&#x7F6E;&#x65B0;&#x589E;&#x5982;&#x4E0B;</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">nginx:</span>  
+<span class="hljs-attr">  registry:</span>    
+<span class="hljs-attr">    registry-url:</span> http://<span class="hljs-number">192.168</span><span class="hljs-number">.2</span><span class="hljs-number">.77</span>:<span class="hljs-number">10080</span>/upstream/t-plan-dev-gateway  <span class="hljs-comment"># nginx upstream &#x53D8;&#x66F4;&#x5730;&#x5740;    </span>
+<span class="hljs-attr">    service-ip:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.25</span><span class="hljs-number">.86</span> <span class="hljs-comment"># &#x670D;&#x52A1;&#x8282;&#x70B9;ip</span>
+</code></pre>
+<p>&#x670D;&#x52A1;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x65E5;&#x5FD7;&#x5982;&#x4E0B;</p>
+<pre><code>2023-11-08 17:07:03.149  INFO 31717 --- [           main] o.a.coyote.http11.Http11NioProtocol      : Starting ProtocolHandler [&quot;http-nio-8421&quot;]
+2023-11-08 17:07:03.182  INFO 31717 --- [           main] c.dreamkey.chain.brain.BrainApplication  : Started BrainApplication in 3.901 seconds (JVM running for 9.654)
+2023-11-08 17:07:03.183  INFO 31717 --- [           main] d.f.u.lister.NginxRegistryListener       : NginxRegistryListener run
+2023-11-08 17:07:03.184  INFO 31717 --- [           main] d.f.u.lister.NginxRegistryListener       : NginxRegistryListener.doRegistry started
+2023-11-08 17:07:03.421  INFO 31717 --- [           main] c.a.c.n.refresh.NacosContextRefresher    : listening config: dataId=coupon-chain-brain.yml, group=LQT
+2023-11-08 17:07:03.421  INFO 31717 --- [           main] c.dreamkey.chain.brain.BrainApplication  : ......&#x94FE;&#x5238;&#x901A;&#x670D;&#x52A1;&#x542F;&#x52A8;&#x6210;&#x529F;!
+</code></pre><p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x542F;&#x52A8;&#x540E;&#x6709;&#x8C03;&#x7528;NginxRegistryListener.doRegistry&#x6CE8;&#x518C;&#x670D;&#x52A1;</p>
+<p>&#x770B;&#x4E0B;upstream&#x60C5;&#x51B5;</p>
+<pre><code class="lang-bash">curl -v <span class="hljs-string">&apos;http://192.168.2.77:10080/upstream/t-plan-dev-gateway&apos;</span>
+</code></pre>
+<pre><code>*   Trying 192.168.2.77:10080...
+* Connected to 192.168.2.77 (192.168.2.77) port 10080 (#0)
+&gt; GET /upstream/t-plan-dev-gateway HTTP/1.1
+&gt; Host: 192.168.2.77:10080
+&gt; User-Agent: curl/8.1.2
+&gt; Accept: */*
+&gt;
+&lt; HTTP/1.1 200 OK
+&lt; Server: nginx
+&lt; Date: Wed, 08 Nov 2023 09:07:27 GMT
+&lt; Content-Length: 51
+&lt; Connection: keep-alive
+&lt;
+server 192.168.2.89:8080
+server 192.168.25.86:8421
+* Connection #0 to host 192.168.2.77 left intact
+</code></pre><p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x6709;&#x4E00;&#x4E2A;&#x7AEF;&#x53E3;8421&#x7684;&#x8282;&#x70B9;&#xFF0C;&#x8868;&#x793A;&#x670D;&#x52A1;&#x542F;&#x52A8;&#x540E;&#x6CE8;&#x518C;&#x6210;&#x529F;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x770B;&#x9500;&#x6BC1;&#xFF0C;&#x65E5;&#x5FD7;&#x5982;&#x4E0B;</p>
+<pre><code>2023-11-08 17:07:42.110  WARN 31717 --- [       Thread-1] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+2023-11-08 17:07:42.111  INFO 31717 --- [       Thread-7] d.f.u.lister.NginxRegistryListener       : NginxRegistryListener.doUnregistry started
+2023-11-08 17:07:42.113  WARN 31717 --- [       Thread-1] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+2023-11-08 17:07:42.137  INFO 31717 --- [ionShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2023-11-08 17:07:42.145  INFO 31717 --- [ionShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+</code></pre><p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x670D;&#x52A1;&#x9500;&#x6BC1;&#x524D;&#x6709;&#x8C03;&#x7528;NginxRegistryListener.doUnregistry&#x4E0B;&#x6389;&#x8282;&#x70B9;</p>
+<p>&#x518D;&#x770B;&#x4E0B;upstream&#x8282;&#x70B9;&#x60C5;&#x51B5;</p>
+<pre><code class="lang-bash">curl -v <span class="hljs-string">&apos;http://192.168.2.77:10080/upstream/t-plan-dev-gateway&apos;</span>
+</code></pre>
+<pre><code>*   Trying 192.168.2.77:10080...
+* Connected to 192.168.2.77 (192.168.2.77) port 10080 (#0)
+&gt; GET /upstream/t-plan-dev-gateway HTTP/1.1
+&gt; Host: 192.168.2.77:10080
+&gt; User-Agent: curl/8.1.2
+&gt; Accept: */*
+&gt;
+&lt; HTTP/1.1 200 OK
+&lt; Server: nginx
+&lt; Date: Wed, 08 Nov 2023 09:07:57 GMT
+&lt; Content-Length: 25
+&lt; Connection: keep-alive
+&lt;server 192.168.2.89:8080
+* Connection #0 to host 192.168.2.77 left intact
+</code></pre><p>&#x53EF;&#x4EE5;&#x770B;&#x5230;8421&#x8282;&#x70B9;&#x5DF2;&#x7ECF;&#x88AB;&#x6458;&#x9664;&#xFF0C;&#x8BC1;&#x660E;&#x65B9;&#x6848;&#x53EF;&#x884C;</p>
+<h2 id="&#x53C2;&#x8003;">&#x53C2;&#x8003;</h2>
+<p><a href="https://github.com/yzprofile/ngx_http_dyups_module" target="_blank">https://github.com/yzprofile/ngx_http_dyups_module</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: nginx">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="nginx-dai-li-mysql.html" class="navigation navigation-next " aria-label="Next page: nginx代理mysql">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"ngx_http_dyups_module实现web服务的平滑发布","level":"1.7.1","depth":2,"next":{"title":"nginx代理mysql","level":"1.7.2","depth":2,"path":"nginx/nginx-dai-li-mysql.md","ref":"nginx/nginx-dai-li-mysql.md","articles":[]},"previous":{"title":"nginx","level":"1.7","depth":1,"path":"nginx/README.md","ref":"nginx/README.md","articles":[{"title":"ngx_http_dyups_module实现web服务的平滑发布","level":"1.7.1","depth":2,"path":"nginx/ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.md","ref":"nginx/ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.md","articles":[]},{"title":"nginx代理mysql","level":"1.7.2","depth":2,"path":"nginx/nginx-dai-li-mysql.md","ref":"nginx/nginx-dai-li-mysql.md","articles":[]},{"title":"nginx+imgproxy实现图片自动缩放裁剪","level":"1.7.3","depth":2,"path":"nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.md","ref":"nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.md","articles":[]},{"title":"minio实现文件存储","level":"1.7.4","depth":2,"path":"nginx/minio-shi-xian-wen-jian-cun-chu.md","ref":"nginx/minio-shi-xian-wen-jian-cun-chu.md","articles":[]},{"title":"nginx正向代理https","level":"1.7.5","depth":2,"path":"nginx/nginx-zheng-xiang-dai-li-https.md","ref":"nginx/nginx-zheng-xiang-dai-li-https.md","articles":[]},{"title":"nginx动态转发到upstream","level":"1.7.6","depth":2,"path":"nginx/nginx-dong-tai-zhuan-fa-dao-upstream.md","ref":"nginx/nginx-dong-tai-zhuan-fa-dao-upstream.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","splitter","expandable-chapters-small","github","github-buttons","favicon","expandable-chapters-small","copy-code-button"],"styles":{"website":"./styles/website.css"},"pluginsConfig":{"github":{"url":"https://github.com/kennethfan"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":{"shortcut":"./source/images/favicon.jpg","bookmark":"./source/images/favicon.jpg","appleTouch":"./source/images/apple-touch-icon.jpg","appleTouchMore":{"120x120":"./source/images/apple-touch-icon.jpg","180x180":"./source/images/apple-touch-icon.jpg"}},"github-buttons":{"buttons":[{"user":"kennethfan","repo":"gitbook","type":"star","size":"small","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"theme":"default","author":"椒哥","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"椒哥碎碎念","language":"zh-hans","links":{"sidebar":{}},"gitbook":"3.2.3","description":"select * from learn"},"file":{"path":"nginx/ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.md","mtime":"2025-11-20T14:23:49.136Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-11-20T14:24:24.727Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,2451 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Open feign动态切流实现 · 椒哥碎碎念</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="椒哥">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+
+        
+    
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html" />
+    
+    
+    <link rel="prev" href="open-feign-yuan-ma-fen-xi.html" />
+    
+
+    
+        <link rel="shortcut icon" href='../source/images/favicon.jpg' type="image/x-icon">
+    
+    
+        <link rel="bookmark" href='../source/images/favicon.jpg' type="image/x-icon">
+    
+    
+        <link rel="apple-touch-icon" href='../source/images/apple-touch-icon.jpg'>
+    
+    
+        
+        <link rel="apple-touch-icon" sizes="120x120" href="../source/images/apple-touch-icon.jpg">
+        
+        <link rel="apple-touch-icon" sizes="180x180" href="../source/images/apple-touch-icon.jpg">
+        
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"buttons":[{"user":"kennethfan","repo":"gitbook","type":"star","size":"small","count":true}]};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    个人简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Java学习
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="maven-zhi-ding-xu-yao-de-mo-kuai-da-bao.html">
+            
+                <a href="maven-zhi-ding-xu-yao-de-mo-kuai-da-bao.html">
+            
+                    
+                    maven指定需要的模块打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="dynamicdatasource-shi-xian-shu-ju-du-xie-fen-li.html">
+            
+                <a href="dynamicdatasource-shi-xian-shu-ju-du-xie-fen-li.html">
+            
+                    
+                    dynamic-datasource实现数据读写分离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="redis-zhu-cong-jia-gou-li-yong-lettuce-shi-xian-du-xie-fen-li.html">
+            
+                <a href="redis-zhu-cong-jia-gou-li-yong-lettuce-shi-xian-du-xie-fen-li.html">
+            
+                    
+                    redis主从架构利用lettuce实现读写分离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="java-filter-xiu-gai-request-nei-rong-he-response-nei-rong.html">
+            
+                <a href="java-filter-xiu-gai-request-nei-rong-he-response-nei-rong.html">
+            
+                    
+                    java filter修改request内容和response内容
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="javacompiler-dong-tai-bian-yi-java-dai-ma.html">
+            
+                <a href="javacompiler-dong-tai-bian-yi-java-dai-ma.html">
+            
+                    
+                    JavaCompiler动态编译java代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="jdk-dong-tai-dai-li.html">
+            
+                <a href="jdk-dong-tai-dai-li.html">
+            
+                    
+                    JDK动态代理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="lei-ge-li.html">
+            
+                <a href="lei-ge-li.html">
+            
+                    
+                    类隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="jnr-tiao-yong-ben-di-dong-tai-lian-jie-ku.html">
+            
+                <a href="jnr-tiao-yong-ben-di-dong-tai-lian-jie-ku.html">
+            
+                    
+                    JNR调用本地动态链接库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="javac-ming-ling-bian-yi-java-ming-ling-yun-hang-dai-ma.html">
+            
+                <a href="javac-ming-ling-bian-yi-java-ming-ling-yun-hang-dai-ma.html">
+            
+                    
+                    javac命令编译\&java命令运行代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="java-huo-qu-ying-jian-xin-xi.html">
+            
+                <a href="java-huo-qu-ying-jian-xin-xi.html">
+            
+                    
+                    java获取硬件信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="conditional-shi-xian-bean-an-xu-jia-zai.html">
+            
+                <a href="conditional-shi-xian-bean-an-xu-jia-zai.html">
+            
+                    
+                    Conditional实现bean按需加载
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="spring-boot-actuator-da-pei-jenkins-shi-xian-fa-bu-jian-kang-jian-cha-he-bao-jing.html">
+            
+                <a href="spring-boot-actuator-da-pei-jenkins-shi-xian-fa-bu-jian-kang-jian-cha-he-bao-jing.html">
+            
+                    
+                    spring boot actuator搭配jenkins实现发布健康检查和报警
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.13" data-path="nacos-pei-zhi-wen-jian-yu-fa-jian-ce-bao-jing.html">
+            
+                <a href="nacos-pei-zhi-wen-jian-yu-fa-jian-ce-bao-jing.html">
+            
+                    
+                    nacos配置文件语法检测&报警
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14" data-path="java-shi-yong-mmap.html">
+            
+                <a href="java-shi-yong-mmap.html">
+            
+                    
+                    java使用mmap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.15" data-path="java-shi-yong-page-cache.html">
+            
+                <a href="java-shi-yong-page-cache.html">
+            
+                    
+                    java使用page cache
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.16" data-path="spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.html">
+            
+                <a href="spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.html">
+            
+                    
+                    spring cloud gateway + nacos + sentinel实现网关限流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.17" data-path="spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.html">
+            
+                <a href="spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.html">
+            
+                    
+                    spring cloud自定义loaderbalancer实现流量就近访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.18" data-path="spring-cloud-shou-dong-xia-diao-jie-dian.html">
+            
+                <a href="spring-cloud-shou-dong-xia-diao-jie-dian.html">
+            
+                    
+                    spring cloud手动下掉节点
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.19" data-path="jar-bao-jie-ya-he-da-bao.html">
+            
+                <a href="jar-bao-jie-ya-he-da-bao.html">
+            
+                    
+                    jar包解压和打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.20" data-path="java-ji-cheng-prometheus-shang-bao-shu-ju.html">
+            
+                <a href="java-ji-cheng-prometheus-shang-bao-shu-ju.html">
+            
+                    
+                    java集成prometheus上报数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.21" data-path="spring-actuator-shang-bao-zhi-biao-uriknown-xiu-fu.html">
+            
+                <a href="spring-actuator-shang-bao-zhi-biao-uriknown-xiu-fu.html">
+            
+                    
+                    spring actuator上报指标uri=known修复
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.22" data-path="maven-shou-dong-shang-chuan-san-fang-jar-dao-cang-ku.html">
+            
+                <a href="maven-shou-dong-shang-chuan-san-fang-jar-dao-cang-ku.html">
+            
+                    
+                    maven手动上传三方jar到仓库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.23" data-path="ji-yu-spring-cloud-gateway-springmvc-fu-wu-he-bing.html">
+            
+                <a href="ji-yu-spring-cloud-gateway-springmvc-fu-wu-he-bing.html">
+            
+                    
+                    基于Spring Cloud gateway & Springmvc服务合并
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.24" data-path="feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.html">
+            
+                <a href="feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.html">
+            
+                    
+                    Feign调用转成本地方法调用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.25" data-path="spring-cloud-ying-yong-fen-bu-shi-lian-lu-gen-zong-jian-yi-shi-xian.html">
+            
+                <a href="spring-cloud-ying-yong-fen-bu-shi-lian-lu-gen-zong-jian-yi-shi-xian.html">
+            
+                    
+                    spring cloud应用分布式链路跟踪简易实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.26" data-path="dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.html">
+            
+                <a href="dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.html">
+            
+                    
+                    对于所有对象都通用的方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.27" data-path="chuang-jian-he-xiao-hui-dui-xiang.html">
+            
+                <a href="chuang-jian-he-xiao-hui-dui-xiang.html">
+            
+                    
+                    创建和销毁对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.28" data-path="jackson-fan-xu-lie-hua-duo-tai-lei-xing-bang-ding.html">
+            
+                <a href="jackson-fan-xu-lie-hua-duo-tai-lei-xing-bang-ding.html">
+            
+                    
+                    Jackson反序列化多态类型绑定
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.29" data-path="spring-cloud-shou-dong-chuang-jian-feign-client.html">
+            
+                <a href="spring-cloud-shou-dong-chuang-jian-feign-client.html">
+            
+                    
+                    spring cloud手动创建feign client
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.30" data-path="springmvc-dong-tai-zhu-ce-lu-you.html">
+            
+                <a href="springmvc-dong-tai-zhu-ce-lu-you.html">
+            
+                    
+                    springmvc 动态注册路由
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.31" data-path="open-feign-yuan-ma-fen-xi.html">
+            
+                <a href="open-feign-yuan-ma-fen-xi.html">
+            
+                    
+                    Open feign源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.32" data-path="open-feign-dong-tai-qie-liu-shi-xian.html">
+            
+                <a href="open-feign-dong-tai-qie-liu-shi-xian.html">
+            
+                    
+                    Open feign动态切流实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.33" data-path="open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html">
+            
+                <a href="open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html">
+            
+                    
+                    Open feign动态切换服务目标地址组件
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../python/">
+            
+                <a href="../python/">
+            
+                    
+                    python
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../python/centos-an-zhuang-miniconda.html">
+            
+                <a href="../python/centos-an-zhuang-miniconda.html">
+            
+                    
+                    centos 安装miniconda
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../python/pip-an-zhuang-zou-socks-dai-li.html">
+            
+                <a href="../python/pip-an-zhuang-zou-socks-dai-li.html">
+            
+                    
+                    pip安装走socks代理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../python/pa-chong-xiang-guan.html">
+            
+                <a href="../python/pa-chong-xiang-guan.html">
+            
+                    
+                    爬虫相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../python/playwright-shi-yong-xiao-ji-qiao.html">
+            
+                <a href="../python/playwright-shi-yong-xiao-ji-qiao.html">
+            
+                    
+                    playwright使用小技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../linux/">
+            
+                <a href="../linux/">
+            
+                    
+                    Linux
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../linux/guo-qi-jar-shan-chu.html">
+            
+                <a href="../linux/guo-qi-jar-shan-chu.html">
+            
+                    
+                    过期jar删除
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../linux/centos-tian-jia-fang-huo-qiang.html">
+            
+                <a href="../linux/centos-tian-jia-fang-huo-qiang.html">
+            
+                    
+                    centos添加防火墙
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../linux/centos-xiu-gai-hostname.html">
+            
+                <a href="../linux/centos-xiu-gai-hostname.html">
+            
+                    
+                    centos修改hostname
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../linux/rsync-wen-jian-zeng-liang-tong-bu.html">
+            
+                <a href="../linux/rsync-wen-jian-zeng-liang-tong-bu.html">
+            
+                    
+                    rsync文件增量同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../linux/a-li-yun-bu-shu-wen-jian-chuan-shu-you-hua.html">
+            
+                <a href="../linux/a-li-yun-bu-shu-wen-jian-chuan-shu-you-hua.html">
+            
+                    
+                    阿里云部署-文件传输优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../linux/prometheus-qing-li-shu-ju.html">
+            
+                <a href="../linux/prometheus-qing-li-shu-ju.html">
+            
+                    
+                    prometheus清理数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../linux/prometheus-zhua-qu-shu-ju-pei-zhi.html">
+            
+                <a href="../linux/prometheus-zhua-qu-shu-ju-pei-zhi.html">
+            
+                    
+                    prometheus抓取数据配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../linux/centos-an-zhuang-chrome-he-chromedriver.html">
+            
+                <a href="../linux/centos-an-zhuang-chrome-he-chromedriver.html">
+            
+                    
+                    centos安装chrome和chromedriver
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../nexus/">
+            
+                <a href="../nexus/">
+            
+                    
+                    nexus
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../nexus/nexus-shou-dong-shang-chuan-wen-jian.html">
+            
+                <a href="../nexus/nexus-shou-dong-shang-chuan-wen-jian.html">
+            
+                    
+                    nexus手动上传文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../docker/">
+            
+                <a href="../docker/">
+            
+                    
+                    docker & k8s
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../docker/cha-kan-image-dui-ying-de-dockerfile.html">
+            
+                <a href="../docker/cha-kan-image-dui-ying-de-dockerfile.html">
+            
+                    
+                    查看image对应的dockerfile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../docker/k8s-ji-qun-da-jian.html">
+            
+                <a href="../docker/k8s-ji-qun-da-jian.html">
+            
+                    
+                    k8s集群搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../docker/docker-jing-xiang-dao-ru-dao-chu.html">
+            
+                <a href="../docker/docker-jing-xiang-dao-ru-dao-chu.html">
+            
+                    
+                    docker镜像导入导出
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../docker/kubectl-chang-yong-ming-ling.html">
+            
+                <a href="../docker/kubectl-chang-yong-ming-ling.html">
+            
+                    
+                    kubectl 常用命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../nginx/">
+            
+                <a href="../nginx/">
+            
+                    
+                    nginx
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../nginx/ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.html">
+            
+                <a href="../nginx/ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.html">
+            
+                    
+                    ngx_http_dyups_module实现web服务的平滑发布
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../nginx/nginx-dai-li-mysql.html">
+            
+                <a href="../nginx/nginx-dai-li-mysql.html">
+            
+                    
+                    nginx代理mysql
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.html">
+            
+                <a href="../nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.html">
+            
+                    
+                    nginx+imgproxy实现图片自动缩放裁剪
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../nginx/minio-shi-xian-wen-jian-cun-chu.html">
+            
+                <a href="../nginx/minio-shi-xian-wen-jian-cun-chu.html">
+            
+                    
+                    minio实现文件存储
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="../nginx/nginx-zheng-xiang-dai-li-https.html">
+            
+                <a href="../nginx/nginx-zheng-xiang-dai-li-https.html">
+            
+                    
+                    nginx正向代理https
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.6" data-path="../nginx/nginx-dong-tai-zhuan-fa-dao-upstream.html">
+            
+                <a href="../nginx/nginx-dong-tai-zhuan-fa-dao-upstream.html">
+            
+                    
+                    nginx动态转发到upstream
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../git/">
+            
+                <a href="../git/">
+            
+                    
+                    git
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.html">
+            
+                <a href="../git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.html">
+            
+                    
+                    git拉取指定tag/分支的代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../git/git-she-zhi-yong-hu-xin-xi-huan-cun.html">
+            
+                <a href="../git/git-she-zhi-yong-hu-xin-xi-huan-cun.html">
+            
+                    
+                    git设置用户信息缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../git/git-xiu-gai-yi-ti-jiao-ji-lu-ti-jiao-zhe-xin-xi.html">
+            
+                <a href="../git/git-xiu-gai-yi-ti-jiao-ji-lu-ti-jiao-zhe-xin-xi.html">
+            
+                    
+                    git修改已提交记录提交者信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../shell/">
+            
+                <a href="../shell/">
+            
+                    
+                    shell
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.html">
+            
+                <a href="../shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.html">
+            
+                    
+                    shell根据环境变量替换文本
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../shell/shell-ming-ling-zi-dong-bu-quan.html">
+            
+                <a href="../shell/shell-ming-ling-zi-dong-bu-quan.html">
+            
+                    
+                    shell命令自动补全
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../shell/ssh-zi-dong-shu-ru-mi-ma-deng-lu.html">
+            
+                <a href="../shell/ssh-zi-dong-shu-ru-mi-ma-deng-lu.html">
+            
+                    
+                    ssh自动输入密码登录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../shell/mac-xian-shi-yin-cang-wen-jian-jia.html">
+            
+                <a href="../shell/mac-xian-shi-yin-cang-wen-jian-jia.html">
+            
+                    
+                    mac显示隐藏文件夹
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../vim/">
+            
+                <a href="../vim/">
+            
+                    
+                    vim
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../vim/vim-jian-jie.html">
+            
+                <a href="../vim/vim-jian-jie.html">
+            
+                    
+                    Vim简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../vim/vim-xi-lie-zhi-chu-ti-yan-er.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-chu-ti-yan-er.html">
+            
+                    
+                    Vim系列之初体验(二)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../vim/vim-xi-lie-zhi-yi-dong-san.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-yi-dong-san.html">
+            
+                    
+                    Vim系列之移动(三)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="../vim/vim-xi-lie-zhi-cha-ru-si.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-cha-ru-si.html">
+            
+                    
+                    Vim系列之插入(四)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../redis/">
+            
+                <a href="../redis/">
+            
+                    
+                    redis
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../redis/redis-dong-tai-tian-jia-cong-ku.html">
+            
+                <a href="../redis/redis-dong-tai-tian-jia-cong-ku.html">
+            
+                    
+                    redis动态添加从库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../redis/lua-jiao-ben-pi-liang-tian-jia-redis-key-qian-zhui.html">
+            
+                <a href="../redis/lua-jiao-ben-pi-liang-tian-jia-redis-key-qian-zhui.html">
+            
+                    
+                    lua脚本批量添加redis key前缀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../redis/shi-yong-redisson-qian-yi-redis-shu-ju.html">
+            
+                <a href="../redis/shi-yong-redisson-qian-yi-redis-shu-ju.html">
+            
+                    
+                    使用redisson迁移redis数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../redis/redis-qing-kong-mou-ge-ku.html">
+            
+                <a href="../redis/redis-qing-kong-mou-ge-ku.html">
+            
+                    
+                    redis清空某个库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.5" data-path="../redis/redis-dui-xiang.html">
+            
+                <a href="../redis/redis-dui-xiang.html">
+            
+                    
+                    redis对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.6" data-path="../redis/redis-zi-fu-chuan.html">
+            
+                <a href="../redis/redis-zi-fu-chuan.html">
+            
+                    
+                    redis字符串
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.7" data-path="../redis/redis-lian-biao.html">
+            
+                <a href="../redis/redis-lian-biao.html">
+            
+                    
+                    redis链表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.8" data-path="../redis/redis-zi-dian.html">
+            
+                <a href="../redis/redis-zi-dian.html">
+            
+                    
+                    redis字典
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.9" data-path="../redis/redis-ya-suo-lie-biao.html">
+            
+                <a href="../redis/redis-ya-suo-lie-biao.html">
+            
+                    
+                    redis压缩列表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.10" data-path="../redis/redis-zheng-shu-ji-he.html">
+            
+                <a href="../redis/redis-zheng-shu-ji-he.html">
+            
+                    
+                    redis整数集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.11" data-path="../redis/redis-tiao-yue-biao.html">
+            
+                <a href="../redis/redis-tiao-yue-biao.html">
+            
+                    
+                    redis跳跃表
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../mysql/">
+            
+                <a href="../mysql/">
+            
+                    
+                    mysql
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../mysql/mysql-chuang-jian-yong-hu-bing-shou-quan.html">
+            
+                <a href="../mysql/mysql-chuang-jian-yong-hu-bing-shou-quan.html">
+            
+                    
+                    mysql创建用户并授权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="../mysql/mysql-zhu-cong-tong-bu-pei-zhi.html">
+            
+                <a href="../mysql/mysql-zhu-cong-tong-bu-pei-zhi.html">
+            
+                    
+                    mysql主从同步配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../c-and-cpp/">
+            
+                <a href="../c-and-cpp/">
+            
+                    
+                    c & cpp
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../c-and-cpp/zhi-zhen-han-shu-han-shu-zhi-zhen.html">
+            
+                <a href="../c-and-cpp/zhi-zhen-han-shu-han-shu-zhi-zhen.html">
+            
+                    
+                    指针函数&函数指针
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../php/">
+            
+                <a href="../php/">
+            
+                    
+                    php
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../php/php-zong-jie.html">
+            
+                <a href="../php/php-zong-jie.html">
+            
+                    
+                    PHP总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="../php/php-dan-yuan-ce-shi-phpunit.html">
+            
+                <a href="../php/php-dan-yuan-ce-shi-phpunit.html">
+            
+                    
+                    PHP单元测试PHPUnit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="../php/php-an-zhuang-memcached-kuo-zhan.html">
+            
+                <a href="../php/php-an-zhuang-memcached-kuo-zhan.html">
+            
+                    
+                    PHP安装memcached扩展
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../zsh/">
+            
+                <a href="../zsh/">
+            
+                    
+                    zsh
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="../zsh/zsh-bian-liang-he-yu-ju.html">
+            
+                <a href="../zsh/zsh-bian-liang-he-yu-ju.html">
+            
+                    
+                    zsh-变量和语句
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="../zsh/zsh-zi-fu-chuan-chang-yong-cao-zuo.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-chang-yong-cao-zuo.html">
+            
+                    
+                    zsh-字符串常用操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="../zsh/zsh-zi-fu-chuan-zhuan-yi-he-ge-shi-hua.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-zhuan-yi-he-ge-shi-hua.html">
+            
+                    
+                    zsh-字符串转义和格式化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4" data-path="../zsh/zsh-zi-fu-chuan-tong-pei-fu.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-tong-pei-fu.html">
+            
+                    
+                    zsh-字符串通配符
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="../qian-duan/">
+            
+                <a href="../qian-duan/">
+            
+                    
+                    前端
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="../qian-duan/highlight.js-zhi-chi-dong-tai-dai-ma.html">
+            
+                <a href="../qian-duan/highlight.js-zhi-chi-dong-tai-dai-ma.html">
+            
+                    
+                    highlight.js支持动态代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="../jia-gou-shi-tu-pu.html">
+            
+                <a href="../jia-gou-shi-tu-pu.html">
+            
+                    
+                    架构师图谱
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="../su-yuan-xi-tong.html">
+            
+                <a href="../su-yuan-xi-tong.html">
+            
+                    
+                    溯源系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Open feign动态切流实现</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="open-feign&#x52A8;&#x6001;&#x5207;&#x6D41;&#x5B9E;&#x73B0;">Open feign&#x52A8;&#x6001;&#x5207;&#x6D41;&#x5B9E;&#x73B0;</h1>
+<h2 id="&#x80CC;&#x666F;">&#x80CC;&#x666F;</h2>
+<p>&#x6700;&#x8FD1;&#x5728;&#x505A;&#x670D;&#x52A1;&#x62C6;&#x5206;&#xFF0C;&#x6D89;&#x53CA;&#x5230;feign&#x63A5;&#x53E3;&#x8FC1;&#x79FB;&#xFF0C;&#x56E0;&#x4E3A;&#x8C03;&#x7528;&#x65B9;&#x6BD4;&#x8F83;&#x591A;&#xFF0C;&#x5E0C;&#x671B;&#x53EF;&#x4EE5;&#x6709;&#x4E00;&#x4E9B;&#x5176;&#x4ED6;&#x7684;&#x65B9;&#x6848;&#xFF0C;&#x5728;&#x8C03;&#x7528;&#x65B9;&#x4E0D;&#x505A;&#x4EE3;&#x7801;&#x4FEE;&#x6539;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x6D41;&#x91CF;&#x8FC1;&#x79FB;&#xFF0C;&#x540C;&#x65F6;&#x53EF;&#x4EE5;&#x63A7;&#x5236;&#x5207;&#x6D41;&#x7684;&#x8282;&#x594F;</p>
+<h2 id="&#x76EE;&#x6807;">&#x76EE;&#x6807;</h2>
+<p>1&#x3001;&#x8FD0;&#x884C;&#x65F6;&#x505A;feign&#x8C03;&#x7528;&#x5207;&#x6D41;</p>
+<p>2&#x3001;&#x5207;&#x6D41;&#x6BD4;&#x4F8B;&#x53EF;&#x4EE5;&#x52A8;&#x6001;&#x63A7;&#x5236;</p>
+<h2 id="&#x65B9;&#x6848;">&#x65B9;&#x6848;</h2>
+<p>&#x4E0A;&#x6587;&#xFF0C;&#x6211;&#x4EEC;&#x505A;&#x8FC7;Open Feign&#x6E90;&#x7801;&#x5206;&#x6790;&#xFF08;&#x611F;&#x5174;&#x8DA3;&#x7684;&#x540C;&#x5B66;&#x53EF;&#x4EE5;&#x51FA;&#x95E8;&#x5DE6;&#x8F6C;&#x67E5;&#x770B;&#x4E0A;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#x300A;Open feign&#x6E90;&#x7801;&#x5206;&#x6790;&#x300B;&#xFF09;&#xFF0C;&#x53EF;&#x4EE5;&#x5F97;&#x77E5;Open feign&#x63A5;&#x53E3;&#x5728;&#x8C03;&#x7528;&#x65F6;&#xFF1A;&#x6700;&#x7EC8;&#x4F1A;&#x751F;&#x6210;RequestTemplate&#xFF0C;&#x901A;&#x8FC7;&#x64CD;&#x4F5C;RequestTemplate&#x53D1;&#x9001;http&#x8BF7;&#x6C42;&#xFF0C;&#x89E3;&#x6790;http&#x54CD;&#x5E94;&#xFF1B;&#x540C;&#x65F6;Open feign&#x63D0;&#x4F9B;&#x4E86;&#x8FD0;&#x884C;&#x65F6;&#x589E;&#x5F3A;&#x7684;&#x5165;&#x53E3;&#xFF0C;&#x901A;&#x8FC7;RequestIntercepter&#x5B9E;&#x73B0;</p>
+<pre class="language-java"><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">RequestInterceptor</span> </span>{    
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">apply</span><span class="hljs-params">(RequestTemplate template)</span></span>;
+}
+</code></pre>
+
+<p>&#x63A5;&#x4E0B;&#x6765;&#xFF0C;&#x6211;&#x4EEC;&#x67E5;&#x770B;RequestTemplate</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RequestTemplate</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>{
+
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Pattern QUERY_STRING_PATTERN = Pattern.compile(<span class="hljs-string">&quot;(?&lt;!\\{)\\?&quot;</span>);
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map&lt;String, QueryTemplate&gt; queries = <span class="hljs-keyword">new</span> LinkedHashMap&lt;&gt;();
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map&lt;String, HeaderTemplate&gt; headers = <span class="hljs-keyword">new</span> TreeMap&lt;&gt;(String.CASE_INSENSITIVE_ORDER);
+  <span class="hljs-keyword">private</span> String target;
+  <span class="hljs-keyword">private</span> String fragment;
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> resolved = <span class="hljs-keyword">false</span>;
+  <span class="hljs-keyword">private</span> UriTemplate uriTemplate;
+  <span class="hljs-keyword">private</span> BodyTemplate bodyTemplate;
+  <span class="hljs-keyword">private</span> HttpMethod method;
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">transient</span> Charset charset = Util.UTF_8;
+  <span class="hljs-keyword">private</span> Request.Body body = Request.Body.empty();
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> decodeSlash = <span class="hljs-keyword">true</span>;
+  <span class="hljs-keyword">private</span> CollectionFormat collectionFormat = CollectionFormat.EXPLODED;
+  <span class="hljs-keyword">private</span> MethodMetadata methodMetadata;
+  <span class="hljs-keyword">private</span> Target&lt;?&gt; feignTarget;
+  ...
+}
+</code></pre>
+<p>&#x5176;&#x4E2D;MethodMetadata&#x5C5E;&#x6027;&#x8BB0;&#x5F55;&#x4E86;&#x539F;&#x59CB;Open feign &#x63A5;&#x53E3;&#x7684;&#x65B9;&#x6CD5;</p>
+<p>&#x90A3;&#x5982;&#x4F55;&#x505A;&#x52A8;&#x6001;&#x5207;&#x6D41;&#x5462;&#xFF1F;</p>
+<p><strong>&#x5047;&#x8BBE;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x7684;&#x65B0;&#x8001;&#x670D;&#x52A1;serviceA&#x548C;serviceB&#x6709;&#x4EE5;&#x4E0B;&#x7279;&#x70B9;</strong></p>
+<p><strong>1&#x3001;&#x63A5;&#x53E3;path&#x90FD;&#x76F8;&#x540C;</strong></p>
+<p><strong>2&#x3001;&#x63A5;&#x53E3;&#x5165;&#x53C2;&#x683C;&#x5F0F;&#x76F8;&#x540C;</strong></p>
+<p><strong>3&#x3001;&#x63A5;&#x53E3;&#x51FA;&#x53C2;&#x683C;&#x5F0F;&#x76F8;&#x540C;</strong></p>
+<p><strong>&#x90A3;&#x4E48;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x5728;&#x8C03;&#x7528;serviceA&#x65F6;&#xFF0C;&#x5C06;&#x5730;&#x5740;&#x6362;&#x6210;serviceB&#x7684;&#x5730;&#x5740;&#xFF0C;&#x5373;&#x53EF;&#x5B9E;&#x73B0;&#x6D41;&#x91CF;&#x6253;&#x5230;serviceB&#xFF0C;&#x4E14;&#x4E0D;&#x51FA;&#x73B0;&#x6570;&#x636E;&#x89E3;&#x6790;&#x5F02;&#x5E38;</strong></p>
+<p>&#x57FA;&#x4E8E;&#x4EE5;&#x4E0A;&#x5206;&#x6790;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x8FC1;&#x79FB;&#x5230;&#x65B0;&#x670D;&#x52A1;&#x65F6;&#xFF0C;&#x53C2;&#x8003;&#x4E0A;&#x9762;3&#x70B9;&#x8981;&#x6C42;&#x505A;&#x5B9E;&#x73B0;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x7684;&#x95EE;&#x9898;&#x5C31;&#x662F;&#xFF0C;&#x5982;&#x4F55;&#x5728;&#x8C03;&#x7528;serviceA&#x65F6;&#x5C06;&#x5730;&#x5740;&#x6362;&#x6210;serviceB&#x7684;&#x5730;&#x5740;&#xFF0C;&#x5728;java&#x4F53;&#x7CFB;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5F88;&#x5BB9;&#x6613;&#x60F3;&#x5230;&#x7684;&#x5C31;&#x662F;AOP&#xFF0C;&#x90A3;&#x4E48;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5462;&#xFF1F;</p>
+<p>&#x9996;&#x5148;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x6CE8;&#x89E3;&#xFF0C;&#x6CE8;&#x89E3;&#x4E2D;&#x5305;&#x542B;&#x4E86;&#x65B0;&#x670D;&#x52A1;&#x7684;&#x5730;&#x5740;&#xFF0C;&#x4EE5;&#x53CA;&#x5207;&#x6D41;&#x7684;&#x914D;&#x7F6E;</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Target</span>(ElementType.METHOD)
+<span class="hljs-meta">@Retention</span>(RetentionPolicy.RUNTIME)
+<span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> ForwardTraffic {
+
+  <span class="hljs-comment">/**
+   * &#x65B0;&#x670D;&#x52A1;&#x5730;&#x5740;
+   *
+   * <span class="hljs-doctag">@return</span>
+   */</span>
+  <span class="hljs-function">String <span class="hljs-title">targetService</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> &quot;&quot;</span>;
+
+  <span class="hljs-comment">/**
+   * &#x5207;&#x6D41;&#x767E;&#x5206;&#x6BD4;&#x914D;&#x7F6E;key
+   *
+   * <span class="hljs-doctag">@return</span>
+   */</span>
+  <span class="hljs-function">String <span class="hljs-title">rateKey</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> &quot;&quot;</span>;
+}
+</code></pre>
+<p>&#x4ECE;&#x6CE8;&#x89E3;&#x5B9A;&#x4E49;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x5207;&#x6D41;&#x63A7;&#x5236;&#x53EF;&#x4EE5;&#x7CBE;&#x786E;&#x5230;&#x65B9;&#x6CD5;&#x7EA7;&#x522B;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#xFF0C;&#x6211;&#x4EEC;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x7C7B;&#xFF0C;&#x7528;&#x4E8E;&#x4ECE;&#x914D;&#x7F6E;&#x4E2D;&#x5FC3;&#x540E;&#x53BB;&#x5207;&#x6D41;&#x7684;&#x914D;&#x7F6E;</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Data</span>
+<span class="hljs-meta">@RefreshScope</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ForwardTrafficProperties</span> </span>{
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> MAX_RATE = <span class="hljs-number">10000</span>;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> MIN_RATE = <span class="hljs-number">0</span>;
+
+  <span class="hljs-comment">/**
+   * &#x5168;&#x5C40;&#x5F00;&#x5173;
+   */</span>
+  <span class="hljs-keyword">private</span> Boolean enabled = <span class="hljs-keyword">true</span>;
+
+  <span class="hljs-keyword">private</span> Map&lt;String, Integer&gt; rateMap = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+}
+</code></pre>
+<p>&#x7136;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x5728;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#xFF0C;&#x7528;&#x4E8E;&#x5224;&#x65AD;&#x662F;&#x5426;&#x5207;&#x6D41;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">ForwardTrafficSwitch</span> </span>{
+
+  <span class="hljs-comment">/**
+   * &#x6839;&#x636E;key&#x5224;&#x65AD;&#x662F;&#x5426;&#x5207;&#x6D41;
+   *
+   * <span class="hljs-doctag">@param</span> key
+   * <span class="hljs-doctag">@return</span>
+   */</span>
+  <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">forward</span><span class="hljs-params">(String key)</span></span>;
+
+}
+</code></pre>
+<p>&#x63A5;&#x7740;&#xFF0C;&#x6211;&#x4EEC;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x9ED8;&#x8BA4;&#x5B9E;&#x73B0;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DefaultForwardTrafficSwitch</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ForwardTrafficSwitch</span> </span>{
+  <span class="hljs-comment">// &#x5207;&#x6D41;&#x6BD4;&#x4F8B;&#x914D;&#x7F6E;</span>
+  <span class="hljs-keyword">private</span> ForwardTrafficProperties forwardTrafficProperties;
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">DefaultForwardTrafficSwitch</span><span class="hljs-params">(ForwardTrafficProperties forwardTrafficProperties)</span> </span>{
+    <span class="hljs-keyword">this</span>.forwardTrafficProperties = forwardTrafficProperties;
+  }
+
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">forward</span><span class="hljs-params">(String key)</span> </span>{
+    log.debug(<span class="hljs-string">&quot;DefaultForwardTrafficSwitch.forward, key={}, forwardTrafficProperties={}&quot;</span>, key, forwardTrafficProperties);
+    <span class="hljs-keyword">if</span> (forwardTrafficProperties == <span class="hljs-keyword">null</span>) {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    }
+    <span class="hljs-keyword">if</span> (!Boolean.TRUE.equals(forwardTrafficProperties.getEnabled())) {
+      <span class="hljs-keyword">if</span> (log.isDebugEnabled()) {
+        log.debug(<span class="hljs-string">&quot;DefaultForwardTrafficSwitch.forward, forward traffic disabled, ignore key: {}&quot;</span>, key);
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    }
+
+    Integer rate = Optional.ofNullable(forwardTrafficProperties.getRateMap())
+        .orElse(<span class="hljs-keyword">new</span> HashMap&lt;&gt;())
+        .get(key);
+    <span class="hljs-keyword">if</span> (rate == <span class="hljs-keyword">null</span>) {
+      <span class="hljs-keyword">if</span> (log.isDebugEnabled()) {
+        log.debug(<span class="hljs-string">&quot;DefaultForwardTrafficSwitch.forward, no rate for key: {}, ignore&quot;</span>, key);
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    }
+
+    <span class="hljs-keyword">if</span> (rate &lt; ForwardTrafficProperties.MIN_RATE) {
+      rate = ForwardTrafficProperties.MIN_RATE;
+    }
+
+    <span class="hljs-keyword">if</span> (rate &gt; ForwardTrafficProperties.MAX_RATE) {
+      rate = ForwardTrafficProperties.MAX_RATE;
+    }
+    <span class="hljs-comment">// &#x6309;&#x7167;&#x6BD4;&#x4F8B;&#x5207;&#xFF0C;&#x9608;&#x503C;&#x662F;10000</span>
+    <span class="hljs-keyword">boolean</span> result = ThreadLocalRandom.current().nextInt(ForwardTrafficProperties.MAX_RATE) &lt; rate;
+    <span class="hljs-keyword">if</span> (log.isDebugEnabled()) {
+      log.debug(<span class="hljs-string">&quot;DefaultForwardTrafficSwitch.forward, key: {}, rate: {}, result: {}&quot;</span>, key, rate, result);
+    }
+    <span class="hljs-keyword">return</span> result;
+  }
+}
+</code></pre>
+<p>&#x63A5;&#x4E0B;&#x6765;&#xFF0C;&#x6211;&#x4EEC;&#x5B9A;&#x4E49;&#x6CE8;&#x89E3;&#x89E3;&#x6790;&#x7C7B;</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Slf</span>4j
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ForwardTrafficClassResolver</span> </span>{
+
+  <span class="hljs-comment">/**
+   * &#x7F13;&#x5B58;&#x65B9;&#x6CD5;&#x5BF9;&#x5E94;&#x7684;&#x6570;&#x636E;&#x6E90;
+   */</span>
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map&lt;Object, AnnotationAttributes&gt; forwardCache = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;();
+
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> allowedPublicOnly;
+
+  <span class="hljs-comment">/**
+   * &#x52A0;&#x5165;&#x6269;&#x5C55;, &#x7ED9;&#x5916;&#x90E8;&#x4E00;&#x4E2A;&#x4FEE;&#x6539;aop&#x6761;&#x4EF6;&#x7684;&#x673A;&#x4F1A;
+   *
+   * <span class="hljs-doctag">@param</span> allowedPublicOnly &#x53EA;&#x5141;&#x8BB8;&#x516C;&#x5171;&#x7684;&#x65B9;&#x6CD5;, &#x9ED8;&#x8BA4;&#x4E3A;true
+   */</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ForwardTrafficClassResolver</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> allowedPublicOnly)</span> </span>{
+    <span class="hljs-keyword">this</span>.allowedPublicOnly = allowedPublicOnly;
+  }
+
+  <span class="hljs-comment">/**
+   * &#x83B7;&#x53D6;&#x76EE;&#x6807;service
+   *
+   * <span class="hljs-doctag">@param</span> method
+   * <span class="hljs-doctag">@param</span> targetClass
+   * <span class="hljs-doctag">@return</span>
+   */</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getTargetService</span><span class="hljs-params">(Method method, Class&lt;?&gt; targetClass)</span> </span>{
+    <span class="hljs-keyword">return</span> findAttribute(method, targetClass, <span class="hljs-string">&quot;targetService&quot;</span>);
+  }
+
+  <span class="hljs-comment">/**
+   * &#x83B7;&#x53D6;&#x5207;&#x6D41;&#x6BD4;&#x4F8B;
+   *
+   * <span class="hljs-doctag">@param</span> method
+   * <span class="hljs-doctag">@param</span> targetClass
+   * <span class="hljs-doctag">@return</span>
+   */</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getRateKey</span><span class="hljs-params">(Method method, Class&lt;?&gt; targetClass)</span> </span>{
+    <span class="hljs-keyword">return</span> findAttribute(method, targetClass, <span class="hljs-string">&quot;rateKey&quot;</span>);
+  }
+
+  <span class="hljs-comment">/**
+   * &#x4ECE;&#x7F13;&#x5B58;&#x83B7;&#x53D6;&#x6570;&#x636E;
+   *
+   * <span class="hljs-doctag">@param</span> method      &#x65B9;&#x6CD5;
+   * <span class="hljs-doctag">@param</span> targetClass &#x76EE;&#x6807;&#x5BF9;&#x8C61;
+   * <span class="hljs-doctag">@return</span>
+   */</span>
+  <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">findAttribute</span><span class="hljs-params">(Method method, Class&lt;?&gt; targetClass, String key)</span> </span>{
+    <span class="hljs-keyword">if</span> (method.getDeclaringClass() == Object.class) {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    }
+
+    Object cacheKey = <span class="hljs-keyword">new</span> MethodClassKey(method, targetClass);
+    AnnotationAttributes attributes = <span class="hljs-keyword">this</span>.forwardCache.get(cacheKey);
+    <span class="hljs-keyword">if</span> (attributes == <span class="hljs-keyword">null</span>) {
+      attributes = computeAttributes(method, targetClass);
+      <span class="hljs-keyword">if</span> (attributes == <span class="hljs-keyword">null</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+      }
+
+      <span class="hljs-keyword">this</span>.forwardCache.put(cacheKey, attributes);
+    }
+
+    <span class="hljs-keyword">return</span> attributes.getString(key);
+  }
+
+  <span class="hljs-comment">/**
+   * &#x67E5;&#x627E;&#x6CE8;&#x89E3;&#x7684;&#x987A;&#x5E8F;
+   * 1. &#x5F53;&#x524D;&#x65B9;&#x6CD5;
+   * 2. &#x6865;&#x63A5;&#x65B9;&#x6CD5;
+   * 3. &#x5F53;&#x524D;&#x7C7B;&#x5F00;&#x59CB;&#x4E00;&#x76F4;&#x627E;&#x5230;Object
+   *
+   * <span class="hljs-doctag">@param</span> method      &#x65B9;&#x6CD5;
+   * <span class="hljs-doctag">@param</span> targetClass &#x76EE;&#x6807;&#x5BF9;&#x8C61;
+   * <span class="hljs-doctag">@return</span>
+   */</span>
+  <span class="hljs-function"><span class="hljs-keyword">private</span> AnnotationAttributes <span class="hljs-title">computeAttributes</span><span class="hljs-params">(Method method, Class&lt;?&gt; targetClass)</span> </span>{
+    <span class="hljs-keyword">if</span> (allowedPublicOnly &amp;&amp; !Modifier.isPublic(method.getModifiers())) {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    }
+
+    <span class="hljs-comment">//1. &#x4ECE;&#x5F53;&#x524D;&#x65B9;&#x6CD5;&#x63A5;&#x53E3;&#x4E2D;&#x83B7;&#x53D6;</span>
+    AnnotationAttributes attributes = findForwardTrafficAttribute(method);
+    <span class="hljs-keyword">if</span> (attributes != <span class="hljs-keyword">null</span>) {
+      <span class="hljs-keyword">return</span> attributes;
+    }
+
+    Class&lt;?&gt; userClass = ClassUtils.getUserClass(targetClass);
+    <span class="hljs-comment">// JDK&#x4EE3;&#x7406;&#x65F6;,  &#x83B7;&#x53D6;&#x5B9E;&#x73B0;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#x58F0;&#x660E;.  method: &#x63A5;&#x53E3;&#x7684;&#x65B9;&#x6CD5;, specificMethod: &#x5B9E;&#x73B0;&#x7C7B;&#x65B9;&#x6CD5;</span>
+    Method specificMethod = ClassUtils.getMostSpecificMethod(method, userClass);
+
+    specificMethod = BridgeMethodResolver.findBridgedMethod(specificMethod);
+    <span class="hljs-comment">//2. &#x4ECE;&#x6865;&#x63A5;&#x65B9;&#x6CD5;&#x67E5;&#x627E;</span>
+    attributes = findForwardTrafficAttribute(specificMethod);
+    <span class="hljs-keyword">if</span> (attributes != <span class="hljs-keyword">null</span>) {
+      <span class="hljs-keyword">return</span> attributes;
+    }
+
+    <span class="hljs-comment">// &#x4ECE;&#x5F53;&#x524D;&#x65B9;&#x6CD5;&#x58F0;&#x660E;&#x7684;&#x7C7B;&#x67E5;&#x627E;</span>
+    attributes = findForwardTrafficAttribute(userClass);
+    <span class="hljs-keyword">if</span> (attributes != <span class="hljs-keyword">null</span> &amp;&amp; ClassUtils.isUserLevelMethod(method)) {
+      <span class="hljs-keyword">return</span> attributes;
+    }
+
+    <span class="hljs-comment">//since 3.4.1 &#x4ECE;&#x63A5;&#x53E3;&#x67E5;&#x627E;&#xFF0C;&#x53EA;&#x53D6;&#x7B2C;&#x4E00;&#x4E2A;&#x627E;&#x5230;&#x7684;</span>
+    <span class="hljs-keyword">for</span> (Class&lt;?&gt; interfaceClazz : ClassUtils.getAllInterfacesForClassAsSet(userClass)) {
+      attributes = findForwardTrafficAttribute(interfaceClazz);
+      <span class="hljs-keyword">if</span> (attributes != <span class="hljs-keyword">null</span>) {
+        <span class="hljs-keyword">return</span> attributes;
+      }
+    }
+
+    <span class="hljs-comment">// &#x5982;&#x679C;&#x5B58;&#x5728;&#x6865;&#x63A5;&#x65B9;&#x6CD5;</span>
+    <span class="hljs-keyword">if</span> (specificMethod != method) {
+      <span class="hljs-comment">// &#x4ECE;&#x6865;&#x63A5;&#x65B9;&#x6CD5;&#x67E5;&#x627E;</span>
+      attributes = findForwardTrafficAttribute(method);
+      <span class="hljs-keyword">if</span> (attributes != <span class="hljs-keyword">null</span>) {
+        <span class="hljs-keyword">return</span> attributes;
+      }
+      <span class="hljs-comment">// &#x4ECE;&#x6865;&#x63A5;&#x65B9;&#x6CD5;&#x58F0;&#x660E;&#x7684;&#x7C7B;&#x67E5;&#x627E;</span>
+      attributes = findForwardTrafficAttribute(method.getDeclaringClass());
+      <span class="hljs-keyword">if</span> (attributes != <span class="hljs-keyword">null</span> &amp;&amp; ClassUtils.isUserLevelMethod(method)) {
+        <span class="hljs-keyword">return</span> attributes;
+      }
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+  }
+
+
+  <span class="hljs-comment">/**
+   * &#x901A;&#x8FC7; AnnotatedElement &#x67E5;&#x627E;&#x6807;&#x8BB0;&#x7684;&#x6CE8;&#x89E3;
+   *
+   * <span class="hljs-doctag">@param</span> ae AnnotatedElement
+   * <span class="hljs-doctag">@return</span>
+   */</span>
+  <span class="hljs-function"><span class="hljs-keyword">private</span> AnnotationAttributes <span class="hljs-title">findForwardTrafficAttribute</span><span class="hljs-params">(AnnotatedElement ae)</span> </span>{
+    <span class="hljs-keyword">return</span> AnnotatedElementUtils.getMergedAnnotationAttributes(ae, ForwardTraffic.class);
+  }
+}
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x7C7B;&#x7684;&#x4E3B;&#x8981;&#x903B;&#x8F91;&#x5C31;&#x662F;&#x4ECE;&#x65B9;&#x6CD5;&#x6216;&#x8005;&#x63A5;&#x53E3;&#x7533;&#x660E;&#x4E0A;&#x53BB;&#x627E;@ForwardTraffic&#x6CE8;&#x89E3;&#xFF0C;&#x627E;&#x5230;&#x4E4B;&#x540E;&#xFF0C;&#x83B7;&#x53D6;&#x5230;&#x6CE8;&#x89E3;&#x7684;targetService&#x548C;rateKey&#x5C5E;&#x6027;</p>
+<p>&#x518D;&#x63A5;&#x4E0B;&#x6765;&#xFF0C;&#x6211;&#x4EEC;&#x5B9A;&#x4E49;&#x62E6;&#x622A;&#x5668;</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Slf</span>4j
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ForwardTrafficInterceptor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">RequestInterceptor</span>, <span class="hljs-title">EnvironmentAware</span>, <span class="hljs-title">BeanDefinitionRegistryPostProcessor</span> </span>{
+
+  <span class="hljs-keyword">private</span> ForwardTrafficSwitch forwardTrafficSwitch;
+
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ForwardTrafficClassResolver forwardTrafficClassResolver;
+
+  <span class="hljs-keyword">private</span> Environment environment;
+
+  <span class="hljs-keyword">private</span> ConfigurableListableBeanFactory beanFactory;
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ForwardTrafficInterceptor</span><span class="hljs-params">(ForwardTrafficSwitch forwardTrafficSwitch)</span> </span>{
+    <span class="hljs-keyword">this</span>.forwardTrafficSwitch = forwardTrafficSwitch;
+    <span class="hljs-keyword">this</span>.forwardTrafficClassResolver = <span class="hljs-keyword">new</span> ForwardTrafficClassResolver(<span class="hljs-keyword">true</span>);
+  }
+
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setEnvironment</span><span class="hljs-params">(Environment environment)</span> </span>{
+    <span class="hljs-keyword">this</span>.environment = environment;
+  }
+
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">postProcessBeanDefinitionRegistry</span><span class="hljs-params">(BeanDefinitionRegistry registry)</span> <span class="hljs-keyword">throws</span> BeansException </span>{
+
+  }
+
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">postProcessBeanFactory</span><span class="hljs-params">(ConfigurableListableBeanFactory beanFactory)</span> <span class="hljs-keyword">throws</span> BeansException </span>{
+    <span class="hljs-keyword">this</span>.beanFactory = beanFactory;
+
+  }
+
+  <span class="hljs-comment">/**
+   * &#x53C2;&#x8003;FeignClientsRegistrar
+   * &#x73AF;&#x5883;&#x53D8;&#x91CF;&#x66FF;&#x6362;
+   *
+   * <span class="hljs-doctag">@param</span> value
+   * <span class="hljs-doctag">@return</span>
+   */</span>
+  <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">resolve</span><span class="hljs-params">(String value)</span> </span>{
+    <span class="hljs-keyword">if</span> (StringUtils.hasText(value)) {
+      <span class="hljs-keyword">if</span> (beanFactory == <span class="hljs-keyword">null</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.environment.resolvePlaceholders(value);
+      }
+      BeanExpressionResolver resolver = beanFactory.getBeanExpressionResolver();
+      String resolved = beanFactory.resolveEmbeddedValue(value);
+      <span class="hljs-keyword">if</span> (resolver == <span class="hljs-keyword">null</span>) {
+        <span class="hljs-keyword">return</span> resolved;
+      }
+      Object evaluateValue = resolver.evaluate(resolved, <span class="hljs-keyword">new</span> BeanExpressionContext(beanFactory, <span class="hljs-keyword">null</span>));
+      <span class="hljs-keyword">if</span> (evaluateValue != <span class="hljs-keyword">null</span>) {
+        <span class="hljs-keyword">return</span> String.valueOf(evaluateValue);
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    }
+    <span class="hljs-keyword">return</span> value;
+  }
+
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">apply</span><span class="hljs-params">(RequestTemplate template)</span> </span>{
+    MethodMetadata methodMetadata = template.methodMetadata();
+    String targetService = forwardTrafficClassResolver.getTargetService(methodMetadata.method(), methodMetadata.targetType());
+    <span class="hljs-keyword">if</span> (StrUtil.isBlank(targetService)) {
+      <span class="hljs-keyword">return</span>;
+    }
+
+    String rateKey = forwardTrafficClassResolver.getRateKey(methodMetadata.method(), methodMetadata.targetType());
+    <span class="hljs-keyword">if</span> (StrUtil.isBlank(rateKey)) {
+      <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-keyword">if</span> (!forwardTrafficSwitch.forward(rateKey)) {
+      <span class="hljs-keyword">return</span>;
+    }
+
+    String originUrl = template.feignTarget().url();
+    String newService = resolve(targetService);
+    <span class="hljs-keyword">try</span> {
+      String url = replaceHost(originUrl, newService);
+      <span class="hljs-keyword">if</span> (log.isDebugEnabled()) {
+        log.debug(<span class="hljs-string">&quot;Forward traffic hit path={}, originUrl={}, newUrl={}&quot;</span>, template.path(), originUrl, url);
+      }
+
+      template.target(url);
+    } <span class="hljs-keyword">catch</span> (MalformedURLException e) {
+      log.error(<span class="hljs-string">&quot;Forward traffic error path={}, originUrl={}, newService={}&quot;</span>, template.path(), originUrl, newService, e);
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">replaceHost</span><span class="hljs-params">(String originUrl, String host)</span> <span class="hljs-keyword">throws</span> MalformedURLException </span>{
+    <span class="hljs-keyword">if</span> (StrUtil.isBlank(host)) {
+      <span class="hljs-keyword">return</span> originUrl;
+    }
+
+    URL url = <span class="hljs-keyword">new</span> URL(originUrl);
+    <span class="hljs-keyword">if</span> (StrUtil.startWith(host, <span class="hljs-string">&quot;http&quot;</span>)) {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> URL(url.getProtocol(), <span class="hljs-keyword">new</span> URL(host).getHost(), url.getPort(), url.getFile()).toString();
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> URL(url.getProtocol(), host, url.getPort(), url.getFile()).toString();
+  }
+}
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x91CD;&#x70B9;&#x770B;apply&#x65B9;&#x6CD5;&#xFF0C;&#x5176;&#x4E3B;&#x8981;&#x903B;&#x8F91;&#x5982;&#x4E0B;</p>
+<p>1&#x3001;&#x901A;&#x8FC7;RequestTemplate.methodMetadata&#x53BB;&#x67E5;&#x627E;&#x5982;&#x662F;&#x5426;&#x88AB;@ForwardTraffic&#x6807;&#x8BB0;&#xFF0C;&#x5982;&#x679C;&#x88AB;&#x6807;&#x8BB0;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;&#x5BF9;&#x5E94;&#x7684;targetService&#x548C;rateKey</p>
+<p>2&#x3001;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x88AB;&#x6807;&#x8BB0;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;targetService&#x548C;rateKey&#x4E3A;&#x7A7A;&#xFF0C;&#x6B64;&#x65F6;&#x4E0D;&#x505A;&#x4EFB;&#x4F55;&#x64CD;&#x4F5C;</p>
+<p>3&#x3001;&#x6839;&#x636E;rateKey&#x5224;&#x65AD;&#x662F;&#x5426;&#x9700;&#x8981;&#x5207;&#x6D41;&#xFF08;&#x901A;&#x8FC7;&#x6BD4;&#x4F8B;&#x63A7;&#x5236;&#xFF09;&#xFF0C;&#x5982;&#x679C;&#x672A;&#x547D;&#x4E2D;&#xFF0C;&#x6B64;&#x65F6;&#x4E0D;&#x505A;&#x4EFB;&#x4F55;&#x64CD;&#x4F5C;</p>
+<p>4&#x3001;&#x5982;&#x679C;&#x547D;&#x4E2D;&#xFF0C;&#x5219;&#x66FF;&#x6362;&#x5730;&#x5740;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;replaceHost&#x65B9;&#x6CD5;</p>
+<p>&#x8FD9;&#x91CC;&#x9700;&#x8981;&#x6CE8;&#x610F;&#xFF0C;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x901A;&#x5E38;&#x4E0D;&#x5E0C;&#x671B;&#x5C06;&#x5730;&#x5740;&#x5199;&#x6B7B;&#xFF0C;&#x56E0;&#x6B64;&#x8FD9;&#x91CC;&#x53C2;&#x8003;open feign&#x539F;&#x59CB;&#x5B9E;&#x73B0;&#xFF0C;copy&#x4E86;resolve&#x65B9;&#x6CD5;&#xFF0C;&#x652F;&#x6301;&#x901A;&#x8FC7;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x548C;&#x914D;&#x7F6E;&#x6765;&#x52A8;&#x6001;&#x89E3;&#x6790;&#x76EE;&#x6807;&#x5730;&#x5740;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x652F;&#x6301;targetService&#x662F;&#x4E00;&#x4E2A;spring el&#x8868;&#x8FBE;&#x5F0F;</p>
+<p>&#x81F3;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x5728;feign client&#x5B9A;&#x4E49;&#x7684;&#x65B9;&#x6CD5;&#x4E0A;&#x52A0;&#x4E0A;&#x5BF9;&#x5E94;&#x7684;@ForwardTraffic&#x6CE8;&#x89E3;&#xFF0C;&#x8C03;&#x7528;&#x65B9;&#x5347;&#x7EA7;&#x4E0B;&#x7248;&#x672C;&#x5373;&#x53EF;&#x5B9E;&#x73B0;&#x8FD0;&#x884C;&#x65F6;&#x5207;&#x6D41;&#x4E86;&#x3002;</p>
+<p><strong>&#x5230;&#x8FD9;&#x91CC;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x76EE;&#x6807;&#x5B8C;&#x6210;&#x4E86;&#x5927;&#x534A;&#xFF1B;&#x4E3A;&#x4EC0;&#x4E48;&#x662F;&#x5927;&#x534A;&#xFF1F;&#x56E0;&#x4E3A;&#x5927;&#x578B;&#x9879;&#x76EE;&#x4E2D;&#xFF0C;&#x901A;&#x5E38;&#x8C03;&#x7528;&#x65B9;&#x4E0D;&#x4E00;&#x5B9A;&#x5168;&#x90E8;&#x662F;java&#xFF0C;&#x4E5F;&#x6709;&#x53EF;&#x80FD;&#x662F;go&#x6216;&#x8005;python&#xFF0C;&#x56E0;&#x6B64;&#x53EF;&#x80FD;&#x8FD8;&#x662F;&#x4F1A;&#x6709;&#x5176;&#x4ED6;&#x6D41;&#x91CF;&#x6253;&#x5230;&#x65E7;&#x7684;&#x670D;&#x52A1;&#x4E0A;&#x3002;</strong></p>
+<p>&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x8FD8;&#x9700;&#x8981;&#x5728;&#x65E7;&#x7684;&#x670D;&#x52A1;&#x4E0A;&#x5B9E;&#x73B0;&#x6D41;&#x91CF;&#x7684;&#x8F6C;&#x53D1;&#x903B;&#x8F91;</p>
+<p>&#x90A3;&#x4E48;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5462;&#xFF1F;</p>
+<p>&#x8FD8;&#x8BB0;&#x5F97;&#x4E0A;&#x9762;&#x6211;&#x4EEC;&#x8BF4;&#x7684;3&#x4E2A;&#x5047;&#x8BBE;&#x5417;&#xFF1F;</p>
+<p>1&#x3001;&#x65B0;&#x8001;&#x670D;&#x52A1;path&#x4E00;&#x6837;</p>
+<p>2&#x3001;&#x63A5;&#x53E3;&#x5165;&#x53C2;&#x683C;&#x5F0F;&#x4E00;&#x6837;</p>
+<p>3&#x3001;&#x63A5;&#x53E3;&#x51FA;&#x53C2;&#x683C;&#x5F0F;&#x4E00;&#x6837;</p>
+<p>&#x56E0;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x6709;&#x51E0;&#x79CD;&#x65B9;&#x5F0F;&#x6765;&#x505A;&#x5207;&#x6D41;</p>
+<p><strong>&#x57FA;&#x4E8E;&#x7F51;&#x5173;&#x7684;&#x5207;&#x6D41;</strong></p>
+<p>&#x5047;&#x8BBE;&#x5185;&#x90E8;&#x8C03;&#x7528;&#x5148;&#x901A;&#x8FC7;&#x7F51;&#x5173;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x5230;&#x76EE;&#x6807;&#x670D;&#x52A1;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x7F51;&#x5173;&#x5C42;&#x9762;&#x76F4;&#x63A5;&#x505A;&#x6D41;&#x91CF;&#x7684;&#x8F6C;&#x53D1;&#xFF0C;&#x4E0D;&#x8BBA;&#x662F;&#x57FA;&#x4E8E;nginx&#x7684;&#x6D41;&#x91CF;&#x8F6C;&#x53D1;&#x8FD8;&#x662F;&#x57FA;&#x4E8E;shenyu&#x7684;&#x6D41;&#x91CF;&#x8F6C;&#x53D1;&#x90FD;&#x53EF;&#x4EE5;&#x505A;&#x5230;&#x6309;&#x7167;&#x6BD4;&#x4F8B;&#x505A;&#x6D41;&#x91CF;&#x5207;&#x5206;&#xFF0C;&#x8FD9;&#x91CC;&#x4E0D;&#x505A;&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</p>
+<p><strong>&#x57FA;&#x4E8E;&#x76EE;&#x6807;&#x670D;&#x52A1;&#x7684;&#x5207;&#x6D41;</strong></p>
+<p>&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x63A7;&#x5236;&#x7684;&#x90E8;&#x5206;&#xFF0C;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x5B9A;&#x4E49;&#x4E86;&#x6CE8;&#x89E3;&#x4EE5;&#x53CA;&#x5207;&#x6D41;&#x7684;&#x5F00;&#x5173;&#x63A7;&#x5236;&#x7C7B;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x590D;&#x7528;&#x8FD9;&#x4E00;&#x90E8;&#x5206;&#x5462;&#xFF1F;&#x5047;&#x8BBE;&#x53EF;&#x4EE5;&#x590D;&#x7528;&#x8FD9;&#x90E8;&#x5206;&#xFF0C;&#x6211;&#x4EEC;&#x505A;&#x4E00;&#x4E2A;Contoroller&#x5C42;&#x9762;&#x7684;AOP&#x4E0D;&#x5C31;&#x53EF;&#x4EE5;&#x5B8C;&#x6210;&#x670D;&#x52A1;&#x7AEF;&#x7684;&#x5207;&#x6D41;&#x4E86;&#x5417;</p>
+<p>&#x90A3;&#x5982;&#x4F55;&#x590D;&#x7528;&#x5462;&#xFF1F;</p>
+<p>&#x5BF9;&#x4E8E;&#x5207;&#x6D41;&#x5F00;&#x5173;&#x63A7;&#x5236;&#x7C7B;&#xFF0C;&#x6BD4;&#x8F83;&#x5BB9;&#x6613;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x6211;&#x4EEC;&#x5F15;&#x5165;&#x5BF9;&#x5E94;&#x7684;bean&#x5373;&#x53EF;</p>
+<p>&#x5BF9;&#x4E8E;&#x6CE8;&#x89E3;&#x6211;&#x4EEC;&#x5E94;&#x8BE5;&#x5982;&#x4F55;&#x590D;&#x7528;&#x5462;&#xFF1F;</p>
+<p>&#x7B54;&#x6848;&#x4E5F;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x5728;controller&#x5C42;&#x9762;&#x58F0;&#x660E;&#x5B9E;&#x73B0;&#x4E86;&#x67D0;&#x4E2A;Feign Client&#xFF0C;&#x6211;&#x4EEC;&#x5373;&#x53EF;&#x5C06;&#x5BF9;&#x5E94;&#x7684;controller&#x65B9;&#x6CD5;&#x548C;feign &#x63A5;&#x53E3;&#x65B9;&#x6CD5;&#x5EFA;&#x7ACB;&#x6620;&#x5C04;&#x5173;&#x7CFB;&#xFF0C;&#x4E14;&#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x5230;&#x73B0;&#x6709;controller&#x903B;&#x8F91;&#xFF0C;&#x5982;&#x4E0B;&#x6240;&#x793A;</p>
+<pre><code class="lang-java"><span class="hljs-meta">@FeignClient</span>(name = <span class="hljs-string">&quot;XxxApi&quot;</span>, url = PLACE_HOLD_SERVICE_NAME, path = AgencyApi.PATH)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">XxxApi</span> </span>{
+
+  String PATH = <span class="hljs-string">&quot;/api/xxx&quot;</span>;
+
+  <span class="hljs-meta">@ForwardTraffic</span>(targetService=<span class="hljs-string">&quot;${newXxxA.host}&quot;</span>, rateKey=<span class="hljs-string">&quot;XxxApi.get&quot;</span>)
+  <span class="hljs-meta">@GetMapping</span>(<span class="hljs-string">&quot;/get&quot;</span>)
+  <span class="hljs-function">Object <span class="hljs-title">get</span><span class="hljs-params">(@RequestParam(<span class="hljs-string">&quot;id&quot;</span>)</span> Long id)</span>;
+}
+
+<span class="hljs-meta">@RestController</span>
+<span class="hljs-meta">@RequestMapping</span>(path = XxxApi.PATH)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">XxxAApiImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">XxxApi</span> </span>{
+
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">get</span><span class="hljs-params">(Long agencyId)</span> </span>{
+    <span class="hljs-comment">// ...</span>
+  }
+</code></pre>
+<p>&#x597D;&#xFF0C;&#x6709;&#x4E86;&#x6620;&#x5C04;&#x5173;&#x7CFB;&#xFF0C;&#x6211;&#x4EEC;&#x5373;&#x53EF;&#x901A;&#x8FC7;AOP&#x6765;&#x505A;&#x5207;&#x6D41;&#x3002;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5BF9;&#x6240;&#x6709;&#x7684;controller&#x65B9;&#x6CD5;&#x505A;AOP&#x5417;&#xFF1F;&#x7B54;&#x6848;&#x662F;&#x6CA1;&#x5FC5;&#x8981;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x5BF9;&#x9700;&#x8981;&#x505A;&#x5207;&#x6D41;&#x7684;&#x65B9;&#x6CD5;&#x505A;AOP&#x5373;&#x53EF;</p>
+<p>&#x56E0;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5148;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x6CE8;&#x89E3;&#xFF0C;&#x7136;&#x540E;&#x5728;&#x6839;&#x636E;&#x6CE8;&#x89E3;&#x5B9E;&#x73B0;AOP</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Target</span>({ElementType.METHOD, ElementType.TYPE})
+<span class="hljs-meta">@Retention</span>(RetentionPolicy.RUNTIME)
+<span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> ControllerForward {
+
+}
+</code></pre>
+<p>&#x63A5;&#x4E0B;&#x6765;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x5B9E;&#x73B0;&#x62E6;&#x622A;&#x5668;&#x7684;&#x903B;&#x8F91;</p>
+<pre><code class="lang-java">
+
+<span class="hljs-meta">@Slf</span>4j
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ControllerForwardAnnotationInterceptor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">MethodInterceptor</span>, <span class="hljs-title">ApplicationContextAware</span>, <span class="hljs-title">EnvironmentAware</span>, <span class="hljs-title">BeanDefinitionRegistryPostProcessor</span> </span>{
+
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map&lt;String, Map&lt;Class&lt;?&gt;, Object&gt;&gt; FEIGN_CACHE= <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;();
+
+  <span class="hljs-keyword">private</span> ForwardTrafficProperties forwardTrafficProperties;
+
+  <span class="hljs-keyword">private</span> ForwardTrafficSwitch forwardTrafficSwitch;
+
+  <span class="hljs-keyword">private</span> ForwardTrafficClassResolver resolver = <span class="hljs-keyword">new</span> ForwardTrafficClassResolver(<span class="hljs-keyword">true</span>);
+
+  <span class="hljs-keyword">private</span> Environment environment;
+
+  <span class="hljs-keyword">private</span> ConfigurableListableBeanFactory beanFactory;
+
+  <span class="hljs-keyword">private</span> FeignClientBuilder feignClientBuilder;
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ControllerForwardAnnotationInterceptor</span><span class="hljs-params">(ForwardTrafficProperties forwardTrafficProperties, ForwardTrafficSwitch forwardTrafficSwitch)</span> </span>{
+    <span class="hljs-keyword">this</span>.forwardTrafficProperties = forwardTrafficProperties;
+    <span class="hljs-keyword">this</span>.forwardTrafficSwitch = forwardTrafficSwitch;
+  }
+
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setApplicationContext</span><span class="hljs-params">(ApplicationContext applicationContext)</span> <span class="hljs-keyword">throws</span> BeansException </span>{
+    <span class="hljs-keyword">this</span>.feignClientBuilder = <span class="hljs-keyword">new</span> FeignClientBuilder(applicationContext);
+  }
+
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">postProcessBeanDefinitionRegistry</span><span class="hljs-params">(BeanDefinitionRegistry registry)</span> <span class="hljs-keyword">throws</span> BeansException </span>{
+  }
+
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">postProcessBeanFactory</span><span class="hljs-params">(ConfigurableListableBeanFactory beanFactory)</span> <span class="hljs-keyword">throws</span> BeansException </span>{
+    <span class="hljs-keyword">this</span>.beanFactory = beanFactory;
+  }
+
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setEnvironment</span><span class="hljs-params">(Environment environment)</span> </span>{
+    <span class="hljs-keyword">this</span>.environment = environment;
+  }
+
+  <span class="hljs-meta">@Nullable</span>
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">invoke</span><span class="hljs-params">(@NotNull MethodInvocation invocation)</span> <span class="hljs-keyword">throws</span> Throwable </span>{
+    <span class="hljs-keyword">if</span> (!Boolean.TRUE.equals(forwardTrafficProperties.getEnabled())) {
+      <span class="hljs-keyword">return</span> invocation.proceed();
+    }
+
+    Class&lt;?&gt; feignClientClass = getFeignClientClass(invocation.getMethod());
+    <span class="hljs-keyword">if</span> (feignClientClass == <span class="hljs-keyword">null</span>) {
+      <span class="hljs-keyword">return</span> invocation.proceed();
+    }
+
+    Method method;
+    <span class="hljs-keyword">try</span> {
+      method = feignClientClass.getMethod(invocation.getMethod().getName(), invocation.getMethod().getParameterTypes());
+    } <span class="hljs-keyword">catch</span> (NoSuchMethodException | SecurityException e) {
+      <span class="hljs-keyword">return</span> invocation.proceed();
+    }
+
+    String targetService = resolver.getTargetService(method, feignClientClass);
+    <span class="hljs-keyword">if</span> (StrUtil.isBlank(targetService)) {
+      <span class="hljs-keyword">return</span> invocation.proceed();
+    }
+
+    String rateKey = resolver.getRateKey(method, feignClientClass);
+    <span class="hljs-keyword">if</span> (StrUtil.isBlank(rateKey)) {
+      <span class="hljs-keyword">return</span> invocation.proceed();
+    }
+
+    <span class="hljs-keyword">if</span> (!forwardTrafficSwitch.forward(rateKey)) {
+      <span class="hljs-keyword">return</span> invocation.proceed();
+    }
+
+    <span class="hljs-keyword">if</span> (log.isDebugEnabled()) {
+      log.debug(<span class="hljs-string">&quot;controller forward traffic: {}.{} target:{}&quot;</span>, method.getDeclaringClass().getName(), method.getName(), resolve(targetService));
+    }
+    Object feignClient = getFeignClient(feignClientClass, targetService);
+    <span class="hljs-keyword">if</span> (feignClient == <span class="hljs-keyword">null</span>) {
+      <span class="hljs-keyword">return</span> invocation.proceed();
+    }
+
+    <span class="hljs-keyword">return</span> method.invoke(feignClient, invocation.getArguments());
+  }
+
+
+  <span class="hljs-keyword">private</span> Class&lt;?&gt; getFeignClientClass(Method method) {
+    <span class="hljs-keyword">try</span> {
+      Class&lt;?&gt;[] ifaces = method.getDeclaringClass().getInterfaces();
+      <span class="hljs-keyword">if</span> (ifaces == <span class="hljs-keyword">null</span> || ifaces.length == <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+      }
+      <span class="hljs-keyword">for</span> (Class&lt;?&gt; iface : ifaces) {
+        <span class="hljs-keyword">if</span> (iface.isAnnotationPresent(FeignClient.class)) {
+          <span class="hljs-keyword">return</span> iface;
+        }
+      }
+    } <span class="hljs-keyword">catch</span> (Exception e) {
+      log.error(<span class="hljs-string">&quot;getFeignClientClass Exception&quot;</span>, e);
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">getFeignClient</span><span class="hljs-params">(Class&lt;?&gt; feignClientClass, String targetService)</span> </span>{
+    <span class="hljs-keyword">if</span> (feignClientClass == <span class="hljs-keyword">null</span> || StrUtil.isBlank(targetService)) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> BizException(<span class="hljs-string">&quot;feignClientClass or targetService is null&quot;</span>);
+    }
+
+    Map&lt;Class&lt;?&gt;, Object&gt; feignCache = FEIGN_CACHE.computeIfAbsent(targetService, k -&gt; <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;());
+    <span class="hljs-keyword">return</span> feignCache.computeIfAbsent(feignClientClass, key -&gt; buildFeignClient(feignClientClass, targetService));
+  }
+
+  <span class="hljs-keyword">private</span> &lt;T&gt; <span class="hljs-function">T <span class="hljs-title">buildFeignClient</span><span class="hljs-params">(Class&lt;T&gt; feignClientClass, String targetService)</span> </span>{
+    AnnotationAttributes aa = AnnotatedElementUtils.getMergedAnnotationAttributes(feignClientClass, FeignClient.class);
+    <span class="hljs-keyword">if</span> (aa == <span class="hljs-keyword">null</span>) {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.feignClientBuilder.forType(feignClientClass, <span class="hljs-string">&quot;forward&quot;</span> + aa.getString(<span class="hljs-string">&quot;name&quot;</span>))
+        .path(aa.getString(<span class="hljs-string">&quot;path&quot;</span>))
+        .url(resolve(targetService))
+        .build();
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">resolve</span><span class="hljs-params">(String value)</span> </span>{
+    <span class="hljs-keyword">if</span> (StringUtils.hasText(value)) {
+      <span class="hljs-keyword">if</span> (beanFactory == <span class="hljs-keyword">null</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.environment.resolvePlaceholders(value);
+      }
+      BeanExpressionResolver resolver = beanFactory.getBeanExpressionResolver();
+      String resolved = beanFactory.resolveEmbeddedValue(value);
+      <span class="hljs-keyword">if</span> (resolver == <span class="hljs-keyword">null</span>) {
+        <span class="hljs-keyword">return</span> resolved;
+      }
+      Object evaluateValue = resolver.evaluate(resolved, <span class="hljs-keyword">new</span> BeanExpressionContext(beanFactory, <span class="hljs-keyword">null</span>));
+      <span class="hljs-keyword">if</span> (evaluateValue != <span class="hljs-keyword">null</span>) {
+        <span class="hljs-keyword">return</span> String.valueOf(evaluateValue);
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    }
+    <span class="hljs-keyword">return</span> value;
+  }
+}
+</code></pre>
+<p>&#x62E6;&#x622A;&#x5668;&#x5B9E;&#x73B0;&#x4E86;MethodIntercepter&#xFF0C;&#x6211;&#x4EEC;&#x91CD;&#x70B9;&#x770B;&#x4E0B;invoke&#x65B9;&#x6CD5;&#xFF0C;&#x4E3B;&#x8981;&#x903B;&#x8F91;&#x5982;&#x4E0B;</p>
+<p>1&#x3001;&#x901A;&#x8FC7;method&#x83B7;&#x53D6;&#x5230;&#x5BF9;&#x5E94;&#x7684;Feign client class&#x5B9A;&#x4E49;</p>
+<p>2&#x3001;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x83B7;&#x53D6;&#x5230;Feign Client &#x65B9;&#x6CD5;&#x4E0A;&#x7684;@ForwardTraffic&#x6CE8;&#x89E3;&#xFF0C;&#x5E76;&#x83B7;&#x53D6;targetService&#x548C;rateKey&#x5C5E;&#x6027;</p>
+<p>3&#x3001;&#x6839;&#x636E;rateKey&#x5224;&#x65AD;&#x662F;&#x5426;&#x9700;&#x8981;&#x5207;&#x6D41;</p>
+<p>4&#x3001;&#x5982;&#x679C;&#x9700;&#x8981;&#x5207;&#x6D41;&#xFF0C;&#x6839;&#x636E;targetService&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x65B0;&#x7684;feign client</p>
+<p>5&#x3001;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x8C03;&#x7528;&#x65B0;&#x7684;feign client&#xFF08;&#x7B80;&#x5316;&#x6D41;&#x91CF;&#x8F6C;&#x53D1;&#x903B;&#x8F91;&#xFF0C;&#x5C06;&#x65B0;&#x7684;http&#x8C03;&#x7528;&#x4EE3;&#x7406;&#x7ED9;feign client&#xFF09;</p>
+<p>&#x5BF9;&#x4E8E;&#x6B65;&#x9AA4;4&#xFF0C;&#x662F;&#x4E00;&#x4E2A;&#x5C0F;&#x77E5;&#x8BC6;&#x70B9;&#xFF0C;&#x611F;&#x5174;&#x8DA3;&#x7684;&#x540C;&#x5B66;&#x53EF;&#x4EE5;&#x51FA;&#x95E8;&#x5DE6;&#x8F6C;&#xFF08;&#x300A;spring cloud&#x624B;&#x52A8;&#x521B;&#x5EFA;feign client&#x300B;&#xFF09;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5B9A;&#x4E49;&#x597D;&#x5207;&#x9762;</p>
+<pre><code class="lang-java"><span class="hljs-comment">/**
+ * &#x53C2;&#x8003;dynamic datasource
+ *
+ * <span class="hljs-doctag">@see</span> com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ControllerForwardAnnotationAdvisor</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractPointcutAdvisor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">BeanFactoryAware</span> </span>{
+
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Advice advice;
+
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Class&lt;? extends Annotation&gt; annotation;
+
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Pointcut pointcut;
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ControllerForwardAnnotationAdvisor</span><span class="hljs-params">(Advice advice, Class&lt;? extends Annotation&gt; annotation)</span> </span>{
+    <span class="hljs-keyword">this</span>.advice = advice;
+    <span class="hljs-keyword">this</span>.annotation = annotation;
+    <span class="hljs-keyword">this</span>.pointcut = buildPointcut();
+  }
+
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> Pointcut <span class="hljs-title">getPointcut</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.pointcut;
+  }
+
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> Advice <span class="hljs-title">getAdvice</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.advice;
+  }
+
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setBeanFactory</span><span class="hljs-params">(BeanFactory beanFactory)</span> <span class="hljs-keyword">throws</span> BeansException </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.advice <span class="hljs-keyword">instanceof</span> BeanFactoryAware) {
+      ((BeanFactoryAware) <span class="hljs-keyword">this</span>.advice).setBeanFactory(beanFactory);
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">private</span> Pointcut <span class="hljs-title">buildPointcut</span><span class="hljs-params">()</span> </span>{
+    Pointcut cpc = <span class="hljs-keyword">new</span> AnnotationMatchingPointcut(annotation, <span class="hljs-keyword">true</span>);
+    Pointcut mpc = <span class="hljs-keyword">new</span> ControllerForwardAnnotationAdvisor.AnnotationMethodPoint(annotation);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ComposablePointcut(cpc).union(mpc);
+  }
+
+  <span class="hljs-comment">/**
+   * In order to be compatible with the spring lower than 5.0
+   */</span>
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AnnotationMethodPoint</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Pointcut</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Class&lt;? extends Annotation&gt; annotationType;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AnnotationMethodPoint</span><span class="hljs-params">(Class&lt;? extends Annotation&gt; annotationType)</span> </span>{
+      Assert.notNull(annotationType, <span class="hljs-string">&quot;Annotation type must not be null&quot;</span>);
+      <span class="hljs-keyword">this</span>.annotationType = annotationType;
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> ClassFilter <span class="hljs-title">getClassFilter</span><span class="hljs-params">()</span> </span>{
+      <span class="hljs-keyword">return</span> ClassFilter.TRUE;
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> MethodMatcher <span class="hljs-title">getMethodMatcher</span><span class="hljs-params">()</span> </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ControllerForwardAnnotationAdvisor.AnnotationMethodPoint.AnnotationMethodMatcher(annotationType);
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AnnotationMethodMatcher</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StaticMethodMatcher</span> </span>{
+
+      <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Class&lt;? extends Annotation&gt; annotationType;
+
+      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AnnotationMethodMatcher</span><span class="hljs-params">(Class&lt;? extends Annotation&gt; annotationType)</span> </span>{
+        <span class="hljs-keyword">this</span>.annotationType = annotationType;
+      }
+
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">matches</span><span class="hljs-params">(Method method, Class&lt;?&gt; targetClass)</span> </span>{
+        <span class="hljs-keyword">if</span> (matchesMethod(method)) {
+          <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        }
+        <span class="hljs-comment">// Proxy classes never have annotations on their redeclared methods.</span>
+        <span class="hljs-keyword">if</span> (Proxy.isProxyClass(targetClass)) {
+          <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        }
+        <span class="hljs-comment">// The method may be on an interface, so let&apos;s check on the target class as well.</span>
+        Method specificMethod = AopUtils.getMostSpecificMethod(method, targetClass);
+        <span class="hljs-keyword">return</span> (specificMethod != method &amp;&amp; matchesMethod(specificMethod));
+      }
+
+      <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">matchesMethod</span><span class="hljs-params">(Method method)</span> </span>{
+        <span class="hljs-keyword">return</span> AnnotatedElementUtils.hasAnnotation(method, <span class="hljs-keyword">this</span>.annotationType);
+      }
+    }
+  }
+}
+</code></pre>
+<p>&#x8FD9;&#x91CC;&#x4E0D;&#x505A;&#x8FC7;&#x591A;&#x4ECB;&#x7ECD;&#xFF0C;&#x77E5;&#x540D;&#x7684;&#x5F00;&#x6E90;&#x7EC4;&#x4EF6;&#x90FD;&#x6709;&#x7C7B;&#x4F3C;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x5927;&#x540C;&#x5C0F;&#x5F02;</p>
+<p>&#x6700;&#x540E;&#x505A;&#x4E00;&#x4E2A;&#x81EA;&#x52A8;&#x914D;&#x7F6E;&#x7C7B;&#x5373;&#x53EF;</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Configuration</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ControllerForwardAutoConfiguration</span> </span>{
+
+  <span class="hljs-meta">@Bean</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> ControllerForwardAnnotationInterceptor <span class="hljs-title">controllerForwardAnnotationInterceptor</span><span class="hljs-params">(ForwardTrafficProperties forwardTrafficProperties,
+      ForwardTrafficSwitch forwardTrafficSwitch)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ControllerForwardAnnotationInterceptor(forwardTrafficProperties, forwardTrafficSwitch);
+  }
+
+  <span class="hljs-meta">@Bean</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> Advisor <span class="hljs-title">controllerForwardAnnotationAdvisor</span><span class="hljs-params">(ControllerForwardAnnotationInterceptor interceptor)</span> </span>{
+    ControllerForwardAnnotationAdvisor advisor = <span class="hljs-keyword">new</span> ControllerForwardAnnotationAdvisor(interceptor, ControllerForward.class);
+    <span class="hljs-keyword">return</span> advisor;
+  }
+}
+</code></pre>
+<p>&#x5230;&#x8FD9;&#x91CC;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x5927;&#x529F;&#x544A;&#x6210;&#x4E86;&#xFF0C;&#x611F;&#x5174;&#x8DA3;&#x7684;&#x540C;&#x5B66;&#x53EF;&#x4EE5;&#x8BD5;&#x8BD5;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="open-feign-yuan-ma-fen-xi.html" class="navigation navigation-prev " aria-label="Previous page: Open feign源码分析">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html" class="navigation navigation-next " aria-label="Next page: Open feign动态切换服务目标地址组件">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Open feign动态切流实现","level":"1.2.32","depth":2,"next":{"title":"Open feign动态切换服务目标地址组件","level":"1.2.33","depth":2,"path":"java-study/open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.md","ref":"java-study/open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.md","articles":[]},"previous":{"title":"Open feign源码分析","level":"1.2.31","depth":2,"path":"java-study/open-feign-yuan-ma-fen-xi.md","ref":"java-study/open-feign-yuan-ma-fen-xi.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","splitter","expandable-chapters-small","github","github-buttons","favicon","expandable-chapters-small","copy-code-button"],"styles":{"website":"./styles/website.css"},"pluginsConfig":{"github":{"url":"https://github.com/kennethfan"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":{"shortcut":"./source/images/favicon.jpg","bookmark":"./source/images/favicon.jpg","appleTouch":"./source/images/apple-touch-icon.jpg","appleTouchMore":{"120x120":"./source/images/apple-touch-icon.jpg","180x180":"./source/images/apple-touch-icon.jpg"}},"github-buttons":{"buttons":[{"user":"kennethfan","repo":"gitbook","type":"star","size":"small","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"theme":"default","author":"椒哥","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"椒哥碎碎念","language":"zh-hans","links":{"sidebar":{}},"gitbook":"3.2.3","description":"select * from learn"},"file":{"path":"java-study/open-feign-dong-tai-qie-liu-shi-xian.md","mtime":"2025-11-20T14:23:49.134Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-11-20T14:24:24.727Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
