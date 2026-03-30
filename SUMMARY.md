@@ -35,6 +35,8 @@
   * [Open feign源码分析](java-study/open-feign-yuan-ma-fen-xi.md)
   * [Open feign动态切流实现](java-study/open-feign-dong-tai-qie-liu-shi-xian.md)
   * [Open feign动态切换服务目标地址组件](java-study/open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.md)
+* [AI](ai/README.md)
+  * [claude code cli接入GLM免费模型](ai/claude-code-cli-jie-ru-glm-mian-fei-mo-xing.md)
 * [python](python/README.md)
   * [centos 安装miniconda](python/centos-an-zhuang-miniconda.md)
   * [pip安装走socks代理](python/pip-an-zhuang-zou-socks-dai-li.md)
