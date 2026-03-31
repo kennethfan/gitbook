@@ -35,6 +35,7 @@
   * [Open feign源码分析](java-study/open-feign-yuan-ma-fen-xi.md)
   * [Open feign动态切流实现](java-study/open-feign-dong-tai-qie-liu-shi-xian.md)
   * [Open feign动态切换服务目标地址组件](java-study/open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.md)
+  * [使用Checkstyle进行Java代码审查：实践指南](java-study/shi-yong-checkstyle-jin-xing-java-dai-ma-shen-cha-shi-jian-zhi-nan.md)
 * [AI](ai/README.md)
   * [claude code cli接入GLM免费模型](ai/claude-code-cli-jie-ru-glm-mian-fei-mo-xing.md)
 * [python](python/README.md)
