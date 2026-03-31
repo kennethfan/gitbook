@@ -202,23 +202,11 @@ mvn install -Dcheckstyle.skip=true
 
 ### 3.2 IDE集成
 
-{% stepper %}
-{% step %}
-### IntelliJ IDEA
+#### IntelliJ IDEA
 
 * 安装Checkstyle插件
 * 配置Checkstyle规则文件路径
 * 设置在保存文件时自动检查
-{% endstep %}
-
-{% step %}
-### Eclipse
-
-* 安装Checkstyle插件
-* 导入checkstyle.xml配置文件
-* 配置项目设置
-{% endstep %}
-{% endstepper %}
 
 ## 4. 常见问题及解决方案
 
