@@ -108,5 +108,6 @@
   * [zsh-字符串通配符](zsh/zsh-zi-fu-chuan-tong-pei-fu.md)
 * [前端](qian-duan/README.md)
   * [highlight.js支持动态代码](qian-duan/highlight.js-zhi-chi-dong-tai-dai-ma.md)
+  * [centos7安装node22](qian-duan/centos7-an-zhuang-node22.md)
 * [架构师图谱](jia-gou-shi-tu-pu.md)
 * [溯源系统](su-yuan-xi-tong.md)
