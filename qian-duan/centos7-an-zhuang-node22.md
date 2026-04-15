@@ -1,18 +1,20 @@
+---
+description: CentOS 7 预装的 glibc 版本过低导致 Node.js 22 无法直接运行？本文帮你解决问题。
+---
+
 # centos7安装node22
 
-> CentOS 7 预装的 glibc 版本过低导致 Node.js 22 无法直接运行？本文帮你解决问题。
+### 背景 <a href="#bei-jing" id="bei-jing"></a>
 
-## 背景
-
-### 为什么要用 Node.js 22？
+#### 为什么要用 Node.js 22？ <a href="#wei-shen-me-yao-yong-node.js22" id="wei-shen-me-yao-yong-node.js22"></a>
 
 现在流行的各种 Agent CLI 工具（如 **OpenClaw**、**Claude Code** 等）都要求 Node.js 22。如果你使用的是阿里云 CentOS 7 自带的 Node.js 14/16，就无法运行这些工具。
 
-### glibc 版本问题
+#### glibc 版本问题 <a href="#glibc-ban-ben-wen-ti" id="glibc-ban-ben-wen-ti"></a>
 
 CentOS 7 自带的 glibc 版本为 2.17，而 Node.js 22 官方二进制包需要 glibc 2.18 以上。即使你用 nvm 安装了 Node.js 22，启动时会报这样的错误：
 
-```bash
+```
 node: /lib64/libc.so.6: version 'GLIBC_2.18' not found (required by node)
 ```
 
@@ -23,90 +25,72 @@ node: /lib64/libc.so.6: version 'GLIBC_2.18' not found (required by node)
 
 本文介绍方法2。
 
-## 环境说明
+### 环境说明 <a href="#huan-jing-shuo-ming" id="huan-jing-shuo-ming"></a>
 
 * 服务器：阿里云 CentOS 7
 * nvm：已安装（如果没有，可参考 [nvm官方文档](https://github.com/nvm-sh/nvm) 安装）
 
-## 步骤
+### 步骤 <a href="#bu-zhou" id="bu-zhou"></a>
 
-{% stepper %}
-{% step %}
-### 安装 Node.js 22
+#### 1. 安装 Node.js 22 <a href="#id-1.-an-zhuang-node.js22" id="id-1.-an-zhuang-node.js22"></a>
 
 如果还没装 nvm，先装上：
 
-```bash
+```
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 source ~/.bashrc
 ```
 
 然后用 nvm 安装 Node.js 22（会失败，但没关系）：
 
-```bash
+```
 nvm install 22.22.2
 ```
-{% endstep %}
 
-{% step %}
-### 下载适配版本
+#### 2. 下载适配版本 <a href="#id-2.-xia-zai-shi-pei-ban-ben" id="id-2.-xia-zai-shi-pei-ban-ben"></a>
 
 Node.js 22 官方构建需要 glibc 2.18，但我们可以在 **unofficial-builds** 获取适配 glibc 2.17 的版本：
 
-{% tabs %}
-{% tab title="wget" %}
-```bash
+```
 cd /tmp
 NODE_VERSION="22.22.2"
 wget "https://unofficial-builds.nodejs.org/download/release/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64-glibc-217.tar.gz"
 ```
-{% endtab %}
 
-{% tab title="curl" %}
 如果 wget 不行，用 curl：
 
-```bash
+```
 curl -L -o "node-v${NODE_VERSION}-linux-x64-glibc-217.tar.gz" "https://unofficial-builds.nodejs.org/download/release/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64-glibc-217.tar.gz"
 ```
-{% endtab %}
-{% endtabs %}
-{% endstep %}
 
-{% step %}
-### 替换文件
+#### 3. 替换文件 <a href="#id-3.-ti-huan-wen-jian" id="id-3.-ti-huan-wen-jian"></a>
 
 解压并覆盖 nvm 已安装的 Node.js 文件：
 
-```bash
+```
 NVM_DIR="$HOME/.nvm/versions/node/v${NODE_VERSION}"
 tar -xzf "node-v${NODE_VERSION}-linux-x64-glibc-217.tar.gz" -C "$NVM_DIR" --strip-components=1
 ```
-{% endstep %}
 
-{% step %}
-### 验证
+#### 4. 验证 <a href="#id-4.-yan-zheng" id="id-4.-yan-zheng"></a>
 
-```bash
+```
 nvm use 22.22.2
 node -v
 npm -v
 ```
-{% endstep %}
 
-{% step %}
-### 设为默认
+#### 5. 设为默认 <a href="#id-5.-she-wei-mo-ren" id="id-5.-she-wei-mo-ren"></a>
 
-```bash
+```
 nvm alias default 22.22.2
 ```
-{% endstep %}
-{% endstepper %}
 
-## 完整脚本
+### 完整脚本 <a href="#wan-zheng-jiao-ben" id="wan-zheng-jiao-ben"></a>
 
 上面的步骤太繁琐？我帮你写成了自动化脚本：
 
-```bash
+```
 #!/bin/bash
 # install-node22-centos7-nvm.sh
 set -e
@@ -143,33 +127,15 @@ echo "Node.js 版本: $(node -v)"
 echo "npm 版本: $(npm -v)"
 ```
 
-## 常见问题
+### 常见问题 <a href="#chang-jian-wen-ti" id="chang-jian-wen-ti"></a>
 
-<details>
+**Q：unofficial-builds 安全吗？** A：这是社区志愿者维护的构建版本，代码与官方一致，只是用兼容旧版 glibc 的编译参数重新构建。官方有 [相关说明](https://nodejs.org/api/building.html#unofficial-builds)。
 
-<summary>Q：unofficial-builds 安全吗？</summary>
+**Q：为什么不用升级 glibc？** A：CentOS 7 升级 glibc 风险较大，可能破坏系统依赖（如 yum）。使用 unofficial-builds 是更稳妥的选择。
 
-A：这是社区志愿者维护的构建版本，代码与官方一致，只是用兼容旧版 glibc 的编译参数重新构建。官方有 [相关说明](https://nodejs.org/api/building.html#unofficial-builds)。
+**Q：还有其他版本吗？** A：unofficial-builds 提供 Node.js 18、20、22 等 LTS 版本适配 glibc 2.17 的构建。
 
-</details>
-
-<details>
-
-<summary>Q：为什么不用升级 glibc？</summary>
-
-A：CentOS 7 升级 glibc 风险较大，可能破坏系统依赖（如 yum）。使用 unofficial-builds 是更稳妥的选择。
-
-</details>
-
-<details>
-
-<summary>Q：还有其他版本吗？</summary>
-
-A：unofficial-builds 提供 Node.js 18、20、22 等 LTS 版本适配 glibc 2.17 的构建。
-
-</details>
-
-## 总结
+### 总结 <a href="#zong-jie" id="zong-jie"></a>
 
 CentOS 7 的 glibc 版本较低是历史遗留问题，unofficial-builds 提供了开箱即用的解决方案。不需要改动系统组件，也能愉快地使用 Node.js 22 了。
 
