@@ -1,0 +1,2419 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>openclaw使用opencode模型 · 椒哥碎碎念</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="椒哥">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+
+        
+    
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../python/" />
+    
+    
+    <link rel="prev" href="claude-code-cli-jie-ru-glm-mian-fei-mo-xing.html" />
+    
+
+    
+        <link rel="shortcut icon" href='../source/images/favicon.jpg' type="image/x-icon">
+    
+    
+        <link rel="bookmark" href='../source/images/favicon.jpg' type="image/x-icon">
+    
+    
+        <link rel="apple-touch-icon" href='../source/images/apple-touch-icon.jpg'>
+    
+    
+        
+        <link rel="apple-touch-icon" sizes="120x120" href="../source/images/apple-touch-icon.jpg">
+        
+        <link rel="apple-touch-icon" sizes="180x180" href="../source/images/apple-touch-icon.jpg">
+        
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"buttons":[{"user":"kennethfan","repo":"gitbook","type":"star","size":"small","count":true}]};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    个人简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../java-study/">
+            
+                <a href="../java-study/">
+            
+                    
+                    Java学习
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../java-study/maven-zhi-ding-xu-yao-de-mo-kuai-da-bao.html">
+            
+                <a href="../java-study/maven-zhi-ding-xu-yao-de-mo-kuai-da-bao.html">
+            
+                    
+                    maven指定需要的模块打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../java-study/dynamicdatasource-shi-xian-shu-ju-du-xie-fen-li.html">
+            
+                <a href="../java-study/dynamicdatasource-shi-xian-shu-ju-du-xie-fen-li.html">
+            
+                    
+                    dynamic-datasource实现数据读写分离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../java-study/redis-zhu-cong-jia-gou-li-yong-lettuce-shi-xian-du-xie-fen-li.html">
+            
+                <a href="../java-study/redis-zhu-cong-jia-gou-li-yong-lettuce-shi-xian-du-xie-fen-li.html">
+            
+                    
+                    redis主从架构利用lettuce实现读写分离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../java-study/java-filter-xiu-gai-request-nei-rong-he-response-nei-rong.html">
+            
+                <a href="../java-study/java-filter-xiu-gai-request-nei-rong-he-response-nei-rong.html">
+            
+                    
+                    java filter修改request内容和response内容
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../java-study/javacompiler-dong-tai-bian-yi-java-dai-ma.html">
+            
+                <a href="../java-study/javacompiler-dong-tai-bian-yi-java-dai-ma.html">
+            
+                    
+                    JavaCompiler动态编译java代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="../java-study/jdk-dong-tai-dai-li.html">
+            
+                <a href="../java-study/jdk-dong-tai-dai-li.html">
+            
+                    
+                    JDK动态代理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="../java-study/lei-ge-li.html">
+            
+                <a href="../java-study/lei-ge-li.html">
+            
+                    
+                    类隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="../java-study/jnr-tiao-yong-ben-di-dong-tai-lian-jie-ku.html">
+            
+                <a href="../java-study/jnr-tiao-yong-ben-di-dong-tai-lian-jie-ku.html">
+            
+                    
+                    JNR调用本地动态链接库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="../java-study/javac-ming-ling-bian-yi-java-ming-ling-yun-hang-dai-ma.html">
+            
+                <a href="../java-study/javac-ming-ling-bian-yi-java-ming-ling-yun-hang-dai-ma.html">
+            
+                    
+                    javac命令编译\&java命令运行代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="../java-study/java-huo-qu-ying-jian-xin-xi.html">
+            
+                <a href="../java-study/java-huo-qu-ying-jian-xin-xi.html">
+            
+                    
+                    java获取硬件信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="../java-study/conditional-shi-xian-bean-an-xu-jia-zai.html">
+            
+                <a href="../java-study/conditional-shi-xian-bean-an-xu-jia-zai.html">
+            
+                    
+                    Conditional实现bean按需加载
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="../java-study/spring-boot-actuator-da-pei-jenkins-shi-xian-fa-bu-jian-kang-jian-cha-he-bao-jing.html">
+            
+                <a href="../java-study/spring-boot-actuator-da-pei-jenkins-shi-xian-fa-bu-jian-kang-jian-cha-he-bao-jing.html">
+            
+                    
+                    spring boot actuator搭配jenkins实现发布健康检查和报警
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.13" data-path="../java-study/nacos-pei-zhi-wen-jian-yu-fa-jian-ce-bao-jing.html">
+            
+                <a href="../java-study/nacos-pei-zhi-wen-jian-yu-fa-jian-ce-bao-jing.html">
+            
+                    
+                    nacos配置文件语法检测&报警
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14" data-path="../java-study/java-shi-yong-mmap.html">
+            
+                <a href="../java-study/java-shi-yong-mmap.html">
+            
+                    
+                    java使用mmap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.15" data-path="../java-study/java-shi-yong-page-cache.html">
+            
+                <a href="../java-study/java-shi-yong-page-cache.html">
+            
+                    
+                    java使用page cache
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.16" data-path="../java-study/spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.html">
+            
+                <a href="../java-study/spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.html">
+            
+                    
+                    spring cloud gateway + nacos + sentinel实现网关限流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.17" data-path="../java-study/spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.html">
+            
+                <a href="../java-study/spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.html">
+            
+                    
+                    spring cloud自定义loaderbalancer实现流量就近访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.18" data-path="../java-study/spring-cloud-shou-dong-xia-diao-jie-dian.html">
+            
+                <a href="../java-study/spring-cloud-shou-dong-xia-diao-jie-dian.html">
+            
+                    
+                    spring cloud手动下掉节点
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.19" data-path="../java-study/jar-bao-jie-ya-he-da-bao.html">
+            
+                <a href="../java-study/jar-bao-jie-ya-he-da-bao.html">
+            
+                    
+                    jar包解压和打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.20" data-path="../java-study/java-ji-cheng-prometheus-shang-bao-shu-ju.html">
+            
+                <a href="../java-study/java-ji-cheng-prometheus-shang-bao-shu-ju.html">
+            
+                    
+                    java集成prometheus上报数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.21" data-path="../java-study/spring-actuator-shang-bao-zhi-biao-uriknown-xiu-fu.html">
+            
+                <a href="../java-study/spring-actuator-shang-bao-zhi-biao-uriknown-xiu-fu.html">
+            
+                    
+                    spring actuator上报指标uri=known修复
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.22" data-path="../java-study/maven-shou-dong-shang-chuan-san-fang-jar-dao-cang-ku.html">
+            
+                <a href="../java-study/maven-shou-dong-shang-chuan-san-fang-jar-dao-cang-ku.html">
+            
+                    
+                    maven手动上传三方jar到仓库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.23" data-path="../java-study/ji-yu-spring-cloud-gateway-springmvc-fu-wu-he-bing.html">
+            
+                <a href="../java-study/ji-yu-spring-cloud-gateway-springmvc-fu-wu-he-bing.html">
+            
+                    
+                    基于Spring Cloud gateway & Springmvc服务合并
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.24" data-path="../java-study/feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.html">
+            
+                <a href="../java-study/feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.html">
+            
+                    
+                    Feign调用转成本地方法调用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.25" data-path="../java-study/spring-cloud-ying-yong-fen-bu-shi-lian-lu-gen-zong-jian-yi-shi-xian.html">
+            
+                <a href="../java-study/spring-cloud-ying-yong-fen-bu-shi-lian-lu-gen-zong-jian-yi-shi-xian.html">
+            
+                    
+                    spring cloud应用分布式链路跟踪简易实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.26" data-path="../java-study/dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.html">
+            
+                <a href="../java-study/dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.html">
+            
+                    
+                    对于所有对象都通用的方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.27" data-path="../java-study/chuang-jian-he-xiao-hui-dui-xiang.html">
+            
+                <a href="../java-study/chuang-jian-he-xiao-hui-dui-xiang.html">
+            
+                    
+                    创建和销毁对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.28" data-path="../java-study/jackson-fan-xu-lie-hua-duo-tai-lei-xing-bang-ding.html">
+            
+                <a href="../java-study/jackson-fan-xu-lie-hua-duo-tai-lei-xing-bang-ding.html">
+            
+                    
+                    Jackson反序列化多态类型绑定
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.29" data-path="../java-study/spring-cloud-shou-dong-chuang-jian-feign-client.html">
+            
+                <a href="../java-study/spring-cloud-shou-dong-chuang-jian-feign-client.html">
+            
+                    
+                    spring cloud手动创建feign client
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.30" data-path="../java-study/springmvc-dong-tai-zhu-ce-lu-you.html">
+            
+                <a href="../java-study/springmvc-dong-tai-zhu-ce-lu-you.html">
+            
+                    
+                    springmvc 动态注册路由
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.31" data-path="../java-study/open-feign-yuan-ma-fen-xi.html">
+            
+                <a href="../java-study/open-feign-yuan-ma-fen-xi.html">
+            
+                    
+                    Open feign源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.32" data-path="../java-study/open-feign-dong-tai-qie-liu-shi-xian.html">
+            
+                <a href="../java-study/open-feign-dong-tai-qie-liu-shi-xian.html">
+            
+                    
+                    Open feign动态切流实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.33" data-path="../java-study/open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html">
+            
+                <a href="../java-study/open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html">
+            
+                    
+                    Open feign动态切换服务目标地址组件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.34" data-path="../java-study/shi-yong-checkstyle-jin-xing-java-dai-ma-shen-cha-shi-jian-zhi-nan.html">
+            
+                <a href="../java-study/shi-yong-checkstyle-jin-xing-java-dai-ma-shen-cha-shi-jian-zhi-nan.html">
+            
+                    
+                    使用Checkstyle进行Java代码审查：实践指南
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    AI
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="claude-code-cli-jie-ru-glm-mian-fei-mo-xing.html">
+            
+                <a href="claude-code-cli-jie-ru-glm-mian-fei-mo-xing.html">
+            
+                    
+                    claude code cli接入GLM免费模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.2" data-path="openclaw-shi-yong-opencode-mo-xing.html">
+            
+                <a href="openclaw-shi-yong-opencode-mo-xing.html">
+            
+                    
+                    openclaw使用opencode模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../python/">
+            
+                <a href="../python/">
+            
+                    
+                    python
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../python/centos-an-zhuang-miniconda.html">
+            
+                <a href="../python/centos-an-zhuang-miniconda.html">
+            
+                    
+                    centos 安装miniconda
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../python/pip-an-zhuang-zou-socks-dai-li.html">
+            
+                <a href="../python/pip-an-zhuang-zou-socks-dai-li.html">
+            
+                    
+                    pip安装走socks代理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../python/pa-chong-xiang-guan.html">
+            
+                <a href="../python/pa-chong-xiang-guan.html">
+            
+                    
+                    爬虫相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../python/playwright-shi-yong-xiao-ji-qiao.html">
+            
+                <a href="../python/playwright-shi-yong-xiao-ji-qiao.html">
+            
+                    
+                    playwright使用小技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../linux/">
+            
+                <a href="../linux/">
+            
+                    
+                    Linux
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../linux/guo-qi-jar-shan-chu.html">
+            
+                <a href="../linux/guo-qi-jar-shan-chu.html">
+            
+                    
+                    过期jar删除
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../linux/centos-tian-jia-fang-huo-qiang.html">
+            
+                <a href="../linux/centos-tian-jia-fang-huo-qiang.html">
+            
+                    
+                    centos添加防火墙
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../linux/centos-xiu-gai-hostname.html">
+            
+                <a href="../linux/centos-xiu-gai-hostname.html">
+            
+                    
+                    centos修改hostname
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../linux/rsync-wen-jian-zeng-liang-tong-bu.html">
+            
+                <a href="../linux/rsync-wen-jian-zeng-liang-tong-bu.html">
+            
+                    
+                    rsync文件增量同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../linux/a-li-yun-bu-shu-wen-jian-chuan-shu-you-hua.html">
+            
+                <a href="../linux/a-li-yun-bu-shu-wen-jian-chuan-shu-you-hua.html">
+            
+                    
+                    阿里云部署-文件传输优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../linux/prometheus-qing-li-shu-ju.html">
+            
+                <a href="../linux/prometheus-qing-li-shu-ju.html">
+            
+                    
+                    prometheus清理数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="../linux/prometheus-zhua-qu-shu-ju-pei-zhi.html">
+            
+                <a href="../linux/prometheus-zhua-qu-shu-ju-pei-zhi.html">
+            
+                    
+                    prometheus抓取数据配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="../linux/centos-an-zhuang-chrome-he-chromedriver.html">
+            
+                <a href="../linux/centos-an-zhuang-chrome-he-chromedriver.html">
+            
+                    
+                    centos安装chrome和chromedriver
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../nexus/">
+            
+                <a href="../nexus/">
+            
+                    
+                    nexus
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../nexus/nexus-shou-dong-shang-chuan-wen-jian.html">
+            
+                <a href="../nexus/nexus-shou-dong-shang-chuan-wen-jian.html">
+            
+                    
+                    nexus手动上传文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../docker/">
+            
+                <a href="../docker/">
+            
+                    
+                    docker & k8s
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../docker/cha-kan-image-dui-ying-de-dockerfile.html">
+            
+                <a href="../docker/cha-kan-image-dui-ying-de-dockerfile.html">
+            
+                    
+                    查看image对应的dockerfile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../docker/k8s-ji-qun-da-jian.html">
+            
+                <a href="../docker/k8s-ji-qun-da-jian.html">
+            
+                    
+                    k8s集群搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../docker/docker-jing-xiang-dao-ru-dao-chu.html">
+            
+                <a href="../docker/docker-jing-xiang-dao-ru-dao-chu.html">
+            
+                    
+                    docker镜像导入导出
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../docker/kubectl-chang-yong-ming-ling.html">
+            
+                <a href="../docker/kubectl-chang-yong-ming-ling.html">
+            
+                    
+                    kubectl 常用命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../nginx/">
+            
+                <a href="../nginx/">
+            
+                    
+                    nginx
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../nginx/ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.html">
+            
+                <a href="../nginx/ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.html">
+            
+                    
+                    ngx_http_dyups_module实现web服务的平滑发布
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../nginx/nginx-dai-li-mysql.html">
+            
+                <a href="../nginx/nginx-dai-li-mysql.html">
+            
+                    
+                    nginx代理mysql
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.html">
+            
+                <a href="../nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.html">
+            
+                    
+                    nginx+imgproxy实现图片自动缩放裁剪
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../nginx/minio-shi-xian-wen-jian-cun-chu.html">
+            
+                <a href="../nginx/minio-shi-xian-wen-jian-cun-chu.html">
+            
+                    
+                    minio实现文件存储
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="../nginx/nginx-zheng-xiang-dai-li-https.html">
+            
+                <a href="../nginx/nginx-zheng-xiang-dai-li-https.html">
+            
+                    
+                    nginx正向代理https
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.6" data-path="../nginx/nginx-dong-tai-zhuan-fa-dao-upstream.html">
+            
+                <a href="../nginx/nginx-dong-tai-zhuan-fa-dao-upstream.html">
+            
+                    
+                    nginx动态转发到upstream
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../git/">
+            
+                <a href="../git/">
+            
+                    
+                    git
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.html">
+            
+                <a href="../git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.html">
+            
+                    
+                    git拉取指定tag/分支的代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../git/git-she-zhi-yong-hu-xin-xi-huan-cun.html">
+            
+                <a href="../git/git-she-zhi-yong-hu-xin-xi-huan-cun.html">
+            
+                    
+                    git设置用户信息缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../git/git-xiu-gai-yi-ti-jiao-ji-lu-ti-jiao-zhe-xin-xi.html">
+            
+                <a href="../git/git-xiu-gai-yi-ti-jiao-ji-lu-ti-jiao-zhe-xin-xi.html">
+            
+                    
+                    git修改已提交记录提交者信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../shell/">
+            
+                <a href="../shell/">
+            
+                    
+                    shell
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.html">
+            
+                <a href="../shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.html">
+            
+                    
+                    shell根据环境变量替换文本
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../shell/shell-ming-ling-zi-dong-bu-quan.html">
+            
+                <a href="../shell/shell-ming-ling-zi-dong-bu-quan.html">
+            
+                    
+                    shell命令自动补全
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../shell/ssh-zi-dong-shu-ru-mi-ma-deng-lu.html">
+            
+                <a href="../shell/ssh-zi-dong-shu-ru-mi-ma-deng-lu.html">
+            
+                    
+                    ssh自动输入密码登录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="../shell/mac-xian-shi-yin-cang-wen-jian-jia.html">
+            
+                <a href="../shell/mac-xian-shi-yin-cang-wen-jian-jia.html">
+            
+                    
+                    mac显示隐藏文件夹
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../vim/">
+            
+                <a href="../vim/">
+            
+                    
+                    vim
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../vim/vim-jian-jie.html">
+            
+                <a href="../vim/vim-jian-jie.html">
+            
+                    
+                    Vim简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../vim/vim-xi-lie-zhi-chu-ti-yan-er.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-chu-ti-yan-er.html">
+            
+                    
+                    Vim系列之初体验(二)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../vim/vim-xi-lie-zhi-yi-dong-san.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-yi-dong-san.html">
+            
+                    
+                    Vim系列之移动(三)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../vim/vim-xi-lie-zhi-cha-ru-si.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-cha-ru-si.html">
+            
+                    
+                    Vim系列之插入(四)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../redis/">
+            
+                <a href="../redis/">
+            
+                    
+                    redis
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../redis/redis-dong-tai-tian-jia-cong-ku.html">
+            
+                <a href="../redis/redis-dong-tai-tian-jia-cong-ku.html">
+            
+                    
+                    redis动态添加从库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="../redis/lua-jiao-ben-pi-liang-tian-jia-redis-key-qian-zhui.html">
+            
+                <a href="../redis/lua-jiao-ben-pi-liang-tian-jia-redis-key-qian-zhui.html">
+            
+                    
+                    lua脚本批量添加redis key前缀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="../redis/shi-yong-redisson-qian-yi-redis-shu-ju.html">
+            
+                <a href="../redis/shi-yong-redisson-qian-yi-redis-shu-ju.html">
+            
+                    
+                    使用redisson迁移redis数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="../redis/redis-qing-kong-mou-ge-ku.html">
+            
+                <a href="../redis/redis-qing-kong-mou-ge-ku.html">
+            
+                    
+                    redis清空某个库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="../redis/redis-dui-xiang.html">
+            
+                <a href="../redis/redis-dui-xiang.html">
+            
+                    
+                    redis对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.6" data-path="../redis/redis-zi-fu-chuan.html">
+            
+                <a href="../redis/redis-zi-fu-chuan.html">
+            
+                    
+                    redis字符串
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.7" data-path="../redis/redis-lian-biao.html">
+            
+                <a href="../redis/redis-lian-biao.html">
+            
+                    
+                    redis链表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.8" data-path="../redis/redis-zi-dian.html">
+            
+                <a href="../redis/redis-zi-dian.html">
+            
+                    
+                    redis字典
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.9" data-path="../redis/redis-ya-suo-lie-biao.html">
+            
+                <a href="../redis/redis-ya-suo-lie-biao.html">
+            
+                    
+                    redis压缩列表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.10" data-path="../redis/redis-zheng-shu-ji-he.html">
+            
+                <a href="../redis/redis-zheng-shu-ji-he.html">
+            
+                    
+                    redis整数集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.11" data-path="../redis/redis-tiao-yue-biao.html">
+            
+                <a href="../redis/redis-tiao-yue-biao.html">
+            
+                    
+                    redis跳跃表
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../mysql/">
+            
+                <a href="../mysql/">
+            
+                    
+                    mysql
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../mysql/mysql-chuang-jian-yong-hu-bing-shou-quan.html">
+            
+                <a href="../mysql/mysql-chuang-jian-yong-hu-bing-shou-quan.html">
+            
+                    
+                    mysql创建用户并授权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.2" data-path="../mysql/mysql-zhu-cong-tong-bu-pei-zhi.html">
+            
+                <a href="../mysql/mysql-zhu-cong-tong-bu-pei-zhi.html">
+            
+                    
+                    mysql主从同步配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../c-and-cpp/">
+            
+                <a href="../c-and-cpp/">
+            
+                    
+                    c & cpp
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../c-and-cpp/zhi-zhen-han-shu-han-shu-zhi-zhen.html">
+            
+                <a href="../c-and-cpp/zhi-zhen-han-shu-han-shu-zhi-zhen.html">
+            
+                    
+                    指针函数&函数指针
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../php/">
+            
+                <a href="../php/">
+            
+                    
+                    php
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="../php/php-zong-jie.html">
+            
+                <a href="../php/php-zong-jie.html">
+            
+                    
+                    PHP总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="../php/php-dan-yuan-ce-shi-phpunit.html">
+            
+                <a href="../php/php-dan-yuan-ce-shi-phpunit.html">
+            
+                    
+                    PHP单元测试PHPUnit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="../php/php-an-zhuang-memcached-kuo-zhan.html">
+            
+                <a href="../php/php-an-zhuang-memcached-kuo-zhan.html">
+            
+                    
+                    PHP安装memcached扩展
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="../zsh/">
+            
+                <a href="../zsh/">
+            
+                    
+                    zsh
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="../zsh/zsh-bian-liang-he-yu-ju.html">
+            
+                <a href="../zsh/zsh-bian-liang-he-yu-ju.html">
+            
+                    
+                    zsh-变量和语句
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="../zsh/zsh-zi-fu-chuan-chang-yong-cao-zuo.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-chang-yong-cao-zuo.html">
+            
+                    
+                    zsh-字符串常用操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="../zsh/zsh-zi-fu-chuan-zhuan-yi-he-ge-shi-hua.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-zhuan-yi-he-ge-shi-hua.html">
+            
+                    
+                    zsh-字符串转义和格式化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="../zsh/zsh-zi-fu-chuan-tong-pei-fu.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-tong-pei-fu.html">
+            
+                    
+                    zsh-字符串通配符
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="../qian-duan/">
+            
+                <a href="../qian-duan/">
+            
+                    
+                    前端
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.17.1" data-path="../qian-duan/highlight.js-zhi-chi-dong-tai-dai-ma.html">
+            
+                <a href="../qian-duan/highlight.js-zhi-chi-dong-tai-dai-ma.html">
+            
+                    
+                    highlight.js支持动态代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.2" data-path="../qian-duan/centos7-an-zhuang-node22.html">
+            
+                <a href="../qian-duan/centos7-an-zhuang-node22.html">
+            
+                    
+                    centos7安装node22
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="../jia-gou-shi-tu-pu.html">
+            
+                <a href="../jia-gou-shi-tu-pu.html">
+            
+                    
+                    架构师图谱
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="../su-yuan-xi-tong.html">
+            
+                <a href="../su-yuan-xi-tong.html">
+            
+                    
+                    溯源系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >openclaw使用opencode模型</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="openclaw&#x4F7F;&#x7528;opencode&#x6A21;&#x578B;">openclaw&#x4F7F;&#x7528;opencode&#x6A21;&#x578B;</h1>
+<p>Claude Code &#x5F00;&#x542F; KYC &#x9A8C;&#x8BC1;&#xFF0C;&#x5927;&#x9646;&#x7528;&#x6237;&#x51E0;&#x4E4E;&#x65E0;&#x6CD5;&#x4F7F;&#x7528;&#x3002;&#x672C;&#x6587;&#x6559;&#x4F60;&#x7528; OpenCode &#x514D;&#x8D39;&#x6A21;&#x578B; + OpenClaw &#x642D;&#x5EFA;&#x81EA;&#x5DF1;&#x7684; AI Agent&#xFF0C;&#x65E0;&#x9700;&#x7FFB;&#x5899;&#xFF0C;&#x5B8C;&#x5168;&#x514D;&#x8D39;&#xFF01;</p>
+<h2 id="&#x1F6A8;-&#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x8FD9;&#x4E2A;&#x6559;&#x7A0B;&#xFF1F;">&#x1F6A8; &#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x8FD9;&#x4E2A;&#x6559;&#x7A0B;&#xFF1F;</h2>
+<p>&#x6700;&#x8FD1;&#xFF0C;Claude Code &#x5F00;&#x59CB;&#x5F3A;&#x5236;&#x8981;&#x6C42; KYC&#xFF08;&#x8EAB;&#x4EFD;&#x9A8C;&#x8BC1;&#xFF09;&#xFF0C;&#x8FD9;&#x5BF9;&#x5927;&#x9646;&#x5F00;&#x53D1;&#x8005;&#x6765;&#x8BF4;&#x7B80;&#x76F4;&#x662F;&#x5669;&#x68A6;&#xFF1A;</p>
+<ul>
+<li>&#x274C; &#x9700;&#x8981;&#x56FD;&#x5916;&#x624B;&#x673A;&#x53F7;&#x9A8C;&#x8BC1;</li>
+<li>&#x274C; &#x9700;&#x8981;&#x4FE1;&#x7528;&#x5361;&#x7ED1;&#x5B9A;</li>
+<li>&#x274C; &#x5927;&#x9646; IP &#x76F4;&#x63A5;&#x88AB;&#x62D2;</li>
+<li>&#x274C; &#x5373;&#x4F7F;&#x7FFB;&#x5899;&#x4E5F;&#x53EF;&#x80FD;&#x88AB;&#x98CE;&#x63A7;</li>
+</ul>
+<p><strong>&#x4F46;&#x662F;&#xFF01;AI Agent &#x7684;&#x65F6;&#x4EE3;&#x5DF2;&#x7ECF;&#x5230;&#x6765;&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x80FD;&#x56E0;&#x4E3A;&#x8FD9;&#x4E9B;&#x95EE;&#x9898;&#x5C31;&#x653E;&#x5F03;&#x3002;</strong></p>
+<p>OpenClaw + OpenCode &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x5B8C;&#x7F8E;&#x7684;&#x66FF;&#x4EE3;&#x65B9;&#x6848;&#xFF1A;</p>
+<ul>
+<li>&#x2705; <strong>&#x5B8C;&#x5168;&#x514D;&#x8D39;</strong>&#xFF1A;OpenCode &#x63D0;&#x4F9B;&#x514D;&#x8D39;&#x6A21;&#x578B;</li>
+<li>&#x2705; <strong>&#x65E0;&#x9700; KYC</strong>&#xFF1A;&#x53EA;&#x9700;&#x90AE;&#x7BB1;&#x6CE8;&#x518C;&#x5373;&#x53EF;</li>
+<li>&#x2705; <strong>&#x5927;&#x9646;&#x53EF;&#x7528;</strong>&#xFF1A;&#x65E0;&#x9700;&#x7FFB;&#x5899;&#xFF0C;&#x76F4;&#x8FDE;&#x8BBF;&#x95EE;</li>
+<li>&#x2705; <strong>&#x529F;&#x80FD;&#x5B8C;&#x6574;</strong>&#xFF1A;&#x652F;&#x6301;&#x6587;&#x4EF6;&#x64CD;&#x4F5C;&#x3001;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x3001;&#x6D88;&#x606F;&#x53D1;&#x9001;&#x7B49;</li>
+</ul>
+<p>&#x672C;&#x6559;&#x7A0B;&#x5C06;&#x624B;&#x628A;&#x624B;&#x6559;&#x4F60;&#x642D;&#x5EFA;&#x8FD9;&#x5957;&#x65B9;&#x6848;&#xFF0C;&#x8BA9;&#x4F60;&#x5728; AI Agent &#x6D6A;&#x6F6E;&#x4E2D;&#x4E0D;&#x6389;&#x961F;&#xFF01;</p>
+<h2 id="&#x1F4D6;-openclaw-&#x662F;&#x4EC0;&#x4E48;&#xFF1F;">&#x1F4D6; OpenClaw &#x662F;&#x4EC0;&#x4E48;&#xFF1F;</h2>
+<p>OpenClaw &#x662F;&#x4E00;&#x6B3E;&#x5F00;&#x6E90;&#x7684; AI &#x667A;&#x80FD;&#x4F53;&#xFF08;AI Agent&#xFF09;&#x6846;&#x67B6;&#xFF0C;&#x80FD;&#x591F;&#x771F;&#x6B63;&#x5E2E;&#x4F60;&#x201D;&#x5E72;&#x6D3B;&#x201D;&#xFF1A;</p>
+<ul>
+<li>&#x8BBF;&#x95EE;&#x672C;&#x5730;&#x6587;&#x4EF6;&#x3001;&#x8FD0;&#x884C;&#x7A0B;&#x5E8F;</li>
+<li>&#x53D1;&#x9001;&#x90AE;&#x4EF6;&#x3001;&#x7BA1;&#x7406;&#x65E5;&#x5386;</li>
+<li>&#x5E2E;&#x4F60;&#x5199;&#x4EE3;&#x7801;&#x3001;&#x8FD0;&#x8425;&#x516C;&#x4F17;&#x53F7;</li>
+<li>&#x751A;&#x81F3;&#x53EF;&#x4EE5;&#x66FF;&#x4F60;&#x5728;&#x5FAE;&#x4FE1;&#x4E0A;&#x56DE;&#x590D;&#x6D88;&#x606F;</li>
+</ul>
+<p>&#x7B80;&#x5355;&#x6765;&#x8BF4;&#xFF1A;<strong>&#x4F60;&#x53EA;&#x9700;&#x8981;&#x4E0B;&#x8FBE;&#x6307;&#x4EE4;&#xFF0C;&#x5B83;&#x5C31;&#x4F1A;&#x81EA;&#x52A8;&#x6267;&#x884C;&#xFF0C;&#x5168;&#x7A0B;&#x65E0;&#x9700;&#x4F60;&#x4EB2;&#x81EA;&#x52A8;&#x624B;&#x3002;</strong></p>
+<h2 id="&#x1F680;-&#x7B2C;&#x4E00;&#x6B65;&#xFF1A;&#x5B89;&#x88C5;-openclaw">&#x1F680; &#x7B2C;&#x4E00;&#x6B65;&#xFF1A;&#x5B89;&#x88C5; OpenClaw</h2>
+<h3 id="11-&#x8BBE;&#x7F6E;-npm-&#x955C;&#x50CF;&#x7AD9;&#xFF08;&#x56FD;&#x5185;&#x7528;&#x6237;&#x5FC5;&#x505A;&#xFF09;">1.1 &#x8BBE;&#x7F6E; npm &#x955C;&#x50CF;&#x7AD9;&#xFF08;&#x56FD;&#x5185;&#x7528;&#x6237;&#x5FC5;&#x505A;&#xFF09;</h3>
+<pre><code class="lang-bash">npm config <span class="hljs-built_in">set</span> registry https://registry.npmmirror.com
+</code></pre>
+<h3 id="12-&#x5B89;&#x88C5;-openclaw">1.2 &#x5B89;&#x88C5; OpenClaw</h3>
+<pre><code class="lang-shellscript">npm i -g openclaw@2026.4.9
+</code></pre>
+<h3 id="13-&#x9A8C;&#x8BC1;&#x5B89;&#x88C5;&#x6210;&#x529F;">1.3 &#x9A8C;&#x8BC1;&#x5B89;&#x88C5;&#x6210;&#x529F;</h3>
+<p><img src="../.gitbook/assets/Unknown image" alt=""></p>
+<p>&#x770B;&#x5230;&#x7248;&#x672C;&#x53F7;&#x8F93;&#x51FA;&#xFF0C;&#x8BF4;&#x660E;&#x5B89;&#x88C5;&#x6210;&#x529F;&#xFF01;</p>
+<h2 id="&#x1F511;-&#x7B2C;&#x4E8C;&#x6B65;&#xFF1A;&#x7533;&#x8BF7;-opencode-api&#xFF08;&#x65E0;&#x9700;-kyc&#xFF01;&#xFF09;">&#x1F511; &#x7B2C;&#x4E8C;&#x6B65;&#xFF1A;&#x7533;&#x8BF7; OpenCode API&#xFF08;&#x65E0;&#x9700; KYC&#xFF01;&#xFF09;</h2>
+<h3 id="21-&#x6CE8;&#x518C;&#x8D26;&#x53F7;">2.1 &#x6CE8;&#x518C;&#x8D26;&#x53F7;</h3>
+<p>&#x8BBF;&#x95EE; <a href="https://opencode.ai/" target="_blank">https://opencode.ai</a> &#x5B8C;&#x6210;&#x6CE8;&#x518C;</p>
+<p>&#x1F4A1; <strong>&#x91CD;&#x70B9;</strong>&#xFF1A;&#x53EA;&#x9700;&#x8981;&#x90AE;&#x7BB1;&#x6CE8;&#x518C;&#xFF0C;&#x65E0;&#x9700;&#x624B;&#x673A;&#x53F7;&#x3001;&#x65E0;&#x9700;&#x4FE1;&#x7528;&#x5361;&#x3001;&#x65E0;&#x9700; KYC&#xFF01;</p>
+<h3 id="22-&#x751F;&#x6210;-api-key">2.2 &#x751F;&#x6210; API Key</h3>
+<p>&#x6CE8;&#x518C;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x5728;&#x63A7;&#x5236;&#x53F0;&#x751F;&#x6210; API Key&#xFF1A;</p>
+<p><img src="../.gitbook/assets/Unknown image (1" alt="">&gt;)</p>
+<p>&#x1F4A1; <strong>&#x63D0;&#x793A;</strong>&#xFF1A;&#x70B9;&#x51FB;&#x65C1;&#x8FB9;&#x7684;&#x590D;&#x5236;&#x6309;&#x94AE;&#xFF0C;&#x7A0D;&#x540E;&#x914D;&#x7F6E;&#x65F6;&#x4F1A;&#x7528;&#x5230;</p>
+<h2 id="&#x1F916;-&#x7B2C;&#x4E09;&#x6B65;&#xFF1A;&#x7533;&#x8BF7;&#x98DE;&#x4E66;&#x673A;&#x5668;&#x4EBA;">&#x1F916; &#x7B2C;&#x4E09;&#x6B65;&#xFF1A;&#x7533;&#x8BF7;&#x98DE;&#x4E66;&#x673A;&#x5668;&#x4EBA;</h2>
+<h3 id="31-&#x521B;&#x5EFA;&#x5E94;&#x7528;">3.1 &#x521B;&#x5EFA;&#x5E94;&#x7528;</h3>
+<p>&#x8BBF;&#x95EE; <a href="https://open.feishu.cn/app?lang=zh-CN" target="_blank">&#x98DE;&#x4E66;&#x5F00;&#x653E;&#x5E73;&#x53F0;</a>&#xFF0C;&#x9009;&#x62E9;&#x300C;&#x521B;&#x5EFA;&#x4F01;&#x4E1A;&#x81EA;&#x5EFA;&#x5E94;&#x7528;&#x300D;&#xFF1A;</p>
+<p><img src="../.gitbook/assets/Unknown image (2" alt="">&gt;)</p>
+<h3 id="32-&#x586B;&#x5199;&#x5E94;&#x7528;&#x4FE1;&#x606F;">3.2 &#x586B;&#x5199;&#x5E94;&#x7528;&#x4FE1;&#x606F;</h3>
+<p><img src="../.gitbook/assets/Unknown image (3" alt="">&gt;)</p>
+<h3 id="33-&#x6DFB;&#x52A0;&#x673A;&#x5668;&#x4EBA;&#x80FD;&#x529B;">3.3 &#x6DFB;&#x52A0;&#x673A;&#x5668;&#x4EBA;&#x80FD;&#x529B;</h3>
+<p><img src="../.gitbook/assets/Unknown image (4" alt="">&gt;)</p>
+<h3 id="34-&#x914D;&#x7F6E;&#x5E94;&#x7528;&#x6743;&#x9650;">3.4 &#x914D;&#x7F6E;&#x5E94;&#x7528;&#x6743;&#x9650;</h3>
+<p>&#x5728;&#x300C;&#x6743;&#x9650;&#x7BA1;&#x7406;&#x300D;&#x9875;&#x9762;&#xFF0C;&#x70B9;&#x51FB;&#x300C;&#x6DFB;&#x52A0;&#x6743;&#x9650;&#x300D;&#xFF1A;</p>
+<p><img src="../.gitbook/assets/Unknown image (5" alt="">&gt;)</p>
+<p>&#x9009;&#x62E9;&#x300C;&#x6279;&#x91CF;&#x5BFC;&#x5165;&#x300D;&#xFF0C;&#x7C98;&#x8D34;&#x4EE5;&#x4E0B;&#x6743;&#x9650;&#x914D;&#x7F6E;&#xFF1A;</p>
+<p>
+```json
+{
+  &quot;scopes&quot;: {
+    &quot;tenant&quot;: [
+      &quot;application:application:self_manage&quot;,
+      &quot;auth:user_access_token:read&quot;,
+      &quot;base:app:copy&quot;,
+      &quot;base:app:create&quot;,
+      &quot;base:app:read&quot;,
+      &quot;base:app:update&quot;,
+      &quot;base:collaborator:create&quot;,
+      &quot;base:collaborator:delete&quot;,
+      &quot;base:collaborator:read&quot;,
+      &quot;base:dashboard:copy&quot;,
+      &quot;base:dashboard:create&quot;,
+      &quot;base:dashboard:delete&quot;,
+      &quot;base:dashboard:read&quot;,
+      &quot;base:dashboard:update&quot;,
+      &quot;base:field:create&quot;,
+      &quot;base:field:delete&quot;,
+      &quot;base:field:read&quot;,
+      &quot;base:field:update&quot;,
+      &quot;base:field_group:create&quot;,
+      &quot;base:form:create&quot;,
+      &quot;base:form:delete&quot;,
+      &quot;base:form:read&quot;,
+      &quot;base:form:update&quot;,
+      &quot;base:history:read&quot;,
+      &quot;base:record:create&quot;,
+      &quot;base:record:delete&quot;,
+      &quot;base:record:read&quot;,
+      &quot;base:record:retrieve&quot;,
+      &quot;base:record:update&quot;,
+      &quot;base:role:create&quot;,
+      &quot;base:role:delete&quot;,
+      &quot;base:role:read&quot;,
+      &quot;base:role:update&quot;,
+      &quot;base:table:create&quot;,
+      &quot;base:table:delete&quot;,
+      &quot;base:table:read&quot;,
+      &quot;base:table:update&quot;,
+      &quot;base:view:read&quot;,
+      &quot;base:view:write_only&quot;,
+      &quot;base:workflow:create&quot;,
+      &quot;base:workflow:delete&quot;,
+      &quot;base:workflow:read&quot;,
+      &quot;base:workflow:update&quot;,
+      &quot;base:workflow:write&quot;,
+      &quot;base:workspace:list&quot;,
+      &quot;bitable:app&quot;,
+      &quot;bitable:app:readonly&quot;,
+      &quot;board:whiteboard:node:create&quot;,
+      &quot;board:whiteboard:node:delete&quot;,
+      &quot;board:whiteboard:node:read&quot;,
+      &quot;board:whiteboard:node:update&quot;,
+      &quot;calendar:calendar&quot;,
+      &quot;calendar:calendar.acl:create&quot;,
+      &quot;calendar:calendar.acl:delete&quot;,
+      &quot;calendar:calendar.acl:read&quot;,
+      &quot;calendar:calendar.event:create&quot;,
+      &quot;calendar:calendar.event:delete&quot;,
+      &quot;calendar:calendar.event:read&quot;,
+      &quot;calendar:calendar.event:reply&quot;,
+      &quot;calendar:calendar.event:update&quot;,
+      &quot;calendar:calendar.free_busy:read&quot;,
+      &quot;calendar:calendar:create&quot;,
+      &quot;calendar:calendar:delete&quot;,
+      &quot;calendar:calendar:read&quot;,
+      &quot;calendar:calendar:readonly&quot;,
+      &quot;calendar:calendar:subscribe&quot;,
+      &quot;calendar:calendar:update&quot;,
+      &quot;calendar:exchange.bindings:create&quot;,
+      &quot;calendar:exchange.bindings:delete&quot;,
+      &quot;calendar:exchange.bindings:read&quot;,
+      &quot;calendar:settings.caldav:create&quot;,
+      &quot;calendar:settings.workhour:read&quot;,
+      &quot;calendar:time_off:create&quot;,
+      &quot;calendar:time_off:delete&quot;,
+      &quot;calendar:timeoff&quot;,
+      &quot;cardkit:card:read&quot;,
+      &quot;cardkit:card:write&quot;,
+      &quot;contact:contact.base:readonly&quot;,
+      &quot;contact:user.base:readonly&quot;,
+      &quot;contact:user.basic_profile:readonly&quot;,
+      &quot;contact:user.id:readonly&quot;,
+      &quot;docs:doc&quot;,
+      &quot;docs:doc:readonly&quot;,
+      &quot;docs:document.comment:create&quot;,
+      &quot;docs:document.comment:delete&quot;,
+      &quot;docs:document.comment:read&quot;,
+      &quot;docs:document.comment:update&quot;,
+      &quot;docs:document.comment:write_only&quot;,
+      &quot;docs:document.content:read&quot;,
+      &quot;docs:document.media:download&quot;,
+      &quot;docs:document.media:upload&quot;,
+      &quot;docs:document.subscription&quot;,
+      &quot;docs:document.subscription:read&quot;,
+      &quot;docs:document:copy&quot;,
+      &quot;docs:document:export&quot;,
+      &quot;docs:document:import&quot;,
+      &quot;docs:event.document_deleted:read&quot;,
+      &quot;docs:event.document_edited:read&quot;,
+      &quot;docs:event.document_opened:read&quot;,
+      &quot;docs:event:subscribe&quot;,
+      &quot;docs:permission.member&quot;,
+      &quot;docs:permission.member:auth&quot;,
+      &quot;docs:permission.member:create&quot;,
+      &quot;docs:permission.member:delete&quot;,
+      &quot;docs:permission.member:readonly&quot;,
+      &quot;docs:permission.member:retrieve&quot;,
+      &quot;docs:permission.member:transfer&quot;,
+      &quot;docs:permission.member:update&quot;,
+      &quot;docs:permission.setting&quot;,
+      &quot;docs:permission.setting:read&quot;,
+      &quot;docs:permission.setting:readonly&quot;,
+      &quot;docs:permission.setting:write_only&quot;,
+      &quot;docx:document&quot;,
+      &quot;docx:document.block:convert&quot;,
+      &quot;docx:document:create&quot;,
+      &quot;docx:document:readonly&quot;,
+      &quot;docx:document:write_only&quot;,
+      &quot;drive:drive&quot;,
+      &quot;drive:drive.metadata:readonly&quot;,
+      &quot;drive:drive.search:readonly&quot;,
+      &quot;drive:drive:readonly&quot;,
+      &quot;drive:drive:version&quot;,
+      &quot;drive:drive:version:readonly&quot;,
+      &quot;drive:export:readonly&quot;,
+      &quot;drive:file&quot;,
+      &quot;drive:file.like:readonly&quot;,
+      &quot;drive:file.meta.sec_label.read_only&quot;,
+      &quot;drive:file:download&quot;,
+      &quot;drive:file:readonly&quot;,
+      &quot;drive:file:upload&quot;,
+      &quot;drive:file:view_record:readonly&quot;,
+      &quot;im:app_feed_card:write&quot;,
+      &quot;im:chat:read&quot;,
+      &quot;im:chat:readonly&quot;,
+      &quot;im:chat:update&quot;,
+      &quot;im:datasync.feed_card.time_sensitive:write&quot;,
+      &quot;im:message.group_at_msg:readonly&quot;,
+      &quot;im:message.p2p_msg:readonly&quot;,
+      &quot;im:message.pins:read&quot;,
+      &quot;im:message.pins:write_only&quot;,
+      &quot;im:message.reactions:read&quot;,
+      &quot;im:message.reactions:write_only&quot;,
+      &quot;im:message:readonly&quot;,
+      &quot;im:message:recall&quot;,
+      &quot;im:message:send_as_bot&quot;,
+      &quot;im:message:send_multi_users&quot;,
+      &quot;im:message:send_sys_msg&quot;,
+      &quot;im:message:update&quot;,
+      &quot;im:resource&quot;,
+      &quot;minutes:minutes&quot;,
+      &quot;minutes:minutes.basic:read&quot;,
+      &quot;minutes:minutes.media:export&quot;,
+      &quot;minutes:minutes.statistics:read&quot;,
+      &quot;minutes:minutes.transcript:export&quot;,
+      &quot;minutes:minutes:readonly&quot;,
+      &quot;search:docs:read&quot;,
+      &quot;sheets:spreadsheet&quot;,
+      &quot;sheets:spreadsheet.meta:read&quot;,
+      &quot;sheets:spreadsheet.meta:write_only&quot;,
+      &quot;sheets:spreadsheet:create&quot;,
+      &quot;sheets:spreadsheet:read&quot;,
+      &quot;sheets:spreadsheet:readonly&quot;,
+      &quot;sheets:spreadsheet:write_only&quot;,
+      &quot;slides:presentation:create&quot;,
+      &quot;slides:presentation:read&quot;,
+      &quot;slides:presentation:update&quot;,
+      &quot;slides:presentation:write_only&quot;,
+      &quot;space:document.event:read&quot;,
+      &quot;space:document:delete&quot;,
+      &quot;space:document:move&quot;,
+      &quot;space:document:retrieve&quot;,
+      &quot;space:document:shortcut&quot;,
+      &quot;space:folder:create&quot;,
+      &quot;task:comment:read&quot;,
+      &quot;task:comment:readonly&quot;,
+      &quot;task:comment:write&quot;,
+      &quot;task:task&quot;,
+      &quot;task:task.event_update_tenant:readonly&quot;,
+      &quot;task:task.privilege:read&quot;,
+      &quot;task:task:read&quot;,
+      &quot;task:task:readonly&quot;,
+      &quot;task:task:write&quot;,
+      &quot;task:task:writeonly&quot;,
+      &quot;task:tasklist.privilege:read&quot;,
+      &quot;task:tasklist:read&quot;,
+      &quot;task:tasklist:write&quot;,
+      &quot;wiki:member:create&quot;,
+      &quot;wiki:member:retrieve&quot;,
+      &quot;wiki:member:update&quot;,
+      &quot;wiki:node:copy&quot;,
+      &quot;wiki:node:create&quot;,
+      &quot;wiki:node:move&quot;,
+      &quot;wiki:node:read&quot;,
+      &quot;wiki:node:retrieve&quot;,
+      &quot;wiki:node:update&quot;,
+      &quot;wiki:setting:read&quot;,
+      &quot;wiki:setting:write_only&quot;,
+      &quot;wiki:space:read&quot;,
+      &quot;wiki:space:retrieve&quot;,
+      &quot;wiki:space:write_only&quot;,
+      &quot;wiki:wiki&quot;,
+      &quot;wiki:wiki:readonly&quot;
+    ],
+    &quot;user&quot;: [
+      &quot;base:app:copy&quot;,
+      &quot;base:app:create&quot;,
+      &quot;base:app:read&quot;,
+      &quot;base:app:update&quot;,
+      &quot;base:collaborator:create&quot;,
+      &quot;base:collaborator:delete&quot;,
+      &quot;base:collaborator:read&quot;,
+      &quot;base:dashboard:copy&quot;,
+      &quot;base:dashboard:create&quot;,
+      &quot;base:dashboard:delete&quot;,
+      &quot;base:dashboard:read&quot;,
+      &quot;base:dashboard:update&quot;,
+      &quot;base:field:create&quot;,
+      &quot;base:field:delete&quot;,
+      &quot;base:field:read&quot;,
+      &quot;base:field:update&quot;,
+      &quot;base:field_group:create&quot;,
+      &quot;base:form:create&quot;,
+      &quot;base:form:delete&quot;,
+      &quot;base:form:read&quot;,
+      &quot;base:form:update&quot;,
+      &quot;base:history:read&quot;,
+      &quot;base:record:create&quot;,
+      &quot;base:record:delete&quot;,
+      &quot;base:record:read&quot;,
+      &quot;base:record:retrieve&quot;,
+      &quot;base:record:update&quot;,
+      &quot;base:role:create&quot;,
+      &quot;base:role:delete&quot;,
+      &quot;base:role:read&quot;,
+      &quot;base:role:update&quot;,
+      &quot;base:table:create&quot;,
+      &quot;base:table:delete&quot;,
+      &quot;base:table:read&quot;,
+      &quot;base:table:update&quot;,
+      &quot;base:view:read&quot;,
+      &quot;base:view:write_only&quot;,
+      &quot;base:workflow:create&quot;,
+      &quot;base:workflow:delete&quot;,
+      &quot;base:workflow:read&quot;,
+      &quot;base:workflow:update&quot;,
+      &quot;base:workflow:write&quot;,
+      &quot;base:workspace:list&quot;,
+      &quot;bitable:app&quot;,
+      &quot;bitable:app:readonly&quot;,
+      &quot;board:whiteboard:node:create&quot;,
+      &quot;board:whiteboard:node:delete&quot;,
+      &quot;board:whiteboard:node:read&quot;,
+      &quot;board:whiteboard:node:update&quot;,
+      &quot;calendar:calendar&quot;,
+      &quot;calendar:calendar.acl:create&quot;,
+      &quot;calendar:calendar.acl:delete&quot;,
+      &quot;calendar:calendar.acl:read&quot;,
+      &quot;calendar:calendar.event:create&quot;,
+      &quot;calendar:calendar.event:delete&quot;,
+      &quot;calendar:calendar.event:read&quot;,
+      &quot;calendar:calendar.event:reply&quot;,
+      &quot;calendar:calendar.event:update&quot;,
+      &quot;calendar:calendar.free_busy:read&quot;,
+      &quot;calendar:calendar:create&quot;,
+      &quot;calendar:calendar:delete&quot;,
+      &quot;calendar:calendar:read&quot;,
+      &quot;calendar:calendar:readonly&quot;,
+      &quot;calendar:calendar:subscribe&quot;,
+      &quot;calendar:calendar:update&quot;,
+      &quot;calendar:exchange.bindings:create&quot;,
+      &quot;calendar:exchange.bindings:delete&quot;,
+      &quot;calendar:exchange.bindings:read&quot;,
+      &quot;calendar:settings.caldav:create&quot;,
+      &quot;calendar:settings.workhour:read&quot;,
+      &quot;calendar:time_off:create&quot;,
+      &quot;calendar:time_off:delete&quot;,
+      &quot;cardkit:card:read&quot;,
+      &quot;cardkit:card:write&quot;,
+      &quot;cardkit:template:read&quot;,
+      &quot;contact:contact.base:readonly&quot;,
+      &quot;contact:user.base:readonly&quot;,
+      &quot;contact:user.basic_profile:readonly&quot;,
+      &quot;contact:user.employee_id:readonly&quot;,
+      &quot;contact:user.id:readonly&quot;,
+      &quot;contact:user:search&quot;,
+      &quot;docs:doc&quot;,
+      &quot;docs:doc:readonly&quot;,
+      &quot;docs:document.comment:create&quot;,
+      &quot;docs:document.comment:delete&quot;,
+      &quot;docs:document.comment:read&quot;,
+      &quot;docs:document.comment:update&quot;,
+      &quot;docs:document.comment:write_only&quot;,
+      &quot;docs:document.content:read&quot;,
+      &quot;docs:document.media:download&quot;,
+      &quot;docs:document.media:upload&quot;,
+      &quot;docs:document.subscription&quot;,
+      &quot;docs:document.subscription:read&quot;,
+      &quot;docs:document:copy&quot;,
+      &quot;docs:document:export&quot;,
+      &quot;docs:document:import&quot;,
+      &quot;docs:event.document_deleted:read&quot;,
+      &quot;docs:event.document_edited:read&quot;,
+      &quot;docs:event.document_opened:read&quot;,
+      &quot;docs:event:subscribe&quot;,
+      &quot;docs:permission.member&quot;,
+      &quot;docs:permission.member:auth&quot;,
+      &quot;docs:permission.member:create&quot;,
+      &quot;docs:permission.member:delete&quot;,
+      &quot;docs:permission.member:readonly&quot;,
+      &quot;docs:permission.member:retrieve&quot;,
+      &quot;docs:permission.member:transfer&quot;,
+      &quot;docs:permission.member:update&quot;,
+      &quot;docs:permission.setting&quot;,
+      &quot;docs:permission.setting:read&quot;,
+      &quot;docs:permission.setting:readonly&quot;,
+      &quot;docs:permission.setting:write_only&quot;,
+      &quot;docx:document&quot;,
+      &quot;docx:document.block:convert&quot;,
+      &quot;docx:document:create&quot;,
+      &quot;docx:document:readonly&quot;,
+      &quot;docx:document:write_only&quot;,
+      &quot;drive:drive&quot;,
+      &quot;drive:drive.metadata:readonly&quot;,
+      &quot;drive:drive.search:readonly&quot;,
+      &quot;drive:drive:readonly&quot;,
+      &quot;drive:drive:version&quot;,
+      &quot;drive:drive:version:readonly&quot;,
+      &quot;drive:export:readonly&quot;,
+      &quot;drive:file&quot;,
+      &quot;drive:file.like:readonly&quot;,
+      &quot;drive:file.meta.sec_label.read_only&quot;,
+      &quot;drive:file:download&quot;,
+      &quot;drive:file:readonly&quot;,
+      &quot;drive:file:upload&quot;,
+      &quot;drive:file:view_record:readonly&quot;,
+      &quot;im:chat&quot;,
+      &quot;im:chat.access_event.bot_p2p_chat:read&quot;,
+      &quot;im:chat.announcement:read&quot;,
+      &quot;im:chat.announcement:write_only&quot;,
+      &quot;im:chat.chat_pins:read&quot;,
+      &quot;im:chat.chat_pins:write_only&quot;,
+      &quot;im:chat.collab_plugins:read&quot;,
+      &quot;im:chat.collab_plugins:write_only&quot;,
+      &quot;im:chat.managers:write_only&quot;,
+      &quot;im:chat.members:read&quot;,
+      &quot;im:chat.members:write_only&quot;,
+      &quot;im:chat.moderation:read&quot;,
+      &quot;im:chat.tabs:read&quot;,
+      &quot;im:chat.tabs:write_only&quot;,
+      &quot;im:chat.top_notice:write_only&quot;,
+      &quot;im:chat:create_by_user&quot;,
+      &quot;im:chat:delete&quot;,
+      &quot;im:chat:moderation:write_only&quot;,
+      &quot;im:chat:read&quot;,
+      &quot;im:chat:readonly&quot;,
+      &quot;im:chat:update&quot;,
+      &quot;im:message&quot;,
+      &quot;im:message.group_msg:get_as_user&quot;,
+      &quot;im:message.p2p_msg:get_as_user&quot;,
+      &quot;im:message.pins:read&quot;,
+      &quot;im:message.pins:write_only&quot;,
+      &quot;im:message.reactions:read&quot;,
+      &quot;im:message.reactions:write_only&quot;,
+      &quot;im:message.send_as_user&quot;,
+      &quot;im:message.urgent.status:write&quot;,
+      &quot;im:message:readonly&quot;,
+      &quot;im:message:recall&quot;,
+      &quot;im:message:update&quot;,
+      &quot;offline_access&quot;,
+      &quot;search:docs:read&quot;,
+      &quot;search:message&quot;,
+      &quot;sheets:spreadsheet&quot;,
+      &quot;sheets:spreadsheet.meta:read&quot;,
+      &quot;sheets:spreadsheet.meta:write_only&quot;,
+      &quot;sheets:spreadsheet:create&quot;,
+      &quot;sheets:spreadsheet:read&quot;,
+      &quot;sheets:spreadsheet:readonly&quot;,
+      &quot;sheets:spreadsheet:write_only&quot;,
+      &quot;slides:presentation:create&quot;,
+      &quot;slides:presentation:read&quot;,
+      &quot;slides:presentation:update&quot;,
+      &quot;slides:presentation:write_only&quot;,
+      &quot;space:document.event:read&quot;,
+      &quot;space:document:delete&quot;,
+      &quot;space:document:move&quot;,
+      &quot;space:document:retrieve&quot;,
+      &quot;space:document:shortcut&quot;,
+      &quot;space:folder:create&quot;,
+      &quot;task:comment:read&quot;,
+      &quot;task:comment:readonly&quot;,
+      &quot;task:comment:write&quot;,
+      &quot;task:task&quot;,
+      &quot;task:task:read&quot;,
+      &quot;task:task:readonly&quot;,
+      &quot;task:task:write&quot;,
+      &quot;task:task:writeonly&quot;,
+      &quot;task:tasklist:read&quot;,
+      &quot;task:tasklist:write&quot;,
+      &quot;wiki:member:create&quot;,
+      &quot;wiki:member:retrieve&quot;,
+      &quot;wiki:member:update&quot;,
+      &quot;wiki:node:copy&quot;,
+      &quot;wiki:node:create&quot;,
+      &quot;wiki:node:move&quot;,
+      &quot;wiki:node:read&quot;,
+      &quot;wiki:node:retrieve&quot;,
+      &quot;wiki:node:update&quot;,
+      &quot;wiki:setting:read&quot;,
+      &quot;wiki:setting:write_only&quot;,
+      &quot;wiki:space:read&quot;,
+      &quot;wiki:space:retrieve&quot;,
+      &quot;wiki:space:write_only&quot;,
+      &quot;wiki:wiki&quot;,
+      &quot;wiki:wiki:readonly&quot;
+    ]
+  }
+}
+```
+</p>
+<p>&#x1F4A1; <strong>&#x7B80;&#x5316;&#x63D0;&#x793A;</strong>&#xFF1A;&#x4E0A;&#x9762;&#x662F;&#x7CBE;&#x7B80;&#x7248;&#x6743;&#x9650;&#x914D;&#x7F6E;&#x3002;&#x5982;&#x9700;&#x5B8C;&#x6574;&#x6743;&#x9650;&#xFF0C;&#x53EF;&#x5728;&#x6743;&#x9650;&#x7BA1;&#x7406;&#x9875;&#x9762;&#x624B;&#x52A8;&#x9009;&#x62E9;&#x300C;&#x5168;&#x90E8;&#x300D;&#x3002;</p>
+<p>&#x914D;&#x7F6E;&#x5B8C;&#x6210;&#x540E;&#xFF1A;</p>
+<p><img src="../.gitbook/assets/Unknown image (6" alt="">&gt;)</p>
+<h3 id="35-&#x914D;&#x7F6E;&#x4E8B;&#x4EF6;&#x8BA2;&#x9605;">3.5 &#x914D;&#x7F6E;&#x4E8B;&#x4EF6;&#x8BA2;&#x9605;</h3>
+<p>&#x5728;&#x300C;&#x4E8B;&#x4EF6;&#x8BA2;&#x9605;&#x300D;&#x9875;&#x9762;&#xFF1A;</p>
+<ol>
+<li><strong>&#x8BA2;&#x9605;&#x65B9;&#x5F0F;</strong>&#xFF1A;&#x9009;&#x62E9;&#x300C;&#x957F;&#x8FDE;&#x63A5;&#x300D;</li>
+</ol>
+<p><img src="../.gitbook/assets/Unknown image (7" alt="">&gt;)</p>
+<ol>
+<li><strong>&#x6DFB;&#x52A0;&#x4E8B;&#x4EF6;</strong>&#xFF1A;&#x70B9;&#x51FB;&#x300C;&#x6DFB;&#x52A0;&#x4E8B;&#x4EF6;&#x300D;&#xFF0C;&#x9009;&#x62E9;&#x4EE5;&#x4E0B; 4 &#x4E2A;&#x4E8B;&#x4EF6;&#xFF1A;</li>
+</ol>
+<p>im.chat.member.bot.added_v1 # &#x673A;&#x5668;&#x4EBA;&#x88AB;&#x6DFB;&#x52A0;&#x5230;&#x7FA4;&#x804A;im.message.reaction.created_v1 # &#x6D88;&#x606F;&#x8868;&#x60C5;&#x53CD;&#x5E94;&#x521B;&#x5EFA;im.message.reaction.deleted_v1 # &#x6D88;&#x606F;&#x8868;&#x60C5;&#x53CD;&#x5E94;&#x5220;&#x9664;im.message.receive_v1 # &#x63A5;&#x6536;&#x6D88;&#x606F;</p>
+<h3 id="36-&#x521B;&#x5EFA;&#x7248;&#x672C;&#x5E76;&#x53D1;&#x5E03;">3.6 &#x521B;&#x5EFA;&#x7248;&#x672C;&#x5E76;&#x53D1;&#x5E03;</h3>
+<p>&#x70B9;&#x51FB;&#x300C;&#x521B;&#x5EFA;&#x7248;&#x672C;&#x300D;&#xFF1A;</p>
+<p><img src="../.gitbook/assets/Unknown image (8" alt="">&gt;)</p>
+<p>&#x586B;&#x5199;&#x7248;&#x672C;&#x4FE1;&#x606F;&#x5E76;&#x53D1;&#x5E03;&#xFF1A;</p>
+<p><img src="../.gitbook/assets/Unknown image (9" alt="">&gt;)</p>
+<p>&#x53D1;&#x5E03;&#x540E;&#xFF0C;&#x98DE;&#x4E66;&#x4F1A;&#x6536;&#x5230;&#x63A8;&#x9001;&#x901A;&#x77E5;&#xFF0C;&#x70B9;&#x51FB;&#x6253;&#x5F00;&#x5E94;&#x7528;&#xFF1A;</p>
+<p><img src="../.gitbook/assets/Unknown image (10" alt="">&gt;)</p>
+<p>&#x26A0;&#xFE0F; <strong>&#x6CE8;&#x610F;</strong>&#xFF1A;&#x9700;&#x8981;&#x5728;&#x98DE;&#x4E66;&#x5BA2;&#x6237;&#x7AEF;&#x4E2D;&#x6253;&#x5F00;&#x5E94;&#x7528;</p>
+<p>&#x6253;&#x5F00;&#x540E;&#xFF0C;&#x4F60;&#x5C31;&#x53EF;&#x4EE5;&#x548C;&#x673A;&#x5668;&#x4EBA;&#x804A;&#x5929;&#x4E86;&#xFF1A;</p>
+<p><img src="../.gitbook/assets/Unknown image (11" alt="">&gt;)</p>
+<h3 id="37-&#x83B7;&#x53D6;-app-id-&#x548C;-app-secret">3.7 &#x83B7;&#x53D6; App ID &#x548C; App Secret</h3>
+<p>&#x5728;&#x300C;&#x51ED;&#x8BC1;&#x4E0E;&#x57FA;&#x7840;&#x4FE1;&#x606F;&#x300D;&#x9875;&#x9762;&#xFF0C;&#x590D;&#x5236;&#x4EE5;&#x4E0B;&#x4FE1;&#x606F;&#xFF1A;</p>
+<p><img src="../.gitbook/assets/Unknown image (12" alt="">&gt;)</p>
+<h2 id="&#x2699;&#xFE0F;-&#x7B2C;&#x56DB;&#x6B65;&#xFF1A;&#x914D;&#x7F6E;-openclaw">&#x2699;&#xFE0F; &#x7B2C;&#x56DB;&#x6B65;&#xFF1A;&#x914D;&#x7F6E; OpenClaw</h2>
+<h3 id="41-&#x542F;&#x52A8;&#x914D;&#x7F6E;&#x5411;&#x5BFC;">4.1 &#x542F;&#x52A8;&#x914D;&#x7F6E;&#x5411;&#x5BFC;</h3>
+<p>
+```shellscript
+openclaw onboard --mode local
+```
+</p>
+<h3 id="42-&#x6309;&#x63D0;&#x793A;&#x5B8C;&#x6210;&#x914D;&#x7F6E;">4.2 &#x6309;&#x63D0;&#x793A;&#x5B8C;&#x6210;&#x914D;&#x7F6E;</h3>
+<p>&#x914D;&#x7F6E;&#x8FC7;&#x7A0B;&#x4E2D;&#x4F1A;&#x51FA;&#x73B0;&#x4E00;&#x7CFB;&#x5217;&#x9009;&#x62E9;&#x9879;&#xFF1A;</p>
+<p><strong>&#x524D;&#x51E0;&#x6B65;&#x9009;&#x62E9;</strong>&#xFF1A; - &#x2705; yes&#xFF08;&#x540C;&#x610F;&#x6761;&#x6B3E;&#xFF09; - &#x2705; manual&#xFF08;&#x624B;&#x52A8;&#x914D;&#x7F6E;&#xFF09; - &#x2705; local&#xFF08;&#x672C;&#x5730;&#x6A21;&#x5F0F;&#xFF09; - &#x23CE; &#x9ED8;&#x8BA4;&#xFF08;&#x76F4;&#x63A5;&#x56DE;&#x8F66;&#xFF09;</p>
+<p><img src="../.gitbook/assets/Unknown image (13" alt="">&gt;)</p>
+<p><strong>&#x5173;&#x952E;&#x914D;&#x7F6E;&#x9879;</strong>&#xFF1A;</p>
+<ol>
+<li><strong>Model/auth provider</strong>&#xFF1A;&#x9009;&#x62E9; opencode</li>
+<li><strong>OpenCode auth method</strong>&#xFF1A;&#x9009;&#x62E9; OpenCode Zen catalog</li>
+</ol>
+<p><img src="../.gitbook/assets/Unknown image (14" alt="">&gt;)</p>
+<ol>
+<li><strong>&#x8F93;&#x5165; OpenCode API Key</strong>&#xFF1A;&#x7C98;&#x8D34;&#x7B2C;&#x4E8C;&#x6B65;&#x83B7;&#x53D6;&#x7684;&#x5BC6;&#x94A5;</li>
+<li><strong>Default model</strong>&#xFF1A;&#x9009;&#x62E9;&#x5E26; free &#x5B57;&#x6837;&#x7684;&#x514D;&#x8D39;&#x6A21;&#x578B;&#xFF0C;&#x63A8;&#x8350; minima-m2.5-free</li>
+</ol>
+<p><img src="../.gitbook/assets/Unknown image (15" alt="">&gt;)</p>
+<ol>
+<li><strong>Channels</strong>&#xFF1A;&#x9009;&#x62E9; feishu</li>
+</ol>
+<p><img src="../.gitbook/assets/Unknown image (16" alt="">&gt;)</p>
+<p><img src="../.gitbook/assets/Unknown image (17" alt="">&gt;)</p>
+<h3 id="43-&#x98DE;&#x4E66;&#x6388;&#x6743;">4.3 &#x98DE;&#x4E66;&#x6388;&#x6743;</h3>
+<p>&#x6839;&#x636E;&#x7248;&#x672C;&#x4E0D;&#x540C;&#xFF0C;&#x6709;&#x4E24;&#x79CD;&#x6388;&#x6743;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<p><strong>&#x65B9;&#x5F0F;&#x4E00;&#xFF1A;&#x626B;&#x7801;&#x6388;&#x6743;</strong> - &#x4F7F;&#x7528;&#x98DE;&#x4E66;&#x5BA2;&#x6237;&#x7AEF;&#x626B;&#x63CF;&#x4E8C;&#x7EF4;&#x7801; - &#x9009;&#x62E9;&#x300C;&#x5DF2;&#x6709;&#x673A;&#x5668;&#x4EBA;&#x300D;</p>
+<p><strong>&#x65B9;&#x5F0F;&#x4E8C;&#xFF1A;&#x624B;&#x52A8;&#x586B;&#x5199;</strong> - &#x8F93;&#x5165;&#x7B2C;&#x4E09;&#x6B65;&#x83B7;&#x53D6;&#x7684; App ID &#x548C; App Secret</p>
+<h3 id="44-&#x5B89;&#x88C5;-gateway">4.4 &#x5B89;&#x88C5; Gateway</h3>
+<p>
+```shellscript
+openclaw gateway install
+```
+</p>
+<h3 id="45-&#x5B8C;&#x6210;&#x9A8C;&#x8BC1;">4.5 &#x5B8C;&#x6210;&#x9A8C;&#x8BC1;</h3>
+<p>&#x5982;&#x679C;&#x4F7F;&#x7528;&#x624B;&#x52A8;&#x586B;&#x5199;&#x65B9;&#x5F0F;&#xFF0C;&#x98DE;&#x4E66;&#x673A;&#x5668;&#x4EBA;&#x4F1A;&#x53D1;&#x9001;&#x4E00;&#x6761;&#x9A8C;&#x8BC1;&#x547D;&#x4EE4;&#xFF1A;</p>
+<p><img src="../.gitbook/assets/Unknown image (18" alt="">&gt;)</p>
+<p>&#x590D;&#x5236;&#x8BE5;&#x547D;&#x4EE4;&#x5230;&#x7EC8;&#x7AEF;&#x6267;&#x884C;&#xFF0C;&#x5373;&#x53EF;&#x5B8C;&#x6210;&#x914D;&#x7F6E;&#x3002;</p>
+<h2 id="&#x2705;-&#x5B8C;&#x6210;&#xFF01;&#x5F00;&#x59CB;&#x4F60;&#x7684;-ai-agent-&#x4E4B;&#x65C5;">&#x2705; &#x5B8C;&#x6210;&#xFF01;&#x5F00;&#x59CB;&#x4F60;&#x7684; AI Agent &#x4E4B;&#x65C5;</h2>
+<p>&#x73B0;&#x5728;&#x4F60;&#x53EF;&#x4EE5;&#x5728;&#x98DE;&#x4E66;&#x4E2D;&#x7ED9;&#x673A;&#x5668;&#x4EBA;&#x53D1;&#x9001;&#x6D88;&#x606F;&#xFF0C;&#x4F53;&#x9A8C; AI Agent &#x7684;&#x5F3A;&#x5927;&#x529F;&#x80FD;&#x4E86;&#xFF01;</p>
+<p><strong>&#x76F8;&#x6BD4; Claude Code&#xFF0C;&#x8FD9;&#x5957;&#x65B9;&#x6848;&#x7684;&#x4F18;&#x52BF;</strong>&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th>&#x7279;&#x6027;</th>
+<th>Claude Code</th>
+<th>OpenClaw + OpenCode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KYC &#x9A8C;&#x8BC1;</td>
+<td>&#x2705; &#x5FC5;&#x987B;</td>
+<td>&#x274C; &#x4E0D;&#x9700;&#x8981;</td>
+</tr>
+<tr>
+<td>&#x5927;&#x9646;&#x53EF;&#x7528;</td>
+<td>&#x274C; &#x56F0;&#x96BE;</td>
+<td>&#x2705; &#x5B8C;&#x5168;&#x652F;&#x6301;</td>
+</tr>
+<tr>
+<td>&#x8D39;&#x7528;</td>
+<td>&#x1F4B0; &#x4ED8;&#x8D39;</td>
+<td>&#x1F193; &#x514D;&#x8D39;</td>
+</tr>
+<tr>
+<td>&#x7FFB;&#x5899;&#x9700;&#x6C42;</td>
+<td>&#x2705; &#x9700;&#x8981;</td>
+<td>&#x274C; &#x4E0D;&#x9700;&#x8981;</td>
+</tr>
+<tr>
+<td>&#x529F;&#x80FD;&#x5B8C;&#x6574;&#x6027;</td>
+<td>&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</td>
+<td>&#x2B50;&#x2B50;&#x2B50;&#x2B50;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="&#x1F4A1;-&#x5E38;&#x89C1;&#x95EE;&#x9898;">&#x1F4A1; &#x5E38;&#x89C1;&#x95EE;&#x9898;</h2>
+<h3 id="q1-&#x5B89;&#x88C5;&#x5931;&#x8D25;&#x600E;&#x4E48;&#x529E;&#xFF1F;">Q1: &#x5B89;&#x88C5;&#x5931;&#x8D25;&#x600E;&#x4E48;&#x529E;&#xFF1F;</h3>
+<p>&#x786E;&#x4FDD;&#x5DF2;&#x6B63;&#x786E;&#x8BBE;&#x7F6E; npm &#x955C;&#x50CF;&#x7AD9;&#xFF0C;&#x6216;&#x5C1D;&#x8BD5;&#x4F7F;&#x7528;&#x4EE3;&#x7406;&#x3002;</p>
+<h3 id="q2-&#x673A;&#x5668;&#x4EBA;&#x4E0D;&#x56DE;&#x590D;&#x6D88;&#x606F;&#xFF1F;">Q2: &#x673A;&#x5668;&#x4EBA;&#x4E0D;&#x56DE;&#x590D;&#x6D88;&#x606F;&#xFF1F;</h3>
+<p>&#x68C0;&#x67E5;&#x4E8B;&#x4EF6;&#x8BA2;&#x9605;&#x662F;&#x5426;&#x6B63;&#x786E;&#x914D;&#x7F6E;&#xFF0C;&#x786E;&#x4FDD; Gateway &#x5DF2;&#x542F;&#x52A8;&#x3002;</p>
+<h3 id="q3-&#x5982;&#x4F55;&#x5207;&#x6362;&#x6A21;&#x578B;&#xFF1F;">Q3: &#x5982;&#x4F55;&#x5207;&#x6362;&#x6A21;&#x578B;&#xFF1F;</h3>
+<p>&#x91CD;&#x65B0;&#x8FD0;&#x884C; openclaw onboard &#x547D;&#x4EE4;&#xFF0C;&#x5728;&#x914D;&#x7F6E;&#x5411;&#x5BFC;&#x4E2D;&#x9009;&#x62E9;&#x5176;&#x4ED6;&#x6A21;&#x578B;&#x3002;</p>
+<h3 id="q4-opencode-&#x514D;&#x8D39;&#x6A21;&#x578B;&#x591F;&#x7528;&#x5417;&#xFF1F;">Q4: OpenCode &#x514D;&#x8D39;&#x6A21;&#x578B;&#x591F;&#x7528;&#x5417;&#xFF1F;</h3>
+<p>&#x5BF9;&#x4E8E;&#x65E5;&#x5E38;&#x4F7F;&#x7528;&#x5B8C;&#x5168;&#x591F;&#x7528;&#xFF01;&#x5982;&#x679C;&#x9700;&#x8981;&#x66F4;&#x5F3A;&#x5927;&#x7684;&#x80FD;&#x529B;&#xFF0C;OpenCode &#x4E5F;&#x63D0;&#x4F9B;&#x4ED8;&#x8D39;&#x6A21;&#x578B;&#x3002;</p>
+<h2 id="&#x1F4DA;-&#x76F8;&#x5173;&#x94FE;&#x63A5;">&#x1F4DA; &#x76F8;&#x5173;&#x94FE;&#x63A5;</h2>
+<ul>
+<li><a href="https://github.com/openclaw" target="_blank">OpenClaw &#x5B98;&#x65B9;&#x6587;&#x6863;</a></li>
+<li><a href="https://opencode.ai/" target="_blank">OpenCode &#x5E73;&#x53F0;</a></li>
+<li><a href="https://open.feishu.cn/" target="_blank">&#x98DE;&#x4E66;&#x5F00;&#x653E;&#x5E73;&#x53F0;</a></li>
+</ul>
+<p><strong>&#x522B;&#x8BA9; KYC &#x963B;&#x6321;&#x4F60;&#x7684; AI Agent &#x4E4B;&#x8DEF;&#xFF01;&#x7ACB;&#x5373;&#x5F00;&#x59CB;&#x642D;&#x5EFA;&#x4F60;&#x7684;&#x4E13;&#x5C5E; AI &#x52A9;&#x624B;&#x5427;&#xFF01;</strong></p>
+<p><strong>&#x5982;&#x6709;&#x95EE;&#x9898;&#xFF0C;&#x6B22;&#x8FCE;&#x7559;&#x8A00;&#x4EA4;&#x6D41;&#x3002;</strong></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="claude-code-cli-jie-ru-glm-mian-fei-mo-xing.html" class="navigation navigation-prev " aria-label="Previous page: claude code cli接入GLM免费模型">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../python/" class="navigation navigation-next " aria-label="Next page: python">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"openclaw使用opencode模型","level":"1.3.2","depth":2,"next":{"title":"python","level":"1.4","depth":1,"path":"python/README.md","ref":"python/README.md","articles":[{"title":"centos 安装miniconda","level":"1.4.1","depth":2,"path":"python/centos-an-zhuang-miniconda.md","ref":"python/centos-an-zhuang-miniconda.md","articles":[]},{"title":"pip安装走socks代理","level":"1.4.2","depth":2,"path":"python/pip-an-zhuang-zou-socks-dai-li.md","ref":"python/pip-an-zhuang-zou-socks-dai-li.md","articles":[]},{"title":"爬虫相关","level":"1.4.3","depth":2,"path":"python/pa-chong-xiang-guan.md","ref":"python/pa-chong-xiang-guan.md","articles":[]},{"title":"playwright使用小技巧","level":"1.4.4","depth":2,"path":"python/playwright-shi-yong-xiao-ji-qiao.md","ref":"python/playwright-shi-yong-xiao-ji-qiao.md","articles":[]}]},"previous":{"title":"claude code cli接入GLM免费模型","level":"1.3.1","depth":2,"path":"ai/claude-code-cli-jie-ru-glm-mian-fei-mo-xing.md","ref":"ai/claude-code-cli-jie-ru-glm-mian-fei-mo-xing.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","splitter","expandable-chapters-small","github","github-buttons","favicon","expandable-chapters-small","copy-code-button"],"styles":{"website":"./styles/website.css"},"pluginsConfig":{"github":{"url":"https://github.com/kennethfan"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":{"shortcut":"./source/images/favicon.jpg","bookmark":"./source/images/favicon.jpg","appleTouch":"./source/images/apple-touch-icon.jpg","appleTouchMore":{"120x120":"./source/images/apple-touch-icon.jpg","180x180":"./source/images/apple-touch-icon.jpg"}},"github-buttons":{"buttons":[{"user":"kennethfan","repo":"gitbook","type":"star","size":"small","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"theme":"default","author":"椒哥","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"椒哥碎碎念","language":"zh-hans","links":{"sidebar":{}},"gitbook":"3.2.3","description":"select * from learn"},"file":{"path":"ai/openclaw-shi-yong-opencode-mo-xing.md","mtime":"2026-04-16T15:16:26.408Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-04-16T15:17:02.947Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

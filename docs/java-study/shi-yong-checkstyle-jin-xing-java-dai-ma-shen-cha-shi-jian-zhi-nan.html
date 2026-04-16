@@ -1,0 +1,2037 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>使用Checkstyle进行Java代码审查：实践指南 · 椒哥碎碎念</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="椒哥">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+
+        
+    
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../ai/" />
+    
+    
+    <link rel="prev" href="open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html" />
+    
+
+    
+        <link rel="shortcut icon" href='../source/images/favicon.jpg' type="image/x-icon">
+    
+    
+        <link rel="bookmark" href='../source/images/favicon.jpg' type="image/x-icon">
+    
+    
+        <link rel="apple-touch-icon" href='../source/images/apple-touch-icon.jpg'>
+    
+    
+        
+        <link rel="apple-touch-icon" sizes="120x120" href="../source/images/apple-touch-icon.jpg">
+        
+        <link rel="apple-touch-icon" sizes="180x180" href="../source/images/apple-touch-icon.jpg">
+        
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"buttons":[{"user":"kennethfan","repo":"gitbook","type":"star","size":"small","count":true}]};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    个人简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Java学习
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="maven-zhi-ding-xu-yao-de-mo-kuai-da-bao.html">
+            
+                <a href="maven-zhi-ding-xu-yao-de-mo-kuai-da-bao.html">
+            
+                    
+                    maven指定需要的模块打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="dynamicdatasource-shi-xian-shu-ju-du-xie-fen-li.html">
+            
+                <a href="dynamicdatasource-shi-xian-shu-ju-du-xie-fen-li.html">
+            
+                    
+                    dynamic-datasource实现数据读写分离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="redis-zhu-cong-jia-gou-li-yong-lettuce-shi-xian-du-xie-fen-li.html">
+            
+                <a href="redis-zhu-cong-jia-gou-li-yong-lettuce-shi-xian-du-xie-fen-li.html">
+            
+                    
+                    redis主从架构利用lettuce实现读写分离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="java-filter-xiu-gai-request-nei-rong-he-response-nei-rong.html">
+            
+                <a href="java-filter-xiu-gai-request-nei-rong-he-response-nei-rong.html">
+            
+                    
+                    java filter修改request内容和response内容
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="javacompiler-dong-tai-bian-yi-java-dai-ma.html">
+            
+                <a href="javacompiler-dong-tai-bian-yi-java-dai-ma.html">
+            
+                    
+                    JavaCompiler动态编译java代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="jdk-dong-tai-dai-li.html">
+            
+                <a href="jdk-dong-tai-dai-li.html">
+            
+                    
+                    JDK动态代理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="lei-ge-li.html">
+            
+                <a href="lei-ge-li.html">
+            
+                    
+                    类隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="jnr-tiao-yong-ben-di-dong-tai-lian-jie-ku.html">
+            
+                <a href="jnr-tiao-yong-ben-di-dong-tai-lian-jie-ku.html">
+            
+                    
+                    JNR调用本地动态链接库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="javac-ming-ling-bian-yi-java-ming-ling-yun-hang-dai-ma.html">
+            
+                <a href="javac-ming-ling-bian-yi-java-ming-ling-yun-hang-dai-ma.html">
+            
+                    
+                    javac命令编译\&java命令运行代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="java-huo-qu-ying-jian-xin-xi.html">
+            
+                <a href="java-huo-qu-ying-jian-xin-xi.html">
+            
+                    
+                    java获取硬件信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="conditional-shi-xian-bean-an-xu-jia-zai.html">
+            
+                <a href="conditional-shi-xian-bean-an-xu-jia-zai.html">
+            
+                    
+                    Conditional实现bean按需加载
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="spring-boot-actuator-da-pei-jenkins-shi-xian-fa-bu-jian-kang-jian-cha-he-bao-jing.html">
+            
+                <a href="spring-boot-actuator-da-pei-jenkins-shi-xian-fa-bu-jian-kang-jian-cha-he-bao-jing.html">
+            
+                    
+                    spring boot actuator搭配jenkins实现发布健康检查和报警
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.13" data-path="nacos-pei-zhi-wen-jian-yu-fa-jian-ce-bao-jing.html">
+            
+                <a href="nacos-pei-zhi-wen-jian-yu-fa-jian-ce-bao-jing.html">
+            
+                    
+                    nacos配置文件语法检测&报警
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14" data-path="java-shi-yong-mmap.html">
+            
+                <a href="java-shi-yong-mmap.html">
+            
+                    
+                    java使用mmap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.15" data-path="java-shi-yong-page-cache.html">
+            
+                <a href="java-shi-yong-page-cache.html">
+            
+                    
+                    java使用page cache
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.16" data-path="spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.html">
+            
+                <a href="spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.html">
+            
+                    
+                    spring cloud gateway + nacos + sentinel实现网关限流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.17" data-path="spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.html">
+            
+                <a href="spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.html">
+            
+                    
+                    spring cloud自定义loaderbalancer实现流量就近访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.18" data-path="spring-cloud-shou-dong-xia-diao-jie-dian.html">
+            
+                <a href="spring-cloud-shou-dong-xia-diao-jie-dian.html">
+            
+                    
+                    spring cloud手动下掉节点
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.19" data-path="jar-bao-jie-ya-he-da-bao.html">
+            
+                <a href="jar-bao-jie-ya-he-da-bao.html">
+            
+                    
+                    jar包解压和打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.20" data-path="java-ji-cheng-prometheus-shang-bao-shu-ju.html">
+            
+                <a href="java-ji-cheng-prometheus-shang-bao-shu-ju.html">
+            
+                    
+                    java集成prometheus上报数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.21" data-path="spring-actuator-shang-bao-zhi-biao-uriknown-xiu-fu.html">
+            
+                <a href="spring-actuator-shang-bao-zhi-biao-uriknown-xiu-fu.html">
+            
+                    
+                    spring actuator上报指标uri=known修复
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.22" data-path="maven-shou-dong-shang-chuan-san-fang-jar-dao-cang-ku.html">
+            
+                <a href="maven-shou-dong-shang-chuan-san-fang-jar-dao-cang-ku.html">
+            
+                    
+                    maven手动上传三方jar到仓库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.23" data-path="ji-yu-spring-cloud-gateway-springmvc-fu-wu-he-bing.html">
+            
+                <a href="ji-yu-spring-cloud-gateway-springmvc-fu-wu-he-bing.html">
+            
+                    
+                    基于Spring Cloud gateway & Springmvc服务合并
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.24" data-path="feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.html">
+            
+                <a href="feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.html">
+            
+                    
+                    Feign调用转成本地方法调用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.25" data-path="spring-cloud-ying-yong-fen-bu-shi-lian-lu-gen-zong-jian-yi-shi-xian.html">
+            
+                <a href="spring-cloud-ying-yong-fen-bu-shi-lian-lu-gen-zong-jian-yi-shi-xian.html">
+            
+                    
+                    spring cloud应用分布式链路跟踪简易实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.26" data-path="dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.html">
+            
+                <a href="dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.html">
+            
+                    
+                    对于所有对象都通用的方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.27" data-path="chuang-jian-he-xiao-hui-dui-xiang.html">
+            
+                <a href="chuang-jian-he-xiao-hui-dui-xiang.html">
+            
+                    
+                    创建和销毁对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.28" data-path="jackson-fan-xu-lie-hua-duo-tai-lei-xing-bang-ding.html">
+            
+                <a href="jackson-fan-xu-lie-hua-duo-tai-lei-xing-bang-ding.html">
+            
+                    
+                    Jackson反序列化多态类型绑定
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.29" data-path="spring-cloud-shou-dong-chuang-jian-feign-client.html">
+            
+                <a href="spring-cloud-shou-dong-chuang-jian-feign-client.html">
+            
+                    
+                    spring cloud手动创建feign client
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.30" data-path="springmvc-dong-tai-zhu-ce-lu-you.html">
+            
+                <a href="springmvc-dong-tai-zhu-ce-lu-you.html">
+            
+                    
+                    springmvc 动态注册路由
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.31" data-path="open-feign-yuan-ma-fen-xi.html">
+            
+                <a href="open-feign-yuan-ma-fen-xi.html">
+            
+                    
+                    Open feign源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.32" data-path="open-feign-dong-tai-qie-liu-shi-xian.html">
+            
+                <a href="open-feign-dong-tai-qie-liu-shi-xian.html">
+            
+                    
+                    Open feign动态切流实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.33" data-path="open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html">
+            
+                <a href="open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html">
+            
+                    
+                    Open feign动态切换服务目标地址组件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.34" data-path="shi-yong-checkstyle-jin-xing-java-dai-ma-shen-cha-shi-jian-zhi-nan.html">
+            
+                <a href="shi-yong-checkstyle-jin-xing-java-dai-ma-shen-cha-shi-jian-zhi-nan.html">
+            
+                    
+                    使用Checkstyle进行Java代码审查：实践指南
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../ai/">
+            
+                <a href="../ai/">
+            
+                    
+                    AI
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../ai/claude-code-cli-jie-ru-glm-mian-fei-mo-xing.html">
+            
+                <a href="../ai/claude-code-cli-jie-ru-glm-mian-fei-mo-xing.html">
+            
+                    
+                    claude code cli接入GLM免费模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../ai/openclaw-shi-yong-opencode-mo-xing.html">
+            
+                <a href="../ai/openclaw-shi-yong-opencode-mo-xing.html">
+            
+                    
+                    openclaw使用opencode模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../python/">
+            
+                <a href="../python/">
+            
+                    
+                    python
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../python/centos-an-zhuang-miniconda.html">
+            
+                <a href="../python/centos-an-zhuang-miniconda.html">
+            
+                    
+                    centos 安装miniconda
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../python/pip-an-zhuang-zou-socks-dai-li.html">
+            
+                <a href="../python/pip-an-zhuang-zou-socks-dai-li.html">
+            
+                    
+                    pip安装走socks代理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../python/pa-chong-xiang-guan.html">
+            
+                <a href="../python/pa-chong-xiang-guan.html">
+            
+                    
+                    爬虫相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../python/playwright-shi-yong-xiao-ji-qiao.html">
+            
+                <a href="../python/playwright-shi-yong-xiao-ji-qiao.html">
+            
+                    
+                    playwright使用小技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../linux/">
+            
+                <a href="../linux/">
+            
+                    
+                    Linux
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../linux/guo-qi-jar-shan-chu.html">
+            
+                <a href="../linux/guo-qi-jar-shan-chu.html">
+            
+                    
+                    过期jar删除
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../linux/centos-tian-jia-fang-huo-qiang.html">
+            
+                <a href="../linux/centos-tian-jia-fang-huo-qiang.html">
+            
+                    
+                    centos添加防火墙
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../linux/centos-xiu-gai-hostname.html">
+            
+                <a href="../linux/centos-xiu-gai-hostname.html">
+            
+                    
+                    centos修改hostname
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../linux/rsync-wen-jian-zeng-liang-tong-bu.html">
+            
+                <a href="../linux/rsync-wen-jian-zeng-liang-tong-bu.html">
+            
+                    
+                    rsync文件增量同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../linux/a-li-yun-bu-shu-wen-jian-chuan-shu-you-hua.html">
+            
+                <a href="../linux/a-li-yun-bu-shu-wen-jian-chuan-shu-you-hua.html">
+            
+                    
+                    阿里云部署-文件传输优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../linux/prometheus-qing-li-shu-ju.html">
+            
+                <a href="../linux/prometheus-qing-li-shu-ju.html">
+            
+                    
+                    prometheus清理数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="../linux/prometheus-zhua-qu-shu-ju-pei-zhi.html">
+            
+                <a href="../linux/prometheus-zhua-qu-shu-ju-pei-zhi.html">
+            
+                    
+                    prometheus抓取数据配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="../linux/centos-an-zhuang-chrome-he-chromedriver.html">
+            
+                <a href="../linux/centos-an-zhuang-chrome-he-chromedriver.html">
+            
+                    
+                    centos安装chrome和chromedriver
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../nexus/">
+            
+                <a href="../nexus/">
+            
+                    
+                    nexus
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../nexus/nexus-shou-dong-shang-chuan-wen-jian.html">
+            
+                <a href="../nexus/nexus-shou-dong-shang-chuan-wen-jian.html">
+            
+                    
+                    nexus手动上传文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../docker/">
+            
+                <a href="../docker/">
+            
+                    
+                    docker & k8s
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../docker/cha-kan-image-dui-ying-de-dockerfile.html">
+            
+                <a href="../docker/cha-kan-image-dui-ying-de-dockerfile.html">
+            
+                    
+                    查看image对应的dockerfile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../docker/k8s-ji-qun-da-jian.html">
+            
+                <a href="../docker/k8s-ji-qun-da-jian.html">
+            
+                    
+                    k8s集群搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../docker/docker-jing-xiang-dao-ru-dao-chu.html">
+            
+                <a href="../docker/docker-jing-xiang-dao-ru-dao-chu.html">
+            
+                    
+                    docker镜像导入导出
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../docker/kubectl-chang-yong-ming-ling.html">
+            
+                <a href="../docker/kubectl-chang-yong-ming-ling.html">
+            
+                    
+                    kubectl 常用命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../nginx/">
+            
+                <a href="../nginx/">
+            
+                    
+                    nginx
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../nginx/ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.html">
+            
+                <a href="../nginx/ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.html">
+            
+                    
+                    ngx_http_dyups_module实现web服务的平滑发布
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../nginx/nginx-dai-li-mysql.html">
+            
+                <a href="../nginx/nginx-dai-li-mysql.html">
+            
+                    
+                    nginx代理mysql
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.html">
+            
+                <a href="../nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.html">
+            
+                    
+                    nginx+imgproxy实现图片自动缩放裁剪
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../nginx/minio-shi-xian-wen-jian-cun-chu.html">
+            
+                <a href="../nginx/minio-shi-xian-wen-jian-cun-chu.html">
+            
+                    
+                    minio实现文件存储
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="../nginx/nginx-zheng-xiang-dai-li-https.html">
+            
+                <a href="../nginx/nginx-zheng-xiang-dai-li-https.html">
+            
+                    
+                    nginx正向代理https
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.6" data-path="../nginx/nginx-dong-tai-zhuan-fa-dao-upstream.html">
+            
+                <a href="../nginx/nginx-dong-tai-zhuan-fa-dao-upstream.html">
+            
+                    
+                    nginx动态转发到upstream
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../git/">
+            
+                <a href="../git/">
+            
+                    
+                    git
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.html">
+            
+                <a href="../git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.html">
+            
+                    
+                    git拉取指定tag/分支的代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../git/git-she-zhi-yong-hu-xin-xi-huan-cun.html">
+            
+                <a href="../git/git-she-zhi-yong-hu-xin-xi-huan-cun.html">
+            
+                    
+                    git设置用户信息缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../git/git-xiu-gai-yi-ti-jiao-ji-lu-ti-jiao-zhe-xin-xi.html">
+            
+                <a href="../git/git-xiu-gai-yi-ti-jiao-ji-lu-ti-jiao-zhe-xin-xi.html">
+            
+                    
+                    git修改已提交记录提交者信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../shell/">
+            
+                <a href="../shell/">
+            
+                    
+                    shell
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.html">
+            
+                <a href="../shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.html">
+            
+                    
+                    shell根据环境变量替换文本
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../shell/shell-ming-ling-zi-dong-bu-quan.html">
+            
+                <a href="../shell/shell-ming-ling-zi-dong-bu-quan.html">
+            
+                    
+                    shell命令自动补全
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../shell/ssh-zi-dong-shu-ru-mi-ma-deng-lu.html">
+            
+                <a href="../shell/ssh-zi-dong-shu-ru-mi-ma-deng-lu.html">
+            
+                    
+                    ssh自动输入密码登录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="../shell/mac-xian-shi-yin-cang-wen-jian-jia.html">
+            
+                <a href="../shell/mac-xian-shi-yin-cang-wen-jian-jia.html">
+            
+                    
+                    mac显示隐藏文件夹
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../vim/">
+            
+                <a href="../vim/">
+            
+                    
+                    vim
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../vim/vim-jian-jie.html">
+            
+                <a href="../vim/vim-jian-jie.html">
+            
+                    
+                    Vim简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../vim/vim-xi-lie-zhi-chu-ti-yan-er.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-chu-ti-yan-er.html">
+            
+                    
+                    Vim系列之初体验(二)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../vim/vim-xi-lie-zhi-yi-dong-san.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-yi-dong-san.html">
+            
+                    
+                    Vim系列之移动(三)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../vim/vim-xi-lie-zhi-cha-ru-si.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-cha-ru-si.html">
+            
+                    
+                    Vim系列之插入(四)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../redis/">
+            
+                <a href="../redis/">
+            
+                    
+                    redis
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../redis/redis-dong-tai-tian-jia-cong-ku.html">
+            
+                <a href="../redis/redis-dong-tai-tian-jia-cong-ku.html">
+            
+                    
+                    redis动态添加从库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="../redis/lua-jiao-ben-pi-liang-tian-jia-redis-key-qian-zhui.html">
+            
+                <a href="../redis/lua-jiao-ben-pi-liang-tian-jia-redis-key-qian-zhui.html">
+            
+                    
+                    lua脚本批量添加redis key前缀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="../redis/shi-yong-redisson-qian-yi-redis-shu-ju.html">
+            
+                <a href="../redis/shi-yong-redisson-qian-yi-redis-shu-ju.html">
+            
+                    
+                    使用redisson迁移redis数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="../redis/redis-qing-kong-mou-ge-ku.html">
+            
+                <a href="../redis/redis-qing-kong-mou-ge-ku.html">
+            
+                    
+                    redis清空某个库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="../redis/redis-dui-xiang.html">
+            
+                <a href="../redis/redis-dui-xiang.html">
+            
+                    
+                    redis对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.6" data-path="../redis/redis-zi-fu-chuan.html">
+            
+                <a href="../redis/redis-zi-fu-chuan.html">
+            
+                    
+                    redis字符串
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.7" data-path="../redis/redis-lian-biao.html">
+            
+                <a href="../redis/redis-lian-biao.html">
+            
+                    
+                    redis链表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.8" data-path="../redis/redis-zi-dian.html">
+            
+                <a href="../redis/redis-zi-dian.html">
+            
+                    
+                    redis字典
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.9" data-path="../redis/redis-ya-suo-lie-biao.html">
+            
+                <a href="../redis/redis-ya-suo-lie-biao.html">
+            
+                    
+                    redis压缩列表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.10" data-path="../redis/redis-zheng-shu-ji-he.html">
+            
+                <a href="../redis/redis-zheng-shu-ji-he.html">
+            
+                    
+                    redis整数集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.11" data-path="../redis/redis-tiao-yue-biao.html">
+            
+                <a href="../redis/redis-tiao-yue-biao.html">
+            
+                    
+                    redis跳跃表
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../mysql/">
+            
+                <a href="../mysql/">
+            
+                    
+                    mysql
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../mysql/mysql-chuang-jian-yong-hu-bing-shou-quan.html">
+            
+                <a href="../mysql/mysql-chuang-jian-yong-hu-bing-shou-quan.html">
+            
+                    
+                    mysql创建用户并授权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.2" data-path="../mysql/mysql-zhu-cong-tong-bu-pei-zhi.html">
+            
+                <a href="../mysql/mysql-zhu-cong-tong-bu-pei-zhi.html">
+            
+                    
+                    mysql主从同步配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../c-and-cpp/">
+            
+                <a href="../c-and-cpp/">
+            
+                    
+                    c & cpp
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../c-and-cpp/zhi-zhen-han-shu-han-shu-zhi-zhen.html">
+            
+                <a href="../c-and-cpp/zhi-zhen-han-shu-han-shu-zhi-zhen.html">
+            
+                    
+                    指针函数&函数指针
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../php/">
+            
+                <a href="../php/">
+            
+                    
+                    php
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="../php/php-zong-jie.html">
+            
+                <a href="../php/php-zong-jie.html">
+            
+                    
+                    PHP总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="../php/php-dan-yuan-ce-shi-phpunit.html">
+            
+                <a href="../php/php-dan-yuan-ce-shi-phpunit.html">
+            
+                    
+                    PHP单元测试PHPUnit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="../php/php-an-zhuang-memcached-kuo-zhan.html">
+            
+                <a href="../php/php-an-zhuang-memcached-kuo-zhan.html">
+            
+                    
+                    PHP安装memcached扩展
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="../zsh/">
+            
+                <a href="../zsh/">
+            
+                    
+                    zsh
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="../zsh/zsh-bian-liang-he-yu-ju.html">
+            
+                <a href="../zsh/zsh-bian-liang-he-yu-ju.html">
+            
+                    
+                    zsh-变量和语句
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="../zsh/zsh-zi-fu-chuan-chang-yong-cao-zuo.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-chang-yong-cao-zuo.html">
+            
+                    
+                    zsh-字符串常用操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="../zsh/zsh-zi-fu-chuan-zhuan-yi-he-ge-shi-hua.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-zhuan-yi-he-ge-shi-hua.html">
+            
+                    
+                    zsh-字符串转义和格式化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="../zsh/zsh-zi-fu-chuan-tong-pei-fu.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-tong-pei-fu.html">
+            
+                    
+                    zsh-字符串通配符
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="../qian-duan/">
+            
+                <a href="../qian-duan/">
+            
+                    
+                    前端
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.17.1" data-path="../qian-duan/highlight.js-zhi-chi-dong-tai-dai-ma.html">
+            
+                <a href="../qian-duan/highlight.js-zhi-chi-dong-tai-dai-ma.html">
+            
+                    
+                    highlight.js支持动态代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.2" data-path="../qian-duan/centos7-an-zhuang-node22.html">
+            
+                <a href="../qian-duan/centos7-an-zhuang-node22.html">
+            
+                    
+                    centos7安装node22
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="../jia-gou-shi-tu-pu.html">
+            
+                <a href="../jia-gou-shi-tu-pu.html">
+            
+                    
+                    架构师图谱
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="../su-yuan-xi-tong.html">
+            
+                <a href="../su-yuan-xi-tong.html">
+            
+                    
+                    溯源系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >使用Checkstyle进行Java代码审查：实践指南</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x4F7F;&#x7528;checkstyle&#x8FDB;&#x884C;java&#x4EE3;&#x7801;&#x5BA1;&#x67E5;&#xFF1A;&#x5B9E;&#x8DF5;&#x6307;&#x5357;">&#x4F7F;&#x7528;Checkstyle&#x8FDB;&#x884C;Java&#x4EE3;&#x7801;&#x5BA1;&#x67E5;&#xFF1A;&#x5B9E;&#x8DF5;&#x6307;&#x5357;</h1>
+<p>&#x5728;&#x8F6F;&#x4EF6;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x7684;&#x4FDD;&#x8BC1;&#x81F3;&#x5173;&#x91CD;&#x8981;&#x3002;Checkstyle&#x4F5C;&#x4E3A;&#x4E00;&#x6B3E;&#x6210;&#x719F;&#x7684;Java&#x4EE3;&#x7801;&#x98CE;&#x683C;&#x68C0;&#x67E5;&#x5DE5;&#x5177;&#xFF0C;&#x80FD;&#x591F;&#x5E2E;&#x52A9;&#x56E2;&#x961F;&#x5EFA;&#x7ACB;&#x7EDF;&#x4E00;&#x7684;&#x7F16;&#x7801;&#x89C4;&#x8303;&#xFF0C;&#x63D0;&#x9AD8;&#x4EE3;&#x7801;&#x53EF;&#x8BFB;&#x6027;&#x548C;&#x53EF;&#x7EF4;&#x62A4;&#x6027;&#x3002;&#x672C;&#x6587;&#x5C06;&#x4ECB;&#x7ECD;&#x5982;&#x4F55;&#x5728;Spring Boot&#x9879;&#x76EE;&#x4E2D;&#x96C6;&#x6210;&#x5E76;&#x4F7F;&#x7528;Checkstyle&#x8FDB;&#x884C;&#x4EE3;&#x7801;&#x5BA1;&#x67E5;&#x3002;</p>
+<h2 id="1-&#x9879;&#x76EE;&#x80CC;&#x666F;">1. &#x9879;&#x76EE;&#x80CC;&#x666F;</h2>
+<p>&#x672C;&#x9879;&#x76EE;&#x57FA;&#x4E8E;Maven&#x6784;&#x5EFA;&#xFF0C;&#x4F7F;&#x7528;&#x4E86;Spring Boot&#x6846;&#x67B6;&#xFF0C;&#x5305;&#x542B;&#x591A;&#x4E2A;&#x5FAE;&#x670D;&#x52A1;&#x6A21;&#x5757;&#x3002;&#x4E3A;&#x4E86;&#x786E;&#x4FDD;&#x4EE3;&#x7801;&#x98CE;&#x683C;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x548C;&#x8D28;&#x91CF;&#xFF0C;&#x6211;&#x4EEC;&#x5F15;&#x5165;&#x4E86;Checkstyle&#x4F5C;&#x4E3A;&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x68C0;&#x67E5;&#x5DE5;&#x5177;&#x3002;</p>
+<h2 id="2-checkstyle&#x914D;&#x7F6E;">2. Checkstyle&#x914D;&#x7F6E;</h2>
+<h3 id="21-maven&#x63D2;&#x4EF6;&#x914D;&#x7F6E;">2.1 Maven&#x63D2;&#x4EF6;&#x914D;&#x7F6E;</h3>
+<p>&#x5728;<code>pom.xml</code>&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x914D;&#x7F6E;&#x4E86;Checkstyle&#x63D2;&#x4EF6;&#xFF1A;</p>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-checkstyle-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.6.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">configLocation</span>&gt;</span>checkstyle.xml<span class="hljs-tag">&lt;/<span class="hljs-name">configLocation</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">consoleOutput</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">consoleOutput</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">failsOnError</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">failsOnError</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">linkXRef</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">linkXRef</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">executions</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">execution</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>validate<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>validate<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">goals</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">goal</span>&gt;</span>check<span class="hljs-tag">&lt;/<span class="hljs-name">goal</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">goals</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">execution</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">executions</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span>
+</code></pre>
+<p>&#x914D;&#x7F6E;&#x8BF4;&#x660E;&#xFF1A;</p>
+<ul>
+<li><code>configLocation</code>: &#x6307;&#x5B9A;Checkstyle&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;</li>
+<li><code>consoleOutput</code>: &#x5728;&#x63A7;&#x5236;&#x53F0;&#x8F93;&#x51FA;&#x68C0;&#x67E5;&#x7ED3;&#x679C;</li>
+<li><code>failsOnError</code>: &#x5F53;&#x53D1;&#x73B0;&#x9519;&#x8BEF;&#x65F6;&#x6784;&#x5EFA;&#x5931;&#x8D25;</li>
+<li><code>linkXRef</code>: &#x4E0D;&#x751F;&#x6210;&#x4EA4;&#x53C9;&#x5F15;&#x7528;&#x94FE;&#x63A5;</li>
+<li><code>phase</code>: &#x5728;validate&#x9636;&#x6BB5;&#x6267;&#x884C;&#xFF0C;&#x786E;&#x4FDD;&#x5728;&#x7F16;&#x8BD1;&#x524D;&#x8FDB;&#x884C;&#x68C0;&#x67E5;</li>
+<li><code>goal</code>: &#x4F7F;&#x7528;check&#x76EE;&#x6807;&#x6267;&#x884C;&#x68C0;&#x67E5;</li>
+</ul>
+<h3 id="22-checkstyle&#x89C4;&#x5219;&#x914D;&#x7F6E;">2.2 Checkstyle&#x89C4;&#x5219;&#x914D;&#x7F6E;</h3>
+<p>&#x6211;&#x4EEC;&#x7684;<code>checkstyle.xml</code>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5305;&#x542B;&#x4E86;&#x4E30;&#x5BCC;&#x7684;&#x68C0;&#x67E5;&#x89C4;&#x5219;&#xFF0C;&#x4E3B;&#x8981;&#x5206;&#x4E3A;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x7C7B;&#x522B;&#xFF1A;</p>
+<h4 id="221-&#x57FA;&#x7840;&#x914D;&#x7F6E;">2.2.1 &#x57FA;&#x7840;&#x914D;&#x7F6E;</h4>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;Checker&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;severity&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;error&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;fileExtensions&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;java, properties, xml&quot;</span>/&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- &#x5FFD;&#x7565;&#x7279;&#x5B9A;&#x6587;&#x4EF6; --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;SuppressionSingleFilter&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;files&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;.*[\\/]proto[\\/].*&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">module</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- &#x6392;&#x9664;module-info.java&#x6587;&#x4EF6; --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;BeforeExecutionExclusionFileFilter&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;fileNamePattern&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;module\-info\.java$&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">module</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">module</span>&gt;</span>
+</code></pre>
+<h4 id="222-&#x6587;&#x4EF6;&#x683C;&#x5F0F;&#x68C0;&#x67E5;">2.2.2 &#x6587;&#x4EF6;&#x683C;&#x5F0F;&#x68C0;&#x67E5;</h4>
+<pre><code class="lang-xml"><span class="hljs-comment">&lt;!-- &#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x672B;&#x5C3E;&#x662F;&#x5426;&#x6709;&#x6362;&#x884C;&#x7B26; --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;NewlineAtEndOfFile&quot;</span>/&gt;</span>
+
+<span class="hljs-comment">&lt;!-- &#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x957F;&#x5EA6; --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;FileLength&quot;</span>/&gt;</span>
+
+<span class="hljs-comment">&lt;!-- &#x9650;&#x5236;Java&#x6587;&#x4EF6;&#x884C;&#x957F;&#x5EA6;&#x4E3A;200 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;LineLength&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;fileExtensions&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;java&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;max&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;200&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">module</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- &#x7981;&#x6B62;&#x4F7F;&#x7528;&#x5236;&#x8868;&#x7B26; --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;FileTabCharacter&quot;</span>/&gt;</span>
+
+<span class="hljs-comment">&lt;!-- &#x68C0;&#x67E5;&#x884C;&#x5C3E;&#x7A7A;&#x767D; --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;RegexpSingleline&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;format&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;\s+$&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;minimum&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;0&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;maximum&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;0&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;message&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;Line has trailing spaces.&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">module</span>&gt;</span>
+</code></pre>
+<h4 id="223-&#x547D;&#x540D;&#x89C4;&#x8303;&#x68C0;&#x67E5;">2.2.3 &#x547D;&#x540D;&#x89C4;&#x8303;&#x68C0;&#x67E5;</h4>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;ConstantName&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;LocalFinalVariableName&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;LocalVariableName&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;MemberName&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;MethodName&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;PackageName&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;ParameterName&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;StaticVariableName&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;TypeName&quot;</span>/&gt;</span>
+</code></pre>
+<h4 id="224-&#x5BFC;&#x5165;&#x8BED;&#x53E5;&#x68C0;&#x67E5;">2.2.4 &#x5BFC;&#x5165;&#x8BED;&#x53E5;&#x68C0;&#x67E5;</h4>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;AvoidStarImport&quot;</span>/&gt;</span>         <span class="hljs-comment">&lt;!-- &#x7981;&#x6B62;&#x4F7F;&#x7528;*&#x5BFC;&#x5165; --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;IllegalImport&quot;</span>/&gt;</span>          <span class="hljs-comment">&lt;!-- &#x7981;&#x6B62;&#x5BFC;&#x5165;&#x7279;&#x5B9A;&#x5305; --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;RedundantImport&quot;</span>/&gt;</span>        <span class="hljs-comment">&lt;!-- &#x68C0;&#x67E5;&#x5197;&#x4F59;&#x5BFC;&#x5165; --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;UnusedImports&quot;</span>/&gt;</span>          <span class="hljs-comment">&lt;!-- &#x68C0;&#x67E5;&#x672A;&#x4F7F;&#x7528;&#x7684;&#x5BFC;&#x5165; --&gt;</span>
+</code></pre>
+<h4 id="225-&#x7F16;&#x7801;&#x89C4;&#x8303;&#x68C0;&#x67E5;">2.2.5 &#x7F16;&#x7801;&#x89C4;&#x8303;&#x68C0;&#x67E5;</h4>
+<pre><code class="lang-xml"><span class="hljs-comment">&lt;!-- &#x65B9;&#x6CD5;&#x957F;&#x5EA6;&#x68C0;&#x67E5; --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;MethodLength&quot;</span>/&gt;</span>
+
+<span class="hljs-comment">&lt;!-- &#x7A7A;&#x683C;&#x4F7F;&#x7528;&#x68C0;&#x67E5; --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;EmptyForIteratorPad&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;GenericWhitespace&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;MethodParamPad&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;NoWhitespaceAfter&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;NoWhitespaceBefore&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;OperatorWrap&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;ParenPad&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;TypecastParenPad&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;WhitespaceAfter&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;WhitespaceAround&quot;</span>/&gt;</span>
+
+<span class="hljs-comment">&lt;!-- &#x4FEE;&#x9970;&#x7B26;&#x987A;&#x5E8F; --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;ModifierOrder&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;RedundantModifier&quot;</span>/&gt;</span>
+
+<span class="hljs-comment">&lt;!-- &#x4EE3;&#x7801;&#x5757;&#x68C0;&#x67E5; --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;AvoidNestedBlocks&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;EmptyBlock&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;LeftCurly&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;NeedBraces&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;RightCurly&quot;</span>/&gt;</span>
+</code></pre>
+<h4 id="226-&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x68C0;&#x67E5;">2.2.6 &#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x68C0;&#x67E5;</h4>
+<pre><code class="lang-xml"><span class="hljs-comment">&lt;!-- Javadoc&#x68C0;&#x67E5; --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;InvalidJavadocPosition&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;JavadocMethod&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;allowMissingParamTags&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;true&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;allowMissingReturnTag&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;true&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">module</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;JavadocType&quot;</span>/&gt;</span>
+
+<span class="hljs-comment">&lt;!-- &#x7F16;&#x7801;&#x95EE;&#x9898;&#x68C0;&#x67E5; --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;EmptyStatement&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;EqualsHashCode&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;HiddenField&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;ignoreConstructorParameter&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;true&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;ignoreAbstractMethods&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;true&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;ignoreSetter&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;true&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">module</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;MagicNumber&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;ignoreAnnotation&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;true&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;ignoreFieldDeclaration&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;true&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">module</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;MultipleVariableDeclarations&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;SimplifyBooleanExpression&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;SimplifyBooleanReturn&quot;</span>/&gt;</span>
+
+<span class="hljs-comment">&lt;!-- &#x7C7B;&#x8BBE;&#x8BA1;&#x68C0;&#x67E5; --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;FinalClass&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;HideUtilityClassConstructor&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;VisibilityModifier&quot;</span>/&gt;</span>
+
+<span class="hljs-comment">&lt;!-- &#x5176;&#x4ED6;&#x68C0;&#x67E5; --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;ArrayTypeStyle&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;TodoComment&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;UpperEll&quot;</span>/&gt;</span>
+</code></pre>
+<h2 id="3-&#x4F7F;&#x7528;checkstyle">3. &#x4F7F;&#x7528;Checkstyle</h2>
+<h3 id="31-&#x547D;&#x4EE4;&#x884C;&#x6267;&#x884C;">3.1 &#x547D;&#x4EE4;&#x884C;&#x6267;&#x884C;</h3>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x68C0;&#x67E5;&#x6574;&#x4E2A;&#x9879;&#x76EE;</span>
+mvn checkstyle:check
+
+<span class="hljs-comment"># &#x751F;&#x6210;&#x68C0;&#x67E5;&#x62A5;&#x544A;</span>
+mvn checkstyle:checkstyle
+
+<span class="hljs-comment"># &#x8DF3;&#x8FC7;&#x68C0;&#x67E5;</span>
+mvn install -Dcheckstyle.skip=<span class="hljs-literal">true</span>
+</code></pre>
+<h3 id="32-ide&#x96C6;&#x6210;">3.2 IDE&#x96C6;&#x6210;</h3>
+<h4 id="intellij-idea">IntelliJ IDEA</h4>
+<ul>
+<li>&#x5B89;&#x88C5;Checkstyle&#x63D2;&#x4EF6;</li>
+<li>&#x914D;&#x7F6E;Checkstyle&#x89C4;&#x5219;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;</li>
+<li>&#x8BBE;&#x7F6E;&#x5728;&#x4FDD;&#x5B58;&#x6587;&#x4EF6;&#x65F6;&#x81EA;&#x52A8;&#x68C0;&#x67E5;</li>
+</ul>
+<h2 id="4-&#x5E38;&#x89C1;&#x95EE;&#x9898;&#x53CA;&#x89E3;&#x51B3;&#x65B9;&#x6848;">4. &#x5E38;&#x89C1;&#x95EE;&#x9898;&#x53CA;&#x89E3;&#x51B3;&#x65B9;&#x6848;</h2>
+<h3 id="41-&#x8BEF;&#x62A5;&#x5904;&#x7406;">4.1 &#x8BEF;&#x62A5;&#x5904;&#x7406;</h3>
+<p>&#x5BF9;&#x4E8E;&#x67D0;&#x4E9B;&#x7279;&#x6B8A;&#x7684;&#x4EE3;&#x7801;&#x6A21;&#x5F0F;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4EE5;&#x4E0B;&#x65B9;&#x5F0F;&#x5904;&#x7406;&#xFF1A;</p>
+<ol>
+<li><strong>&#x4F7F;&#x7528;@SuppressWarnings&#x6CE8;&#x89E3;</strong>&#xFF1A;</li>
+</ol>
+<pre><code class="lang-java"><span class="hljs-meta">@SuppressWarnings</span>(<span class="hljs-string">&quot;checkstyle:MagicNumber&quot;</span>)
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">calculate</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>{
+    <span class="hljs-keyword">return</span> a * <span class="hljs-number">100</span> + b;  <span class="hljs-comment">// &#x5141;&#x8BB8;&#x4F7F;&#x7528;&#x9B54;&#x6CD5;&#x6570;&#x5B57;</span>
+}
+</code></pre>
+<ol>
+<li><strong>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x6392;&#x9664;</strong>&#xFF1A;</li>
+</ol>
+<p>&#x5728;checkstyle.xml&#x4E2D;&#x4F7F;&#x7528;<code>SuppressionFilter</code>&#x6216;<code>SuppressionXpathFilter</code>&#x6392;&#x9664;&#x7279;&#x5B9A;&#x6587;&#x4EF6;&#x6216;&#x89C4;&#x5219;&#x3002;</p>
+<h3 id="42-&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x5219;">4.2 &#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x5219;</h3>
+<p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7EE7;&#x627F;&#x73B0;&#x6709;&#x89C4;&#x5219;&#x6216;&#x521B;&#x5EFA;&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x5219;&#x6765;&#x6EE1;&#x8DB3;&#x7279;&#x5B9A;&#x9700;&#x6C42;&#xFF1A;</p>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">module</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;CustomRule&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;severity&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;warning&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;message&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;Custom rule violation&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">module</span>&gt;</span>
+</code></pre>
+<h2 id="5-&#x6700;&#x4F73;&#x5B9E;&#x8DF5;">5. &#x6700;&#x4F73;&#x5B9E;&#x8DF5;</h2>
+<ol>
+<li><strong>&#x6E10;&#x8FDB;&#x5F0F;&#x5F15;&#x5165;</strong>&#xFF1A;&#x53EF;&#x4EE5;&#x5148;&#x4ECE;&#x8F83;&#x4E3A;&#x5BBD;&#x677E;&#x7684;&#x89C4;&#x5219;&#x5F00;&#x59CB;&#xFF0C;&#x9010;&#x6B65;&#x589E;&#x52A0;&#x4E25;&#x683C;&#x5EA6;</li>
+<li><strong>&#x56E2;&#x961F;&#x534F;&#x4F5C;</strong>&#xFF1A;&#x786E;&#x4FDD;&#x6240;&#x6709;&#x5F00;&#x53D1;&#x8005;&#x90FD;&#x4E86;&#x89E3;&#x5E76;&#x540C;&#x610F;&#x7F16;&#x7801;&#x89C4;&#x8303;</li>
+<li><strong>&#x6301;&#x7EED;&#x96C6;&#x6210;</strong>&#xFF1A;&#x5728;CI/CD pipeline&#x4E2D;&#x52A0;&#x5165;Checkstyle&#x68C0;&#x67E5;</li>
+<li><strong>&#x5B9A;&#x671F;&#x5BA1;&#x67E5;</strong>&#xFF1A;&#x5B9A;&#x671F; review Checkstyle&#x914D;&#x7F6E;&#xFF0C;&#x8C03;&#x6574;&#x4E0D;&#x7B26;&#x5408;&#x5B9E;&#x9645;&#x7684;&#x89C4;&#x5219;</li>
+<li><strong>&#x6587;&#x6863;&#x7EF4;&#x62A4;</strong>&#xFF1A;&#x4FDD;&#x6301;&#x7F16;&#x7801;&#x89C4;&#x8303;&#x7684;&#x6587;&#x6863;&#x66F4;&#x65B0;</li>
+</ol>
+<h2 id="6-&#x603B;&#x7ED3;">6. &#x603B;&#x7ED3;</h2>
+<p>Checkstyle&#x4F5C;&#x4E3A;&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x5DE5;&#x5177;&#x7684;&#x91CD;&#x8981;&#x7EC4;&#x6210;&#x90E8;&#x5206;&#xFF0C;&#x80FD;&#x591F;&#x5E2E;&#x52A9;&#x56E2;&#x961F;&#xFF1A;</p>
+<ul>
+<li>&#x4FDD;&#x6301;&#x4EE3;&#x7801;&#x98CE;&#x683C;&#x7684;&#x4E00;&#x81F4;&#x6027;</li>
+<li>&#x9075;&#x5FAA;&#x884C;&#x4E1A;&#x6700;&#x4F73;&#x5B9E;&#x8DF5;</li>
+<li>&#x51CF;&#x5C11;&#x4EE3;&#x7801;&#x5BA1;&#x67E5;&#x65F6;&#x7684;&#x6CE8;&#x610F;&#x529B;&#x5206;&#x6563;</li>
+<li>&#x63D0;&#x9AD8;&#x4EE3;&#x7801;&#x7684;&#x53EF;&#x7EF4;&#x62A4;&#x6027;</li>
+</ul>
+<p>&#x901A;&#x8FC7;&#x5408;&#x7406;&#x7684;&#x914D;&#x7F6E;&#x548C;&#x4F7F;&#x7528;&#xFF0C;Checkstyle&#x53EF;&#x4EE5;&#x6210;&#x4E3A;&#x63D0;&#x5347;&#x56E2;&#x961F;&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x7684;&#x6709;&#x529B;&#x5DE5;&#x5177;&#x3002;&#x5728;&#x5B9E;&#x9645;&#x4F7F;&#x7528;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x9700;&#x8981;&#x6839;&#x636E;&#x9879;&#x76EE;&#x7684;&#x5177;&#x4F53;&#x60C5;&#x51B5;&#x8C03;&#x6574;&#x89C4;&#x5219;&#x914D;&#x7F6E;&#xFF0C;&#x5E73;&#x8861;&#x4EE3;&#x7801;&#x89C4;&#x8303;&#x4E0E;&#x5F00;&#x53D1;&#x6548;&#x7387;&#x7684;&#x5173;&#x7CFB;&#x3002;</p>
+<h2 id="7-&#x53C2;&#x8003;&#x8D44;&#x6E90;">7. &#x53C2;&#x8003;&#x8D44;&#x6E90;</h2>
+<ul>
+<li><a href="https://checkstyle.org/" target="_blank">Checkstyle&#x5B98;&#x65B9;&#x6587;&#x6863;</a></li>
+<li><a href="https://maven.apache.org/plugins/maven-checkstyle-plugin/" target="_blank">Maven Checkstyle Plugin&#x6587;&#x6863;</a></li>
+<li><a href="https://github.com/alibaba/p3c" target="_blank">&#x963F;&#x91CC;&#x5DF4;&#x5DF4;Java&#x5F00;&#x53D1;&#x624B;&#x518C;</a></li>
+</ul>
+<hr>
+<p><strong>&#x672C;&#x6587;&#x6863;&#x57FA;&#x4E8E;&#x5B9E;&#x9645;&#x9879;&#x76EE;&#x7ECF;&#x9A8C;&#x7F16;&#x5199;&#xFF0C;&#x5E0C;&#x671B;&#x80FD;&#x5E2E;&#x52A9;&#x56E2;&#x961F;&#x66F4;&#x597D;&#x5730;&#x4F7F;&#x7528;Checkstyle&#x8FDB;&#x884C;&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x7BA1;&#x7406;&#x3002;</strong></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html" class="navigation navigation-prev " aria-label="Previous page: Open feign动态切换服务目标地址组件">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../ai/" class="navigation navigation-next " aria-label="Next page: AI">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"使用Checkstyle进行Java代码审查：实践指南","level":"1.2.34","depth":2,"next":{"title":"AI","level":"1.3","depth":1,"path":"ai/README.md","ref":"ai/README.md","articles":[{"title":"claude code cli接入GLM免费模型","level":"1.3.1","depth":2,"path":"ai/claude-code-cli-jie-ru-glm-mian-fei-mo-xing.md","ref":"ai/claude-code-cli-jie-ru-glm-mian-fei-mo-xing.md","articles":[]},{"title":"openclaw使用opencode模型","level":"1.3.2","depth":2,"path":"ai/openclaw-shi-yong-opencode-mo-xing.md","ref":"ai/openclaw-shi-yong-opencode-mo-xing.md","articles":[]}]},"previous":{"title":"Open feign动态切换服务目标地址组件","level":"1.2.33","depth":2,"path":"java-study/open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.md","ref":"java-study/open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","splitter","expandable-chapters-small","github","github-buttons","favicon","expandable-chapters-small","copy-code-button"],"styles":{"website":"./styles/website.css"},"pluginsConfig":{"github":{"url":"https://github.com/kennethfan"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":{"shortcut":"./source/images/favicon.jpg","bookmark":"./source/images/favicon.jpg","appleTouch":"./source/images/apple-touch-icon.jpg","appleTouchMore":{"120x120":"./source/images/apple-touch-icon.jpg","180x180":"./source/images/apple-touch-icon.jpg"}},"github-buttons":{"buttons":[{"user":"kennethfan","repo":"gitbook","type":"star","size":"small","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"theme":"default","author":"椒哥","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"椒哥碎碎念","language":"zh-hans","links":{"sidebar":{}},"gitbook":"3.2.3","description":"select * from learn"},"file":{"path":"java-study/shi-yong-checkstyle-jin-xing-java-dai-ma-shen-cha-shi-jian-zhi-nan.md","mtime":"2026-04-16T15:16:26.409Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-04-16T15:17:02.947Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
