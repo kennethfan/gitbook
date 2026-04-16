@@ -566,7 +566,11 @@ im.chat.member.bot.added\_v1 # 机器人被添加到群聊im.message.reaction.cr
 
 ### 4.1 启动配置向导
 
+{% code overflow="wrap" %}
+```shellscript
 openclaw onboard --mode local
+```
+{% endcode %}
 
 ### 4.2 按提示完成配置
 
@@ -604,7 +608,11 @@ openclaw onboard --mode local
 
 ### 4.4 安装 Gateway
 
+{% code overflow="wrap" %}
+```shellscript
 openclaw gateway install
+```
+{% endcode %}
 
 ### 4.5 完成验证
 
