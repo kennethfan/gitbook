@@ -110,5 +110,6 @@
 * [前端](qian-duan/README.md)
   * [highlight.js支持动态代码](qian-duan/highlight.js-zhi-chi-dong-tai-dai-ma.md)
   * [centos7安装node22](qian-duan/centos7-an-zhuang-node22.md)
+  * [Chrome 扩展还能这样玩？ 12 个技术细节把网页改造成 API 接口](qian-duan/chrome-kuo-zhan-hai-neng-zhe-yang-wan-12-ge-ji-shu-xi-jie-ba-wang-ye-gai-zao-cheng-api-jie-kou.md)
 * [架构师图谱](jia-gou-shi-tu-pu.md)
 * [溯源系统](su-yuan-xi-tong.md)
