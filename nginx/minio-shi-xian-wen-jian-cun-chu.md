@@ -4,7 +4,7 @@ description: minio实现文件存储
 
 # minio实现文件存储
 
-## &#x20;背景
+## 背景
 
 当前项目中，文件存储使用的是本地磁盘；整体状况如下
 
@@ -71,7 +71,7 @@ firewall-cmd --list-all
 
 <figure><img src="../.gitbook/assets/create-bucket-1.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/create-bucket-2 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/create-bucket-2.png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../.gitbook/assets/create-bucket-3.png" alt=""><figcaption></figcaption></figure>
 
@@ -146,8 +146,6 @@ proxy_pass http://<ip>:9000;
 ## 程序修改
 
 需要将静态文件目录映射修改成http://\<ip>:9000/\<bucket>
-
-
 
 ## nginx代理minio
 

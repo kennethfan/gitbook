@@ -39,6 +39,7 @@
 * [AI](ai/README.md)
   * [claude code cli接入GLM免费模型](ai/claude-code-cli-jie-ru-glm-mian-fei-mo-xing.md)
   * [openclaw使用opencode模型](ai/openclaw-shi-yong-opencode-mo-xing.md)
+  * [DeepSeek++指南](ai/deepseek++-zhi-nan.md)
 * [python](python/README.md)
   * [centos 安装miniconda](python/centos-an-zhuang-miniconda.md)
   * [pip安装走socks代理](python/pip-an-zhuang-zou-socks-dai-li.md)

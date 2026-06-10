@@ -38,8 +38,6 @@
 
 ## 2.1JVM垃圾回图谱
 
-<figure><img src=".gitbook/assets/2.1JVM垃圾回图谱.jpg" alt=""><figcaption></figcaption></figure>
-
 ## 2.2Java并发图谱
 
 <figure><img src=".gitbook/assets/2.2Java并发图谱.jpg" alt=""><figcaption></figcaption></figure>
@@ -102,8 +100,6 @@
 
 ## 5.9软件工程
 
-<figure><img src=".gitbook/assets/5.9软件工程.jpg" alt=""><figcaption></figcaption></figure>
-
 ## 5.10DevOps
 
 <figure><img src=".gitbook/assets/5.10DevOps.jpg" alt=""><figcaption></figcaption></figure>
@@ -117,5 +113,3 @@
 <figure><img src=".gitbook/assets/5.12后端开发.jpg" alt=""><figcaption></figcaption></figure>
 
 ## 5.13软件发布流程
-
-<figure><img src=".gitbook/assets/5.13软件发布流程.jpg" alt=""><figcaption></figcaption></figure>
