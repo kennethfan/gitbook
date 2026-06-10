@@ -152,7 +152,7 @@ _可爱的 DeepSeek 小鲸鱼，陪伴你每一次思考_
 MCP 采用 **客户端-服务器架构**：
 
 ```
-┌─────────────────────┐         MCP 协议        ┌──────────────────────┐
+┌─────────────────────┐         MCP 协议          ┌──────────────────────┐
 │  DeepSeek++ 扩展     │ ◄──────────────────────► │   MCP Server        │
 │  (MCP Client)        │    JSON-RPC 2.0          │   (工具提供者)       │
 └─────────────────────┘                           └──────────────────────┘
@@ -176,9 +176,7 @@ DeepSeek++ 作为 MCP Client，连接到各种 MCP Server。每个 Server 提供
 
 Shell MCP 是 DeepSeek++ 最常用的本机工具通道。通过它，DeepSeek 可以执行本机命令、操作文件、调用 OfficeCLI 等。
 
-{% stepper %}
-{% step %}
-## 安装 Shell Native Host
+### 安装 Shell Native Host
 
 Shell Native Host 是一个本机程序，作为浏览器和操作系统之间的桥梁：
 
@@ -211,9 +209,7 @@ npx deepseek-pp-shell-host install --browser firefox --extension-id <ID>
 ```
 {% endtab %}
 {% endtabs %}
-{% endstep %}
 
-{% step %}
 ## 验证安装
 
 安装完成后：
@@ -225,16 +221,16 @@ npx deepseek-pp-shell-host install --browser firefox --extension-id <ID>
 5. 点击 **"刷新工具"**，查看可用工具列表
 
 如果一切正常，你应该能看到类似 `shell_exec`、`python_exec` 等工具。
-{% endstep %}
 
-{% step %}
 ## 运行烟测验证
 
 项目提供了专门的烟测脚本：
 
-```bash
+{% code overflow="wrap" %}
+```
 npm run smoke:shell
 ```
+{% endcode %}
 
 ### 常见问题排查
 
@@ -244,8 +240,6 @@ npm run smoke:shell
 | 工具列表为空       | Shell Host 未授权 | 检查 Native Host 配置是否正确         |
 | Windows 中文乱码 | 编码问题           | 更新到 v0.6.2+，已修复 Windows 路径和编码 |
 | 命令找不到        | PATH 环境变量      | 确保命令在系统 PATH 中                |
-{% endstep %}
-{% endstepper %}
 
 ## 七、配置 OfficeCLI（Office 文档处理）
 
