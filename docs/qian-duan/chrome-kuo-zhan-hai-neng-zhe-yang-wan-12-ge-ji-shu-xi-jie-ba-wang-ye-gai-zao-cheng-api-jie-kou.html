@@ -1,0 +1,2432 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Chrome 扩展还能这样玩？ 12 个技术细节把网页改造成 API 接口 · 椒哥碎碎念</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="椒哥">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hints/plugin-hints.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+
+        
+    
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../jia-gou-shi-tu-pu.html" />
+    
+    
+    <link rel="prev" href="centos7-an-zhuang-node22.html" />
+    
+
+    
+        <link rel="shortcut icon" href='../source/images/favicon.jpg' type="image/x-icon">
+    
+    
+        <link rel="bookmark" href='../source/images/favicon.jpg' type="image/x-icon">
+    
+    
+        <link rel="apple-touch-icon" href='../source/images/apple-touch-icon.jpg'>
+    
+    
+        
+        <link rel="apple-touch-icon" sizes="120x120" href="../source/images/apple-touch-icon.jpg">
+        
+        <link rel="apple-touch-icon" sizes="180x180" href="../source/images/apple-touch-icon.jpg">
+        
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"buttons":[{"user":"kennethfan","repo":"gitbook","type":"star","size":"small","count":true}]};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    个人简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../java-study/">
+            
+                <a href="../java-study/">
+            
+                    
+                    Java学习
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../java-study/maven-zhi-ding-xu-yao-de-mo-kuai-da-bao.html">
+            
+                <a href="../java-study/maven-zhi-ding-xu-yao-de-mo-kuai-da-bao.html">
+            
+                    
+                    maven指定需要的模块打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../java-study/dynamicdatasource-shi-xian-shu-ju-du-xie-fen-li.html">
+            
+                <a href="../java-study/dynamicdatasource-shi-xian-shu-ju-du-xie-fen-li.html">
+            
+                    
+                    dynamic-datasource实现数据读写分离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../java-study/redis-zhu-cong-jia-gou-li-yong-lettuce-shi-xian-du-xie-fen-li.html">
+            
+                <a href="../java-study/redis-zhu-cong-jia-gou-li-yong-lettuce-shi-xian-du-xie-fen-li.html">
+            
+                    
+                    redis主从架构利用lettuce实现读写分离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../java-study/java-filter-xiu-gai-request-nei-rong-he-response-nei-rong.html">
+            
+                <a href="../java-study/java-filter-xiu-gai-request-nei-rong-he-response-nei-rong.html">
+            
+                    
+                    java filter修改request内容和response内容
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../java-study/javacompiler-dong-tai-bian-yi-java-dai-ma.html">
+            
+                <a href="../java-study/javacompiler-dong-tai-bian-yi-java-dai-ma.html">
+            
+                    
+                    JavaCompiler动态编译java代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="../java-study/jdk-dong-tai-dai-li.html">
+            
+                <a href="../java-study/jdk-dong-tai-dai-li.html">
+            
+                    
+                    JDK动态代理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="../java-study/lei-ge-li.html">
+            
+                <a href="../java-study/lei-ge-li.html">
+            
+                    
+                    类隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="../java-study/jnr-tiao-yong-ben-di-dong-tai-lian-jie-ku.html">
+            
+                <a href="../java-study/jnr-tiao-yong-ben-di-dong-tai-lian-jie-ku.html">
+            
+                    
+                    JNR调用本地动态链接库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="../java-study/javac-ming-ling-bian-yi-java-ming-ling-yun-hang-dai-ma.html">
+            
+                <a href="../java-study/javac-ming-ling-bian-yi-java-ming-ling-yun-hang-dai-ma.html">
+            
+                    
+                    javac命令编译\&java命令运行代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="../java-study/java-huo-qu-ying-jian-xin-xi.html">
+            
+                <a href="../java-study/java-huo-qu-ying-jian-xin-xi.html">
+            
+                    
+                    java获取硬件信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="../java-study/conditional-shi-xian-bean-an-xu-jia-zai.html">
+            
+                <a href="../java-study/conditional-shi-xian-bean-an-xu-jia-zai.html">
+            
+                    
+                    Conditional实现bean按需加载
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="../java-study/spring-boot-actuator-da-pei-jenkins-shi-xian-fa-bu-jian-kang-jian-cha-he-bao-jing.html">
+            
+                <a href="../java-study/spring-boot-actuator-da-pei-jenkins-shi-xian-fa-bu-jian-kang-jian-cha-he-bao-jing.html">
+            
+                    
+                    spring boot actuator搭配jenkins实现发布健康检查和报警
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.13" data-path="../java-study/nacos-pei-zhi-wen-jian-yu-fa-jian-ce-bao-jing.html">
+            
+                <a href="../java-study/nacos-pei-zhi-wen-jian-yu-fa-jian-ce-bao-jing.html">
+            
+                    
+                    nacos配置文件语法检测&报警
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14" data-path="../java-study/java-shi-yong-mmap.html">
+            
+                <a href="../java-study/java-shi-yong-mmap.html">
+            
+                    
+                    java使用mmap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.15" data-path="../java-study/java-shi-yong-page-cache.html">
+            
+                <a href="../java-study/java-shi-yong-page-cache.html">
+            
+                    
+                    java使用page cache
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.16" data-path="../java-study/spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.html">
+            
+                <a href="../java-study/spring-cloud-gateway-+-nacos-+-sentinel-shi-xian-wang-guan-xian-liu.html">
+            
+                    
+                    spring cloud gateway + nacos + sentinel实现网关限流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.17" data-path="../java-study/spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.html">
+            
+                <a href="../java-study/spring-cloud-zi-ding-yi-loaderbalancer-shi-xian-liu-liang-jiu-jin-fang-wen.html">
+            
+                    
+                    spring cloud自定义loaderbalancer实现流量就近访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.18" data-path="../java-study/spring-cloud-shou-dong-xia-diao-jie-dian.html">
+            
+                <a href="../java-study/spring-cloud-shou-dong-xia-diao-jie-dian.html">
+            
+                    
+                    spring cloud手动下掉节点
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.19" data-path="../java-study/jar-bao-jie-ya-he-da-bao.html">
+            
+                <a href="../java-study/jar-bao-jie-ya-he-da-bao.html">
+            
+                    
+                    jar包解压和打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.20" data-path="../java-study/java-ji-cheng-prometheus-shang-bao-shu-ju.html">
+            
+                <a href="../java-study/java-ji-cheng-prometheus-shang-bao-shu-ju.html">
+            
+                    
+                    java集成prometheus上报数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.21" data-path="../java-study/spring-actuator-shang-bao-zhi-biao-uriknown-xiu-fu.html">
+            
+                <a href="../java-study/spring-actuator-shang-bao-zhi-biao-uriknown-xiu-fu.html">
+            
+                    
+                    spring actuator上报指标uri=known修复
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.22" data-path="../java-study/maven-shou-dong-shang-chuan-san-fang-jar-dao-cang-ku.html">
+            
+                <a href="../java-study/maven-shou-dong-shang-chuan-san-fang-jar-dao-cang-ku.html">
+            
+                    
+                    maven手动上传三方jar到仓库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.23" data-path="../java-study/ji-yu-spring-cloud-gateway-springmvc-fu-wu-he-bing.html">
+            
+                <a href="../java-study/ji-yu-spring-cloud-gateway-springmvc-fu-wu-he-bing.html">
+            
+                    
+                    基于Spring Cloud gateway & Springmvc服务合并
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.24" data-path="../java-study/feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.html">
+            
+                <a href="../java-study/feign-tiao-yong-zhuan-cheng-ben-di-fang-fa-tiao-yong.html">
+            
+                    
+                    Feign调用转成本地方法调用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.25" data-path="../java-study/spring-cloud-ying-yong-fen-bu-shi-lian-lu-gen-zong-jian-yi-shi-xian.html">
+            
+                <a href="../java-study/spring-cloud-ying-yong-fen-bu-shi-lian-lu-gen-zong-jian-yi-shi-xian.html">
+            
+                    
+                    spring cloud应用分布式链路跟踪简易实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.26" data-path="../java-study/dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.html">
+            
+                <a href="../java-study/dui-yu-suo-you-dui-xiang-dou-tong-yong-de-fang-fa.html">
+            
+                    
+                    对于所有对象都通用的方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.27" data-path="../java-study/chuang-jian-he-xiao-hui-dui-xiang.html">
+            
+                <a href="../java-study/chuang-jian-he-xiao-hui-dui-xiang.html">
+            
+                    
+                    创建和销毁对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.28" data-path="../java-study/jackson-fan-xu-lie-hua-duo-tai-lei-xing-bang-ding.html">
+            
+                <a href="../java-study/jackson-fan-xu-lie-hua-duo-tai-lei-xing-bang-ding.html">
+            
+                    
+                    Jackson反序列化多态类型绑定
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.29" data-path="../java-study/spring-cloud-shou-dong-chuang-jian-feign-client.html">
+            
+                <a href="../java-study/spring-cloud-shou-dong-chuang-jian-feign-client.html">
+            
+                    
+                    spring cloud手动创建feign client
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.30" data-path="../java-study/springmvc-dong-tai-zhu-ce-lu-you.html">
+            
+                <a href="../java-study/springmvc-dong-tai-zhu-ce-lu-you.html">
+            
+                    
+                    springmvc 动态注册路由
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.31" data-path="../java-study/open-feign-yuan-ma-fen-xi.html">
+            
+                <a href="../java-study/open-feign-yuan-ma-fen-xi.html">
+            
+                    
+                    Open feign源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.32" data-path="../java-study/open-feign-dong-tai-qie-liu-shi-xian.html">
+            
+                <a href="../java-study/open-feign-dong-tai-qie-liu-shi-xian.html">
+            
+                    
+                    Open feign动态切流实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.33" data-path="../java-study/open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html">
+            
+                <a href="../java-study/open-feign-dong-tai-qie-huan-fu-wu-mu-biao-di-zhi-zu-jian.html">
+            
+                    
+                    Open feign动态切换服务目标地址组件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.34" data-path="../java-study/shi-yong-checkstyle-jin-xing-java-dai-ma-shen-cha-shi-jian-zhi-nan.html">
+            
+                <a href="../java-study/shi-yong-checkstyle-jin-xing-java-dai-ma-shen-cha-shi-jian-zhi-nan.html">
+            
+                    
+                    使用Checkstyle进行Java代码审查：实践指南
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../ai/">
+            
+                <a href="../ai/">
+            
+                    
+                    AI
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../ai/claude-code-cli-jie-ru-glm-mian-fei-mo-xing.html">
+            
+                <a href="../ai/claude-code-cli-jie-ru-glm-mian-fei-mo-xing.html">
+            
+                    
+                    claude code cli接入GLM免费模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../ai/openclaw-shi-yong-opencode-mo-xing.html">
+            
+                <a href="../ai/openclaw-shi-yong-opencode-mo-xing.html">
+            
+                    
+                    openclaw使用opencode模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../ai/deepseek++-zhi-nan.html">
+            
+                <a href="../ai/deepseek++-zhi-nan.html">
+            
+                    
+                    DeepSeek++指南
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../ai/markitdown-jie-shao.html">
+            
+                <a href="../ai/markitdown-jie-shao.html">
+            
+                    
+                    MarkItDown介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../python/">
+            
+                <a href="../python/">
+            
+                    
+                    python
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../python/centos-an-zhuang-miniconda.html">
+            
+                <a href="../python/centos-an-zhuang-miniconda.html">
+            
+                    
+                    centos 安装miniconda
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../python/pip-an-zhuang-zou-socks-dai-li.html">
+            
+                <a href="../python/pip-an-zhuang-zou-socks-dai-li.html">
+            
+                    
+                    pip安装走socks代理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../python/pa-chong-xiang-guan.html">
+            
+                <a href="../python/pa-chong-xiang-guan.html">
+            
+                    
+                    爬虫相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../python/playwright-shi-yong-xiao-ji-qiao.html">
+            
+                <a href="../python/playwright-shi-yong-xiao-ji-qiao.html">
+            
+                    
+                    playwright使用小技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../linux/">
+            
+                <a href="../linux/">
+            
+                    
+                    Linux
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../linux/guo-qi-jar-shan-chu.html">
+            
+                <a href="../linux/guo-qi-jar-shan-chu.html">
+            
+                    
+                    过期jar删除
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../linux/centos-tian-jia-fang-huo-qiang.html">
+            
+                <a href="../linux/centos-tian-jia-fang-huo-qiang.html">
+            
+                    
+                    centos添加防火墙
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../linux/centos-xiu-gai-hostname.html">
+            
+                <a href="../linux/centos-xiu-gai-hostname.html">
+            
+                    
+                    centos修改hostname
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../linux/rsync-wen-jian-zeng-liang-tong-bu.html">
+            
+                <a href="../linux/rsync-wen-jian-zeng-liang-tong-bu.html">
+            
+                    
+                    rsync文件增量同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../linux/a-li-yun-bu-shu-wen-jian-chuan-shu-you-hua.html">
+            
+                <a href="../linux/a-li-yun-bu-shu-wen-jian-chuan-shu-you-hua.html">
+            
+                    
+                    阿里云部署-文件传输优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../linux/prometheus-qing-li-shu-ju.html">
+            
+                <a href="../linux/prometheus-qing-li-shu-ju.html">
+            
+                    
+                    prometheus清理数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="../linux/prometheus-zhua-qu-shu-ju-pei-zhi.html">
+            
+                <a href="../linux/prometheus-zhua-qu-shu-ju-pei-zhi.html">
+            
+                    
+                    prometheus抓取数据配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="../linux/centos-an-zhuang-chrome-he-chromedriver.html">
+            
+                <a href="../linux/centos-an-zhuang-chrome-he-chromedriver.html">
+            
+                    
+                    centos安装chrome和chromedriver
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../nexus/">
+            
+                <a href="../nexus/">
+            
+                    
+                    nexus
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../nexus/nexus-shou-dong-shang-chuan-wen-jian.html">
+            
+                <a href="../nexus/nexus-shou-dong-shang-chuan-wen-jian.html">
+            
+                    
+                    nexus手动上传文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../docker/">
+            
+                <a href="../docker/">
+            
+                    
+                    docker & k8s
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../docker/cha-kan-image-dui-ying-de-dockerfile.html">
+            
+                <a href="../docker/cha-kan-image-dui-ying-de-dockerfile.html">
+            
+                    
+                    查看image对应的dockerfile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../docker/k8s-ji-qun-da-jian.html">
+            
+                <a href="../docker/k8s-ji-qun-da-jian.html">
+            
+                    
+                    k8s集群搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../docker/docker-jing-xiang-dao-ru-dao-chu.html">
+            
+                <a href="../docker/docker-jing-xiang-dao-ru-dao-chu.html">
+            
+                    
+                    docker镜像导入导出
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../docker/kubectl-chang-yong-ming-ling.html">
+            
+                <a href="../docker/kubectl-chang-yong-ming-ling.html">
+            
+                    
+                    kubectl 常用命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../nginx/">
+            
+                <a href="../nginx/">
+            
+                    
+                    nginx
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../nginx/ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.html">
+            
+                <a href="../nginx/ngxhttpdyupsmodule-shi-xian-web-fu-wu-de-ping-hua-fa-bu.html">
+            
+                    
+                    ngx_http_dyups_module实现web服务的平滑发布
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../nginx/nginx-dai-li-mysql.html">
+            
+                <a href="../nginx/nginx-dai-li-mysql.html">
+            
+                    
+                    nginx代理mysql
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.html">
+            
+                <a href="../nginx/nginx+imgproxy-shi-xian-tu-pian-zi-dong-suo-fang-cai-jian.html">
+            
+                    
+                    nginx+imgproxy实现图片自动缩放裁剪
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../nginx/minio-shi-xian-wen-jian-cun-chu.html">
+            
+                <a href="../nginx/minio-shi-xian-wen-jian-cun-chu.html">
+            
+                    
+                    minio实现文件存储
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="../nginx/nginx-zheng-xiang-dai-li-https.html">
+            
+                <a href="../nginx/nginx-zheng-xiang-dai-li-https.html">
+            
+                    
+                    nginx正向代理https
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.6" data-path="../nginx/nginx-dong-tai-zhuan-fa-dao-upstream.html">
+            
+                <a href="../nginx/nginx-dong-tai-zhuan-fa-dao-upstream.html">
+            
+                    
+                    nginx动态转发到upstream
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../git/">
+            
+                <a href="../git/">
+            
+                    
+                    git
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.html">
+            
+                <a href="../git/git-la-qu-zhi-ding-tag-fen-zhi-de-dai-ma.html">
+            
+                    
+                    git拉取指定tag/分支的代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../git/git-she-zhi-yong-hu-xin-xi-huan-cun.html">
+            
+                <a href="../git/git-she-zhi-yong-hu-xin-xi-huan-cun.html">
+            
+                    
+                    git设置用户信息缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../git/git-xiu-gai-yi-ti-jiao-ji-lu-ti-jiao-zhe-xin-xi.html">
+            
+                <a href="../git/git-xiu-gai-yi-ti-jiao-ji-lu-ti-jiao-zhe-xin-xi.html">
+            
+                    
+                    git修改已提交记录提交者信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../shell/">
+            
+                <a href="../shell/">
+            
+                    
+                    shell
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.html">
+            
+                <a href="../shell/shell-gen-ju-huan-jing-bian-liang-ti-huan-wen-ben.html">
+            
+                    
+                    shell根据环境变量替换文本
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../shell/shell-ming-ling-zi-dong-bu-quan.html">
+            
+                <a href="../shell/shell-ming-ling-zi-dong-bu-quan.html">
+            
+                    
+                    shell命令自动补全
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../shell/ssh-zi-dong-shu-ru-mi-ma-deng-lu.html">
+            
+                <a href="../shell/ssh-zi-dong-shu-ru-mi-ma-deng-lu.html">
+            
+                    
+                    ssh自动输入密码登录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="../shell/mac-xian-shi-yin-cang-wen-jian-jia.html">
+            
+                <a href="../shell/mac-xian-shi-yin-cang-wen-jian-jia.html">
+            
+                    
+                    mac显示隐藏文件夹
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../vim/">
+            
+                <a href="../vim/">
+            
+                    
+                    vim
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../vim/vim-jian-jie.html">
+            
+                <a href="../vim/vim-jian-jie.html">
+            
+                    
+                    Vim简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../vim/vim-xi-lie-zhi-chu-ti-yan-er.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-chu-ti-yan-er.html">
+            
+                    
+                    Vim系列之初体验(二)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../vim/vim-xi-lie-zhi-yi-dong-san.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-yi-dong-san.html">
+            
+                    
+                    Vim系列之移动(三)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../vim/vim-xi-lie-zhi-cha-ru-si.html">
+            
+                <a href="../vim/vim-xi-lie-zhi-cha-ru-si.html">
+            
+                    
+                    Vim系列之插入(四)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../redis/">
+            
+                <a href="../redis/">
+            
+                    
+                    redis
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../redis/redis-dong-tai-tian-jia-cong-ku.html">
+            
+                <a href="../redis/redis-dong-tai-tian-jia-cong-ku.html">
+            
+                    
+                    redis动态添加从库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="../redis/lua-jiao-ben-pi-liang-tian-jia-redis-key-qian-zhui.html">
+            
+                <a href="../redis/lua-jiao-ben-pi-liang-tian-jia-redis-key-qian-zhui.html">
+            
+                    
+                    lua脚本批量添加redis key前缀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="../redis/shi-yong-redisson-qian-yi-redis-shu-ju.html">
+            
+                <a href="../redis/shi-yong-redisson-qian-yi-redis-shu-ju.html">
+            
+                    
+                    使用redisson迁移redis数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="../redis/redis-qing-kong-mou-ge-ku.html">
+            
+                <a href="../redis/redis-qing-kong-mou-ge-ku.html">
+            
+                    
+                    redis清空某个库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="../redis/redis-dui-xiang.html">
+            
+                <a href="../redis/redis-dui-xiang.html">
+            
+                    
+                    redis对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.6" data-path="../redis/redis-zi-fu-chuan.html">
+            
+                <a href="../redis/redis-zi-fu-chuan.html">
+            
+                    
+                    redis字符串
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.7" data-path="../redis/redis-lian-biao.html">
+            
+                <a href="../redis/redis-lian-biao.html">
+            
+                    
+                    redis链表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.8" data-path="../redis/redis-zi-dian.html">
+            
+                <a href="../redis/redis-zi-dian.html">
+            
+                    
+                    redis字典
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.9" data-path="../redis/redis-ya-suo-lie-biao.html">
+            
+                <a href="../redis/redis-ya-suo-lie-biao.html">
+            
+                    
+                    redis压缩列表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.10" data-path="../redis/redis-zheng-shu-ji-he.html">
+            
+                <a href="../redis/redis-zheng-shu-ji-he.html">
+            
+                    
+                    redis整数集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.11" data-path="../redis/redis-tiao-yue-biao.html">
+            
+                <a href="../redis/redis-tiao-yue-biao.html">
+            
+                    
+                    redis跳跃表
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../mysql/">
+            
+                <a href="../mysql/">
+            
+                    
+                    mysql
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../mysql/mysql-chuang-jian-yong-hu-bing-shou-quan.html">
+            
+                <a href="../mysql/mysql-chuang-jian-yong-hu-bing-shou-quan.html">
+            
+                    
+                    mysql创建用户并授权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.2" data-path="../mysql/mysql-zhu-cong-tong-bu-pei-zhi.html">
+            
+                <a href="../mysql/mysql-zhu-cong-tong-bu-pei-zhi.html">
+            
+                    
+                    mysql主从同步配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../c-and-cpp/">
+            
+                <a href="../c-and-cpp/">
+            
+                    
+                    c & cpp
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../c-and-cpp/zhi-zhen-han-shu-han-shu-zhi-zhen.html">
+            
+                <a href="../c-and-cpp/zhi-zhen-han-shu-han-shu-zhi-zhen.html">
+            
+                    
+                    指针函数&函数指针
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../php/">
+            
+                <a href="../php/">
+            
+                    
+                    php
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="../php/php-zong-jie.html">
+            
+                <a href="../php/php-zong-jie.html">
+            
+                    
+                    PHP总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="../php/php-dan-yuan-ce-shi-phpunit.html">
+            
+                <a href="../php/php-dan-yuan-ce-shi-phpunit.html">
+            
+                    
+                    PHP单元测试PHPUnit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="../php/php-an-zhuang-memcached-kuo-zhan.html">
+            
+                <a href="../php/php-an-zhuang-memcached-kuo-zhan.html">
+            
+                    
+                    PHP安装memcached扩展
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="../zsh/">
+            
+                <a href="../zsh/">
+            
+                    
+                    zsh
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="../zsh/zsh-bian-liang-he-yu-ju.html">
+            
+                <a href="../zsh/zsh-bian-liang-he-yu-ju.html">
+            
+                    
+                    zsh-变量和语句
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="../zsh/zsh-zi-fu-chuan-chang-yong-cao-zuo.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-chang-yong-cao-zuo.html">
+            
+                    
+                    zsh-字符串常用操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="../zsh/zsh-zi-fu-chuan-zhuan-yi-he-ge-shi-hua.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-zhuan-yi-he-ge-shi-hua.html">
+            
+                    
+                    zsh-字符串转义和格式化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="../zsh/zsh-zi-fu-chuan-tong-pei-fu.html">
+            
+                <a href="../zsh/zsh-zi-fu-chuan-tong-pei-fu.html">
+            
+                    
+                    zsh-字符串通配符
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    前端
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.17.1" data-path="highlight.js-zhi-chi-dong-tai-dai-ma.html">
+            
+                <a href="highlight.js-zhi-chi-dong-tai-dai-ma.html">
+            
+                    
+                    highlight.js支持动态代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.2" data-path="centos7-an-zhuang-node22.html">
+            
+                <a href="centos7-an-zhuang-node22.html">
+            
+                    
+                    centos7安装node22
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.17.3" data-path="chrome-kuo-zhan-hai-neng-zhe-yang-wan-12-ge-ji-shu-xi-jie-ba-wang-ye-gai-zao-cheng-api-jie-kou.html">
+            
+                <a href="chrome-kuo-zhan-hai-neng-zhe-yang-wan-12-ge-ji-shu-xi-jie-ba-wang-ye-gai-zao-cheng-api-jie-kou.html">
+            
+                    
+                    Chrome 扩展还能这样玩？ 12 个技术细节把网页改造成 API 接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="../jia-gou-shi-tu-pu.html">
+            
+                <a href="../jia-gou-shi-tu-pu.html">
+            
+                    
+                    架构师图谱
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="../su-yuan-xi-tong.html">
+            
+                <a href="../su-yuan-xi-tong.html">
+            
+                    
+                    溯源系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Chrome 扩展还能这样玩？ 12 个技术细节把网页改造成 API 接口</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="chrome-&#x6269;&#x5C55;&#x8FD8;&#x80FD;&#x8FD9;&#x6837;&#x73A9;&#xFF1F;-12-&#x4E2A;&#x6280;&#x672F;&#x7EC6;&#x8282;&#x628A;&#x7F51;&#x9875;&#x6539;&#x9020;&#x6210;-api-&#x63A5;&#x53E3;">Chrome &#x6269;&#x5C55;&#x8FD8;&#x80FD;&#x8FD9;&#x6837;&#x73A9;&#xFF1F; 12 &#x4E2A;&#x6280;&#x672F;&#x7EC6;&#x8282;&#x628A;&#x7F51;&#x9875;&#x6539;&#x9020;&#x6210; API &#x63A5;&#x53E3;</h1>
+<blockquote>
+<p>&#x672C;&#x6587;&#x4EE5; <strong>ds-chat2api Data Collector</strong> Chrome &#x6269;&#x5C55;&#x4E3A;&#x4F8B;&#xFF0C;&#x6DF1;&#x5EA6;&#x62C6;&#x89E3;&#x4E00;&#x4E2A;&#x5C06;&#x7F51;&#x9875;&#x5305;&#x88C5;&#x6210; API &#x7684;&#x6269;&#x5C55;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;&#x54EA;&#x4E9B;&#x5173;&#x952E;&#x6280;&#x672F;&#x3002;&#x9002;&#x5408;&#x5BF9; Chrome &#x6269;&#x5C55;&#x5F00;&#x53D1;&#x3001;&#x6D4F;&#x89C8;&#x5668;&#x81EA;&#x52A8;&#x5316;&#x3001;WebSocket &#x901A;&#x4FE1;&#x611F;&#x5174;&#x8DA3;&#x7684;&#x5F00;&#x53D1;&#x8005;&#x9605;&#x8BFB;&#x3002;</p>
+</blockquote>
+<h2 id="&#x80CC;&#x666F;">&#x80CC;&#x666F;</h2>
+<p><code>ds-chat2api</code> &#x662F;&#x4E00;&#x4E2A; Chrome &#x6269;&#x5C55;&#xFF0C;&#x5B83;&#x7684;&#x76EE;&#x6807;&#x975E;&#x5E38;&#x660E;&#x786E;&#xFF1A;<strong>&#x628A; &#x76EE;&#x6807;&#x7F51;&#x9875;&#xFF08;example.com&#xFF09;&#x901A;&#x8FC7; WebSocket &#x534F;&#x8BAE;&#x66B4;&#x9732;&#x6210;&#x4E00;&#x4E2A;&#x53EF;&#x8FDC;&#x7A0B;&#x8C03;&#x7528;&#x7684; API</strong>&#x3002;</p>
+<p>&#x542C;&#x8D77;&#x6765;&#x5F88;&#x9177;&#xFF1F;&#x8BA9;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x770B;&#x5B83;&#x662F;&#x600E;&#x4E48;&#x505A;&#x5230;&#x7684;&#x3002;</p>
+<h2 id="&#x6280;&#x672F;&#x603B;&#x89C8;">&#x6280;&#x672F;&#x603B;&#x89C8;</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>&#x6280;&#x672F;</th>
+<th>&#x6587;&#x4EF6;</th>
+<th>&#x4F5C;&#x7528;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Manifest V3 + Service Worker</td>
+<td><code>manifest.json</code>, <code>background.js</code></td>
+<td>&#x6784;&#x5EFA;&#x73B0;&#x4EE3; Chrome &#x6269;&#x5C55;&#x7684;&#x57FA;&#x5EA7;</td>
+</tr>
+<tr>
+<td>2</td>
+<td>WebSocket &#x5BA2;&#x6237;&#x7AEF; + &#x6307;&#x6570;&#x9000;&#x907F;&#x91CD;&#x8FDE;</td>
+<td><code>background.js</code></td>
+<td>&#x4E0E;&#x5916;&#x90E8;&#x670D;&#x52A1;&#x4FDD;&#x6301;&#x957F;&#x8FDE;&#x63A5;</td>
+</tr>
+<tr>
+<td>3</td>
+<td>&#x591A; Tab &#x9886;&#x5BFC;&#x8005;&#x9009;&#x4E3E;</td>
+<td><code>background.js</code></td>
+<td>&#x5728;&#x591A;&#x4E2A; &#x76EE;&#x6807;&#x6807;&#x7B7E;&#x9875;&#x4E2D;&#x81EA;&#x52A8;&#x9009;&#x51FA;&#x4E00;&#x4E2A; active &#x9875;</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Chrome Debugger API</td>
+<td><code>background.js</code></td>
+<td>&#x9644;&#x52A0;&#x5230;&#x6807;&#x7B7E;&#x9875;&#x7684;&#x8C03;&#x8BD5;&#x5668;</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Content Script &#x6CE8;&#x5165;</td>
+<td><code>manifest.json</code>, <code>content.js</code></td>
+<td>&#x5411;&#x76EE;&#x6807;&#x9875;&#x9762;&#x6CE8;&#x5165;&#x81EA;&#x52A8;&#x5316;&#x903B;&#x8F91;</td>
+</tr>
+<tr>
+<td>6</td>
+<td>MAIN &#x4E16;&#x754C;&#x811A;&#x672C;&#x6CE8;&#x5165;</td>
+<td><code>background.js</code>, <code>interceptor.js</code></td>
+<td>&#x6CE8;&#x5165;&#x5230;&#x9875;&#x9762;&#x4E3B;&#x4E16;&#x754C;&#xFF0C;&#x62E6;&#x622A;&#x539F;&#x751F; API</td>
+</tr>
+<tr>
+<td>7</td>
+<td>XHR &#x7334;&#x5B50;&#x8865;&#x4E01; (Monkey-patching)</td>
+<td><code>interceptor.js</code></td>
+<td>&#x62E6;&#x622A; XMLHttpRequest &#x8BF7;&#x6C42;&#x4E0E;&#x54CD;&#x5E94;</td>
+</tr>
+<tr>
+<td>8</td>
+<td>&#x952E;&#x76D8;&#x4E8B;&#x4EF6;&#x6A21;&#x62DF;</td>
+<td><code>content.js</code></td>
+<td>&#x7A0B;&#x5E8F;&#x5316;&#x6A21;&#x62DF;&#x7528;&#x6237;&#x5728;&#x8F93;&#x5165;&#x6846;&#x6253;&#x5B57;</td>
+</tr>
+<tr>
+<td>9</td>
+<td>window.postMessage &#x8DE8;&#x4E0A;&#x4E0B;&#x6587;&#x901A;&#x4FE1;</td>
+<td><code>content.js</code>, <code>interceptor.js</code></td>
+<td>&#x4E3B;&#x4E16;&#x754C;&#x811A;&#x672C;&#x4E0E;&#x5185;&#x5BB9;&#x811A;&#x672C;&#x4EA4;&#x6362;&#x6570;&#x636E;</td>
+</tr>
+<tr>
+<td>10</td>
+<td>RPC &#x98CE;&#x683C;&#x6D88;&#x606F;&#x534F;&#x8BAE;</td>
+<td><code>background.js</code></td>
+<td>&#x901A;&#x8FC7; JSON &#x6D88;&#x606F;&#x5B9E;&#x73B0;&#x8FDC;&#x7A0B;&#x8FC7;&#x7A0B;&#x8C03;&#x7528;</td>
+</tr>
+<tr>
+<td>11</td>
+<td>&#x5FC3;&#x8DF3;&#x4FDD;&#x6D3B;&#x673A;&#x5236;</td>
+<td><code>background.js</code></td>
+<td>&#x68C0;&#x6D4B; WebSocket &#x8FDE;&#x63A5;&#x5065;&#x5EB7;&#x72B6;&#x6001;</td>
+</tr>
+<tr>
+<td>12</td>
+<td>chrome.storage &#x6301;&#x4E45;&#x5316;</td>
+<td><code>background.js</code>, <code>popup.js</code></td>
+<td>&#x4FDD;&#x5B58;&#x7528;&#x6237;&#x914D;&#x7F6E;&#x548C;&#x8FDE;&#x63A5;&#x72B6;&#x6001;</td>
+</tr>
+</tbody>
+</table>
+<p>&#x4E0B;&#x9762;&#x9010;&#x4E00;&#x6DF1;&#x5165;&#x3002;</p>
+<h2 id="&#x6280;&#x672F;&#x4E00;&#xFF1A;manifest-v3--service-worker">&#x6280;&#x672F;&#x4E00;&#xFF1A;Manifest V3 + Service Worker</h2>
+<pre><code class="lang-json">{
+  <span class="hljs-string">&quot;manifest_version&quot;</span>: <span class="hljs-number">3</span>,
+  <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;ds-chat2api Data Collector&quot;</span>,
+  <span class="hljs-string">&quot;background&quot;</span>: {
+    <span class="hljs-string">&quot;service_worker&quot;</span>: <span class="hljs-string">&quot;background.js&quot;</span>,
+    <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;module&quot;</span>
+  },
+  <span class="hljs-string">&quot;permissions&quot;</span>: [<span class="hljs-string">&quot;debugger&quot;</span>, <span class="hljs-string">&quot;storage&quot;</span>, <span class="hljs-string">&quot;tabs&quot;</span>, <span class="hljs-string">&quot;scripting&quot;</span>],
+  <span class="hljs-string">&quot;host_permissions&quot;</span>: [<span class="hljs-string">&quot;https://example.com/*&quot;</span>]
+}
+</code></pre>
+<p><strong>&#x4F5C;&#x7528;</strong>&#xFF1A;Manifest V3 &#x662F; Chrome &#x6269;&#x5C55;&#x7684;&#x6700;&#x65B0;&#x6807;&#x51C6;&#xFF0C;&#x6700;&#x5927;&#x53D8;&#x5316;&#x662F;<strong>&#x7528; Service Worker &#x66FF;&#x4EE3;&#x4E86;&#x539F;&#x6765;&#x7684; Background Page</strong>&#x3002;Service Worker &#x662F;&#x4E00;&#x4E2A;&#x72EC;&#x7ACB;&#x4E8E;&#x6D4F;&#x89C8;&#x5668; UI &#x7EBF;&#x7A0B;&#x7684;&#x540E;&#x53F0;&#x811A;&#x672C;&#xFF0C;&#x5728;&#x4E0D;&#x9700;&#x8981;&#x65F6;&#x4F1A;&#x88AB; Chrome &#x4F11;&#x7720;&#x4EE5;&#x8282;&#x7701;&#x8D44;&#x6E90;&#x3002;</p>
+<p><strong>&#x5173;&#x952E;&#x70B9;</strong>&#xFF1A;</p>
+<ul>
+<li><code>service_worker</code>&#xFF1A;&#x58F0;&#x660E;&#x540E;&#x53F0;&#x811A;&#x672C;&#xFF0C;<code>type: &quot;module&quot;</code> &#x8868;&#x793A;&#x652F;&#x6301; ES Module&#x3002;</li>
+<li><code>permissions</code>&#xFF1A;&#x58F0;&#x660E;&#x9700;&#x8981;&#x7684;&#x6743;&#x9650;&#x2014;&#x2014;<code>debugger</code>&#xFF08;&#x8C03;&#x8BD5;&#x5668;&#xFF09;&#x3001;<code>storage</code>&#xFF08;&#x5B58;&#x50A8;&#xFF09;&#x3001;<code>tabs</code>&#xFF08;&#x6807;&#x7B7E;&#x9875;&#xFF09;&#x3001;<code>scripting</code>&#xFF08;&#x811A;&#x672C;&#x6CE8;&#x5165;&#xFF09;&#x3002;</li>
+<li><code>host_permissions</code>&#xFF1A;&#x9650;&#x5B9A;&#x6269;&#x5C55;&#x53EA;&#x5728; <code>example.com</code> &#x57DF;&#x540D;&#x4E0B;&#x751F;&#x6548;&#xFF0C;&#x589E;&#x5F3A;&#x5B89;&#x5168;&#x6027;&#x3002;</li>
+</ul>
+<h2 id="&#x6280;&#x672F;&#x4E8C;&#xFF1A;websocket-&#x5BA2;&#x6237;&#x7AEF;--&#x6307;&#x6570;&#x9000;&#x907F;&#x91CD;&#x8FDE;">&#x6280;&#x672F;&#x4E8C;&#xFF1A;WebSocket &#x5BA2;&#x6237;&#x7AEF; + &#x6307;&#x6570;&#x9000;&#x907F;&#x91CD;&#x8FDE;</h2>
+<pre><code class="lang-javascript"><span class="hljs-comment">// background.js &#x2014; WebSocket &#x5BA2;&#x6237;&#x7AEF;&#x6838;&#x5FC3;</span>
+<span class="hljs-keyword">const</span> ws = {
+  socket: <span class="hljs-literal">null</span>,
+  connected: <span class="hljs-literal">false</span>,
+
+  _doConnect() {
+    <span class="hljs-keyword">const</span> url = <span class="hljs-keyword">this</span>.wsUrl || <span class="hljs-string">`ws://localhost:<span class="hljs-subst">${this.port}</span>`</span>;
+    <span class="hljs-keyword">this</span>.socket = <span class="hljs-keyword">new</span> WebSocket(url);
+
+    <span class="hljs-keyword">this</span>.socket.onopen = () =&gt; {
+      <span class="hljs-keyword">this</span>.connected = <span class="hljs-literal">true</span>;
+      reconnectAttempt = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._startHeartbeat();
+    };
+
+    <span class="hljs-keyword">this</span>.socket.onclose = () =&gt; {
+      <span class="hljs-keyword">this</span>.connected = <span class="hljs-literal">false</span>;
+      <span class="hljs-keyword">this</span>.socket = <span class="hljs-literal">null</span>;
+      <span class="hljs-keyword">this</span>._scheduleReconnect();  <span class="hljs-comment">// &#x65AD;&#x5F00;&#x540E;&#x81EA;&#x52A8;&#x91CD;&#x8FDE;</span>
+    };
+  },
+
+  _scheduleReconnect() {
+    <span class="hljs-comment">// &#x6307;&#x6570;&#x9000;&#x907F;&#xFF1A;1s &#x2192; 2s &#x2192; 4s &#x2192; 8s &#x2192; ... &#x2192; &#x6700;&#x5927; 30s</span>
+    <span class="hljs-keyword">const</span> delay = <span class="hljs-built_in">Math</span>.min(
+      RECONNECT_BASE_MS * <span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, reconnectAttempt),
+      RECONNECT_MAX_MS,
+    );
+    reconnectAttempt++;
+    setTimeout(() =&gt; ws._doConnect(), delay);
+  },
+};
+</code></pre>
+<p><strong>&#x4F5C;&#x7528;</strong>&#xFF1A;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;&#x6301;&#x4E45;&#x7684; WebSocket &#x8FDE;&#x63A5;&#xFF0C;&#x8BA9;&#x5916;&#x90E8;&#x670D;&#x52A1;&#x53EF;&#x4EE5;&#x968F;&#x65F6;&#x5411;&#x6D4F;&#x89C8;&#x5668;&#x53D1;&#x9001;&#x6307;&#x4EE4;&#x3002;</p>
+<p><strong>&#x6838;&#x5FC3;&#x8BBE;&#x8BA1;</strong>&#xFF1A;</p>
+<ul>
+<li><code>_doConnect()</code> &#x8D1F;&#x8D23;&#x5B9E;&#x9645;&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;&#x3002;</li>
+<li><code>_scheduleReconnect()</code> &#x4F7F;&#x7528;**&#x6307;&#x6570;&#x9000;&#x907F;&#xFF08;Exponential Backoff&#xFF09;**&#x7B56;&#x7565;&#xFF1A;&#x7B2C;&#x4E00;&#x6B21;&#x91CD;&#x7B49; 1 &#x79D2;&#xFF0C;&#x7B2C;&#x4E8C;&#x6B21; 2 &#x79D2;&#xFF0C;&#x7B2C;&#x4E09;&#x6B21; 4 &#x79D2;&#x2026;&#x2026;&#x6700;&#x5927; 30 &#x79D2;&#x3002;&#x8FD9;&#x79CD;&#x7B56;&#x7565;&#x5728;&#x7F51;&#x7EDC;&#x4E0D;&#x7A33;&#x5B9A;&#x65F6;&#x907F;&#x514D;&#x9891;&#x7E41;&#x91CD;&#x8FDE;&#x9020;&#x6210;&#x7684;&#x8D44;&#x6E90;&#x6D6A;&#x8D39;&#x3002;</li>
+<li>&#x8FDE;&#x63A5;&#x6210;&#x529F;&#x540E; <code>reconnectAttempt</code> &#x5F52;&#x96F6;&#xFF0C;&#x4E0B;&#x6B21;&#x65AD;&#x5F00;&#x91CD;&#x65B0;&#x4ECE; 1s &#x5F00;&#x59CB;&#x3002;</li>
+</ul>
+<h2 id="&#x6280;&#x672F;&#x4E09;&#xFF1A;&#x591A;-tab-&#x9886;&#x5BFC;&#x8005;&#x9009;&#x4E3E;">&#x6280;&#x672F;&#x4E09;&#xFF1A;&#x591A; Tab &#x9886;&#x5BFC;&#x8005;&#x9009;&#x4E3E;</h2>
+<pre><code class="lang-javascript"><span class="hljs-comment">// background.js &#x2014; Tab &#x7BA1;&#x7406;&#x5668;</span>
+<span class="hljs-keyword">let</span> tabStates = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();   <span class="hljs-comment">// tabId &#x2192; &quot;active&quot; | &quot;standby&quot;</span>
+<span class="hljs-keyword">let</span> activeTabId = <span class="hljs-literal">null</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleTabAvailable</span>(<span class="hljs-params">tabId, tab</span>) </span>{
+  <span class="hljs-keyword">if</span> (activeTabId === <span class="hljs-literal">null</span>) {
+    <span class="hljs-comment">// &#x6CA1;&#x6709; active &#x6807;&#x7B7E; &#x2192; &#x63D0;&#x5347;&#x4E3A; leader</span>
+    tabStates.set(tabId, <span class="hljs-string">&quot;active&quot;</span>);
+    activeTabId = tabId;
+    attachDebuggerToActive();
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">// &#x5DF2;&#x6709; active &#x6807;&#x7B7E; &#x2192; &#x8BBE;&#x4E3A; standby</span>
+    tabStates.set(tabId, <span class="hljs-string">&quot;standby&quot;</span>);
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleTabRemoved</span>(<span class="hljs-params">tabId</span>) </span>{
+  <span class="hljs-keyword">if</span> (tabId === activeTabId) {
+    <span class="hljs-comment">// Leader &#x88AB;&#x5173;&#x95ED; &#x2192; &#x4ECE; standby &#x4E2D;&#x9009;&#x4E00;&#x4E2A;&#x63A5;&#x66FF;</span>
+    activeTabId = <span class="hljs-literal">null</span>;
+    promoteNextTab();
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">promoteNextTab</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> standbyTabs = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> [tabId, state] <span class="hljs-keyword">of</span> tabStates.entries()) {
+    <span class="hljs-keyword">if</span> (state === <span class="hljs-string">&quot;standby&quot;</span>) standbyTabs.push(tabId);
+  }
+  <span class="hljs-keyword">if</span> (standbyTabs.length === <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span>;
+
+  <span class="hljs-keyword">const</span> nextTabId = standbyTabs[<span class="hljs-number">0</span>];
+  tabStates.set(nextTabId, <span class="hljs-string">&quot;active&quot;</span>);
+  activeTabId = nextTabId;
+  attachDebuggerToActive();
+}
+</code></pre>
+<p><strong>&#x4F5C;&#x7528;</strong>&#xFF1A;&#x7528;&#x6237;&#x53EF;&#x80FD;&#x6253;&#x5F00;&#x591A;&#x4E2A; &#x76EE;&#x6807;&#x6807;&#x7B7E;&#x9875;&#xFF0C;&#x6269;&#x5C55;&#x9700;&#x8981;&#x51B3;&#x5B9A;<strong>&#x628A;&#x6307;&#x4EE4;&#x53D1;&#x9001;&#x7ED9;&#x54EA;&#x4E2A;&#x6807;&#x7B7E;&#x9875;</strong>&#x3002;&#x8FD9;&#x91CC;&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x9886;&#x5BFC;&#x8005;&#x9009;&#x4E3E;&#x7B97;&#x6CD5;&#xFF1A;</p>
+<ol>
+<li>&#x7B2C;&#x4E00;&#x4E2A;&#x6253;&#x5F00;&#x7684;&#x6807;&#x7B7E;&#x9875;&#x6210;&#x4E3A; <strong>active&#xFF08;&#x9886;&#x5BFC;&#x8005;&#xFF09;</strong>&#x3002;</li>
+<li>&#x540E;&#x7EED;&#x6253;&#x5F00;&#x7684;&#x6807;&#x7B7E;&#x9875;&#x8FDB;&#x5165; <strong>standby&#xFF08;&#x5019;&#x8865;&#xFF09;</strong> &#x961F;&#x5217;&#x3002;</li>
+<li>active &#x6807;&#x7B7E;&#x5173;&#x95ED;&#x65F6;&#xFF0C;&#x81EA;&#x52A8;&#x4ECE; standby &#x4E2D;<strong>&#x6309; FIFO &#x987A;&#x5E8F;</strong>&#x664B;&#x5347;&#x4E00;&#x4E2A;&#x4E3A; active&#x3002;</li>
+<li>&#x6240;&#x6709; RPC &#x8BF7;&#x6C42;&#x90FD;&#x8F6C;&#x53D1;&#x7ED9;&#x5F53;&#x524D; active &#x6807;&#x7B7E;&#x9875;&#x3002;</li>
+</ol>
+<p>&#x8FD9;&#x4FDD;&#x8BC1;&#x4E86;&#x5728;&#x4EFB;&#x4F55;&#x65F6;&#x523B;&#xFF0C;&#x7CFB;&#x7EDF;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&quot;&#x5E72;&#x6D3B;&quot;&#x7684;&#x6807;&#x7B7E;&#x9875;&#xFF0C;&#x907F;&#x514D;&#x4E86;&#x72B6;&#x6001;&#x51B2;&#x7A81;&#x3002;</p>
+<h2 id="&#x6280;&#x672F;&#x56DB;&#xFF1A;chrome-debugger-api">&#x6280;&#x672F;&#x56DB;&#xFF1A;Chrome Debugger API</h2>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">attachDebuggerToActive</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (activeTabId === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span>;
+
+  <span class="hljs-keyword">const</span> debuggee = { tabId: activeTabId };
+  chrome.debugger.attach(debuggee, <span class="hljs-string">&quot;1.3&quot;</span>, () =&gt; {
+    <span class="hljs-keyword">if</span> (chrome.runtime.lastError) {
+      <span class="hljs-keyword">if</span> (chrome.runtime.lastError.message.includes(<span class="hljs-string">&quot;already attached&quot;</span>)) <span class="hljs-keyword">return</span>;
+      <span class="hljs-comment">// &#x9644;&#x52A0;&#x5931;&#x8D25; &#x2192; &#x6362;&#x4E00;&#x4E2A; tab</span>
+      activeTabId = <span class="hljs-literal">null</span>;
+      promoteNextTab();
+      <span class="hljs-keyword">return</span>;
+    }
+  });
+}
+</code></pre>
+<p><strong>&#x4F5C;&#x7528;</strong>&#xFF1A;Chrome Debugger API &#x5141;&#x8BB8;&#x6269;&#x5C55;&#x50CF; Chrome DevTools &#x4E00;&#x6837;<strong>&#x9644;&#x52A0;&#x8C03;&#x8BD5;&#x5668;&#x5230;&#x6807;&#x7B7E;&#x9875;</strong>&#x3002;&#x867D;&#x7136;&#x8FD9;&#x4E2A;&#x6269;&#x5C55;&#x4E3B;&#x8981;&#x529F;&#x80FD;&#x5E76;&#x4E0D;&#x4F9D;&#x8D56; Debugger&#xFF08;&#x6838;&#x5FC3;&#x662F; XHR &#x62E6;&#x622A;&#xFF09;&#xFF0C;&#x4F46; Debugger &#x7684;&#x9644;&#x52A0;&#x5728;&#x8FD9;&#x91CC;&#x5145;&#x5F53;&#x4E86;<strong>&#x6807;&#x7B7E;&#x9875;&#x7684;&#x6D3B;&#x6027;&#x68C0;&#x6D4B;</strong>&#x548C;&#x5907;&#x7528;&#x7684;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x6355;&#x83B7;&#x901A;&#x9053;&#x3002;</p>
+<p><strong>&#x6CE8;&#x610F;</strong>&#xFF1A;<code>&quot;1.3&quot;</code> &#x662F;&#x8C03;&#x8BD5;&#x5668;&#x534F;&#x8BAE;&#x7248;&#x672C;&#x53F7;&#x3002;&#x5982;&#x679C;&#x6807;&#x7B7E;&#x9875;&#x5DF2;&#x7ECF;&#x6253;&#x5F00;&#x4E86; DevTools&#xFF0C;&#x9644;&#x52A0;&#x4F1A;&#x5931;&#x8D25;&#xFF0C;&#x6269;&#x5C55;&#x4F1A;&#x81EA;&#x52A8;&#x5207;&#x6362;&#x5230;&#x53E6;&#x4E00;&#x4E2A;&#x6807;&#x7B7E;&#x9875;&#x3002;</p>
+<h2 id="&#x6280;&#x672F;&#x4E94;&#xFF1A;content-script-&#x6CE8;&#x5165;">&#x6280;&#x672F;&#x4E94;&#xFF1A;Content Script &#x6CE8;&#x5165;</h2>
+<pre><code class="lang-json">{
+  <span class="hljs-string">&quot;content_scripts&quot;</span>: [
+    {
+      <span class="hljs-string">&quot;matches&quot;</span>: [<span class="hljs-string">&quot;https://example.com/*&quot;</span>],
+      <span class="hljs-string">&quot;js&quot;</span>: [<span class="hljs-string">&quot;content.js&quot;</span>],
+      <span class="hljs-string">&quot;run_at&quot;</span>: <span class="hljs-string">&quot;document_start&quot;</span>
+    }
+  ]
+}
+</code></pre>
+<p><strong>&#x4F5C;&#x7528;</strong>&#xFF1A;Content Script&#xFF08;&#x5185;&#x5BB9;&#x811A;&#x672C;&#xFF09;&#x662F;&#x6CE8;&#x5165;&#x5230;&#x7F51;&#x9875;&#x4E2D;&#x7684; JavaScript&#xFF0C;&#x4F46;<strong>&#x8FD0;&#x884C;&#x5728;&#x4E00;&#x4E2A;&#x9694;&#x79BB;&#x7684; &quot;ISOLATED WORLD&quot; &#x4E2D;</strong>&#x3002;&#x5B83;&#x4E0D;&#x80FD;&#x8BBF;&#x95EE;&#x9875;&#x9762;&#x81EA;&#x8EAB;&#x7684; JS &#x53D8;&#x91CF;&#xFF0C;&#x4F46;&#x53EF;&#x4EE5;&#x64CD;&#x4F5C; DOM &#x548C;&#x8C03;&#x7528;&#x6709;&#x9650;&#x7684; Chrome API&#x3002;</p>
+<p><strong>&#x5173;&#x952E;&#x70B9;</strong>&#xFF1A;</p>
+<ul>
+<li><code>matches</code>&#xFF1A;&#x9650;&#x5B9A;&#x4EC5;&#x5728; <code>example.com</code> &#x4E0B;&#x6267;&#x884C;&#x3002;</li>
+<li><code>run_at: &quot;document_start&quot;</code>&#xFF1A;&#x5728;&#x9875;&#x9762;&#x52A0;&#x8F7D;&#x7684;&#x6700;&#x65E9;&#x671F;&#x6CE8;&#x5165;&#xFF0C;&#x786E;&#x4FDD;&#x5C3D;&#x65E9;&#x51C6;&#x5907;&#x597D;&#x76D1;&#x542C;&#x5668;&#x3002;</li>
+</ul>
+<p><code>content.js</code> &#x662F;&#x6574;&#x4E2A;&#x6269;&#x5C55;&#x7684;<strong>&#x81EA;&#x52A8;&#x5316;&#x6267;&#x884C;&#x5F15;&#x64CE;</strong>&#xFF0C;&#x8D1F;&#x8D23;&#xFF1A;</p>
+<ul>
+<li>&#x63A5;&#x6536; background &#x53D1;&#x6765;&#x7684; RPC &#x6307;&#x4EE4;</li>
+<li>&#x64CD;&#x4F5C; DOM&#xFF08;&#x70B9;&#x51FB;&#x6309;&#x94AE;&#x3001;&#x586B;&#x5199;&#x8F93;&#x5165;&#x6846;&#xFF09;</li>
+<li>&#x901A;&#x8FC7; <code>window.postMessage</code> &#x4E0E; interceptor.js &#x901A;&#x4FE1;</li>
+</ul>
+<h2 id="&#x6280;&#x672F;&#x516D;&#xFF1A;main-&#x4E16;&#x754C;&#x811A;&#x672C;&#x6CE8;&#x5165;">&#x6280;&#x672F;&#x516D;&#xFF1A;MAIN &#x4E16;&#x754C;&#x811A;&#x672C;&#x6CE8;&#x5165;</h2>
+<pre><code class="lang-javascript"><span class="hljs-comment">// background.js &#x2014; &#x52A8;&#x6001;&#x6CE8;&#x518C; MAIN &#x4E16;&#x754C;&#x811A;&#x672C;</span>
+chrome.scripting.registerContentScripts([
+  {
+    id: <span class="hljs-string">&quot;deepseek-interceptor&quot;</span>,
+    matches: [<span class="hljs-string">&quot;https://example.com/*&quot;</span>],
+    js: [<span class="hljs-string">&quot;interceptor.js&quot;</span>],
+    world: <span class="hljs-string">&quot;MAIN&quot;</span>,            <span class="hljs-comment">// &#x2190; &#x5173;&#x952E;&#xFF1A;&#x6CE8;&#x5165;&#x5230;&#x4E3B;&#x4E16;&#x754C;</span>
+    runAt: <span class="hljs-string">&quot;document_start&quot;</span>,  <span class="hljs-comment">// &#x2190; &#x5C3D;&#x65E9;&#x6CE8;&#x5165;</span>
+  },
+]);
+</code></pre>
+<p><strong>&#x4F5C;&#x7528;</strong>&#xFF1A;&#x8FD9;&#x662F; Chrome &#x6269;&#x5C55;&#x4E2D;&#x4E00;&#x4E2A;&#x9AD8;&#x7EA7;&#x6280;&#x5DE7;&#x3002;&#x666E;&#x901A;&#x7684; content script &#x8FD0;&#x884C;&#x5728; <strong>ISOLATED WORLD</strong>&#xFF0C;&#x65E0;&#x6CD5;&#x8BBF;&#x95EE;&#x9875;&#x9762;&#x81EA;&#x8EAB;&#x7684; JavaScript &#x53D8;&#x91CF;&#x3002;&#x800C; <code>world: &quot;MAIN&quot;</code> &#x8BA9;&#x811A;&#x672C;<strong>&#x76F4;&#x63A5;&#x6CE8;&#x5165;&#x5230;&#x7F51;&#x9875;&#x7684;&#x4E3B;&#x6267;&#x884C;&#x73AF;&#x5883;</strong>&#x4E2D;&#x3002;</p>
+<p>&#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x8FD9;&#x6837;&#x505A;&#xFF1F;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x8981;<strong>&#x8986;&#x76D6;&#x9875;&#x9762;&#x7684;&#x539F;&#x751F; <code>XMLHttpRequest</code></strong>&#x3002;&#x8FD9;&#x4E2A;&#x8986;&#x76D6;&#x5FC5;&#x987B;&#x5728;&#x9875;&#x9762;&#x81EA;&#x5DF1;&#x7684; JS &#x4EE3;&#x7801;&#x6267;&#x884C;&#x4E4B;&#x524D;&#x5B8C;&#x6210;&#xFF0C;&#x5426;&#x5219;&#x9875;&#x9762;&#x7684; XHR &#x8BF7;&#x6C42;&#x5DF2;&#x7ECF;&#x53D1;&#x51FA;&#x53BB;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x62E6;&#x622A;&#x4E0D;&#x5230;&#x4E86;&#x3002;</p>
+<p><strong>&#x6CE8;&#x5165;&#x65F6;&#x673A;</strong>&#xFF1A;<code>runAt: &quot;document_start&quot;</code> + <code>world: &quot;MAIN&quot;</code> = &#x5728;&#x9875;&#x9762;&#x4EFB;&#x4F55;&#x811A;&#x672C;&#x6267;&#x884C;&#x4E4B;&#x524D;&#x5B8C;&#x6210;&#x62E6;&#x622A;&#x5668;&#x7684;&#x5B89;&#x88C5;&#x3002;</p>
+<p><div class="alert alert-undefined hints-alert"><div class="hints-icon"><i class="undefined"></i></div><div class="hints-container"><p><code>world: &quot;MAIN&quot;</code> &#x6CE8;&#x5165;&#x7684;&#x811A;&#x672C;&#x4E0D;&#x80FD;&#x4F7F;&#x7528; <code>chrome.*</code> API&#xFF0C;&#x56E0;&#x6B64;&#x4E0E; content script &#x7684;&#x901A;&#x4FE1;&#x53EA;&#x80FD;&#x901A;&#x8FC7; <code>window.postMessage</code> &#x8FDB;&#x884C;&#x3002;</p>
+</div></div></p>
+<h2 id="&#x6280;&#x672F;&#x4E03;&#xFF1A;xhr-&#x7334;&#x5B50;&#x8865;&#x4E01;-monkey-patching">&#x6280;&#x672F;&#x4E03;&#xFF1A;XHR &#x7334;&#x5B50;&#x8865;&#x4E01; (Monkey-patching)</h2>
+<pre><code class="lang-javascript"><span class="hljs-comment">// interceptor.js &#x2014; &#x62E6;&#x622A; XMLHttpRequest</span>
+<span class="hljs-keyword">const</span> originalXHROpen = XMLHttpRequest.prototype.open;
+XMLHttpRequest.prototype.open = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">method, url</span>) </span>{
+  <span class="hljs-keyword">this</span>._interceptUrl = url;
+  <span class="hljs-keyword">this</span>._interceptMethod = method;
+  <span class="hljs-keyword">return</span> originalXHROpen.apply(<span class="hljs-keyword">this</span>, <span class="hljs-built_in">arguments</span>);
+};
+
+<span class="hljs-keyword">const</span> originalSetRequestHeader = XMLHttpRequest.prototype.setRequestHeader;
+XMLHttpRequest.prototype.setRequestHeader = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">name, value</span>) </span>{
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._interceptRequestHeaders) <span class="hljs-keyword">this</span>._interceptRequestHeaders = {};
+  <span class="hljs-keyword">this</span>._interceptRequestHeaders[name] = value;
+  <span class="hljs-keyword">return</span> originalSetRequestHeader.apply(<span class="hljs-keyword">this</span>, <span class="hljs-built_in">arguments</span>);
+};
+
+<span class="hljs-keyword">const</span> originalXHRSend = XMLHttpRequest.prototype.send;
+XMLHttpRequest.prototype.send = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">body</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._interceptUrl === <span class="hljs-string">&quot;/api/v0/chat/completion&quot;</span>) {
+    <span class="hljs-keyword">this</span>.addEventListener(<span class="hljs-string">&quot;load&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-built_in">window</span>.postMessage({
+        type: <span class="hljs-string">&quot;DEEPSEEK_RESPONSE&quot;</span>,
+        url: <span class="hljs-keyword">this</span>._interceptUrl,
+        method: <span class="hljs-keyword">this</span>._interceptMethod,
+        requestHeaders: <span class="hljs-keyword">this</span>._interceptRequestHeaders || {},
+        requestBody: body,
+        responseHeaders: parseHeaders(<span class="hljs-keyword">this</span>.getAllResponseHeaders()),
+        status: <span class="hljs-keyword">this</span>.status,
+        response: <span class="hljs-keyword">this</span>.responseText,
+      }, <span class="hljs-string">&quot;*&quot;</span>);
+    });
+  }
+  <span class="hljs-keyword">return</span> originalXHRSend.apply(<span class="hljs-keyword">this</span>, <span class="hljs-built_in">arguments</span>);
+};
+</code></pre>
+<p><strong>&#x4F5C;&#x7528;</strong>&#xFF1A;&#x8FD9;&#x662F;&#x6574;&#x4E2A;&#x6269;&#x5C55;&#x6700;&#x6838;&#x5FC3;&#x7684;&#x6280;&#x672F;&#x3002;&#x901A;&#x8FC7;<strong>&#x66FF;&#x6362; <code>XMLHttpRequest</code> &#x539F;&#x578B;&#x4E0A;&#x7684;&#x65B9;&#x6CD5;</strong>&#xFF08;Monkey-patching&#xFF09;&#xFF0C;&#x62E6;&#x622A; &#x76EE;&#x6807;&#x7F51;&#x9875;&#x5411; <code>/api/v0/chat/completion</code> &#x53D1;&#x8D77;&#x7684; XHR &#x8BF7;&#x6C42;&#x3002;</p>
+<p>&#x62E6;&#x622A;&#x5206;&#x4E09;&#x6B65;&#xFF1A;</p>
+<ol>
+<li><strong>&#x62E6;&#x622A; <code>open()</code></strong>&#xFF1A;&#x8BB0;&#x5F55;&#x8BF7;&#x6C42;&#x7684; URL &#x548C;&#x65B9;&#x6CD5;&#x3002;</li>
+<li><strong>&#x62E6;&#x622A; <code>setRequestHeader()</code></strong>&#xFF1A;&#x8BB0;&#x5F55;&#x8BF7;&#x6C42;&#x5934;&#x3002;</li>
+<li><strong>&#x62E6;&#x622A; <code>send()</code></strong>&#xFF1A;&#x5982;&#x679C;&#x662F;&#x76EE;&#x6807; URL&#xFF0C;&#x5219;&#x5728; <code>load</code> &#x4E8B;&#x4EF6;&#x4E2D;&#x6355;&#x83B7;&#x5B8C;&#x6574;&#x7684;&#x54CD;&#x5E94;&#x6570;&#x636E;&#xFF08;&#x72B6;&#x6001;&#x7801;&#x3001;&#x54CD;&#x5E94;&#x5934;&#x3001;&#x54CD;&#x5E94;&#x4F53;&#xFF09;&#xFF0C;&#x901A;&#x8FC7; <code>postMessage</code> &#x53D1;&#x9001;&#x7ED9; content script&#x3002;</li>
+</ol>
+<p><strong>&#x7ED3;&#x679C;</strong>&#xFF1A;content.js &#x4E2D; <code>chat()</code> &#x65B9;&#x6CD5;&#x53D1;&#x51FA;&#x7684;&#x6D88;&#x606F;&#xFF0C;&#x7ECF;&#x8FC7; DOM &#x64CD;&#x4F5C;&#x89E6;&#x53D1;&#x9875;&#x9762;&#x53D1;&#x9001; XHR &#x8BF7;&#x6C42;&#xFF0C;&#x6700;&#x7EC8;&#x88AB; interceptor.js &#x6355;&#x83B7;&#x5230;&#x54CD;&#x5E94;&#xFF0C;&#x8FD4;&#x56DE;&#x7ED9;&#x8C03;&#x7528;&#x65B9;&#x2014;&#x2014;&#x6574;&#x4E2A;&#x8FC7;&#x7A0B;&#x5F62;&#x6210;&#x4E86;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;&#x95ED;&#x73AF;&#x3002;</p>
+<h2 id="&#x6280;&#x672F;&#x516B;&#xFF1A;&#x952E;&#x76D8;&#x4E8B;&#x4EF6;&#x6A21;&#x62DF;">&#x6280;&#x672F;&#x516B;&#xFF1A;&#x952E;&#x76D8;&#x4E8B;&#x4EF6;&#x6A21;&#x62DF;</h2>
+<pre><code class="lang-javascript"><span class="hljs-comment">// content.js &#x2014; &#x6A21;&#x62DF;&#x7528;&#x6237;&#x8F93;&#x5165;</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">chat</span>(<span class="hljs-params">{ message = &quot;&quot; }</span>) </span>{
+  <span class="hljs-keyword">const</span> textarea = <span class="hljs-built_in">document</span>.getElementsByName(<span class="hljs-string">&quot;search&quot;</span>)[<span class="hljs-number">0</span>];
+  textarea.click();
+  textarea.focus();
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> char <span class="hljs-keyword">of</span> message) {
+    <span class="hljs-comment">// 1. &#x89E6;&#x53D1; keydown</span>
+    textarea.dispatchEvent(<span class="hljs-keyword">new</span> KeyboardEvent(<span class="hljs-string">&quot;keydown&quot;</span>, {
+      key: char,
+      code: <span class="hljs-string">`Key<span class="hljs-subst">${char.toUpperCase()}</span>`</span>,
+      keyCode: char.charCodeAt(<span class="hljs-number">0</span>),
+      bubbles: <span class="hljs-literal">true</span>,
+    }));
+
+    <span class="hljs-comment">// 2. &#x901A;&#x8FC7; value &#x5C5E;&#x6027;&#x7684; setter &#x4FEE;&#x6539; textarea &#x7684;&#x503C;</span>
+    <span class="hljs-keyword">const</span> setter = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(
+      HTMLTextAreaElement.prototype, <span class="hljs-string">&quot;value&quot;</span>
+    ).set;
+    setter.call(textarea, textarea.value + char);
+
+    <span class="hljs-comment">// 3. &#x89E6;&#x53D1; keyup</span>
+    textarea.dispatchEvent(<span class="hljs-keyword">new</span> KeyboardEvent(<span class="hljs-string">&quot;keyup&quot;</span>, { key: char, bubbles: <span class="hljs-literal">true</span> }));
+  }
+
+  <span class="hljs-comment">// 4. &#x89E6;&#x53D1; input/change &#x4E8B;&#x4EF6;</span>
+  textarea.dispatchEvent(<span class="hljs-keyword">new</span> Event(<span class="hljs-string">&quot;input&quot;</span>, { bubbles: <span class="hljs-literal">true</span> }));
+  textarea.dispatchEvent(<span class="hljs-keyword">new</span> Event(<span class="hljs-string">&quot;change&quot;</span>, { bubbles: <span class="hljs-literal">true</span> }));
+
+  <span class="hljs-comment">// 5. &#x6A21;&#x62DF;&#x6309; Enter &#x53D1;&#x9001;</span>
+  textarea.dispatchEvent(<span class="hljs-keyword">new</span> KeyboardEvent(<span class="hljs-string">&quot;keydown&quot;</span>, {
+    key: <span class="hljs-string">&quot;Enter&quot;</span>, code: <span class="hljs-string">&quot;Enter&quot;</span>, keyCode: <span class="hljs-number">13</span>, which: <span class="hljs-number">13</span>, bubbles: <span class="hljs-literal">true</span>,
+  }));
+}
+</code></pre>
+<p><strong>&#x4F5C;&#x7528;</strong>&#xFF1A;&#x8981;&#x5728;&#x7F51;&#x9875;&#x7684;&#x8F93;&#x5165;&#x6846;&#x4E2D;&#x8F93;&#x5165;&#x5185;&#x5BB9;&#x5E76;&#x53D1;&#x9001;&#xFF0C;&#x6700;&#x53EF;&#x9760;&#x7684;&#x65B9;&#x5F0F;&#x662F;<strong>&#x5C3D;&#x53EF;&#x80FD;&#x771F;&#x5B9E;&#x5730;&#x6A21;&#x62DF;&#x7528;&#x6237;&#x64CD;&#x4F5C;</strong>&#x3002;&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x505A;&#x4E86; 5 &#x4EF6;&#x4E8B;&#xFF1A;</p>
+<ol>
+<li><strong><code>click()</code> + <code>focus()</code></strong>&#xFF1A;&#x8BA9;&#x8F93;&#x5165;&#x6846;&#x83B7;&#x5F97;&#x7126;&#x70B9;&#x3002;</li>
+<li><strong>&#x9010;&#x5B57;&#x7B26;&#x6A21;&#x62DF; keydown</strong>&#xFF1A;&#x89E6;&#x53D1;&#x9875;&#x9762;&#x7684;&#x952E;&#x76D8;&#x4E8B;&#x4EF6;&#x76D1;&#x542C;&#x5668;&#x3002;</li>
+<li><strong>&#x901A;&#x8FC7; Property Descriptor &#x8BBE;&#x7F6E; value</strong>&#xFF1A;&#x76F4;&#x63A5;&#x8C03;&#x7528; <code>HTMLTextAreaElement.prototype.value</code> &#x7684; setter&#xFF0C;&#x7ED5;&#x8FC7;&#x53EF;&#x80FD;&#x7684;&#x4EE3;&#x7406;&#xFF0C;&#x786E;&#x4FDD;&#x503C;&#x88AB;&#x6B63;&#x786E;&#x8BBE;&#x7F6E;&#x3002;</li>
+<li><strong>&#x89E6;&#x53D1; <code>input</code> / <code>change</code> &#x4E8B;&#x4EF6;</strong>&#xFF1A;&#x8BA9; React/Vue &#x7B49;&#x6846;&#x67B6;&#x68C0;&#x6D4B;&#x5230;&#x503C;&#x53D8;&#x5316;&#x3002;</li>
+<li><strong>&#x6A21;&#x62DF; Enter &#x952E;</strong>&#xFF1A;&#x89E6;&#x53D1;&#x53D1;&#x9001;&#x64CD;&#x4F5C;&#x3002;</li>
+</ol>
+<p><div class="alert alert-info hints-alert"><div class="hints-icon"><i class="fa fa-info-circle"></i></div><div class="hints-container"><p>&#x4F7F;&#x7528; <code>Object.getOwnPropertyDescriptor</code> &#x83B7;&#x53D6; <code>value</code> &#x5C5E;&#x6027;&#x7684; setter&#xFF0C;&#x518D;&#x901A;&#x8FC7; <code>setter.call()</code> &#x8BBE;&#x7F6E;&#x503C;&#xFF0C;&#x662F;&#x4E3A;&#x4E86;&#x7ED5;&#x8FC7; React &#x7B49;&#x6846;&#x67B6;&#x5BF9; <code>textarea.value</code> &#x7684;&#x52AB;&#x6301;&#x3002;&#x76F4;&#x63A5; <code>textarea.value = xxx</code> &#x53EF;&#x80FD;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;&#x6846;&#x67B6;&#x7684;&#x66F4;&#x65B0;&#x3002;</p>
+</div></div></p>
+<h2 id="&#x6280;&#x672F;&#x4E5D;&#xFF1A;windowpostmessage-&#x8DE8;&#x4E0A;&#x4E0B;&#x6587;&#x901A;&#x4FE1;">&#x6280;&#x672F;&#x4E5D;&#xFF1A;window.postMessage &#x8DE8;&#x4E0A;&#x4E0B;&#x6587;&#x901A;&#x4FE1;</h2>
+<pre><code class="lang-javascript"><span class="hljs-comment">// interceptor.js&#xFF08;MAIN world&#xFF09;&#x2192; &#x53D1;&#x9001;</span>
+<span class="hljs-built_in">window</span>.postMessage({
+  type: <span class="hljs-string">&quot;DEEPSEEK_RESPONSE&quot;</span>,
+  url: <span class="hljs-keyword">this</span>._interceptUrl,
+  response: <span class="hljs-keyword">this</span>.responseText,
+  <span class="hljs-comment">// ...</span>
+}, <span class="hljs-string">&quot;*&quot;</span>);
+
+<span class="hljs-comment">// content.js&#xFF08;ISOLATED world&#xFF09;&#x2192; &#x63A5;&#x6536;</span>
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&quot;message&quot;</span>, (event) =&gt; {
+  <span class="hljs-keyword">if</span> (event.data.type !== <span class="hljs-string">&quot;DEEPSEEK_RESPONSE&quot;</span>) <span class="hljs-keyword">return</span>;
+  <span class="hljs-comment">// &#x5904;&#x7406;&#x62E6;&#x622A;&#x5230;&#x7684;&#x54CD;&#x5E94;...</span>
+});
+</code></pre>
+<p><strong>&#x4F5C;&#x7528;</strong>&#xFF1A;&#x5728; Chrome &#x6269;&#x5C55;&#x4E2D;&#xFF0C;<code>world: &quot;MAIN&quot;</code> &#x6CE8;&#x5165;&#x7684;&#x811A;&#x672C;&#x548C;&#x666E;&#x901A;&#x7684; content script&#xFF08;ISOLATED WORLD&#xFF09;&#x5904;&#x4E8E;&#x4E0D;&#x540C;&#x7684; JavaScript &#x6267;&#x884C;&#x4E0A;&#x4E0B;&#x6587;&#xFF0C;&#x65E0;&#x6CD5;&#x76F4;&#x63A5;&#x5171;&#x4EAB;&#x53D8;&#x91CF;&#x6216;&#x8C03;&#x7528;&#x51FD;&#x6570;&#x3002;</p>
+<p><code>window.postMessage</code> &#x662F;<strong>&#x6D4F;&#x89C8;&#x5668;&#x539F;&#x751F;&#x63D0;&#x4F9B;&#x7684;&#x8DE8;&#x7A97;&#x53E3;/&#x8DE8;&#x4E0A;&#x4E0B;&#x6587;&#x901A;&#x4FE1;&#x673A;&#x5236;</strong>&#x3002;&#x8FD9;&#x91CC;&#x7684; <code>&quot;*&quot;</code> &#x8868;&#x793A;&#x4E0D;&#x9650;&#x5236;&#x76EE;&#x6807;&#x6E90;&#xFF08;&#x56E0;&#x4E3A;&#x662F;&#x540C;&#x4E00;&#x4E2A;&#x9875;&#x9762;&#x5185;&#x90E8;&#x901A;&#x4FE1;&#xFF0C;&#x5B89;&#x5168;&#x6027;&#x53EF;&#x63A5;&#x53D7;&#xFF09;&#x3002;</p>
+<p><strong>&#x901A;&#x4FE1;&#x94FE;&#x8DEF;</strong>&#xFF1A;</p>
+<pre><code>interceptor.js (MAIN world)
+    &#x2193; window.postMessage({ type: &quot;DEEPSEEK_RESPONSE&quot;, ... })
+content.js (ISOLATED world)
+    &#x2193; chrome.runtime.sendMessage(...)
+background.js (Service Worker)
+    &#x2193; WebSocket.send(...)
+&#x5916;&#x90E8;&#x5BA2;&#x6237;&#x7AEF;
+</code></pre><h2 id="&#x6280;&#x672F;&#x5341;&#xFF1A;rpc-&#x98CE;&#x683C;&#x6D88;&#x606F;&#x534F;&#x8BAE;">&#x6280;&#x672F;&#x5341;&#xFF1A;RPC &#x98CE;&#x683C;&#x6D88;&#x606F;&#x534F;&#x8BAE;</h2>
+<pre><code class="lang-javascript"><span class="hljs-comment">// background.js &#x2014; &#x8DEF;&#x7531; RPC &#x8BF7;&#x6C42;</span>
+_handleMessage(msg) {
+  <span class="hljs-keyword">if</span> (msg.type === <span class="hljs-string">&quot;request&quot;</span>) {
+    <span class="hljs-keyword">this</span>._routeRequest(msg);
+  }
+}
+
+_routeRequest(msg) {
+  <span class="hljs-keyword">const</span> { method, params, id } = msg;
+  <span class="hljs-keyword">switch</span> (method) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;newSession&quot;</span>:
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;chat&quot;</span>:
+      <span class="hljs-keyword">this</span>._forwardToTab(method, params, id);
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;ping&quot;</span>:
+      <span class="hljs-keyword">this</span>._send({ type: <span class="hljs-string">&quot;response&quot;</span>, id, result: { pong: <span class="hljs-literal">true</span> } });
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;getStatus&quot;</span>:
+      <span class="hljs-keyword">this</span>._send({ type: <span class="hljs-string">&quot;response&quot;</span>, id, result: ws._getStatus() });
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">default</span>:
+      <span class="hljs-keyword">this</span>._send({
+        type: <span class="hljs-string">&quot;error&quot;</span>, id,
+        error: { code: <span class="hljs-string">&quot;UNKNOWN_METHOD&quot;</span>, message: <span class="hljs-string">`Unknown method: <span class="hljs-subst">${method}</span>`</span> },
+      });
+  }
+}
+</code></pre>
+<p><strong>&#x4F5C;&#x7528;</strong>&#xFF1A;&#x6269;&#x5C55;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A;&#x8F7B;&#x91CF;&#x7EA7;&#x7684; <strong>JSON-RPC &#x98CE;&#x683C;&#x534F;&#x8BAE;</strong>&#xFF0C;&#x6240;&#x6709;&#x901A;&#x4FE1;&#x90FD;&#x9075;&#x5FAA;&#x76F8;&#x540C;&#x7684;&#x6D88;&#x606F;&#x683C;&#x5F0F;&#xFF1A;</p>
+<pre><code class="lang-json"><span class="hljs-comment">// &#x8BF7;&#x6C42;</span>
+{<span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;request&quot;</span>, <span class="hljs-string">&quot;method&quot;</span>: <span class="hljs-string">&quot;chat&quot;</span>, <span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-string">&quot;req_1_12345&quot;</span>, <span class="hljs-string">&quot;params&quot;</span>: {<span class="hljs-string">&quot;message&quot;</span>: <span class="hljs-string">&quot;Hello&quot;</span>}}
+
+<span class="hljs-comment">// &#x6210;&#x529F;&#x54CD;&#x5E94;</span>
+{<span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;result&quot;</span>, <span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-string">&quot;req_1_12345&quot;</span>, <span class="hljs-string">&quot;result&quot;</span>: {<span class="hljs-string">&quot;code&quot;</span>: <span class="hljs-string">&quot;SUCCESS&quot;</span>, <span class="hljs-string">&quot;data&quot;</span>: {...}}}
+
+<span class="hljs-comment">// &#x9519;&#x8BEF;&#x54CD;&#x5E94;</span>
+{<span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;error&quot;</span>, <span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-string">&quot;req_1_12345&quot;</span>, <span class="hljs-string">&quot;error&quot;</span>: {<span class="hljs-string">&quot;code&quot;</span>: <span class="hljs-string">&quot;NO_ACTIVE_TAB&quot;</span>, <span class="hljs-string">&quot;message&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>}}
+</code></pre>
+<p><strong>&#x534F;&#x8BAE;&#x652F;&#x6301; 4 &#x4E2A;&#x65B9;&#x6CD5;</strong>&#xFF1A;</p>
+<ul>
+<li><code>newSession</code> &#x2014; &#x65B0;&#x5EFA;&#x5BF9;&#x8BDD;</li>
+<li><code>chat</code> &#x2014; &#x53D1;&#x9001;&#x6D88;&#x606F;&#x5E76;&#x83B7;&#x53D6;&#x56DE;&#x590D;</li>
+<li><code>ping</code> &#x2014; &#x5FC3;&#x8DF3;&#x68C0;&#x6D4B;</li>
+<li><code>getStatus</code> &#x2014; &#x83B7;&#x53D6;&#x6269;&#x5C55;&#x72B6;&#x6001;</li>
+</ul>
+<h2 id="&#x6280;&#x672F;&#x5341;&#x4E00;&#xFF1A;&#x5FC3;&#x8DF3;&#x4FDD;&#x6D3B;&#x673A;&#x5236;">&#x6280;&#x672F;&#x5341;&#x4E00;&#xFF1A;&#x5FC3;&#x8DF3;&#x4FDD;&#x6D3B;&#x673A;&#x5236;</h2>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> HEARTBEAT_INTERVAL_MS = <span class="hljs-number">25000</span>;  <span class="hljs-comment">// 25 &#x79D2;</span>
+
+_startHeartbeat() {
+  <span class="hljs-keyword">this</span>.heartbeatTimer = setInterval(() =&gt; {
+    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.socket || <span class="hljs-keyword">this</span>.socket.readyState !== WebSocket.OPEN) {
+      <span class="hljs-keyword">this</span>.connected = <span class="hljs-literal">false</span>;
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.socket) {
+        <span class="hljs-keyword">try</span> { <span class="hljs-keyword">this</span>.socket.close(); } <span class="hljs-keyword">catch</span> (e) { <span class="hljs-comment">/* ignore */</span> }
+        <span class="hljs-keyword">this</span>.socket = <span class="hljs-literal">null</span>;
+      }
+      <span class="hljs-keyword">this</span>._scheduleReconnect();
+    }
+  }, HEARTBEAT_INTERVAL_MS);
+}
+</code></pre>
+<p><strong>&#x4F5C;&#x7528;</strong>&#xFF1A;WebSocket &#x8FDE;&#x63A5;&#x5728;&#x7A7A;&#x95F2;&#x65F6;&#x53EF;&#x80FD;&#x88AB;&#x4E2D;&#x95F4;&#x8BBE;&#x5907;&#xFF08;&#x5982;&#x4EE3;&#x7406;&#x3001;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x5668;&#xFF09;&#x9759;&#x9ED8;&#x65AD;&#x5F00;&#x3002;&#x5FC3;&#x8DF3;&#x673A;&#x5236;<strong>&#x6BCF;&#x9694; 25 &#x79D2;&#x68C0;&#x67E5;&#x4E00;&#x6B21; Socket &#x72B6;&#x6001;</strong>&#xFF0C;&#x5982;&#x679C;&#x53D1;&#x73B0;&#x8FDE;&#x63A5;&#x5DF2;&#x65AD;&#x5F00;&#xFF0C;&#x7ACB;&#x5373;&#x89E6;&#x53D1;&#x91CD;&#x8FDE;&#x3002;</p>
+<h2 id="&#x6280;&#x672F;&#x5341;&#x4E8C;&#xFF1A;chromestorage-&#x6301;&#x4E45;&#x5316;">&#x6280;&#x672F;&#x5341;&#x4E8C;&#xFF1A;chrome.storage &#x6301;&#x4E45;&#x5316;</h2>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x4FDD;&#x5B58;&#x8BBE;&#x7F6E;</span>
+chrome.storage.sync.set({ wsUrl: <span class="hljs-string">&quot;ws://localhost:8765&quot;</span>, wsConnected: <span class="hljs-literal">true</span> });
+
+<span class="hljs-comment">// &#x8BFB;&#x53D6;&#x8BBE;&#x7F6E;&#xFF08;Service Worker &#x542F;&#x52A8;&#x65F6;&#x81EA;&#x52A8;&#x6062;&#x590D;&#x8FDE;&#x63A5;&#xFF09;</span>
+chrome.storage.sync.get([<span class="hljs-string">&quot;wsUrl&quot;</span>, <span class="hljs-string">&quot;wsPort&quot;</span>, <span class="hljs-string">&quot;autoReconnect&quot;</span>], (result) =&gt; {
+  <span class="hljs-keyword">if</span> (result.wsUrl) ws.wsUrl = result.wsUrl;
+  <span class="hljs-keyword">if</span> (result.autoReconnect === <span class="hljs-literal">true</span>) {
+    ws.connect();  <span class="hljs-comment">// &#x81EA;&#x52A8;&#x91CD;&#x8FDE;</span>
+  }
+});
+</code></pre>
+<p><strong>&#x4F5C;&#x7528;</strong>&#xFF1A;<code>chrome.storage.sync</code> &#x662F; Chrome &#x63D0;&#x4F9B;&#x7684;&#x6301;&#x4E45;&#x5316;&#x5B58;&#x50A8; API&#xFF0C;&#x6570;&#x636E;&#x4F1A;&#x901A;&#x8FC7; Chrome &#x8D26;&#x53F7;&#x540C;&#x6B65;&#x5230;&#x4E0D;&#x540C;&#x8BBE;&#x5907;&#x3002;&#x6269;&#x5C55;&#x7528;&#x5B83;&#x4FDD;&#x5B58;&#xFF1A;</p>
+<ul>
+<li>WebSocket &#x670D;&#x52A1;&#x5668;&#x5730;&#x5740;&#xFF08;<code>wsUrl</code>&#xFF09;</li>
+<li>&#x662F;&#x5426;&#x542F;&#x7528;&#x81EA;&#x52A8;&#x91CD;&#x8FDE;&#xFF08;<code>autoReconnect</code>&#xFF09;</li>
+<li>&#x8FDE;&#x63A5;&#x72B6;&#x6001;</li>
+</ul>
+<p><strong>&#x5173;&#x952E;&#x8BBE;&#x8BA1;</strong>&#xFF1A;Service Worker &#x5728; Chrome &#x91CD;&#x542F;&#x540E;&#x4F1A;&#x88AB;&#x91CD;&#x65B0;&#x52A0;&#x8F7D;&#xFF0C;&#x901A;&#x8FC7;&#x8BFB;&#x53D6;&#x4E4B;&#x524D;&#x7684;&#x5B58;&#x50A8;&#x72B6;&#x6001;&#xFF0C;&#x53EF;&#x4EE5;<strong>&#x81EA;&#x52A8;&#x6062;&#x590D; WebSocket &#x8FDE;&#x63A5;</strong>&#xFF0C;&#x800C;&#x65E0;&#x9700;&#x7528;&#x6237;&#x624B;&#x52A8;&#x64CD;&#x4F5C;&#x3002;</p>
+<h2 id="&#x7CFB;&#x7EDF;&#x67B6;&#x6784;&#x56FE;">&#x7CFB;&#x7EDF;&#x67B6;&#x6784;&#x56FE;</h2>
+<p>&#x4E0B;&#x9762;&#x662F;&#x6574;&#x4E2A;&#x6269;&#x5C55;&#x7684;&#x7EC4;&#x4EF6;&#x5173;&#x7CFB;&#x67B6;&#x6784;&#x56FE;&#xFF1A;</p>
+<pre><code class="lang-mermaid">flowchart TB
+    subgraph External[&quot;&#x5916;&#x90E8;&quot;]
+        Client[&quot;&#x5916;&#x90E8;&#x5BA2;&#x6237;&#x7AEF;&lt;br/&gt;(Go Server / CLI)&quot;]
+    end
+
+    subgraph Extension[&quot;Chrome &#x6269;&#x5C55;&quot;]
+        subgraph UI[&quot;&#x5F39;&#x51FA;&#x9762;&#x677F;&quot;]
+            Popup[&quot;popup.html / popup.js&lt;br/&gt;&#x8FDE;&#x63A5;&#x914D;&#x7F6E; &amp; &#x72B6;&#x6001;&#x663E;&#x793A;&quot;]
+        end
+
+        subgraph SW[&quot;Service Worker&quot;]
+            BG[&quot;background.js&quot;]
+            WS[&quot;WebSocket Client&lt;br/&gt;&#x8FDE;&#x63A5;&#x7BA1;&#x7406; + &#x6307;&#x6570;&#x9000;&#x907F;&#x91CD;&#x8FDE;&quot;]
+            TM[&quot;Tab Manager&lt;br/&gt;&#x9886;&#x5BFC;&#x8005;&#x9009;&#x4E3E;&lt;br/&gt;active / standby &#x5207;&#x6362;&quot;]
+            RPC[&quot;RPC Router&lt;br/&gt;newSession / chat / ping / getStatus&quot;]
+            Debug[&quot;Debugger API&lt;br/&gt;&#x6807;&#x7B7E;&#x9875;&#x6D3B;&#x6027;&#x68C0;&#x6D4B;&quot;]
+            Store[&quot;chrome.storage&lt;br/&gt;&#x914D;&#x7F6E;&#x6301;&#x4E45;&#x5316; &amp; &#x81EA;&#x52A8;&#x6062;&#x590D;&quot;]
+        end
+
+        subgraph CS[&quot;Content Script (ISOLATED WORLD)&quot;]
+            Content[&quot;content.js&quot;]
+            DOM[&quot;DOM &#x64CD;&#x4F5C;&#x5F15;&#x64CE;&lt;br/&gt;click / focus / &#x952E;&#x76D8;&#x6A21;&#x62DF;&quot;]
+            PM_Listener[&quot;postMessage Listener&lt;br/&gt;&#x63A5;&#x6536;&#x62E6;&#x622A;&#x7684;&#x54CD;&#x5E94;&quot;]
+        end
+
+        subgraph Interceptor[&quot;Interceptor (MAIN WORLD)&quot;]
+            Int[&quot;interceptor.js&quot;]
+            XHR[&quot;XHR Monkey-patch&lt;br/&gt;open / setRequestHeader / send&lt;br/&gt;&#x2192; &#x6355;&#x83B7; /api/v0/chat/completion&quot;]
+            PM_Sender[&quot;postMessage Sender&lt;br/&gt;&#x5411; content.js &#x56DE;&#x4F20;&#x6570;&#x636E;&quot;]
+        end
+    end
+
+    subgraph Target[&quot;&#x76EE;&#x6807;&#x7F51;&#x9875;&quot;]
+        Page[&quot;example.com&quot;]
+        Textarea[&quot;textarea &#x8F93;&#x5165;&#x6846;&quot;]
+        XHR_Target[&quot;/api/v0/chat/completion&quot;]
+    end
+
+    %% &#x8FDE;&#x63A5;&#x5173;&#x7CFB;
+    Client &lt;--&gt;|&quot;WebSocket (JSON-RPC)&quot;| WS
+    Popup --&gt;|&quot;chrome.runtime.sendMessage&quot;| BG
+    BG --&gt;|&quot;chrome.storage.sync&quot;| Store
+    WS --&gt; RPC
+    TM --&gt;|&quot;chrome.tabs.sendMessage&quot;| Content
+    RPC --&gt; TM
+    Debug --&gt;|&quot;chrome.debugger.attach&quot;| Page
+    Content --&gt;|&quot;DOM Events&quot;| Textarea
+    Content &lt;--&gt;|&quot;window.postMessage&quot;| Int
+    Textarea --&gt;|&quot;&#x89E6;&#x53D1; XHR&quot;| XHR_Target
+    XHR --&gt;|&quot;&#x62E6;&#x622A;&quot;| XHR_Target
+    PM_Sender --&gt;|&quot;window.postMessage&quot;| PM_Listener
+
+    %% &#x6837;&#x5F0F;
+    classDef external fill:#e94560,color:#fff,stroke:#c02e45
+    classDef extension fill:#16213e,color:#e0e0e0,stroke:#0f3460
+    classDef service fill:#1a1a2e,color:#e0e0e0,stroke:#0f3460
+    classDef script fill:#0d1b2a,color:#e0e0e0,stroke:#1a4a80
+    classDef target fill:#1a1a2e,color:#e0e0e0,stroke:#666
+
+    class Client external
+    class UI,SW,CS,Interceptor extension
+    class BG,WS,TM,RPC,Debug,Store service
+    class Content,DOM,PM_Listener,Int,XHR,PM_Sender script
+    class Page,Textarea,XHR_Target target
+</code></pre>
+<h2 id="&#x5B8C;&#x6574;&#x8BF7;&#x6C42;&#x65F6;&#x5E8F;&#x56FE;">&#x5B8C;&#x6574;&#x8BF7;&#x6C42;&#x65F6;&#x5E8F;&#x56FE;</h2>
+<p>&#x4E00;&#x6B21; <code>chat</code> &#x8BF7;&#x6C42;&#x7684;&#x5B8C;&#x6574;&#x8C03;&#x7528;&#x94FE;&#xFF0C;&#x6309;&#x65F6;&#x95F4;&#x987A;&#x5E8F;&#x5C55;&#x5F00;&#xFF1A;</p>
+<pre><code class="lang-mermaid">sequenceDiagram
+    participant Client as &#x5916;&#x90E8;&#x5BA2;&#x6237;&#x7AEF;
+    participant BG as background.js&lt;br/&gt;(Service Worker)
+    participant CS as content.js&lt;br/&gt;(ISOLATED WORLD)
+    participant Int as interceptor.js&lt;br/&gt;(MAIN WORLD)
+    participant Page as example.com
+
+    Note over Client,Page: &#x2460; &#x5916;&#x90E8;&#x8BF7;&#x6C42;
+    Client-&gt;&gt;BG: WebSocket: {&quot;type&quot;:&quot;request&quot;,&quot;method&quot;:&quot;chat&quot;,&quot;params&quot;:{&quot;message&quot;:&quot;Hi&quot;}}
+
+    Note over BG: &#x2461; RPC &#x8DEF;&#x7531;
+    BG-&gt;&gt;BG: _routeRequest() &#x2192; _forwardToTab()
+
+    Note over BG,CS: &#x2462; &#x8F6C;&#x53D1;&#x5230; active &#x6807;&#x7B7E;&#x9875;
+    BG-&gt;&gt;CS: chrome.tabs.sendMessage({ type:&quot;execute&quot;, method:&quot;chat&quot;, params:{...} })
+
+    Note over CS: &#x2463; &#x6267;&#x884C;&#x81EA;&#x52A8;&#x5316;
+    CS-&gt;&gt;CS: chat() &#x6267;&#x884C;
+
+    Note over CS,Page: &#x2464; &#x6A21;&#x62DF;&#x952E;&#x76D8;&#x8F93;&#x5165;
+    CS-&gt;&gt;Page: click() + focus()
+    CS-&gt;&gt;Page: loop dispatchEvent(keydown) + set value + dispatchEvent(keyup)
+    CS-&gt;&gt;Page: dispatchEvent(input / change)
+    CS-&gt;&gt;Page: dispatchEvent(keydown Enter)
+
+    Note over Page: &#x2465; &#x9875;&#x9762;&#x53D1;&#x9001; XHR
+    Page-&gt;&gt;Page: XMLHttpRequest.send() &#x2192; /api/v0/chat/completion
+
+    Note over Int: &#x2466; &#x62E6;&#x622A; XHR &#x54CD;&#x5E94;
+    Page-&gt;&gt;Int: XHR load event &#x89E6;&#x53D1;
+    Int-&gt;&gt;Int: &#x6355;&#x83B7; status / responseText / headers
+
+    Note over Int,CS: &#x2467; &#x8DE8;&#x4E0A;&#x4E0B;&#x6587;&#x901A;&#x4FE1;
+    Int-&gt;&gt;CS: window.postMessage({ type:&quot;DEEPSEEK_RESPONSE&quot;, response, ... })
+
+    Note over CS: &#x2468; &#x5904;&#x7406;&#x5E76;&#x56DE;&#x4F20;
+    CS-&gt;&gt;CS: &#x6536;&#x5230; DEEPSEEK_RESPONSE
+    CS-&gt;&gt;BG: sendResponse({ type:&quot;result&quot;, id, result:{...} })
+
+    Note over BG,Client: &#x2469; &#x8FD4;&#x56DE;&#x7ED9;&#x5916;&#x90E8;
+    BG-&gt;&gt;BG: _send()
+    BG-&gt;&gt;Client: WebSocket: {&quot;type&quot;:&quot;result&quot;,&quot;id&quot;:&quot;req_...&quot;,&quot;result&quot;:{&quot;code&quot;:&quot;SUCCESS&quot;,&quot;data&quot;:{...}}}
+</code></pre>
+<h2 id="&#x5199;&#x5728;&#x6700;&#x540E;">&#x5199;&#x5728;&#x6700;&#x540E;</h2>
+<p>&#x4ECE;&#x6280;&#x672F;&#x5B9E;&#x73B0;&#x6765;&#x770B;&#xFF0C;&#x8FD9;&#x4E2A; Chrome &#x6269;&#x5C55;&#x5DE7;&#x5999;&#x5730;&#x628A;&#x51E0;&#x4E2A;&#x770B;&#x4F3C;&#x4E0D;&#x76F8;&#x5173;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x80FD;&#x529B;&#x7EC4;&#x5408;&#x5728;&#x4E86;&#x4E00;&#x8D77;&#xFF1A;</p>
+<ul>
+<li><strong>WebSocket</strong> &#x63D0;&#x4F9B;&#x4E86;&#x53CC;&#x5411;&#x5B9E;&#x65F6;&#x901A;&#x4FE1;</li>
+<li><strong>Content Script + MAIN world</strong> &#x7A81;&#x7834;&#x4E86;&#x6269;&#x5C55;&#x7684;&#x9694;&#x79BB;&#x9650;&#x5236;</li>
+<li><strong>Monkey-patching</strong> &#x6355;&#x83B7;&#x4E86;&#x7F51;&#x9875;&#x7684;&#x5185;&#x90E8; API &#x901A;&#x4FE1;</li>
+<li><strong>&#x952E;&#x76D8;&#x4E8B;&#x4EF6;&#x6A21;&#x62DF;</strong> &#x5B9E;&#x73B0;&#x4E86;&#x65E0;&#x5934;&#x81EA;&#x52A8;&#x5316;&#x64CD;&#x4F5C;</li>
+</ul>
+<p>&#x8FD9;&#x79CD;&quot;&#x5C06;&#x7F51;&#x9875;&#x5305;&#x88C5;&#x6210; API&quot;&#x7684;&#x601D;&#x8DEF;&#xFF0C;&#x5728;&#x505A;&#x722C;&#x866B;&#x3001;&#x81EA;&#x52A8;&#x5316;&#x6D4B;&#x8BD5;&#x3001;AI &#x5DE5;&#x5177;&#x96C6;&#x6210;&#x7B49;&#x573A;&#x666F;&#x4E2D;&#x90FD;&#x975E;&#x5E38;&#x6709;&#x53C2;&#x8003;&#x4EF7;&#x503C;&#x3002;</p>
+<p><em>&#x5982;&#x679C;&#x4F60;&#x5BF9; Chrome &#x6269;&#x5C55;&#x5F00;&#x53D1;&#x3001;&#x6D4F;&#x89C8;&#x5668;&#x81EA;&#x52A8;&#x5316;&#x611F;&#x5174;&#x8DA3;&#xFF0C;&#x6B22;&#x8FCE;&#x5173;&#x6CE8;&#x672C;&#x516C;&#x4F17;&#x53F7;&#xFF0C;&#x540E;&#x7EED;&#x4F1A;&#x5E26;&#x6765;&#x66F4;&#x591A;&#x5B9E;&#x7528;&#x7684;&#x6280;&#x672F;&#x62C6;&#x89E3;&#x3002;</em></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="centos7-an-zhuang-node22.html" class="navigation navigation-prev " aria-label="Previous page: centos7安装node22">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../jia-gou-shi-tu-pu.html" class="navigation navigation-next " aria-label="Next page: 架构师图谱">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Chrome 扩展还能这样玩？ 12 个技术细节把网页改造成 API 接口","level":"1.17.3","depth":2,"next":{"title":"架构师图谱","level":"1.18","depth":1,"path":"jia-gou-shi-tu-pu.md","ref":"jia-gou-shi-tu-pu.md","articles":[]},"previous":{"title":"centos7安装node22","level":"1.17.2","depth":2,"path":"qian-duan/centos7-an-zhuang-node22.md","ref":"qian-duan/centos7-an-zhuang-node22.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","splitter","expandable-chapters-small","github","github-buttons","favicon","expandable-chapters-small","copy-code-button","hints"],"styles":{"website":"./styles/website.css"},"pluginsConfig":{"github":{"url":"https://github.com/kennethfan"},"splitter":{},"search":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":{"shortcut":"./source/images/favicon.jpg","bookmark":"./source/images/favicon.jpg","appleTouch":"./source/images/apple-touch-icon.jpg","appleTouchMore":{"120x120":"./source/images/apple-touch-icon.jpg","180x180":"./source/images/apple-touch-icon.jpg"}},"github-buttons":{"buttons":[{"user":"kennethfan","repo":"gitbook","type":"star","size":"small","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"theme-default":{"styles":{"pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css","website":"styles/website.css"},"showLevel":false}},"theme":"default","author":"椒哥","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"椒哥碎碎念","language":"zh-hans","links":{"sidebar":{}},"gitbook":"3.2.3","description":"select * from learn"},"file":{"path":"qian-duan/chrome-kuo-zhan-hai-neng-zhe-yang-wan-12-ge-ji-shu-xi-jie-ba-wang-ye-gai-zao-cheng-api-jie-kou.md","mtime":"2026-06-11T08:33:12.849Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-11T08:33:50.811Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

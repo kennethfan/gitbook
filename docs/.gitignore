@@ -1,0 +1,4 @@
+node_modules
+_book
+*.sh
+.DS_Store
